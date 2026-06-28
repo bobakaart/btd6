@@ -656,6 +656,34 @@
   .subpanel{display:none}
   .subpanel.active{display:block}
 
+  .subtab-bar.nested{
+    margin-top:18px;
+  }
+
+  .wave-info{
+    margin-bottom:20px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .wave-info summary{
+    cursor:pointer;
+    padding:10px 14px;
+    font-family:var(--mono);
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--text-dim);
+    list-style:none;
+  }
+  .wave-info summary:hover{color:var(--text)}
+  .wave-info summary::-webkit-details-marker{display:none}
+  .wave-info[open] summary{border-bottom:1px solid var(--line)}
+  .wave-info table.paths{margin:0}
+  .wave-info table.paths tr:last-child td{border-bottom:none}
+
   /* chimps */
   .chimps-grid{
     display:grid;
@@ -810,6 +838,7 @@
           <div class="t-tags"><span class="tag moab">moab</span><span class="tag dps">dps</span></div>
           <div class="t-paths">
             <div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">Cripple MOAB &mdash; debuffs MOAB-class so other towers do extra damage to them; attack speed crosspath refreshes the debuff faster</span></div>
+            <div class="t-path-row"><span class="path-pill">0/2/5</span><span class="path-desc">Elite Defender + Night Vision Goggles &mdash; camo detection plus bullets that pierce and pop multiple bloons, a cheap all-rounder</span></div>
           </div>
         </div>
         <div class="t-card">
@@ -856,7 +885,7 @@
           <div class="t-tags"><span class="tag dps">dps</span><span class="tag camo">camo</span></div>
           <div class="t-paths">
             <div class="t-path-row"><span class="path-pill">5/0/0</span><span class="path-desc">Megalodon &mdash; Orca line, water only, instakills up to BADs with low enough RBE; needs 3 merged Orcas</span></div>
-            <div class="t-path-row"><span class="path-pill">0/2/0</span><span class="path-desc">Land beast path &mdash; crosspathing barely matters here since each path spawns an independent beast, not a buffed main attack</span></div>
+            <div class="t-path-row"><span class="path-pill">0/5/0</span><span class="path-desc">Giganotosaurus &mdash; land path maxed, insta-kills almost anything up to MOAB-class; crosspathing barely matters here since each path spawns an independent beast, not a buffed main attack</span></div>
           </div>
         </div>
       </div>
@@ -877,7 +906,7 @@
           <p class="name">Heli Pilot</p>
           <div class="t-tags"><span class="tag camo">camo</span><span class="tag dps">dps</span></div>
           <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">0/0/5</span><span class="path-desc">Comanche Commander &mdash; strong mobile DPS, advanced to use well</span></div>
+            <div class="t-path-row"><span class="path-pill">2/0/5</span><span class="path-desc">Comanche Commander + Pursuit crosspath &mdash; strong mobile DPS with better target seeking, advanced to use well</span></div>
           </div>
         </div>
         <div class="t-card">
@@ -891,14 +920,16 @@
           <p class="name">Mortar Monkey</p>
           <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag lead">lead</span></div>
           <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">0/2/0</span><span class="path-desc">Increased reload and blast radius, good for single long-path maps</span></div>
+            <div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">The Biggest One &mdash; huge blast radius and raw AoE damage, shreds Ceramic and MOAB-class groups; middle crosspath for reload</span></div>
+            <div class="t-path-row"><span class="path-pill">0/2/5</span><span class="path-desc">Blooncineration &mdash; strips camo and fortified, leaves a persistent fire DPS zone on MOAB-class; middle crosspath for faster reload</span></div>
           </div>
         </div>
         <div class="t-card">
           <p class="name">Monkey Ace</p>
           <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag lead">lead</span></div>
           <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">2/0/0</span><span class="path-desc">Wide flight path coverage, solid all-rounder support</span></div>
+            <div class="t-path-row"><span class="path-pill">5/0/0</span><span class="path-desc">Sky Shredder &mdash; 32 darts per pass, pops every bloon type including Lead; best all-purpose damage path</span></div>
+            <div class="t-path-row"><span class="path-pill">0/5/0</span><span class="path-desc">Tsar Bomba &mdash; ability nukes a huge area and leaves a lingering radiation DoT zone, great burst vs dense Ceramic/MOAB rushes</span></div>
           </div>
         </div>
         <div class="t-card">
@@ -1100,15 +1131,18 @@
     </div>
 
     <div id="subpanel-easy" class="subpanel active">
-      <table class="paths" style="margin-bottom:20px">
-        <thead><tr><th>Round</th><th>Threat</th><th>Cover with</th></tr></thead>
-        <tbody>
-          <tr><td>24</td><td class="dim">First Camo (Green)</td><td class="dim">Ninja Monkey (built-in camo) is the standard pick before a Village is online</td></tr>
-          <tr><td>28</td><td class="dim">First Lead</td><td class="dim">Ninja can't pop lead. A base, unupgraded Alchemist already pops Lead on its own &mdash; or use Druid, or 0/0/2 Boomerang (Red Hot Rangs)</td></tr>
-          <tr><td>38</td><td class="dim">First Ceramic</td><td class="dim">Any AoE (Bomb Shooter, Tack Shooter) &mdash; Ceramics need splash, not single-target</td></tr>
-          <tr><td>40</td><td class="dim">First MOAB (66% HP on Easy)</td><td class="dim">Sniper, Bomb Shooter, or a cheap MOAB Press Boomerang &mdash; this is the final round on Easy</td></tr>
-        </tbody>
-      </table>
+      <details class="wave-info">
+        <summary>Wave info</summary>
+        <table class="paths">
+          <thead><tr><th>Round</th><th>Threat</th><th>Cover with</th></tr></thead>
+          <tbody>
+            <tr><td>24</td><td class="dim">First Camo (Green)</td><td class="dim">Ninja Monkey (built-in camo) is the standard pick before a Village is online</td></tr>
+            <tr><td>28</td><td class="dim">First Lead</td><td class="dim">Ninja can't pop lead. A base, unupgraded Alchemist already pops Lead on its own &mdash; or use Druid, or 0/0/2 Boomerang (Red Hot Rangs)</td></tr>
+            <tr><td>38</td><td class="dim">First Ceramic</td><td class="dim">Any AoE (Bomb Shooter, Tack Shooter) &mdash; Ceramics need splash, not single-target</td></tr>
+            <tr><td>40</td><td class="dim">First MOAB (66% HP on Easy)</td><td class="dim">Sniper, Bomb Shooter, or a cheap MOAB Press Boomerang &mdash; this is the final round on Easy</td></tr>
+          </tbody>
+        </table>
+      </details>
 
       <div class="build-card">
         <p class="build-title">Round 40 &mdash; Plasma Blasts, not Sun Avatar yet</p>
@@ -1118,59 +1152,89 @@
           <div class="build-row" data-role="camo-filler" data-count="2"><span class="build-count">2</span><div class="build-info"><div class="build-headline"><span class="build-tower">Ninja Monkey <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">need by round 24</span></div><p class="build-detail">Camo detection built in from the start &mdash; no separate Dart filler needed.</p><p class="hero-override"></p></div></div>
           <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag lead">lead</span><span class="build-timing">need by round 28</span></div><p class="build-detail">Base Alchemist already pops Lead without any upgrade &mdash; place it now, upgrade later once it has other towers nearby worth buffing.</p></div></div>
           <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Super Monkey <span class="path-pill">2/0/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 30&ndash;38</span></div><p class="build-detail">Plasma Blasts &mdash; ~$3k, 50% faster attacks, pops Lead. No camo yet at this tier.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Bomb Shooter <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">need by round 38</span></div><p class="build-detail">Base Bomb Shooter already has the splash damage to chip a MOAB down alongside your other towers &mdash; no dedicated knockback tool needed yet at this budget.</p></div></div>
         </div>
       </div>
     </div>
 
     <div id="subpanel-medium" class="subpanel">
-      <table class="paths" style="margin-bottom:20px">
-        <thead><tr><th>Round</th><th>Threat</th><th>Cover with</th></tr></thead>
-        <tbody>
-          <tr><td>24</td><td class="dim">First Camo (Green)</td><td class="dim">Ninja Monkey (built-in camo) is the standard pick before a Village is online</td></tr>
-          <tr><td>28</td><td class="dim">First Lead</td><td class="dim">Ninja can't pop lead. A base, unupgraded Alchemist already pops Lead on its own &mdash; or use Druid, or 0/0/2 Boomerang (Red Hot Rangs)</td></tr>
-          <tr><td>38</td><td class="dim">First Ceramic</td><td class="dim">Any AoE (Bomb Shooter, Tack Shooter) &mdash; Ceramics need splash, not single-target</td></tr>
-          <tr><td>40</td><td class="dim">First MOAB</td><td class="dim">Sniper, Bomb Shooter, or a cheap MOAB Press Boomerang</td></tr>
-          <tr><td>51</td><td class="dim">Camo Ceramics</td><td class="dim">Needs camo detection on something with real AoE &mdash; a buffed Ninja or camo-supported Bomb Shooter</td></tr>
-          <tr><td>59</td><td class="dim">Camo Leads + Regrow Ceramics</td><td class="dim">Camo + lead in one wave &mdash; Ninja covers camo, needs a lead-popper alongside it</td></tr>
-          <tr><td>60</td><td class="dim">First BFB (final round on Medium)</td><td class="dim">Sustained single-target damage &mdash; Sniper or a buffed Super Monkey</td></tr>
-        </tbody>
-      </table>
+      <details class="wave-info">
+        <summary>Wave info</summary>
+        <table class="paths">
+          <thead><tr><th>Round</th><th>Threat</th><th>Cover with</th></tr></thead>
+          <tbody>
+            <tr><td>24</td><td class="dim">First Camo (Green)</td><td class="dim">Ninja Monkey (built-in camo) is the standard pick before a Village is online</td></tr>
+            <tr><td>28</td><td class="dim">First Lead</td><td class="dim">Ninja can't pop lead. A base, unupgraded Alchemist already pops Lead on its own &mdash; or use Druid, or 0/0/2 Boomerang (Red Hot Rangs)</td></tr>
+            <tr><td>38</td><td class="dim">First Ceramic</td><td class="dim">Any AoE (Bomb Shooter, Tack Shooter) &mdash; Ceramics need splash, not single-target</td></tr>
+            <tr><td>40</td><td class="dim">First MOAB</td><td class="dim">Sniper, Bomb Shooter, or a cheap MOAB Press Boomerang</td></tr>
+            <tr><td>51</td><td class="dim">Camo Ceramics</td><td class="dim">Needs camo detection on something with real AoE &mdash; a buffed Ninja or camo-supported Bomb Shooter</td></tr>
+            <tr><td>59</td><td class="dim">Camo Leads + Regrow Ceramics</td><td class="dim">Camo + lead in one wave &mdash; Ninja covers camo, needs a lead-popper alongside it</td></tr>
+            <tr><td>60</td><td class="dim">First BFB (final round on Medium)</td><td class="dim">Sustained single-target damage &mdash; Sniper or a buffed Super Monkey</td></tr>
+          </tbody>
+        </table>
+      </details>
 
-      <div class="build-card">
-        <p class="build-title">Round 60 &mdash; Sun Avatar core</p>
-        <p class="build-sub">Sun Avatar (~$20k) is affordable by the late 40s/50s. Ordered by actual play order &mdash; several towers get a cheap first stage, then get finished off later once budget allows.</p>
-        <div class="build-rows">
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Sauda or similar, already leveling well by round 60.</p></div></div>
-          <div class="build-row" data-role="camo-filler" data-count="2"><span class="build-count">2</span><div class="build-info"><div class="build-headline"><span class="build-tower">Ninja Monkey <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">need by round 24</span></div><p class="build-detail">Cheap, covers camo until the Village below is placed and upgraded &mdash; temporary, not the long-term camo source.</p><p class="hero-override"></p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang <span class="path-pill">0/0/2</span></span><span class="build-role-tag tag lead">lead</span><span class="build-timing">need by round 28</span></div><p class="build-detail">Red Hot Rangs &mdash; the minimum needed to pop Lead. Stays on path 3 the whole game.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, stage 1 <span class="path-pill">0/1/1</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">round 28&ndash;32</span></div><p class="build-detail">Cheap early slow, placed before the Village so it's already softening groups while you save.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, stage 1 <span class="path-pill">2/0/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 29&ndash;31</span></div><p class="build-detail">Acidic Mixture Dip &mdash; lead-popping and Ceramic/MOAB damage support for nearby towers, placed before the Village.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Super Monkey, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 30&ndash;32</span></div><p class="build-detail">Just placing it base &mdash; saving the upgrade cost for later, placed before the Village.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Monkey Village <span class="path-pill">0/2/2</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing gate">hard gate &mdash; before round 33</span></div><p class="build-detail">Placed straight at Radar Scanner, no Jungle Drums stage first. Do not move on to anything else below until this is done &mdash; round 33 brings Camo Reds and Yellows, and the Village needs full camo coverage in place before that hits.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang, upgraded <span class="path-pill">0/0/4</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">need by round 40</span></div><p class="build-detail">MOAB Press &mdash; same Boomerang, continuing up path 3 for MOAB pressure.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Super Monkey, finished <span class="path-pill">3/2/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 50&ndash;55</span></div><p class="build-detail">Sun Avatar with the range/pierce crosspath &mdash; the same tower as above, fully upgraded.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 55&ndash;60</span></div><p class="build-detail">Berserker Brew &mdash; same Alchemist as above, now buffing the Avatar's pierce, damage, and speed directly.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, finished <span class="path-pill">0/2/3</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 59</span></div><p class="build-detail">MOAB Glue &mdash; same Glue Gunner as above, upgraded for round 59's Camo Lead wave.</p></div></div>
+      <div class="subtab-bar nested">
+        <button class="subtab-btn active" data-subtab="medium-default">Default</button>
+        <button class="subtab-btn" data-subtab="medium-military">Military</button>
+      </div>
+
+      <div id="subpanel-medium-default" class="subpanel active">
+        <div class="build-card">
+          <p class="build-title">Round 60 &mdash; Sun Avatar core</p>
+          <p class="build-sub">Sun Avatar (~$20k) is affordable by the late 40s/50s. Ordered by actual play order &mdash; several towers get a cheap first stage, then get finished off later once budget allows.</p>
+          <div class="build-rows">
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Sauda or similar, already leveling well by round 60.</p></div></div>
+            <div class="build-row" data-role="camo-filler" data-count="2"><span class="build-count">2</span><div class="build-info"><div class="build-headline"><span class="build-tower">Ninja Monkey <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">need by round 24</span></div><p class="build-detail">Cheap, covers camo until the Village below is placed and upgraded &mdash; temporary, not the long-term camo source.</p><p class="hero-override"></p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang <span class="path-pill">0/0/2</span></span><span class="build-role-tag tag lead">lead</span><span class="build-timing">need by round 28</span></div><p class="build-detail">Red Hot Rangs &mdash; the minimum needed to pop Lead. Stays on path 3 the whole game.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, stage 1 <span class="path-pill">0/1/1</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">round 28&ndash;32</span></div><p class="build-detail">Cheap early slow, placed before the Village so it's already softening groups while you save.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, stage 1 <span class="path-pill">2/0/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 29&ndash;31</span></div><p class="build-detail">Acidic Mixture Dip &mdash; lead-popping and Ceramic/MOAB damage support for nearby towers, placed before the Village.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Super Monkey, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 30&ndash;32</span></div><p class="build-detail">Just placing it base &mdash; saving the upgrade cost for later, placed before the Village.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Monkey Village, stage 1 <span class="path-pill">0/2/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing gate">hard gate &mdash; before round 33</span></div><p class="build-detail">Placed straight at Radar Scanner, no Jungle Drums stage first. Do not move on to anything else below until this is done &mdash; round 33 brings Camo Reds and Yellows, and the Village needs full camo coverage in place before that hits.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang, upgraded <span class="path-pill">0/0/4</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">need by round 40</span></div><p class="build-detail">MOAB Press &mdash; same Boomerang, continuing up path 3 for MOAB pressure.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Super Monkey, finished <span class="path-pill">3/2/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 50&ndash;55</span></div><p class="build-detail">Sun Avatar with the range/pierce crosspath &mdash; the same tower as above, fully upgraded.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 55&ndash;60</span></div><p class="build-detail">Berserker Brew &mdash; same Alchemist as above, now buffing the Avatar's pierce, damage, and speed directly.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, finished <span class="path-pill">0/2/3</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 59</span></div><p class="build-detail">MOAB Glue &mdash; same Glue Gunner as above, upgraded for round 59's Camo Lead wave.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Monkey Village, finished <span class="path-pill">2/2/0</span> or <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 59&ndash;60</span></div><p class="build-detail">Once the Glue Gunner above is finished, spend whatever's left topping the Village up the buff path &mdash; 2/2/0 if budget's tight, 4/2/0 (Primary Mentoring) if cash allows, for extra buffs on the Avatar.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="subpanel-medium-military" class="subpanel">
+        <div class="build-card">
+          <p class="build-title">Round 60 &mdash; Military Monkeys Only</p>
+          <p class="build-sub">This mode restricts you to the 7 Military-category towers (Sniper Monkey, Monkey Sub, Buccaneer, Monkey Ace, Heli Pilot, Mortar Monkey, Dartling Gunner) &mdash; no Primary, Magic, or Support, so no Village, Alchemist, Ninja, or Glue Gunner. Your selected Hero is still allowed. Grab the Military Conscription and Advanced Logistics Monkey Knowledge first if you have them &mdash; Military towers cost noticeably more than their counterparts. Ordered by actual play order.</p>
+          <div class="build-rows">
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Quincy is the standard pick &mdash; strong single-target DPS while the pricier Military towers ramp up.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey, stage 1 <span class="path-pill">1/1/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">need by round 24</span></div><p class="build-detail">Full Metal Jacket (top) + Night Vision Goggles (middle) on one Sniper &mdash; one point in each is enough to cover Camo (round 24) and Lead (round 28) together. The closest thing to a Village/Alchemist combo this mode allows.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Mortar Monkey, stage 1 <span class="path-pill">0/2/0</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">round 20&ndash;30</span></div><p class="build-detail">Cheap reload/blast radius pickup at the entrance, chips down groups while you save for the Heli and Sniper finish.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Heli Pilot, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 30&ndash;40</span></div><p class="build-detail">Built-in true Camo sight from the moment it's placed, no upgrade needed &mdash; scales into your main mobile DPS as you upgrade it.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey, finished <span class="path-pill">5/2/0</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">need by round 40</span></div><p class="build-detail">Cripple MOAB, same Sniper as above &mdash; debuffs MOAB-class so your other towers do extra damage, while the middle crosspath keeps Night Vision Goggles active for Camo and speeds up the reload.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Heli Pilot, finished <span class="path-pill">2/0/5</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 50&ndash;60</span></div><p class="build-detail">Comanche Commander + Pursuit crosspath, same Heli as above &mdash; strong mobile DPS with better target seeking that can reposition to wherever the round 59/60 pressure hits hardest.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey B <span class="path-pill">2/0/5</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">round 50&ndash;60</span></div><p class="build-detail">Deadly Precision + Elite Defender &mdash; a second Sniper for raw single-target DPS, since the first Sniper above already has Camo and Lead covered.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Mortar Monkey, finished <span class="path-pill">0/2/5</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 59</span></div><p class="build-detail">Blooncineration, same Mortar as above &mdash; strips Camo and Fortified and leaves a persistent fire zone, helping clean up the round 59 Camo Lead + Regrow Ceramic wave.</p></div></div>
+          </div>
         </div>
       </div>
     </div>
 
     <div id="subpanel-hard" class="subpanel">
-      <table class="paths" style="margin-bottom:20px">
-        <thead><tr><th>Round</th><th>Threat</th><th>Cover with</th></tr></thead>
-        <tbody>
-          <tr><td>24</td><td class="dim">First Camo (Green)</td><td class="dim">Ninja Monkey, built-in camo from the start</td></tr>
-          <tr><td>28</td><td class="dim">First Lead</td><td class="dim">Ninja can't pop lead. Base Alchemist already pops Lead unupgraded &mdash; or use Druid</td></tr>
-          <tr><td>38</td><td class="dim">First Ceramic</td><td class="dim">Any AoE &mdash; Ceramics need splash, not single-target</td></tr>
-          <tr><td>40</td><td class="dim">First MOAB</td><td class="dim">Sniper, Bomb Shooter, or MOAB Press Boomerang</td></tr>
-          <tr><td>51</td><td class="dim">Camo Ceramics</td><td class="dim">Needs camo detection on something with real AoE &mdash; a buffed Ninja or camo-supported Bomb Shooter</td></tr>
-          <tr><td>59</td><td class="dim">Camo Leads + Regrow Ceramics</td><td class="dim">Camo-covering Ninja plus a separate lead-popper</td></tr>
-          <tr><td>60</td><td class="dim">First BFB</td><td class="dim">Sustained single-target damage &mdash; Sniper or a buffed Super Monkey</td></tr>
-          <tr><td>63 / 76 / 78</td><td class="dim">Dense Ceramic rushes</td><td class="dim">Heavy AoE and crowd control (Glue, Ice, Druid) to keep them grouped and dying</td></tr>
-          <tr><td>80</td><td class="dim">First ZOMG (final round on Hard)</td><td class="dim">High single-target DPS &mdash; Sniper, Super Monkey, or Heli Pilot</td></tr>
-        </tbody>
-      </table>
+      <details class="wave-info">
+        <summary>Wave info</summary>
+        <table class="paths">
+          <thead><tr><th>Round</th><th>Threat</th><th>Cover with</th></tr></thead>
+          <tbody>
+            <tr><td>24</td><td class="dim">First Camo (Green)</td><td class="dim">Ninja Monkey, built-in camo from the start</td></tr>
+            <tr><td>28</td><td class="dim">First Lead</td><td class="dim">Ninja can't pop lead. Base Alchemist already pops Lead unupgraded &mdash; or use Druid</td></tr>
+            <tr><td>38</td><td class="dim">First Ceramic</td><td class="dim">Any AoE &mdash; Ceramics need splash, not single-target</td></tr>
+            <tr><td>40</td><td class="dim">First MOAB</td><td class="dim">Sniper, Bomb Shooter, or MOAB Press Boomerang</td></tr>
+            <tr><td>51</td><td class="dim">Camo Ceramics</td><td class="dim">Needs camo detection on something with real AoE &mdash; a buffed Ninja or camo-supported Bomb Shooter</td></tr>
+            <tr><td>59</td><td class="dim">Camo Leads + Regrow Ceramics</td><td class="dim">Camo-covering Ninja plus a separate lead-popper</td></tr>
+            <tr><td>60</td><td class="dim">First BFB</td><td class="dim">Sustained single-target damage &mdash; Sniper or a buffed Super Monkey</td></tr>
+            <tr><td>63 / 76 / 78</td><td class="dim">Dense Ceramic rushes</td><td class="dim">Heavy AoE and crowd control (Glue, Ice, Druid) to keep them grouped and dying</td></tr>
+            <tr><td>80</td><td class="dim">First ZOMG (final round on Hard)</td><td class="dim">High single-target DPS &mdash; Sniper, Super Monkey, or Heli Pilot</td></tr>
+          </tbody>
+        </table>
+      </details>
 
       <div class="build-card common">
         <div class="build-head">
@@ -1198,23 +1262,26 @@
     </div>
 
     <div id="subpanel-chimps100" class="subpanel">
-      <table class="paths" style="margin-bottom:20px">
-        <thead><tr><th>Round</th><th>Threat</th><th>Cover with</th></tr></thead>
-        <tbody>
-          <tr><td>24</td><td class="dim">First Camo (Green)</td><td class="dim">Ninja Monkey, built-in camo from the start</td></tr>
-          <tr><td>28</td><td class="dim">First Lead</td><td class="dim">Ninja can't pop lead. Base Alchemist already pops Lead unupgraded &mdash; or use Druid</td></tr>
-          <tr><td>38</td><td class="dim">First Ceramic</td><td class="dim">Any AoE &mdash; Ceramics need splash, not single-target</td></tr>
-          <tr><td>40</td><td class="dim">First MOAB</td><td class="dim">Sniper, Bomb Shooter, or MOAB Press Boomerang</td></tr>
-          <tr><td>51</td><td class="dim">Camo Ceramics</td><td class="dim">Needs camo detection on something with real AoE &mdash; a buffed Ninja or camo-supported Bomb Shooter</td></tr>
-          <tr><td>59</td><td class="dim">Camo Leads + Regrow Ceramics</td><td class="dim">Camo-covering Ninja plus a separate lead-popper</td></tr>
-          <tr><td>60</td><td class="dim">First BFB</td><td class="dim">Sustained single-target damage &mdash; Sniper or a buffed Super Monkey</td></tr>
-          <tr><td>63 / 76 / 78</td><td class="dim">Dense Ceramic rushes</td><td class="dim">Heavy AoE and crowd control (Glue, Ice, Druid)</td></tr>
-          <tr><td>80</td><td class="dim">First ZOMG</td><td class="dim">High single-target DPS &mdash; Sniper, Super Monkey, or Heli Pilot</td></tr>
-          <tr><td>90</td><td class="dim">First DDT (camo + lead + black, fast)</td><td class="dim">Camo detection AND lead-popping on the same tower, or 0/4/0 Ninja's Bloon Sabotage</td></tr>
-          <tr><td>95 / 99</td><td class="dim">Massive DDT rush / Fortified DDTs</td><td class="dim">Bloon Sabotage Ninja is close to mandatory &mdash; DDTs move fast and many towers can't see or pop them</td></tr>
-          <tr><td>100</td><td class="dim">First BAD (final round)</td><td class="dim">Whatever your strongest single win condition is &mdash; the round your core towers are built for</td></tr>
-        </tbody>
-      </table>
+      <details class="wave-info">
+        <summary>Wave info</summary>
+        <table class="paths">
+          <thead><tr><th>Round</th><th>Threat</th><th>Cover with</th></tr></thead>
+          <tbody>
+            <tr><td>24</td><td class="dim">First Camo (Green)</td><td class="dim">Ninja Monkey, built-in camo from the start</td></tr>
+            <tr><td>28</td><td class="dim">First Lead</td><td class="dim">Ninja can't pop lead. Base Alchemist already pops Lead unupgraded &mdash; or use Druid</td></tr>
+            <tr><td>38</td><td class="dim">First Ceramic</td><td class="dim">Any AoE &mdash; Ceramics need splash, not single-target</td></tr>
+            <tr><td>40</td><td class="dim">First MOAB</td><td class="dim">Sniper, Bomb Shooter, or MOAB Press Boomerang</td></tr>
+            <tr><td>51</td><td class="dim">Camo Ceramics</td><td class="dim">Needs camo detection on something with real AoE &mdash; a buffed Ninja or camo-supported Bomb Shooter</td></tr>
+            <tr><td>59</td><td class="dim">Camo Leads + Regrow Ceramics</td><td class="dim">Camo-covering Ninja plus a separate lead-popper</td></tr>
+            <tr><td>60</td><td class="dim">First BFB</td><td class="dim">Sustained single-target damage &mdash; Sniper or a buffed Super Monkey</td></tr>
+            <tr><td>63 / 76 / 78</td><td class="dim">Dense Ceramic rushes</td><td class="dim">Heavy AoE and crowd control (Glue, Ice, Druid)</td></tr>
+            <tr><td>80</td><td class="dim">First ZOMG</td><td class="dim">High single-target DPS &mdash; Sniper, Super Monkey, or Heli Pilot</td></tr>
+            <tr><td>90</td><td class="dim">First DDT (camo + lead + black, fast)</td><td class="dim">Camo detection AND lead-popping on the same tower, or 0/4/0 Ninja's Bloon Sabotage</td></tr>
+            <tr><td>95 / 99</td><td class="dim">Massive DDT rush / Fortified DDTs</td><td class="dim">Bloon Sabotage Ninja is close to mandatory &mdash; DDTs move fast and many towers can't see or pop them</td></tr>
+            <tr><td>100</td><td class="dim">First BAD (final round)</td><td class="dim">Whatever your strongest single win condition is &mdash; the round your core towers are built for</td></tr>
+          </tbody>
+        </table>
+      </details>
 
       <p class="combo-desc" style="margin-bottom:20px">A maxed True Sun God costs $200k+ in upgrades and sacrifices &mdash; more than CHIMPS earns in total by round 100 ($178,994). So a Super Monkey build for CHIMPS rounds 90&ndash;100 realistically means tier 2&ndash;4 upgrades (Plasma Blasts, Sun Avatar, Tech Terror), not the full Sun God line.</p>
 
@@ -1444,8 +1511,8 @@
       bar.querySelectorAll('.subtab-btn').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
       var container = bar.parentElement;
-      container.querySelectorAll('.subpanel').forEach(function(p){ p.classList.remove('active'); });
-      var target = container.querySelector('#subpanel-' + btn.dataset.subtab);
+      container.querySelectorAll(':scope > .subpanel').forEach(function(p){ p.classList.remove('active'); });
+      var target = container.querySelector(':scope > #subpanel-' + btn.dataset.subtab);
       if (target) target.classList.add('active');
     });
   });
