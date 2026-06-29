@@ -36,7 +36,15 @@
   body{padding:0 0 40px}
   .wrap{max-width:880px;margin:0 auto;padding:28px 24px}
 
-  header{margin-bottom:20px}
+  header{margin-bottom:20px;position:relative}
+  .last-updated{
+    position:absolute;
+    top:0;
+    right:0;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
   .eyebrow{
     font-family:var(--mono);
     font-size:11px;
@@ -196,7 +204,8 @@
 
   .tier-row{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
   .tier-badge{
-    width:34px;height:34px;flex-shrink:0;
+    min-width:34px;height:34px;flex-shrink:0;
+    padding:0 6px;
     border-radius:6px;
     display:flex;align-items:center;justify-content:center;
     font-family:var(--mono);
@@ -209,6 +218,47 @@
   .tier-badge.b{background:var(--b-bg);color:var(--b)}
   .tier-badge.c{background:var(--c-bg);color:var(--c)}
   .tier-badge.d{background:rgba(224,108,108,0.12);color:#c97a7a}
+  .tier-badge.f{background:rgba(125,134,148,0.10);color:#7d8694}
+
+  .t-card-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-bottom:2px;
+  }
+  .path-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-family:var(--mono);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.04em;
+    padding:2px 7px 2px 5px;
+    border-radius:4px;
+    flex-shrink:0;
+    background:var(--panel-2);
+    color:var(--text-dim);
+    border:1px solid var(--line-2);
+  }
+  .path-tag::before{
+    content:'';
+    width:13px;
+    height:13px;
+    flex-shrink:0;
+    background-repeat:no-repeat;
+    background-size:contain;
+  }
+  .path-tag.top::before{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Crect x='1' y='1.5' width='12' height='3' rx='1' fill='%23e9edf2'/%3E%3Crect x='1' y='5.5' width='12' height='3' rx='1' fill='%23e9edf2' fill-opacity='0.22'/%3E%3Crect x='1' y='9.5' width='12' height='3' rx='1' fill='%23e9edf2' fill-opacity='0.22'/%3E%3C/svg%3E");
+  }
+  .path-tag.mid::before{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Crect x='1' y='1.5' width='12' height='3' rx='1' fill='%23e9edf2' fill-opacity='0.22'/%3E%3Crect x='1' y='5.5' width='12' height='3' rx='1' fill='%23e9edf2'/%3E%3Crect x='1' y='9.5' width='12' height='3' rx='1' fill='%23e9edf2' fill-opacity='0.22'/%3E%3C/svg%3E");
+  }
+  .path-tag.bottom::before{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Crect x='1' y='1.5' width='12' height='3' rx='1' fill='%23e9edf2' fill-opacity='0.22'/%3E%3Crect x='1' y='5.5' width='12' height='3' rx='1' fill='%23e9edf2' fill-opacity='0.22'/%3E%3Crect x='1' y='9.5' width='12' height='3' rx='1' fill='%23e9edf2'/%3E%3C/svg%3E");
+  }
 
   .tier-towers{
     flex:1;
@@ -607,9 +657,46 @@
     cursor:pointer;
   }
   .hero-note{
+    display:none;
+    flex-direction:column;
+    gap:4px;
+    width:100%;
+    margin-top:8px;
+    padding:8px 10px;
+    background:var(--panel-2);
+    border:1px solid var(--line-2);
+    border-radius:6px;
+  }
+  .hero-note.show{display:flex}
+  .hero-note-row{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
     font-size:12px;
-    color:#9fc88a;
-    font-style:italic;
+  }
+  .hero-note-label{
+    font-family:var(--mono);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    padding:2px 7px;
+    border-radius:4px;
+    background:var(--panel);
+    color:var(--text-faint);
+    flex-shrink:0;
+    min-width:44px;
+    text-align:center;
+  }
+  .hero-note-row.yes .hero-note-label{color:#9fc88a;background:rgba(127,176,105,0.14)}
+  .hero-note-row.no .hero-note-label{color:#7d8694}
+  .hero-note-text{color:var(--text-dim)}
+  .hero-note-extra{
+    font-size:12px;
+    color:var(--text-dim);
+    padding-top:4px;
+    border-top:1px solid var(--line);
+    margin-top:2px;
   }
   .build-row.hero-skip{
     opacity:0.4;
@@ -713,6 +800,37 @@
     margin:0;
   }
 
+  .source-group{margin-bottom:22px}
+  .source-group-title{
+    font-family:var(--mono);
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--text-faint);
+    margin:0 0 8px;
+  }
+  .source-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+  }
+  .source-list li{
+    font-size:13px;
+    color:var(--text-dim);
+    border-bottom:1px solid var(--line);
+    padding-bottom:7px;
+  }
+  .source-list a{
+    color:var(--text);
+    text-decoration:none;
+    font-weight:600;
+  }
+  .source-list a:hover{text-decoration:underline}
+
   footer{
     margin-top:28px;
     padding-top:14px;
@@ -731,6 +849,7 @@
 <div class="wrap">
 
   <header>
+    <span class="last-updated">Last updated: 2026-06-28</span>
     <p class="eyebrow">Bloons TD 6 · reference</p>
     <h1>Tower upgrade guide</h1>
     <p class="deck">Tier rankings, best paths, and tower combos for CHIMPS and standard play.</p>
@@ -742,14 +861,19 @@
 
   <nav class="tabs">
     <button class="active" data-tab="tiers">Tier list</button>
-    <button data-tab="paths">Upgrade paths</button>
-    <button data-tab="combos">Combos</button>
     <button data-tab="builds">Builds</button>
     <button data-tab="heroes">Heroes</button>
     <button data-tab="waveinfo">Wave info</button>
+    <button data-tab="sources">Sources</button>
   </nav>
 
   <section id="panel-tiers" class="panel active">
+
+    <p class="note">Ranks individual upgrade paths, not whole towers &mdash; the same tower can appear in several tiers, once per path. From the BTD6 Tower Tier List doc (see Sources tab), treated as authoritative here. Heroes are in the Heroes tab; Banana Farm isn't covered (CHIMPS disables income anyway).</p>
+    <div class="legend">
+      <span class="path-pill key">x</span><span class="legend-label">crosspath is flexible &mdash; pick it based on your strategy</span>
+      <span class="path-pill key">+</span><span class="legend-label">further upgrades past this point are situational, not an automatic buy</span>
+    </div>
 
     <div class="filter-bar">
       <span class="filter-label">Filter by role:</span>
@@ -764,122 +888,234 @@
       <button class="filter-clear" id="filter-clear">clear</button>
     </div>
 
+    <div class="filter-bar">
+      <span class="filter-label">Filter by tower:</span>
+      <button class="filter-btn tower-btn" data-tower="alchemist">Alchemist</button>
+      <button class="filter-btn tower-btn" data-tower="beast handler">Beast Handler</button>
+      <button class="filter-btn tower-btn" data-tower="bomb shooter">Bomb Shooter</button>
+      <button class="filter-btn tower-btn" data-tower="boomerang monkey">Boomerang Monkey</button>
+      <button class="filter-btn tower-btn" data-tower="buccaneer">Buccaneer</button>
+      <button class="filter-btn tower-btn" data-tower="dart monkey">Dart Monkey</button>
+      <button class="filter-btn tower-btn" data-tower="dartling gunner">Dartling Gunner</button>
+      <button class="filter-btn tower-btn" data-tower="desperado">Desperado</button>
+      <button class="filter-btn tower-btn" data-tower="druid">Druid</button>
+      <button class="filter-btn tower-btn" data-tower="engineer monkey">Engineer Monkey</button>
+      <button class="filter-btn tower-btn" data-tower="glue gunner">Glue Gunner</button>
+      <button class="filter-btn tower-btn" data-tower="heli pilot">Heli Pilot</button>
+      <button class="filter-btn tower-btn" data-tower="ice monkey">Ice Monkey</button>
+      <button class="filter-btn tower-btn" data-tower="mermonkey">Mermonkey</button>
+      <button class="filter-btn tower-btn" data-tower="monkey ace">Monkey Ace</button>
+      <button class="filter-btn tower-btn" data-tower="monkey sub">Monkey Sub</button>
+      <button class="filter-btn tower-btn" data-tower="monkey village">Monkey Village</button>
+      <button class="filter-btn tower-btn" data-tower="mortar monkey">Mortar Monkey</button>
+      <button class="filter-btn tower-btn" data-tower="ninja monkey">Ninja Monkey</button>
+      <button class="filter-btn tower-btn" data-tower="sniper monkey">Sniper Monkey</button>
+      <button class="filter-btn tower-btn" data-tower="spike factory">Spike Factory</button>
+      <button class="filter-btn tower-btn" data-tower="super monkey">Super Monkey</button>
+      <button class="filter-btn tower-btn" data-tower="tack shooter">Tack Shooter</button>
+      <button class="filter-btn tower-btn" data-tower="wizard monkey">Wizard Monkey</button>
+      <button class="filter-clear" id="filter-clear-tower">clear</button>
+    </div>
+
     <div class="tier-row">
       <div class="tier-badge s">S</div>
       <div class="tier-towers">
         <div class="t-card">
-          <p class="name">Alchemist</p>
-          <p class="sub">Best support tower in the game. Berserker Brew buffs and de-leads everything nearby.</p>
+          <div class="t-card-head"><p class="name">Glue Gunner</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag slow">slow</span><span class="tag moab">moab</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/1+/3</span><span class="path-desc">Relentless/Super Glue &mdash; cheap lategame CC that chain-stuns MOABs and DDTs hard; low attack speed and non-piercing shots punish bad positioning</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Heli Pilot</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag support">support</span><span class="tag moab">moab</span><span class="tag camo">camo</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/1+/3</span><span class="path-desc">Shove/Comanche Commander &mdash; super cheap mid-late support that clumps or gaps MOABs with good micro and can stall DDTs; needs MIB or another lead-removal source elsewhere to actually damage them</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Alchemist</p><span class="path-tag top">TOP</span></div>
           <div class="t-tags"><span class="tag support">support</span><span class="tag lead">lead</span></div>
           <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">4/2/0</span><span class="path-desc">Berserker Brew &mdash; buffs damage, pierce, speed and range; de-leads nearby towers</span></div>
-            <div class="t-path-row"><span class="path-pill">0/0/5</span><span class="path-desc">Total Transformation &mdash; turns nearby towers gold, huge damage boost</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Ninja Monkey</p>
-          <p class="sub">Cheap, camo detection from the start, scales hard into late game. Most boards run cheap unupgraded Ninjas as filler/camo coverage &mdash; the paths below are for when one becomes a dedicated role.</p>
-          <div class="t-tags"><span class="tag camo">camo</span><span class="tag slow">slow</span><span class="tag dps">dps</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">5/0/2</span><span class="path-desc">Grandmaster Ninja &mdash; the realistic main-DPS path if a Ninja is your core; needs Shinobi/Alchemist support to be worth it</span></div>
-            <div class="t-path-row"><span class="path-pill">0/4/0</span><span class="path-desc">Bloon Sabotage &mdash; bought as DDT insurance late-game, not a default build; usually added on top of other towers, not instead of them</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Spike Factory</p>
-          <p class="sub">Perma-Spike is the universal safety net at the exit. Always active, never misses.</p>
-          <div class="t-tags"><span class="tag lead">lead</span><span class="tag aoe">aoe</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">0/2/5</span><span class="path-desc">Perma-Spike &mdash; catches anything that leaks past your main defense</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Monkey Village</p>
-          <p class="sub">Buffs every tower in range at once. Almost every strong defense has one.</p>
-          <div class="t-tags"><span class="tag support">support</span><span class="tag camo">camo</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">4/2/0</span><span class="path-desc">Primary Mentoring + Radar Scanner &mdash; buffs Primary towers and gives camo detection in one Village</span></div>
-            <div class="t-path-row"><span class="path-pill">0/2/3</span><span class="path-desc">Radar Scanner + Monkey Intelligence Bureau &mdash; camo detection plus the ability to pop any bloon type</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Super Monkey</p>
-          <p class="sub">True Sun God can solo-carry rounds 90&ndash;100. Expensive, unmatched ceiling.</p>
-          <div class="t-tags"><span class="tag dps">dps</span><span class="tag moab">moab</span><span class="tag lead">lead</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">5/0/0</span><span class="path-desc">True Sun God, no crosspath &mdash; max DPS, but needs external camo detection (e.g. a Village)</span></div>
-            <div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">True Sun God + middle crosspath &mdash; more range and pierce, still needs camo support</span></div>
-            <div class="t-path-row"><span class="path-pill">5/0/2</span><span class="path-desc">True Sun God + bottom crosspath &mdash; built-in camo detection, less range</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Dartling Gunner</p>
-          <p class="sub">Widely considered the highest raw-DPS tower in the game late-game, and one of the strongest CHIMPS picks since skilled manual aim puts every shot where it's needed.</p>
-          <div class="t-tags"><span class="tag dps">dps</span><span class="tag moab">moab</span><span class="tag lead">lead</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">1/5/0</span><span class="path-desc">M.A.D &mdash; massive missile damage to MOAB-class, top crosspath needed for the ability's accuracy</span></div>
-            <div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">Ray of Doom &mdash; constant laser beam, near-unlimited pierce, top-tier sustained DPS</span></div>
+            <div class="t-path-row"><span class="path-pill">3/x/x</span><span class="path-desc">Berserker Brew &mdash; cheap enough to be an affordable earlygame buff that also fixes Lead; pick this when you want broad, budget value</span></div>
+            <div class="t-path-row"><span class="path-pill">4/x/x</span><span class="path-desc">Stronger Stimulant &mdash; a slightly stronger buff than Brew; pick this when you're buffing one specific main DPS tower and can afford the extra cost</span></div>
           </div>
         </div>
       </div>
     </div>
 
+    <div class="tier-row">
+      <div class="tier-badge s">S-</div>
+      <div class="tier-towers">
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Monkey Sub</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag camo">camo</span><span class="tag support">support</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">4/0/1+</span><span class="path-desc">Reactor/Energizer &mdash; decent early-mid decamo, pairs great with Absolute Zero for freeze uptime and cuts water tower/hero cooldowns</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Ninja Monkey</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag camo">camo</span><span class="tag support">support</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/4/0</span><span class="path-desc">Shinobis buff any T5 Ninja's speed/pierce and distract ceramics; Bloon Sabotage is one of the best abilities in the game, especially vs DDT rounds</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Spike Factory</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag lead">lead</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">1/0/5</span><span class="path-desc">Perma Spike builds a solid pile without heavy stalling and swallows huge MOAB groups when the round end is extended; pair with Concoction and an RBE-clearing hero</span></div></div>
+        </div>
+      </div>
+    </div>
 
     <div class="tier-row">
       <div class="tier-badge a">A</div>
       <div class="tier-towers">
         <div class="t-card">
-          <p class="name">Tack Shooter</p>
-          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag dps">dps</span></div>
+          <div class="t-card-head"><p class="name">Dart Monkey</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/4+/x</span><span class="path-desc">Super Monkey Fan Club has huge synergy with 1/4/0 Glue Strike for very cost-effective BAD damage; Plasma Monkey Fan Club is great lategame burst if you can cover its downtime</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Boomerang Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/x/4</span><span class="path-desc">Press is very potent vs dense/slow bloons paired with MOAB Glue; MOAB Domination is a solid, reasonably priced T5 that works on most maps</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Bomb Shooter</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span><span class="tag lead">lead</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/3+/2</span><span class="path-desc">Mauler spam with Primary Expertise + Striker Jones gets incredibly strong; Eliminator clears full ZOMGs and can skip the BAD with Striker's level 20</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Bomb Shooter</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span><span class="tag lead">lead</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/2/5</span><span class="path-desc">Bomb Blitz's Bomb Storm ability is now usable in CHIMPS without Corvus, making it strong in almost any setup, especially with Striker Jones resetting its cooldown</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Ice Monkey</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag slow">slow</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">2/0/5</span><span class="path-desc">The Tack Zone &mdash; cheap, massive 360&deg; DPS</span></div>
+            <div class="t-path-row"><span class="path-pill">x/4/x</span><span class="path-desc">Snowstorm &mdash; unique freeze on MOABs/DDTs from its ability; pick this as a standalone ceramic-stall/freeze tool that doesn't need any particular hero</span></div>
+            <div class="t-path-row"><span class="path-pill">1+/5/0</span><span class="path-desc">Absolute Zero + top crosspath &mdash; slows the game dramatically with permafrost but can't soak MOAB layers alone; pick this specifically when running Silas, since the cheap top crosspath (Ice Shards) feeds his leveling and his shards empower the freeze</span></div>
           </div>
         </div>
         <div class="t-card">
-          <p class="name">Wizard Monkey</p>
-          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">Archmage &mdash; highest raw damage of the two, weak against Super Ceramics due to low pierce</span></div>
-            <div class="t-path-row"><span class="path-pill">0/2/5</span><span class="path-desc">Prince of Darkness &mdash; cleans ceramics and MOABs cheaply</span></div>
-          </div>
+          <div class="t-card-head"><p class="name">Glue Gunner</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag slow">slow</span><span class="tag lead">lead</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">1/4/0</span><span class="path-desc">Glue Strike applies a powerful delead+debuff glue screen-wide; Glue Storm extends it to 20s, gluing ceramic/MOAB insides and deleading all of round 95 for a full MIB skip</span></div></div>
         </div>
         <div class="t-card">
-          <p class="name">Sniper Monkey</p>
+          <div class="t-card-head"><p class="name">Monkey Sub</p><span class="path-tag mid">MID</span></div>
           <div class="t-tags"><span class="tag moab">moab</span><span class="tag dps">dps</span></div>
           <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">Cripple MOAB &mdash; debuffs MOAB-class so other towers do extra damage to them; attack speed crosspath refreshes the debuff faster</span></div>
-            <div class="t-path-row"><span class="path-pill">0/2/5</span><span class="path-desc">Elite Defender + Night Vision Goggles &mdash; camo detection plus bullets that pierce and pop multiple bloons, a cheap all-rounder</span></div>
+            <div class="t-path-row"><span class="path-pill">0/4/0</span><span class="path-desc">First Strike &mdash; a strong BAD damage tower that kills the BAD's insides on water maps; pick this as the generally viable option across most maps</span></div>
+            <div class="t-path-row"><span class="path-pill">2/5/0</span><span class="path-desc">Ballistic Missile + top crosspath &mdash; a stronger spam tower with Sub Commander, but needs lots of water space right next to the track; only pick this on maps built for it (largely Quad)</span></div>
           </div>
         </div>
         <div class="t-card">
-          <p class="name">Glue Gunner</p>
-          <div class="t-tags"><span class="tag slow">slow</span><span class="tag moab">moab</span></div>
+          <div class="t-card-head"><p class="name">Buccaneer</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/5/0</span><span class="path-desc">Pirate Lord does huge damage if it can fire from both sides &mdash; place it between two track sections; Extra Hooks deletes a lot of RBE and shores up its single-target weakness</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Monkey Ace</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/0/2v</span><span class="path-desc">Sky Shredder is an incredible but hard-to-use T5 with amazing damage and awkward pierce, needing real micro to maximize; Centered Path adds much-needed mobility/control</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Engineer Monkey</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag support">support</span><span class="tag lead">lead</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/4+/0</span><span class="path-desc">Foam with Pin gets good early value from slow+lead pop; Overclock is excellent support for expensive T4s/T5s; Ultraboost takes too long to stack for its cost</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Beast Handler</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/x/4</span><span class="path-desc">Giant Condor is a very strong BFB controller that can move them between lanes; Pou&#257;kai is a powerful, pricey T5 that trivializes many rounds with its high pierce</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-row">
+      <div class="tier-badge a">A-</div>
+      <div class="tier-towers">
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Bomb Shooter</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag aoe">aoe</span><span class="tag lead">lead</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">4/2/0</span><span class="path-desc">Impact is a high-power stun/knockback in a small range, more effective than nearly every other ceramic-control tower near its price; Crush is a near-free pass to round 100 on single lanes but pricey and range-limited</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Tack Shooter</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/0/5</span><span class="path-desc">Overdrive does great MOAB DPS with Embrittlement/Brew; Tack Zone can lock down half the map, especially with Gwen, Geraldo, or the new soaking Glue Strike</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Ice Monkey</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag slow">slow</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/x/x</span><span class="path-desc">Embrittlement is a good small-area debuffer that can MIB-skip; Super Brittle wipes ceramics/MOABs and debuffs hard, with great synergy alongside Super Monkey Fan Club</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Desperado</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">4+/2/0</span><span class="path-desc">2-3 Twin Sixes is a cheap, cost-efficient round-100 counter with Bounty Hunter's mark; The Blazing Sun is pricier midgame but can solo the BAD when marked</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Desperado</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag dps">dps</span></div>
           <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">0/2/3</span><span class="path-desc">MOAB Glue &mdash; cheap, slows MOAB-class bloons hard</span></div>
+            <div class="t-path-row"><span class="path-pill">0+/3/0</span><span class="path-desc">Avenger &mdash; cheap, grouped damage and knockback; a few of them make an efficient lategame defense, especially with pierce buffs and debuffs stacked on. Pick this for cheap, consistent grouped damage</span></div>
+            <div class="t-path-row"><span class="path-pill">0+/4/0</span><span class="path-desc">The Desert Phantom &mdash; bigger knockback and chain explosions for more raw power, but it needs bloons dying nearby to chain, so it's weaker on maps with split lanes</span></div>
           </div>
         </div>
         <div class="t-card">
-          <p class="name">Druid</p>
-          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag lead">lead</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">1/3/0</span><span class="path-desc">Druid of the Jungle &mdash; strong early-game carry for the price</span></div>
-            <div class="t-path-row"><span class="path-pill">0/5/2</span><span class="path-desc">Spirit of the Forest &mdash; permanent regrow removal and stronger lightning, good late game</span></div>
-          </div>
+          <div class="t-card-head"><p class="name">Sniper Monkey</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">4/2/0</span><span class="path-desc">Maim MOAB is a strong global stunner vs MOABs mid-late, and synergizes well with Berserker Brew's pierce for stuns; Cripple MOAB trades damage for a huge debuff other towers can exploit</span></div></div>
         </div>
         <div class="t-card">
-          <p class="name">Bomb Shooter</p>
+          <div class="t-card-head"><p class="name">Buccaneer</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">3/1+/0</span><span class="path-desc">Carrier Flagship aims in every direction for powerful global DPS, best with debuffs and Brickell; low consistency, but it makes up for it with raw overwhelming power</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Heli Pilot</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag camo">camo</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/5/2</span><span class="path-desc">Chinook lets a much wider variety of towers work on awkward maps like Geared and the Puddles; long cooldown and it's inactive while moving, so time it carefully</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Dartling Gunner</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/0/5</span><span class="path-desc">Laser Shock BEZ is a top-tier T5 DPS tower needing little help to take out the lategame &mdash; use MIB or multiple AMD Alchemists to grant it Lead-popping</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Alchemist</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag support">support</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/5/x</span><span class="path-desc">Total Transformation is a strong T5 for lategame DPS, best run with Obyn and Druids of Wrath &mdash; its 40s cooldown with a 20s duration can cover an entire dense round like 95</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Mermonkey</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag support">support</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/0/2</span><span class="path-desc">Lord of the Abyss spreads a big pierce buff and ink slow across any defense (great with Carpet of Spikes) and lets you place water towers on land; struggles with range until Echosense stacks kick in</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Mermonkey</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag dps">dps</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/5/x</span><span class="path-desc">Popseidon massively improves both the attack and ability, especially with obstacles to bounce off &mdash; Bounty Hunter or Echosense Network help its small range</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Spike Factory</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/5/0</span><span class="path-desc">Carpet of Spikes is weak vs ceramics but deals incredible map-wide MOAB damage, clearing the BAD and every DDT; best paired with Lord of the Abyss, which boosts it and cleans up after it</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Monkey Village</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag support">support</span><span class="tag camo">camo</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">3+/x/x</span><span class="path-desc">Primary Mentoring is mainly bought for primary ability towers, pairing especially well with Absolute Zero (bigger slow aura + faster ability cooldown)</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Beast Handler</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">4/x/x</span><span class="path-desc">Max Orca is a powerful lategame attacker that can self-merge by round 80 from lower-tier beasts; pairs best with Overclock; Megalodon needs 4 Orcas and is mostly just for flexing</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Beast Handler</p><span class="path-tag mid">MID</span></div>
           <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span></div>
           <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">2/5/0</span><span class="path-desc">MOAB Eliminator + Frag Bombs &mdash; ability nukes MOAB-class for 4500 damage every 10s, max splash</span></div>
-            <div class="t-path-row"><span class="path-pill">0/5/2</span><span class="path-desc">MOAB Eliminator + range crosspath &mdash; hits MOABs from further away, can hit multiple</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Beast Handler</p>
-          <div class="t-tags"><span class="tag dps">dps</span><span class="tag camo">camo</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">5/0/0</span><span class="path-desc">Megalodon &mdash; Orca line, water only, instakills up to BADs with low enough RBE; needs 3 merged Orcas</span></div>
-            <div class="t-path-row"><span class="path-pill">0/5/0</span><span class="path-desc">Giganotosaurus &mdash; land path maxed, insta-kills almost anything up to MOAB-class; crosspathing barely matters here since each path spawns an independent beast, not a buffed main attack</span></div>
+            <div class="t-path-row"><span class="path-pill">x/3/x</span><span class="path-desc">Velociraptor &mdash; global range, one-shots ceramics with high pierce, but its MOAB damage has been gutted and its small range needs real micro; pick this for pure ceramic clearing</span></div>
+            <div class="t-path-row"><span class="path-pill">x/4/x</span><span class="path-desc">T-Rex &mdash; still clears regular ceramics easily and keeps decent MOAB damage with a frequent stun (pair with Overclock); max-merge T-Rex layer-skips through MOABs. Pick this when you also want real MOAB damage, not just ceramic cleanup</span></div>
           </div>
         </div>
       </div>
@@ -889,84 +1125,123 @@
       <div class="tier-badge b">B</div>
       <div class="tier-towers">
         <div class="t-card">
-          <p class="name">Buccaneer</p>
-          <p class="sub">Carrier Flagship is one of the strongest MOAB-class damage dealers in the game on water &mdash; but like Monkey Sub, it's placement-locked, so its overall ranking reflects that restriction rather than its in-water ceiling.</p>
-          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag camo">camo</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">Carrier Flagship + Grape Shot &mdash; max DPS, buffs all water towers and Aces, needs external camo</span></div>
-            <div class="t-path-row"><span class="path-pill">5/0/2</span><span class="path-desc">Carrier Flagship + Crow's Nest &mdash; built-in camo detection, slightly less DPS</span></div>
-          </div>
+          <div class="t-card-head"><p class="name">Dart Monkey</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">4/0/2</span><span class="path-desc">Juggernaut has solid knockback that stays relevant vs ceramics, strong specifically on Ravine/Dungeons; Ultra-Juggernaut is near-useless on maps without obstacles</span></div></div>
         </div>
         <div class="t-card">
-          <p class="name">Monkey Sub</p>
-          <div class="t-tags"><span class="tag camo">camo</span><span class="tag lead">lead</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">2/0/2</span><span class="path-desc">Common early-game build &mdash; homing darts, global range, decent single-target cleanup</span></div>
-            <div class="t-path-row"><span class="path-pill">5/0/2</span><span class="path-desc">Energizer &mdash; speeds up nearby water tower cooldowns and hero leveling</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Heli Pilot</p>
-          <div class="t-tags"><span class="tag camo">camo</span><span class="tag dps">dps</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">2/0/5</span><span class="path-desc">Comanche Commander + Pursuit crosspath &mdash; strong mobile DPS with better target seeking, advanced to use well</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Engineer Monkey</p>
-          <div class="t-tags"><span class="tag support">support</span><span class="tag aoe">aoe</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">0/4/0</span><span class="path-desc">Overclock &mdash; temporary attack-speed buff to one tower, great on expensive Tier 5s</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Mortar Monkey</p>
-          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag lead">lead</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">The Biggest One &mdash; huge blast radius and raw AoE damage, shreds Ceramic and MOAB-class groups; middle crosspath for reload</span></div>
-            <div class="t-path-row"><span class="path-pill">0/2/5</span><span class="path-desc">Blooncineration &mdash; strips camo and fortified, leaves a persistent fire DPS zone on MOAB-class; middle crosspath for faster reload</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Monkey Ace</p>
-          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag lead">lead</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">5/0/0</span><span class="path-desc">Sky Shredder &mdash; 32 darts per pass, pops every bloon type including Lead; best all-purpose damage path</span></div>
-            <div class="t-path-row"><span class="path-pill">0/5/0</span><span class="path-desc">Tsar Bomba &mdash; ability nukes a huge area and leaves a lingering radiation DoT zone, great burst vs dense Ceramic/MOAB rushes</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Mermonkey</p>
-          <div class="t-tags"><span class="tag camo">camo</span><span class="tag support">support</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">5/0/0</span><span class="path-desc">Lord of the Abyss &mdash; top path, best raw DPS, pierce buff to nearby towers</span></div>
-            <div class="t-path-row"><span class="path-pill">0/0/5</span><span class="path-desc">The Final Harmonic &mdash; bottom path, hypnotizes and detonates DoT effects, support role</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Ice Monkey</p>
-          <div class="t-tags"><span class="tag slow">slow</span><span class="tag aoe">aoe</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">0/5/2</span><span class="path-desc">Absolute Zero + bottom crosspath &mdash; best support, freezes up to 300 bloons for others to clean up</span></div>
-            <div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">Absolute Zero + top crosspath &mdash; best all-around damage and support</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Desperado</p>
-          <p class="sub">Strong cheap early-game pick, but can't pop Lead/Frozen/Camo natively and falls off without heavy support. Community opinion is mixed &mdash; some call it outclassed late-game.</p>
-          <div class="t-tags"><span class="tag dps">dps</span><span class="tag eco">eco</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">2/4/0</span><span class="path-desc">Bounty Hunter &mdash; marks bloons for double damage and cash, strong single-target and light economy</span></div>
-            <div class="t-path-row"><span class="path-pill">2/0/0</span><span class="path-desc">Cheap early-game start, sometimes 2x Desperado as a CHIMPS opener instead of Dart Monkey</span></div>
-          </div>
-        </div>
-        <div class="t-card">
-          <p class="name">Boomerang Monkey</p>
+          <div class="t-card-head"><p class="name">Boomerang Monkey</p><span class="path-tag top">TOP</span></div>
           <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">Glaive Lord's bouncing glaives wipe ceramics, MOABs, and DDTs across the whole screen, even stronger where orbitals can cover; lower main-attack pierce hurts its re-hit count</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Ice Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag slow">slow</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/1/3+</span><span class="path-desc">Icicle Impale is a heavy stall T5 that needs another tower to actually deal damage &mdash; pairs well with MOAB Press and anything with high pierce</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Glue Gunner</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag slow">slow</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/1+/0</span><span class="path-desc">Solver's puddles chain-react to pop up to BFBs/Fortified MOABs and clear ceramics, but the Final Harmonic bug currently deletes those puddles, weakening its best combo</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Desperado</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag dps">dps</span><span class="tag moab">moab</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0+/3/0</span><span class="path-desc">Bounty Hunter's mark boosts damage a lot and enables very cheap BAD-layer kills with The Blazing Sun or a few Twin Sixes; Golden Justice hits hard but leaks ceramics without good straight lines</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Monkey Ace</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/4+/0</span><span class="path-desc">Ground Zero is hard to save for but powerful, blowing up full screens of MOABs and DDTs lategame, though it can't handle higher-health MOABs</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Mortar Monkey</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span><span class="tag lead">lead</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">The Biggest One is a high-pierce MOAB DPS tower that struggles with point damage; pairs best with MOAB Eliminator for ZOMG/BAD cleanup, and both benefit from Striker Jones</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Mortar Monkey</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span><span class="tag lead">lead</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/4+/0</span><span class="path-desc">Artillery Battery shreds ceramics and deals good MOAB damage; Pop and Awe's 8-second global stun has huge synergy with Striker Jones resetting and doubling its damage</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Mortar Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag camo">camo</span><span class="tag moab">moab</span><span class="tag lead">lead</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/0/5</span><span class="path-desc">Blooncineration deals high MOAB burn damage with persistent fire walls that clean up Super Ceramics when alch-buffed; Signal Flare alone is a movable decamo option, but its low pierce can leak camos on round 78</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Ninja Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag camo">camo</span><span class="tag moab">moab</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">1+/0/5</span><span class="path-desc">Sticky Bomb is a decent midgame MOAB/BAD damager; micro between strong and first targeting breaks down high-health targets faster while stunning frontmost MOABs/ceramics</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Druid</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/0/0+</span><span class="path-desc">Monarch of Storms is hard to save for but basically wins the game once afforded, sometimes needing a little extra help vs the BAD</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Druid</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/1/3+</span><span class="path-desc">Avatar of Wrath synergizes with Total Transformation's attack speed for great lategame DPS, though it's notably weaker on DDT rounds since there's less RBE on screen</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Mermonkey</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag slow">slow</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/0/5</span><span class="path-desc">The Final Harmonic does fun things with Glaive Lord or The Bloon Solver, but is currently bugged to delete the Bloon Solver's glue puddles, hurting its best combo</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Engineer Monkey</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag support">support</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/x/x</span><span class="path-desc">Sentry Champion is weak alone but gets double benefit from aura buffs like Jungle Drums and Call to Arms since they affect both placement and attack rate; pairs great with soaking Glue Strike</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-row">
+      <div class="tier-badge b">B-</div>
+      <div class="tier-towers">
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Heli Pilot</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/0/2</span><span class="path-desc">Apache Prime does good DPS but is expensive and weak to DDTs; pairs well with Overclock; micro it behind the bloons to focus one side of the map</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Wizard Monkey</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span><span class="tag camo">camo</span></div>
           <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">0/5/2</span><span class="path-desc">Perma Charge + bottom crosspath &mdash; bigger damage boost than the top crosspath, plus innate DDT popping power</span></div>
-            <div class="t-path-row"><span class="path-pill">2/0/4</span><span class="path-desc">MOAB Press &mdash; cheap knockback utility vs ZOMGs and BFBs, good budget pick</span></div>
+            <div class="t-path-row"><span class="path-pill">4/0/2</span><span class="path-desc">Arcane Spike + bottom crosspath &mdash; the bottom 2 is Shimmer, giving its own decamo, so pick this for a cheaper, self-sufficient midgame if you don't have camo detection covered elsewhere</span></div>
+            <div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">Archmage + middle crosspath, no camo &mdash; Wall of Fire can be microed directly onto MOABs for real damage; pick this for the higher damage ceiling once camo detection is handled by another tower</span></div>
           </div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Wizard Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag camo">camo</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/x/5</span><span class="path-desc">Prince of Darkness inherits Shimmer's decamo from earlier on the same path, and cleans up DDTs and MOABs well as long as ceramics keep dying to feed it; pairs great with Corvus (his antistall leaves a steady supply)</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Super Monkey</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag dps">dps</span><span class="tag moab">moab</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/4/1+</span><span class="path-desc">Robo is an affordable, powerful midgame that scales with damage buffs; Tech Terror is a pricey hyperdense-round nuke that naturally damages Lead, letting it slow DDTs too</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Super Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag slow">slow</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/0/4</span><span class="path-desc">Dark Champion is an expensive but versatile lategame DPS option that can darkshift anywhere; Legend of the Night is a broken CHIMPS strategy specifically on Three Mines 'Round</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Ninja Monkey</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag camo">camo</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">4+/0/2</span><span class="path-desc">Grandmaster Ninja is a strong black-border strategy when buffed with Shinobis (notably #Ouch); without Shinobis it's really bad &mdash; greatly benefits from Geraldo, Pat Fusty, or Glue Storm</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Druid</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag lead">lead</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">1/5/0</span><span class="path-desc">Spirit of the Forest's buffed Vine Crush ability gives strong burst damage but low consistency &mdash; usually needs ceramics grouped first since vine grabs queue one at a time</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Spike Factory</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">3+/x/x</span><span class="path-desc">Spiked Mines is a strong midgame and backline option, roughly two Spalls' worth of lategame power for slightly more cost; don't bother chasing Super Mines on expert maps</span></div></div>
         </div>
       </div>
     </div>
@@ -975,135 +1250,115 @@
       <div class="tier-badge c">C</div>
       <div class="tier-towers">
         <div class="t-card">
-          <p class="name">Dart Monkey</p>
+          <div class="t-card-head"><p class="name">Boomerang Monkey</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag moab">moab</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/4/2</span><span class="path-desc">Perma Charge is an okay, affordable T5 that survives lategame; both Turbo Charge and Perma Charge pair well with Gerry's Fire, though Turbo Charge benefits more</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Tack Shooter</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/x/x</span><span class="path-desc">Inferno Ring is a pricey lategame win condition relying on meta support &mdash; its meteor gives some single-target but can miss fast DDTs, so Brew/Primary Training help a lot</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Sniper Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/x/5</span><span class="path-desc">Elite Defender (2/0/5) is a decent midgame that can crack ZOMG/DDTs and help vs the BAD, but struggles lategame without a consistent Permanent Brew alch buff</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Monkey Sub</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/0/3+</span><span class="path-desc">AP Darts boosts MOAB damage enough to help in the late 70s+, but most of the gain is MOAB-only so bloon performance lags &mdash; pair with Brickell and Ballistic Missiles for more late power</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Monkey Ace</p><span class="path-tag bottom">BOTTOM</span></div>
           <div class="t-tags"><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/0/4</span><span class="path-desc">Neva-Miss Targeting is consistent now but weak for the price, fully reliant on an alch buff to do anything; Fortress is barely affordable and near-requires Rosalia</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Dartling Gunner</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">1/3+/0</span><span class="path-desc">M.A.D is a powerful MOAB-DPS tower with little ceramic damage and a very hard saveup &mdash; pair with heavy ceramic control; the whole path loves an alch buff (multiplies the explosions)</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Wizard Monkey</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/4/x</span><span class="path-desc">Phoenix covers the whole screen for 20s but lacks burst and has no camo detection of its own (needs it from elsewhere); popular on hard community maps but outclassed on official ones, and neither this nor Wizard Lord Phoenix holds up well vs lategame super ceramics/fortified MOABs</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Monkey Village</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag support">support</span><span class="tag camo">camo</span></div>
           <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">2/0/2</span><span class="path-desc">Cheap filler, replace once your real core comes online</span></div>
+            <div class="t-path-row"><span class="path-pill">x/3/x</span><span class="path-desc">MIB &mdash; DDT-only support, almost always skippable; only pick this if you specifically need pop-any-bloon DDT coverage</span></div>
+            <div class="t-path-row"><span class="path-pill">x/4/x</span><span class="path-desc">Call to Arms &mdash; basically an Overclock for multiple towers; pick this when you have a Sentry Champion Engineer (especially strong) or a Carrier Flagship Buccaneer (still viable) to amplify</span></div>
           </div>
         </div>
         <div class="t-card">
-          <p class="name">Banana Farm</p>
-          <p class="sub">Dead in CHIMPS specifically &mdash; income is disabled there.</p>
+          <div class="t-card-head"><p class="name">Engineer Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag lead">lead</span><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/2/5</span><span class="path-desc">XXXL is hard to save for with the available midgames but fairly powerful once obtained; gaps between deployments mean MOABs/DDTs can slip past without slowdowns elsewhere</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-row">
+      <div class="tier-badge c">C-</div>
+      <div class="tier-towers">
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Tack Shooter</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/5/0</span><span class="path-desc">Blade Maelstrom can burst through dense rounds like 78 and clears BFB insides; Super Maelstrom needs too much support for too little reward at its low uptime</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Sniper Monkey</p><span class="path-tag mid">MID</span></div>
+          <div class="t-tags"><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/3+/2</span><span class="path-desc">Elite Sniper is an easy midgame that excels vs clumped bloons, paired with other Snipers; overall this path just isn't necessary most of the time</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Dartling Gunner</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">Plasma Accelerator is a decent midgame with high MOAB DPS that falls off hard past round 80 (very low ceramic damage); Ray of Doom is very hard to save toward and can still die lategame without care</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Super Monkey</p><span class="path-tag top">TOP</span></div>
+          <div class="t-tags"><span class="tag dps">dps</span><span class="tag moab">moab</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">3/0/1+</span><span class="path-desc">Sun Avatar is a decent saveup tower usable as a lategame attacker, much stronger with damage buffs like Geraldo's Pickles; the rest of this path is a meme in CHIMPS</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-row">
+      <div class="tier-badge d">D</div>
+      <div class="tier-towers">
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Dart Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag dps">dps</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/x/3+</span><span class="path-desc">Crossbow Master beats the midgame but falls off heavily lategame and isn't a good investment; weaker against single targets than the rest of the tower</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Alchemist</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag lead">lead</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">1/0/4</span><span class="path-desc">Lead to Gold is an awful DDT damager; Rubber to Gold's de-leading has rare-occasion use only</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-row">
+      <div class="tier-badge f">F</div>
+      <div class="tier-towers">
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Buccaneer</p><span class="path-tag bottom">BOTTOM</span></div>
+          <div class="t-tags"><span class="tag support">support</span></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/0/5</span><span class="path-desc">Gives incredibly strong buffs to Merchantman &mdash; but Merchantmen are weak too, so it's a strong buff to a tower that isn't worth buffing</span></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-head"><p class="name">Monkey Village</p><span class="path-tag bottom">BOTTOM</span></div>
           <div class="t-tags"><span class="tag eco">eco</span></div>
-          <div class="t-paths">
-            <div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">Banana Central &mdash; massive passive income per round, buffs nearby BRFs, outside CHIMPS only</span></div>
-          </div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/0/5</span><span class="path-desc">Monkey Town/Monkey City are joke-tier payback (Monkey Town needs 66 Dart Monkeys bought to break even); Monkeyopolis can't even be purchased in CHIMPS</span></div></div>
         </div>
       </div>
     </div>
 
   </section>
-
-  <section id="panel-paths" class="panel">
-    <p class="note">Format is top / middle / bottom points &mdash; e.g. 0/4/0 means 4 points in the middle path only. Every tower has 3 paths, but the moment you buy into a 2nd path, the 3rd path locks at 0 permanently. Of your 2 active paths, only one can go past tier 2 &mdash; so 0/2/5 is legal, but 2/2/5 is not.</p>
-    <table class="paths">
-      <thead>
-        <tr><th>Tower</th><th>Best path</th><th>Why</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Alchemist</td><td><span class="path-pill">4/2/0</span></td><td class="dim">Berserker Brew &mdash; buffs and de-leads nearby towers</td></tr>
-        <tr><td>Ninja Monkey</td><td><span class="path-pill">0/4/0</span></td><td class="dim">Bloon Sabotage ability, mandatory vs DDTs</td></tr>
-        <tr><td>Spike Factory</td><td><span class="path-pill">0/2/5</span></td><td class="dim">Perma-Spike, catches leaks at the exit</td></tr>
-        <tr><td>Monkey Village</td><td><span class="path-pill">4/2/0</span> or <span class="path-pill">0/2/3</span></td><td class="dim">Primary buffs + camo, or camo + pop-any-bloon</td></tr>
-        <tr><td>Super Monkey</td><td><span class="path-pill">5/0/0</span> or <span class="path-pill">5/0/2</span></td><td class="dim">True Sun God, pure or with camo crosspath</td></tr>
-        <tr><td>Tack Shooter</td><td><span class="path-pill">2/0/5</span></td><td class="dim">The Tack Zone &mdash; cheap, massive DPS</td></tr>
-        <tr><td>Wizard Monkey</td><td><span class="path-pill">0/2/5</span></td><td class="dim">Prince of Darkness, cleans ceramics and MOABs</td></tr>
-        <tr><td>Sniper Monkey</td><td><span class="path-pill">5/2/0</span></td><td class="dim">Cripple MOAB, debuffs MOAB-class for other towers</td></tr>
-        <tr><td>Glue Gunner</td><td><span class="path-pill">0/2/3</span></td><td class="dim">MOAB Glue, cheap and mandatory crowd control</td></tr>
-        <tr><td>Druid</td><td><span class="path-pill">1/3/0</span> or <span class="path-pill">0/5/2</span></td><td class="dim">Druid of the Jungle early, Spirit of the Forest late</td></tr>
-        <tr><td>Boomerang</td><td><span class="path-pill">2/0/4</span></td><td class="dim">MOAB Press, knockback vs ZOMGs</td></tr>
-      </tbody>
-    </table>
-
-    <p class="note" style="margin-top:24px">Early game / leftover towers &mdash; not top tier, but fine to lean on for the first 20&ndash;40 rounds while you save up.</p>
-    <table class="paths">
-      <thead>
-        <tr><th>Tower</th><th>Early path</th><th>Why</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Dart Monkey</td><td><span class="path-pill">2/0/2</span></td><td class="dim">Cheap filler, fine until you can afford better. Replace by round 20-30.</td></tr>
-        <tr><td>Bomb Shooter</td><td><span class="path-pill">2/0/2</span></td><td class="dim">Decent AoE early, handles groups before you have a real core up.</td></tr>
-        <tr><td>Monkey Sub</td><td><span class="path-pill">2/0/2</span></td><td class="dim">Camo detection on water maps, holds the line until upgraded.</td></tr>
-        <tr><td>Buccaneer</td><td><span class="path-pill">0/2/0</span></td><td class="dim">Merchantman gives map-wide pierce, solid water-map placeholder.</td></tr>
-        <tr><td>Heli Pilot</td><td><span class="path-pill">0/2/0</span></td><td class="dim">Mobile, decent early DPS, can reposition as the map develops.</td></tr>
-        <tr><td>Monkey Ace</td><td><span class="path-pill">2/0/0</span></td><td class="dim">Wide flight path coverage, ok stopgap vs early rounds.</td></tr>
-        <tr><td>Mortar Monkey</td><td><span class="path-pill">2/0/0</span></td><td class="dim">Slow but hits where you can't place direct-fire towers yet.</td></tr>
-        <tr><td>Dartling Gunner</td><td><span class="path-pill">0/2/0</span></td><td class="dim">Needs manual aim, rough early but cheap pierce/penetration buff.</td></tr>
-        <tr><td>Ice Monkey</td><td><span class="path-pill">2/0/0</span></td><td class="dim">Cheap freeze utility, buys time while your core comes online.</td></tr>
-        <tr><td>Banana Farm</td><td><span class="path-pill">2/0/0</span></td><td class="dim">Get this down early outside CHIMPS &mdash; snowballs your economy fast.</td></tr>
-        <tr><td>Engineer Monkey</td><td><span class="path-pill">0/2/0</span></td><td class="dim">Sentries add chip damage cheaply while you wait on better towers (Overclock itself needs tier 4).</td></tr>
-        <tr><td>Mermonkey</td><td><span class="path-pill">2/0/0</span></td><td class="dim">Water-map filler, weak until heavily invested.</td></tr>
-        <tr><td>Beast Handler</td><td><span class="path-pill">0/2/0</span></td><td class="dim">Cheap global pop utility while you build your real defense.</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section id="panel-combos" class="panel">
-
-    <div class="combo">
-      <div class="combo-head"><span class="combo-num">01</span><span class="combo-title">Ninja + Alchemist</span></div>
-      <div class="combo-towers">
-        <span class="pill">Ninja Monkey <span class="path">5/0/2</span></span>
-        <span class="joiner">+</span>
-        <span class="pill">Alchemist <span class="path">4/2/0</span></span>
-      </div>
-      <p class="combo-desc">A crosspathed Grandmaster Ninja relies on external buffs to be worth its cost. Stand a 4/2/0 Alchemist next to it for Berserker Brew, and the buffed Ninja becomes real DPS instead of cost-inefficient on its own. (A separate 0/4/0 Ninja is usually added on top of this for DDT insurance &mdash; it's a different tower doing a different job.)</p>
-    </div>
-
-    <div class="combo">
-      <div class="combo-head"><span class="combo-num">02</span><span class="combo-title">Village + Super Monkey</span></div>
-      <div class="combo-towers">
-        <span class="pill">Monkey Village <span class="path">0/2/3</span></span>
-        <span class="joiner">+</span>
-        <span class="pill">Super Monkey <span class="path">5/2/0</span></span>
-      </div>
-      <p class="combo-desc">0/2/3 Village gives camo detection and lets towers pop any bloon type. Park a 5/2/0 True Sun God inside its radius for max range and damage output.</p>
-    </div>
-
-    <div class="combo">
-      <div class="combo-head"><span class="combo-num">03</span><span class="combo-title">Alchemist buff-chain</span></div>
-      <div class="combo-towers">
-        <span class="pill">Alchemist <span class="path">4/2/0</span></span>
-        <span class="joiner">&rarr;</span>
-        <span class="pill">Alchemist <span class="path">4/2/0</span></span>
-      </div>
-      <p class="combo-desc">Place multiple 4/2/0 Alchemists in range of each other so each one's Berserker Brew buffs the next, compounding attack speed and damage.</p>
-    </div>
-
-    <div class="combo">
-      <div class="combo-head"><span class="combo-num">04</span><span class="combo-title">Village-stacking</span></div>
-      <div class="combo-towers">
-        <span class="pill">Village <span class="path">4/2/0</span></span>
-        <span class="joiner">+</span>
-        <span class="pill">Village <span class="path">0/2/3</span></span>
-      </div>
-      <p class="combo-desc">Overlap a 4/2/0 Village (Primary buffs + camo) with a 0/2/3 Village (camo + pop-any-bloon) so your core towers get multiple buffs at once.</p>
-    </div>
-
-    <div class="combo">
-      <div class="combo-head"><span class="combo-num">05</span><span class="combo-title">Tack Zone core</span></div>
-      <div class="combo-towers">
-        <span class="pill">Tack Shooter <span class="path">2/0/5</span></span>
-        <span class="joiner">+</span>
-        <span class="pill">Alchemist <span class="path">4/2/0</span></span>
-        <span class="joiner">+</span>
-        <span class="pill">Village <span class="path">0/2/3</span></span>
-      </div>
-      <p class="combo-desc">2/0/5 The Tack Zone buffed by both Alchemist and Village becomes a budget late-game wall of DPS.</p>
-    </div>
-
-    <div class="combo">
-      <div class="combo-head"><span class="combo-num">06</span><span class="combo-title">Glue + damage dealer</span></div>
-      <div class="combo-towers">
-        <span class="pill">Glue Gunner <span class="path">0/2/3</span></span>
-        <span class="joiner">+</span>
-        <span class="pill">Bomb Shooter <span class="path">2/5/0</span></span>
-      </div>
-      <p class="combo-desc">0/2/3 MOAB Glue locks MOAB-class bloons in place while a 2/5/0 MOAB Eliminator nukes them with its ability at leisure.</p>
-    </div>
-
-  </section>
-
 
   <section id="panel-builds" class="panel">
     <p class="note">Round numbers are identical on every difficulty &mdash; the same bloons appear on the same round number regardless of Easy/Medium/Hard. The only differences are bloon speed, tower/upgrade costs, starting lives, and the round 40 MOAB having 66% HP on Easy specifically. What changes is how far you have to go: Easy ends at round 40, Medium at round 60, Hard at round 80, and Impoppable/CHIMPS both run to round 100.</p>
@@ -1121,9 +1376,18 @@
         <option value="quincy">Quincy</option>
         <option value="gwendolin">Gwendolin</option>
         <option value="striker">Striker Jones</option>
+        <option value="brickell">Brickell</option>
+        <option value="corvus">Corvus</option>
+        <option value="geraldo">Geraldo</option>
+        <option value="rosalia">Rosalia</option>
+        <option value="adora">Adora</option>
+        <option value="churchill">Captain Churchill</option>
+        <option value="pat">Pat Fusty</option>
+        <option value="benjamin">Benjamin</option>
+        <option value="dand">Dan D'Monke</option>
         <option value="other">Other (no specific adjustments known)</option>
       </select>
-      <span id="hero-note" class="hero-note"></span>
+      <div id="hero-note" class="hero-note"></div>
     </div>
 
     <div class="subtab-bar">
@@ -1147,14 +1411,36 @@
         </table>
       </details>
 
-      <div class="build-card">
-        <p class="build-title">Round 40 &mdash; Plasma Blasts, not Sun Avatar yet</p>
-        <p class="build-sub">Budget by round 40 is roughly $16k total. Sun Avatar (~$20k) isn't affordable yet &mdash; a cheap Plasma Blasts Super Monkey is the realistic pick here. Ordered by when you'd actually place each one.</p>
-        <div class="build-rows">
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Sauda or similar, place immediately so it starts leveling right away.</p></div></div>
-          <div class="build-row" data-role="camo-filler" data-count="2"><span class="build-count">2</span><div class="build-info"><div class="build-headline"><span class="build-tower">Ninja Monkey <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">need by round 24</span></div><p class="build-detail">Camo detection built in from the start &mdash; no separate Dart filler needed.</p><p class="hero-override"></p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag lead">lead</span><span class="build-timing">need by round 28</span></div><p class="build-detail">Base Alchemist already pops Lead without any upgrade &mdash; place it now, upgrade later once it has other towers nearby worth buffing.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Super Monkey <span class="path-pill">2/0/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 30&ndash;38</span></div><p class="build-detail">Plasma Blasts &mdash; ~$3k, 50% faster attacks, pops Lead. No camo yet at this tier.</p></div></div>
+      <div class="subtab-bar nested">
+        <button class="subtab-btn active" data-subtab="easy-default">Default</button>
+        <button class="subtab-btn" data-subtab="easy-primary">Primary</button>
+      </div>
+
+      <div id="subpanel-easy-default" class="subpanel active">
+        <div class="build-card">
+          <p class="build-title">Round 40 &mdash; Easy</p>
+          <p class="build-sub">Easy's budget and round count don't need much &mdash; four picks cover everything through round 40. Ordered by when you'd actually place each one.</p>
+          <div class="build-rows">
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Place immediately so it starts leveling right away.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist <span class="path-pill">4/0/2</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 10&ndash;20</span></div><p class="build-detail">Stronger Stimulant &mdash; pops Lead from the base tower already, buffs whatever else you place next.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Wizard Monkey <span class="path-pill">4/0/2</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">round 20&ndash;30</span></div><p class="build-detail">Arcane Spike + Shimmer &mdash; Shimmer decamos board-wide for round 24's camo, Arcane Spike pops Lead and adds real damage. No Ninja filler needed.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang <span class="path-pill">0/0/4</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">round 28&ndash;36</span></div><p class="build-detail">MOAB Press &mdash; bottom path also passes through Red Hot Rangs for Lead, and gives a budget answer for round 40's MOAB.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Spike Factory <span class="path-pill">0/0/3</span></span><span class="build-role-tag tag safety">safety net</span><span class="build-timing">round 30&ndash;40</span></div><p class="build-detail">A partial step into Perma Spike &mdash; doesn't need to be maxed for just 40 rounds, catches whatever the rest of the build doesn't.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="subpanel-easy-primary" class="subpanel">
+        <div class="build-card">
+          <p class="build-title">Round 40 &mdash; Primary Only</p>
+          <p class="build-sub">This mode restricts you to the 6 Primary-category towers (Dart Monkey, Boomerang, Bomb Shooter, Tack Shooter, Ice Monkey, Glue Gunner) &mdash; no Magic, Military, or Support, so no Wizard, Alchemist, or Spike Factory. None of these towers have camo detection on any path, so round 24's Camo bloon depends entirely on your Hero (check the hero selector above &mdash; Quincy, Etienne, Sauda, Psi, and Silas all provide it). Ordered by actual play order.</p>
+          <div class="build-rows">
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Pick one with camo detection (Quincy, Etienne, Sauda, Psi, or Silas) since nothing else in this build can see round 24's Camo bloon.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Dart Monkey <span class="path-pill">0/0/2</span></span><span class="build-role-tag tag dps">dps</span><span class="build-timing">round 1&ndash;15</span></div><p class="build-detail">Sharp Shooter &mdash; cheap early single-target damage while you save for the rest.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Bomb Shooter <span class="path-pill">2/0/4</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 15&ndash;28</span></div><p class="build-detail">Recursive &mdash; high pierce AoE for round 38's Ceramics, with serviceable MOAB damage for round 40.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang <span class="path-pill">0/0/4</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">round 25&ndash;33</span></div><p class="build-detail">MOAB Press &mdash; bottom path passes through Red Hot Rangs for Lead, and gives a budget answer for round 40's MOAB.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner <span class="path-pill">0/2/3</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 33</span></div><p class="build-detail">MOAB Glue &mdash; cheap, slows MOAB-class hard, holding the round 40 MOAB in place for the rest of the build to finish off.</p></div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1183,38 +1469,43 @@
 
       <div id="subpanel-medium-default" class="subpanel active">
         <div class="build-card">
-          <p class="build-title">Round 60 &mdash; Sun Avatar core</p>
-          <p class="build-sub">Sun Avatar (~$20k) is affordable by the late 40s/50s. Ordered by actual play order &mdash; several towers get a cheap first stage, then get finished off later once budget allows.</p>
+          <p class="build-title">Round 60 &mdash; Medium</p>
+          <p class="build-sub">Rebuilt around the BTD6 Tower Tier List doc instead of a Sun Avatar centerpiece &mdash; no Monkey Village and no dedicated camo filler needed. A Wizard Monkey's Shimmer goes in early and strips Camo off bloons board-wide (a true decamo, not just self-sight), so every other tower can hit them too. A Glue Gunner provides S-tier CC and an Alchemist buffs an A-tier Boomerang core. Ordered by actual play order; several towers get a cheap first stage and get finished later.</p>
           <div class="build-rows">
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Sauda or similar, already leveling well by round 60.</p></div></div>
-            <div class="build-row" data-role="camo-filler" data-count="2"><span class="build-count">2</span><div class="build-info"><div class="build-headline"><span class="build-tower">Ninja Monkey <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">need by round 24</span></div><p class="build-detail">Cheap, covers camo until the Village below is placed and upgraded &mdash; temporary, not the long-term camo source.</p><p class="hero-override"></p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang <span class="path-pill">0/0/2</span></span><span class="build-role-tag tag lead">lead</span><span class="build-timing">need by round 28</span></div><p class="build-detail">Red Hot Rangs &mdash; the minimum needed to pop Lead. Stays on path 3 the whole game.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, stage 1 <span class="path-pill">0/1/1</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">round 28&ndash;32</span></div><p class="build-detail">Cheap early slow, placed before the Village so it's already softening groups while you save.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, stage 1 <span class="path-pill">2/0/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 29&ndash;31</span></div><p class="build-detail">Acidic Mixture Dip &mdash; lead-popping and Ceramic/MOAB damage support for nearby towers, placed before the Village.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Super Monkey, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 30&ndash;32</span></div><p class="build-detail">Just placing it base &mdash; saving the upgrade cost for later, placed before the Village.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Monkey Village, stage 1 <span class="path-pill">0/2/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing gate">hard gate &mdash; before round 33</span></div><p class="build-detail">Placed straight at Radar Scanner, no Jungle Drums stage first. Do not move on to anything else below until this is done &mdash; round 33 brings Camo Reds and Yellows, and the Village needs full camo coverage in place before that hits.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang, upgraded <span class="path-pill">0/0/4</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">need by round 40</span></div><p class="build-detail">MOAB Press &mdash; same Boomerang, continuing up path 3 for MOAB pressure.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Super Monkey, finished <span class="path-pill">3/2/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 50&ndash;55</span></div><p class="build-detail">Sun Avatar with the range/pierce crosspath &mdash; the same tower as above, fully upgraded.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 55&ndash;60</span></div><p class="build-detail">Berserker Brew &mdash; same Alchemist as above, now buffing the Avatar's pierce, damage, and speed directly.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, finished <span class="path-pill">0/2/3</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 59</span></div><p class="build-detail">MOAB Glue &mdash; same Glue Gunner as above, upgraded for round 59's Camo Lead wave.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Monkey Village, finished <span class="path-pill">2/2/0</span> or <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 59&ndash;60</span></div><p class="build-detail">Once the Glue Gunner above is finished, spend whatever's left topping the Village up the buff path &mdash; 2/2/0 if budget's tight, 4/2/0 (Primary Mentoring) if cash allows, for extra buffs on the Avatar.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Striker Jones &mdash; his range/pierce buffs and Concussive Shell add value early, even without a Bomb/Mortar-centric defense.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Wizard Monkey, stage 1 <span class="path-pill">0/0/2</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">need by round 24</span></div><p class="build-detail">Shimmer &mdash; cheap, and strips Camo off every bloon in range for ALL towers, not just itself. Goes in bottom-path-first specifically so camo is covered from round 24 on, no Ninja filler needed.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">need by round 28</span></div><p class="build-detail">Base, unupgraded Alchemist already pops Lead on its own &mdash; covers round 28 for free, before the Wizard can pop Lead itself.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, stage 1 <span class="path-pill">0/1/1</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">round 30&ndash;38</span></div><p class="build-detail">Cheap early slow (tier 1 each on mid/bottom) &mdash; MOAB Glue itself (bottom tier 3) is a few thousand, too pricey for a first stage. This softens groups while you save for the finished CC upgrade below.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang, stage 1 <span class="path-pill">0/0/2</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">need by round 40</span></div><p class="build-detail">Cheap bottom-path knockback &mdash; a budget answer for round 40's first MOAB while you save toward its finished upgrade.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, stage 2 <span class="path-pill">2/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 40&ndash;46</span></div><p class="build-detail">Partial Berserker Brew &mdash; a budget step up from base, already buffing the growing Boomerang and Wizard while you save for the full version later.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang, finished <span class="path-pill">0/0/4</span></span><span class="build-role-tag tag core">core dps</span><span class="build-timing">round 46&ndash;52</span></div><p class="build-detail">MOAB Domination &mdash; doc-rated A-tier, a budget-friendly tier 5 buffed by the Alchemist above, your answer for round 60's BFB. Its bottom path already passes through Red Hot Rangs on the way up, so it pops Lead too.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Wizard Monkey, stage 2 <span class="path-pill">3/0/2</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">round 50&ndash;53</span></div><p class="build-detail">Arcane Mastery added on top of the same Shimmer Wizard, now that the Boomerang core is finished &mdash; better attack speed, damage, range, and pierce, one step before Arcane Spike.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 52&ndash;55</span></div><p class="build-detail">Full Berserker Brew, same Alchemist as above &mdash; topped off now that the Boomerang core is finished, since that's the tower getting the most value out of the extra buff.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Bomb Shooter, stage 1 <span class="path-pill">0/2/3</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 52&ndash;56</span></div><p class="build-detail">A budget step toward Bomb Blitz &mdash; already covers regular/Ceramic AoE splash by the time round 51's decamoed Camo Ceramics show up, placed before the Glue Gunner finishes.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, finished <span class="path-pill">0/1+/3</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 57</span></div><p class="build-detail">Relentless/Super Glue &mdash; doc-rated S-tier CC. Since the Wizard's Shimmer already decamos board-wide and the Boomerang already pops Lead, this can stun the Camo Lead portion of the 59/60 waves too, not just the regular ones.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Wizard Monkey, finished <span class="path-pill">4/0/2</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">round 57&ndash;59</span></div><p class="build-detail">Arcane Spike added on top of the same Shimmer Wizard, now that the Glue Gunner is sorted &mdash; adds its own Lead-popping and real damage on top of the decamo it's already been providing since round 24.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Bomb Shooter, finished <span class="path-pill">0/2/4</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 57&ndash;60</span></div><p class="build-detail">Recursive &mdash; same Bomb Shooter as above, capped here. The jump to tier 5 Bomb Blitz is ~30k, too pricey to realistically afford this late on Medium's budget; Recursive's high pierce and serviceable MOAB damage are plenty for the rounds left. Also gives Striker Jones a real synergy partner he's lacked all game.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Spike Factory <span class="path-pill">0/0/3</span></span><span class="build-role-tag tag safety">safety net</span><span class="build-timing">round 53&ndash;58</span></div><p class="build-detail">A partial step into Perma Spike (doc-rated S--tier) &mdash; the only safety net in this build. Doesn't need to be maxed since the game ends at round 60, just enough to catch anything that leaks past everything else during the BFB fight.</p></div></div>
           </div>
         </div>
       </div>
 
       <div id="subpanel-medium-military" class="subpanel">
         <div class="build-card">
-          <p class="build-title">Round 60 &mdash; Military Monkeys Only</p>
+          <p class="build-title">Round 60 &mdash; Military</p>
           <p class="build-sub">This mode restricts you to the 7 Military-category towers (Sniper Monkey, Monkey Sub, Buccaneer, Monkey Ace, Heli Pilot, Mortar Monkey, Dartling Gunner) &mdash; no Primary, Magic, or Support, so no Village, Alchemist, Ninja, or Glue Gunner. Your selected Hero is still allowed. Grab the Military Conscription and Advanced Logistics Monkey Knowledge first if you have them &mdash; Military towers cost noticeably more than their counterparts. Ordered by actual play order.</p>
           <div class="build-rows">
             <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Quincy is the standard pick &mdash; strong single-target DPS while the pricier Military towers ramp up.</p></div></div>
             <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey, stage 1 <span class="path-pill">1/1/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">need by round 24</span></div><p class="build-detail">Full Metal Jacket (top) + Night Vision Goggles (middle) on one Sniper &mdash; one point in each is enough to cover Camo (round 24) and Lead (round 28) together. The closest thing to a Village/Alchemist combo this mode allows.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Mortar Monkey, stage 1 <span class="path-pill">0/2/0</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">round 20&ndash;30</span></div><p class="build-detail">Cheap reload/blast radius pickup at the entrance, chips down groups while you save for the Heli and Sniper finish.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Heli Pilot, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 30&ndash;40</span></div><p class="build-detail">Built-in true Camo sight from the moment it's placed, no upgrade needed &mdash; scales into your main mobile DPS as you upgrade it.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">need by round 40</span></div><p class="build-detail">Maim MOAB, same Sniper as above &mdash; stuns MOAB-class on hit, while the middle crosspath keeps Night Vision Goggles active for Camo and speeds up the reload. Stop here: the jump to tier 5 Cripple MOAB takes too long to save up for and isn't worth the delay &mdash; put the cash into the Heli instead.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Heli Pilot, finished <span class="path-pill">0/0/4</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 50&ndash;60</span></div><p class="build-detail">Comanche Defense, same Heli as above &mdash; the budget stopping point one tier below Comanche Commander, picked up with the cash saved by capping the Sniper at 4/2/0.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey B <span class="path-pill">2/0/5</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">round 50&ndash;60</span></div><p class="build-detail">Deadly Precision + Elite Defender &mdash; a second Sniper for raw single-target DPS, since the first Sniper above already has Camo and Lead covered.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Mortar Monkey, finished <span class="path-pill">0/2/5</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 59</span></div><p class="build-detail">Blooncineration, same Mortar as above &mdash; strips Camo and Fortified and leaves a persistent fire zone, helping clean up the round 59 Camo Lead + Regrow Ceramic wave.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Heli Pilot, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 30&ndash;40</span></div><p class="build-detail">Placed base &mdash; scales into your main mobile DPS as you upgrade it. Camo here comes from the Sniper above, not the Heli yet; that comes once it's finished below.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey, stage 2 <span class="path-pill">3/2/0</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">need by round 40</span></div><p class="build-detail">Maim MOAB's lead-in, same Sniper as above &mdash; a budget step before the full stun, while the Heli below gets its upgrade first.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">round 45&ndash;55</span></div><p class="build-detail">Maim MOAB, same Sniper as above &mdash; stuns MOAB-class on hit, while the middle crosspath keeps Night Vision Goggles active for Camo and speeds up the reload.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Heli Pilot, finished <span class="path-pill">0/2/3</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">round 50&ndash;56</span></div><p class="build-detail">IFR + Shove, same Heli as above &mdash; IFR gives it real camo detection of its own, and Shove clumps or gaps MOABs with good micro, picking up the control role Mortar used to cover. Picked up now that the Sniper's finished.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey B <span class="path-pill">2/0/4</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">need by round 59</span></div><p class="build-detail">Deadly Precision + Full Auto Rifle &mdash; a second Sniper for extra Ceramic/MOAB damage on round 59, since the first Sniper above already has Camo and Lead covered.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey C <span class="path-pill">0/2/4</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">round 55&ndash;60</span></div><p class="build-detail">Full Auto Rifle + middle crosspath &mdash; extra raw single-target DPS, leaning on the Camo/Lead coverage from Sniper A.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Heli Pilot, upgraded <span class="path-pill">0/2/4</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 56&ndash;60</span></div><p class="build-detail">Comanche Defense, same Heli as above &mdash; one more tier of bottom-path damage, picked up once Sniper C is paid for.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey D <span class="path-pill">2/0/4</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">round 55&ndash;60</span></div><p class="build-detail">Deadly Precision + Full Auto Rifle &mdash; more Ceramic/MOAB damage stacked onto the same combo as Sniper B.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey E <span class="path-pill">2/0/4</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">round 55&ndash;60</span></div><p class="build-detail">Deadly Precision + Full Auto Rifle &mdash; another stack of the same, since Military Only doesn't give you many other damage options left to spend on.</p></div></div>
           </div>
         </div>
       </div>
@@ -1241,25 +1532,23 @@
 
       <div class="build-card common">
         <div class="build-head">
-          <p class="build-title">Round 80 &mdash; Sun Avatar + Tech Terror or Prince of Darkness backup</p>
+          <p class="build-title">Round 80 &mdash; Hard</p>
           <span class="common-badge">Most common</span>
         </div>
-        <p class="build-sub">By round 80 budget is around $80&ndash;100k on a Hard-difficulty run. Most Super Monkey builds pair the Avatar with a second independent win condition rather than pushing toward Sun Temple, which isn't affordable yet. Ordered by when you'd actually place each one.</p>
+        <p class="build-sub">Rebuilt around the BTD6 Tower Tier List doc (see Sources tab) instead of a Sun Avatar centerpiece &mdash; Hard's $80&ndash;100k round-80 budget goes further on doc-rated S/A-tier picks: a crowd-control Glue Gunner, an Alchemist buffing a budget core, and a safety-net Spike Factory, rather than saving the whole game for one expensive tower. Ordered by actual play order; several towers get a cheap first stage and get finished later.</p>
         <div class="build-rows">
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Place immediately, leveling toward its strongest abilities by now.</p></div></div>
-          <div class="build-row"><span class="build-count">2</span><div class="build-info"><div class="build-headline"><span class="build-tower">Dart Monkey <span class="path-pill">0/2/0</span></span><span class="build-role-tag tag dps">dps</span><span class="build-timing">round 1&ndash;20</span></div><p class="build-detail">Cheap early filler, hits regular bloons while your cores aren't online yet.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Tack Shooter <span class="path-pill">0/2/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 1&ndash;20</span></div><p class="build-detail">Cheap 360&deg; coverage for groups, holds the line until your real damage shows up.</p></div></div>
-          <div class="build-row" data-role="camo-filler" data-count="2"><span class="build-count">2</span><div class="build-info"><div class="build-headline"><span class="build-tower">Ninja Monkey <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">need by round 24</span></div><p class="build-detail">Cheap, covers camo for both cores &mdash; no DDTs to prep for since this game ends at round 80.</p><p class="hero-override"></p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang <span class="path-pill">0/0/2</span></span><span class="build-role-tag tag lead">lead</span><span class="build-timing">need by round 28</span></div><p class="build-detail">Red Hot Rangs &mdash; the minimum needed to pop Lead. No need to upgrade it further since the Sniper below handles MOAB duty instead.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey <span class="path-pill">low tier</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">need by round 40</span></div><p class="build-detail">Stalls the round 40 MOAB, then scales up toward 5/2/0 Cripple MOAB for round 60/76 pressure &mdash; one tower covers MOAB duty all game, no second Boomerang needed.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 45&ndash;55</span></div><p class="build-detail">Berserker Brew, buffing your first core as it comes online.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Super Monkey <span class="path-pill">3/2/0</span></span><span class="build-role-tag tag core">core 1</span><span class="build-timing">round 50&ndash;60</span></div><p class="build-detail">Sun Avatar, fully buffed by your Alchemist.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner <span class="path-pill">0/2/3</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 63</span></div><p class="build-detail">MOAB Glue, needed for round 63/75/78 Ceramic rushes.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Ice Monkey <span class="path-pill">low tier</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 63</span></div><p class="build-detail">Slows and groups bloons for both cores to clean up.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Wizard Monkey <span class="path-pill">0/2/5</span></span><span class="build-role-tag tag core">core 2</span><span class="build-timing">round 60&ndash;70</span></div><p class="build-detail">Prince of Darkness, or a 2nd Super Monkey toward Tech Terror (0/4/2) &mdash; covers what the Avatar struggles with.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Druid <span class="path-pill">low tier</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 76</span></div><p class="build-detail">Extra group damage and crowd control during dense waves.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Monkey Village <span class="path-pill">0/2/3</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 70&ndash;78</span></div><p class="build-detail">Camo and pop-any-bloon for both cores &mdash; earns its cost by now.</p></div></div>
-          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Spike Factory <span class="path-pill">low tier</span></span><span class="build-role-tag tag safety">safety net</span><span class="build-timing">round 75&ndash;80</span></div><p class="build-detail">At the exit, catches stray leaks before the round 80 ZOMG.</p></div></div>
+          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Striker Jones &mdash; even without a Bomb/Mortar-centric defense, his range/pierce buffs and Concussive Shell still add value against round 40's MOAB and 76/78's Ceramics.</p></div></div>
+          <div class="build-row" data-role="camo-filler" data-count="2"><span class="build-count">2</span><div class="build-info"><div class="build-headline"><span class="build-tower">Ninja Monkey <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">need by round 24</span></div><p class="build-detail">Cheap, built-in camo &mdash; no DDTs to prep for since Hard ends at round 80.</p><p class="hero-override"></p></div></div>
+          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">need by round 28</span></div><p class="build-detail">Base, unupgraded Alchemist already pops Lead on its own &mdash; covers round 28 for free, saving the lead-popping cost a dedicated tower would need.</p></div></div>
+          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Tack Shooter <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 1&ndash;30</span></div><p class="build-detail">Cheap 360&deg; filler, holds the line on regular bloons before it's upgraded into real Ceramic control.</p></div></div>
+          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang, stage 1 <span class="path-pill">0/0/2</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">need by round 40</span></div><p class="build-detail">Cheap bottom-path knockback &mdash; a budget answer for round 40's first MOAB while you save toward its finished upgrade.</p></div></div>
+          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, stage 1 <span class="path-pill">0/1/1</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">round 30&ndash;40</span></div><p class="build-detail">Cheap early slow (tier 1 each on mid/bottom) &mdash; MOAB Glue itself (bottom tier 3) is a few thousand, too pricey for a first stage. This softens groups while you save for the finished CC upgrade below.</p></div></div>
+          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, stage 2 <span class="path-pill">2/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 45&ndash;52</span></div><p class="build-detail">Partial Berserker Brew &mdash; a budget step up from base, already buffing the growing Boomerang core while you save for the full version later.</p></div></div>
+          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang, finished <span class="path-pill">0/0/4</span></span><span class="build-role-tag tag core">core dps</span><span class="build-timing">round 52&ndash;60</span></div><p class="build-detail">MOAB Domination &mdash; doc-rated A-tier, a budget-friendly tier 5 that holds up on most maps without needing a second core tower; buffed by the Alchemist above.</p></div></div>
+          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Tack Shooter, finished <span class="path-pill">2/0/5</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">need by round 63</span></div><p class="build-detail">Tack Zone &mdash; doc-rated A--tier, can lock down half the map on its own for the round 63/76/78 Ceramic rushes.</p></div></div>
+          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, finished <span class="path-pill">0/1+/3</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 63</span></div><p class="build-detail">Relentless/Super Glue &mdash; doc-rated S-tier CC, chain-stuns MOAB-class hard and holds back the dense 63/76/78 waves until Tack Zone and the Boomerang core finish them off.</p></div></div>
+          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 65&ndash;70</span></div><p class="build-detail">Full Berserker Brew, same Alchemist as above &mdash; topped off now that the Boomerang core is finished, since that's the tower getting the most value out of the extra buff.</p></div></div>
+          <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Spike Factory <span class="path-pill">1/0/5</span></span><span class="build-role-tag tag safety">safety net</span><span class="build-timing">round 70&ndash;80</span></div><p class="build-detail">Perma Spike &mdash; doc-rated S--tier, the universal cleanup at the exit that catches anything the rest of the build leaks before round 80's ZOMG.</p></div></div>
         </div>
       </div>
     </div>
@@ -1289,7 +1578,7 @@
       <p class="combo-desc" style="margin-bottom:20px">A maxed True Sun God costs $200k+ in upgrades and sacrifices &mdash; more than CHIMPS earns in total by round 100 ($178,994). So a Super Monkey build for CHIMPS rounds 90&ndash;100 realistically means tier 2&ndash;4 upgrades (Plasma Blasts, Sun Avatar, Tech Terror), not the full Sun God line.</p>
 
       <div class="build-card">
-        <p class="build-title">Round 100 &mdash; Sun Avatar/Tech Terror as one of 2&ndash;3 win conditions</p>
+        <p class="build-title">Round 100 &mdash; CHIMPS</p>
         <p class="build-sub">True Sun God almost never appears in a CHIMPS round 100 clear &mdash; it's a freeplay/farming-mode tower. The Super Monkey's role here is as one strong piece among 2&ndash;3 total win conditions, not the centerpiece alone. Ordered by when you'd actually place each one.</p>
         <div class="build-rows">
           <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Level 20 by round 100, a major contributor by this point.</p></div></div>
@@ -1320,31 +1609,18 @@
   </section>
 
   <section id="panel-heroes" class="panel">
-    <p class="note">Only one hero per game, but place one almost always &mdash; even a weak hero levels up for free and eventually outpaces most towers. Picking the right one just changes how much it carries. Rankings below merge two sources that genuinely disagree in places &mdash; noted where that happens.</p>
-    <p class="note">Heads up: one of the two sources ranks heroes specifically for round-100 CHIMPS runs. That skews some placements &mdash; Sauda and Benjamin in particular land lower than they'd realistically be for a shorter Easy/Medium run, since Sauda's penalty is a late-game nerf she never lives long enough to feel, and Benjamin's penalty (no income in CHIMPS) doesn't apply outside that mode. Likewise, Adora and Corvus lean on long leveling curves that pay off only if the game runs long enough to reach them.</p>
+    <p class="note">Only one hero per game, but place one almost always &mdash; even a weak hero levels up for free and eventually outpaces most towers. Tiers below come from the same BTD6 Tower Tier List doc as the Tier List tab (see Sources tab) &mdash; it ranks heroes alongside tower paths in one unified S&ndash;F scale. Dan D'Monke isn't covered by that doc; his entry is kept from earlier research.</p>
 
     <div class="tier-row">
-      <div class="tier-badge s">S</div>
+      <div class="tier-badge s">S-</div>
       <div class="tier-towers">
         <div class="t-card">
           <p class="name">Brickell</p>
-          <p class="sub">Simple, powerful, and scales with skill &mdash; the same boat/sub strategy works whether you're a beginner or stacking advanced mine tricks. Considered by experienced CHIMPS players to be the single best round-100 hero in the game.</p>
-          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag dps">dps</span></div>
-        </div>
-        <div class="t-card">
-          <p class="name">Psi</p>
-          <p class="sub">Strong across the whole game &mdash; stuns help against DDTs, the scream ability clears dense and fast rounds, and round 40 is one of the easiest in the game with Psi. Global range crowd control that shreds dense waves.</p>
-          <div class="t-tags"><span class="tag camo">camo</span><span class="tag slow">slow</span></div>
+          <p class="sub">Good earlygame that buffs Monkey Sub, one of the strongest earlygame towers; stacked Mega Mines have huge DPS potential but can trigger dangerous MOAB/ceramic rushes if overdone. Level 17 also gives her solid single-target pistol damage.</p>
         </div>
         <div class="t-card">
           <p class="name">Corvus</p>
-          <p class="sub">Widely considered the strongest hero in the game when played optimally, but with a genuinely unpleasant, attention-heavy playstyle &mdash; experienced players still avoid using him by choice despite his ceiling.</p>
-          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag dps">dps</span></div>
-        </div>
-        <div class="t-card">
-          <p class="name">Geraldo</p>
-          <p class="sub">Shop-based item system gives him no real weaknesses &mdash; adapts to any map or mode, and is one of the best safety nets against round 100 specifically.</p>
-          <div class="t-tags"><span class="tag support">support</span><span class="tag dps">dps</span></div>
+          <p class="sub">Extremely powerful at every stage since he runs on mana, not your money &mdash; just keep him near bloons to keep mana flowing. High-level play can reach level 20 by round 95, but demands constantly casting spells; playing him passively is weaker but still viable.</p>
         </div>
       </div>
     </div>
@@ -1353,20 +1629,38 @@
       <div class="tier-badge a">A</div>
       <div class="tier-towers">
         <div class="t-card">
-          <p class="name">Obyn Greenfoot</p>
-          <p class="sub">Best free hero. Strong Druid synergy, and his cleanup against DDTs is excellent even without a Druid-heavy build.</p>
-        </div>
-        <div class="t-card">
           <p class="name">Striker Jones</p>
-          <p class="sub">Niche-locked to Bomb Shooter and Mortar strategies, but every one of those niche strategies he supports is genuinely strong &mdash; no dead synergies.</p>
+          <p class="sub">Fires too slowly to shine early, but his level 3 ability shuts down a lane of round 63 and wrecks 76/78; outside Bomb/Mortar strategies, his Concussive Shell and range/pierce buffs still add value.</p>
         </div>
         <div class="t-card">
-          <p class="name">Etienne</p>
-          <p class="sub">Mediocre very early, excellent once his UCAV unlocks at level 10 with global camo detection and strong cleanup. Weaker on maps with very long, exposed leak paths.</p>
+          <p class="name">Psi</p>
+          <p class="sub">Instantly kills most earlygame bloons and his level 3 stun clumps groups for easy cleanup; level 14/16 power spikes crush MOAB density lategame, but he deals no BAD damage so needs a T5 like MOAB Eliminator alongside him.</p>
         </div>
         <div class="t-card">
           <p class="name">Rosalia</p>
-          <p class="sub">Jetpack mobility, strong stalling and damage if you're willing to micromanage her actively &mdash; less appealing if you want a low-maintenance hero.</p>
+          <p class="sub">High-damage laser carries the earlygame without needing camo detection; her moab-knockback laser is the real lategame value for stalling, with Kinetic Charge as a strong round 98/100 finisher.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-row">
+      <div class="tier-badge a">A-</div>
+      <div class="tier-towers">
+        <div class="t-card">
+          <p class="name">Geraldo</p>
+          <p class="sub">Glue, pickles, and turrets make for a strong earlygame. Most of his kit is a band-aid for specific hard rounds rather than constant value, so don't overspend on items and let his Pet Bunny do the lategame attacking.</p>
+        </div>
+        <div class="t-card">
+          <p class="name">Obyn Greenfoot</p>
+          <p class="sub">Strong vs early rounds, but can't be afforded by round 6 and his main attack falls off quickly after. Totems' MOAB slowdown and synergy with top-path Druids (level 18 unlocks Total Transformation on Druids of Wrath) make him a strong Druid-strategy pick.</p>
+        </div>
+        <div class="t-card">
+          <p class="name">Etienne</p>
+          <p class="sub">Weak until his drones get a real boost at level 7/9; UCAV gives decent grouped DPS and a big range buff at level 16, but Perma-UCAV eats into end-of-round stall time other towers rely on.</p>
+        </div>
+        <div class="t-card">
+          <p class="name">Gwendolin</p>
+          <p class="sub">Cocktail covers the earlygame and doubles as midgame ceramic cleanup when alched; Heat It Up's consistent lead-popping and ramping burn damage on MOABs is the main reason to run her.</p>
         </div>
       </div>
     </div>
@@ -1374,28 +1668,33 @@
     <div class="tier-row">
       <div class="tier-badge b">B</div>
       <div class="tier-towers">
-        <div class="t-card"><p class="name">Sauda</p><p class="sub">Still strong, especially on easier maps, but a real attack-speed nerf softened her late-game relative to where she used to sit. Built-in camo detection remains valuable.</p></div>
-        <div class="t-card"><p class="name">Silas</p><p class="sub">Was briefly S-tier due to a bug overstating his MOAB-slow effect; now back to a solid but unspectacular pick, strongest paired with Ice Monkeys.</p></div>
-        <div class="t-card"><p class="name">Gwendolin</p><p class="sub">Jack of all trades &mdash; her early-game lead-detection cocktail and lead-damage buff for DDTs are genuinely underrated; nothing she does is best-in-class, but nothing is weak either.</p></div>
-        <div class="t-card"><p class="name">Adora</p><p class="sub">Hit hard by a nerf to her signature ability; viable but no longer a standout. Strong specifically against DDTs and as very late-game cleanup once leveled.</p></div>
-        <div class="t-card"><p class="name">Quincy</p><p class="sub">The free starter hero. Outclassed in optimal play, but easy to use and genuinely better in casual or debuff-heavy strategies than his reputation suggests.</p></div>
-        <div class="t-card"><p class="name">Dan D'Monke</p><p class="sub">Flexible dual-form support/DPS hero; solid but unspectacular, good Reposition utility.</p></div>
+        <div class="t-card"><p class="name">Quincy</p><p class="sub">Decent earlygame, but struggles vs dense regular bloons and can't damage DDTs at all; works as a supporting damager all game, most effective in the 90s paired with Glue Strike or Permanent Brew.</p></div>
+        <div class="t-card"><p class="name">Captain Churchill</p><p class="sub">Affordable as early as round 24&ndash;30 with a strong earlygame; pair with a slow tower to clump targets for his low-attack-speed cannons. A lategame buff now lets him solo every ZOMG layer in the game.</p></div>
+        <div class="t-card"><p class="name">Ezili</p><p class="sub">Weak earlygame, but very good MOAB DPS from level 6 on, and Hex can clear the insides of up to 24 MOABs when timed well. Her level 20 round-100 insurance is unusually cheap on expert maps.</p></div>
+        <div class="t-card"><p class="name">Adora</p><p class="sub">High-pierce homing projectiles give a good earlygame, but she's intentionally weak midgame while you bank Blood Sacrifice fodder for her level 20 lategame spike &mdash; recent nerfs hurt that spike's killing power.</p></div>
+        <div class="t-card"><p class="name">Silas</p><p class="sub">Infuriating but solid earlygame thanks to his attack's randomness; rushing tier-3 Ice Monkeys gets him to level 20 early, after which his rotating ice shards pair extremely well with MOAB freezers.</p></div>
+        <div class="t-card"><p class="name">Dan D'Monke</p><p class="sub">Flexible dual-form support/DPS hero; solid but unspectacular, good Reposition utility. Not covered by the current tier doc &mdash; placement kept from earlier research.</p></div>
+      </div>
+    </div>
+
+    <div class="tier-row">
+      <div class="tier-badge b">B-</div>
+      <div class="tier-towers">
+        <div class="t-card"><p class="name">Sauda</p><p class="sub">Can leak against big single bloons like Purples/Zebras early. Her damage leans entirely on prey effects from stunned/slowed bloons (Relentless Glue activates it well), and she's generally outclassed by strategies favoring high range, which she lacks.</p></div>
       </div>
     </div>
 
     <div class="tier-row">
       <div class="tier-badge c">C</div>
       <div class="tier-towers">
-        <div class="t-card"><p class="name">Captain Churchill</p><p class="sub">Map-dependent and slow to ramp up, but his round-100-targeted ability does real damage at higher levels &mdash; fun rather than optimal for most maps.</p></div>
-        <div class="t-card"><p class="name">Pat Fusty</p><p class="sub">Fallen behind as newer crowd-control options outclassed his signature buff. Shortest range of any hero makes positioning him on harder maps difficult.</p></div>
-        <div class="t-card"><p class="name">Ezili</p><p class="sub">Has one or two genuinely powerful abilities, but is often an active liability in the early game and requires a narrow set of synergies to be worth using at all.</p></div>
+        <div class="t-card"><p class="name">Pat Fusty</p><p class="sub">Nothing special early beyond strong round-40 knockback. His level 3 damage buff is excellent on low-damage/high-speed towers like Grandmaster Ninja or Tack Zone, but his short range hurts on maps with multiple separate lanes.</p></div>
       </div>
     </div>
 
     <div class="tier-row">
-      <div class="tier-badge d">D</div>
+      <div class="tier-badge c">C-</div>
       <div class="tier-towers">
-        <div class="t-card"><p class="name">Benjamin</p><p class="sub">Actively loses you money in CHIMPS specifically, since income generation is disabled &mdash; useful almost nowhere except very specific late-round timing tricks.</p></div>
+        <div class="t-card"><p class="name">Benjamin</p><p class="sub">Lower levels are worthless with income/life generation disabled. His level 10 ability can delete huge amounts of RBE on the hardest rounds (at the cost of losing the money from the downgrade), making him a niche pick for towers that struggle vs density, like Perma-Spike.</p></div>
       </div>
     </div>
   </section>
@@ -1451,6 +1750,32 @@
     <p class="combo-desc">Past round 100, rounds 101&ndash;140 keep escalating with stacked properties (Fortified Camo Regrow combinations becoming standard) before settling into a repeating pattern. Round 140 ends with a Fortified BAD and a regular BAD together. After round 140, rounds are randomly generated from the available bloon pool, with a few fixed exceptions (round 163 echoes round 63 with Ceramics and Fortified Leads only; round 200 spawns exactly two Fortified BADs). This is Freeplay/Chimps-extended territory, well beyond what a standard CHIMPS clear requires.</p>
   </section>
 
+  <section id="panel-sources" class="panel">
+    <p class="note">Every link used while researching or fact-checking this site, kept here so any tier/build can be traced back and re-verified later. The Google Doc is the primary reference for the Tier List tab specifically &mdash; treat it as the most authoritative source when it conflicts with anything else here.</p>
+
+    <div class="source-group">
+      <p class="source-group-title">Primary reference</p>
+      <ul class="source-list">
+        <li><a href="https://docs.google.com/document/d/1O7fgbjmgJUcNSQ-cBrQvebbj_MnA8DAlh5h1tjMyGw4/" target="_blank" rel="noopener">BTD6 Tower Tier List doc (Google Doc)</a> &mdash; per-path S&ndash;F tier ranking, drives the current Tier List tab and hero rankings.</li>
+      </ul>
+    </div>
+
+    <div class="source-group">
+      <p class="source-group-title">Game mode guides</p>
+      <ul class="source-list">
+        <li><a href="https://bloons.fandom.com/wiki/Military_Monkeys_Only" target="_blank" rel="noopener">Military Only &ndash; Bloons Wiki</a></li>
+        <li><a href="https://basicallyaverage.com/middle-of-the-road-military-only-btd6-guide/" target="_blank" rel="noopener">Middle of the Road Military Only Guide &ndash; Basically Average</a></li>
+      </ul>
+    </div>
+
+    <div class="source-group">
+      <p class="source-group-title">General tier lists</p>
+      <ul class="source-list">
+        <li><a href="https://btd6apk.com/btd6-tower-tier-list/" target="_blank" rel="noopener">BTD6 Tower Tier List 2026 &ndash; btd6apk.com</a></li>
+      </ul>
+    </div>
+  </section>
+
   <footer>
     Based on community consensus across BTD6 wikis, guides, and forums. Meta shifts with patches &mdash; verify against the latest balance notes for competitive play.
   </footer>
@@ -1468,10 +1793,11 @@
   });
 
   var activeFilters = [];
+  var activeTowerFilters = [];
 
   function applyFilters(){
     var cards = document.querySelectorAll('#panel-tiers .t-card');
-    if (activeFilters.length === 0){
+    if (activeFilters.length === 0 && activeTowerFilters.length === 0){
       cards.forEach(function(card){
         card.classList.remove('filter-dim', 'filter-match');
       });
@@ -1481,13 +1807,17 @@
       var cardTags = Array.prototype.map.call(card.querySelectorAll('.t-tags .tag'), function(t){
         return t.classList[1];
       });
-      var matches = activeFilters.some(function(f){ return cardTags.indexOf(f) !== -1; });
+      var roleMatch = activeFilters.length === 0 || activeFilters.some(function(f){ return cardTags.indexOf(f) !== -1; });
+      var nameEl = card.querySelector('.name');
+      var cardTower = nameEl ? nameEl.textContent.trim().toLowerCase() : '';
+      var towerMatch = activeTowerFilters.length === 0 || activeTowerFilters.indexOf(cardTower) !== -1;
+      var matches = roleMatch && towerMatch;
       card.classList.toggle('filter-match', matches);
       card.classList.toggle('filter-dim', !matches);
     });
   }
 
-  document.querySelectorAll('.filter-btn').forEach(function(btn){
+  document.querySelectorAll('.filter-btn[data-filter]').forEach(function(btn){
     btn.addEventListener('click', function(){
       var f = btn.dataset.filter;
       var idx = activeFilters.indexOf(f);
@@ -1502,9 +1832,30 @@
     });
   });
 
+  document.querySelectorAll('.filter-btn[data-tower]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var t = btn.dataset.tower;
+      var idx = activeTowerFilters.indexOf(t);
+      if (idx === -1){
+        activeTowerFilters.push(t);
+        btn.classList.add('active');
+      } else {
+        activeTowerFilters.splice(idx, 1);
+        btn.classList.remove('active');
+      }
+      applyFilters();
+    });
+  });
+
   document.getElementById('filter-clear').addEventListener('click', function(){
     activeFilters = [];
-    document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.filter-btn[data-filter]').forEach(function(b){ b.classList.remove('active'); });
+    applyFilters();
+  });
+
+  document.getElementById('filter-clear-tower').addEventListener('click', function(){
+    activeTowerFilters = [];
+    document.querySelectorAll('.filter-btn[data-tower]').forEach(function(b){ b.classList.remove('active'); });
     applyFilters();
   });
 
@@ -1522,62 +1873,124 @@
 
   var heroEffects = {
     sauda: {
-      note: "Sauda has built-in camo detection from level 1 — the dedicated camo Ninjas below aren't needed.",
+      camo: { yes: true, text: "Built-in from level 1." },
+      lead: { yes: false, text: "No." },
+      extra: "The dedicated camo Ninjas below aren't needed.",
       skips: {
         'camo-filler': "Skipped — Sauda already sees camo bloons from level 1, no dedicated camo tower needed here."
       }
     },
     psi: {
-      note: "Psi has built-in camo detection from level 1 — the dedicated camo Ninjas below aren't needed. Her stun also helps against DDTs, though not enough to skip the dedicated DDT tool.",
+      camo: { yes: true, text: "Built-in from level 1." },
+      lead: { yes: false, text: "No." },
+      extra: "Her stun also helps against DDTs, though not enough to skip a dedicated DDT tool.",
       skips: {
         'camo-filler': "Skipped — Psi already sees camo bloons from level 1, no dedicated camo tower needed here."
       }
     },
     silas: {
-      note: "Silas has built-in camo detection from level 1 — the dedicated camo Ninjas below aren't needed.",
+      camo: { yes: true, text: "Built-in from level 1." },
+      lead: { yes: false, text: "No." },
       skips: {
         'camo-filler': "Skipped — Silas already sees camo bloons from level 1, no dedicated camo tower needed here."
       }
     },
     ezili: {
-      note: "Ezili innately detects camo AND pops Lead from level 1 — and her curse can even pop DDTs on her own. The camo Ninjas, lead Boomerang, and dedicated DDT Ninja below are all skippable.",
+      camo: { yes: true, text: "Built-in from level 1." },
+      lead: { yes: true, text: "From level 1." },
+      extra: "Her curse can even pop DDTs on her own.",
       skips: {
         'camo-filler': "Skipped — Ezili sees camo bloons from level 1, no dedicated camo tower needed here.",
         'ddt-helper': "Optional — Ezili can curse and pop DDTs on her own from early on, though a dedicated DDT tool still helps against the round 95/99 rush volume."
       }
     },
     obyn: {
-      note: "Obyn's Wall of Trees destroys camo bloons and his Brambles can pop Lead at level 16 — and both abilities handle most DDTs on their own. The dedicated DDT Ninja below is optional, not required.",
+      camo: { yes: false, text: "No built-in sight, but Wall of Trees destroys camo bloons on contact." },
+      lead: { yes: true, text: "From level 1 (Brambles adds more at level 16)." },
+      extra: "Handles most DDTs on his own via ability cleanup.",
       skips: {
         'ddt-helper': "Optional — Obyn's own ability cleanup often covers DDTs without a dedicated Bloon Sabotage Ninja."
       }
     },
     etienne: {
-      note: "Etienne gains camo detection himself at level 5, then grants camo detection to ALL towers on the map at level 8 — the dedicated camo Ninjas below become fully redundant once that's online.",
+      camo: { yes: true, text: "Gains it himself at level 5, then grants it to EVERY tower on the map at level 8." },
+      lead: { yes: false, text: "No." },
       skips: {
         'camo-filler': "Skipped once Etienne hits level 8 — he grants camo detection to every tower on the map from then on."
       }
     },
     quincy: {
-      note: "Quincy gains camo detection at hero level 5 — easily hit well before round 24, so the dedicated camo Ninjas below aren't needed.",
+      camo: { yes: true, text: "Gains it at level 5 — well before round 24." },
+      lead: { yes: false, text: "No." },
       skips: {
         'camo-filler': "Skipped — Quincy sees camo bloons himself from level 5 onward, reached well before round 24."
       }
     },
     gwendolin: {
-      note: "Gwendolin buffs lead damage map-wide via her Cocktail/Heated Up effect, which helps a lot against DDTs specifically — but she doesn't see camo herself, so this doesn't replace dedicated camo detection.",
+      camo: { yes: false, text: "Doesn't see camo herself." },
+      lead: { yes: true, text: "From level 1, and her Cocktail/Heat It Up buffs Lead damage map-wide on top of that." },
       skips: {}
     },
     striker: {
-      note: "Striker Jones makes Black Bloons (including DDTs) vulnerable to explosive damage, which helps if your defense leans on Bomb Shooters or Mortars — but he doesn't see camo himself, so no rows are skipped.",
+      camo: { yes: false, text: "No." },
+      lead: { yes: true, text: "From level 1." },
+      extra: "Also makes Black Bloons (including DDTs) vulnerable to explosive damage, which helps if your defense leans on Bomb Shooters or Mortars.",
+      skips: {}
+    },
+    brickell: {
+      camo: { yes: false, text: "No." },
+      lead: { yes: true, text: "Her Mega Mines pop Lead; her main pistol attack doesn't." },
+      extra: "Buffs Monkey Sub and deals heavy single-target/area damage once mines stack up.",
+      skips: {}
+    },
+    corvus: {
+      camo: { yes: false, text: "No." },
+      lead: { yes: false, text: "No." },
+      extra: "Runs on mana instead of cash for every spell — doesn't interact with camo or lead detection at all.",
+      skips: {}
+    },
+    geraldo: {
+      camo: { yes: false, text: "No." },
+      lead: { yes: false, text: "No — his items buff and support nearby towers rather than popping anything himself." },
+      skips: {}
+    },
+    rosalia: {
+      camo: { yes: false, text: "No — explicitly her main earlygame weakness." },
+      lead: { yes: false, text: "No." },
+      skips: {}
+    },
+    adora: {
+      camo: { yes: false, text: "No." },
+      lead: { yes: true, text: "From level 1 (her homing Ball of Light pops it)." },
+      skips: {}
+    },
+    churchill: {
+      camo: { yes: false, text: "No." },
+      lead: { yes: true, text: "Not from the start — level 3 is when both attacks gain the ability to damage any bloon type, including Lead." },
+      skips: {}
+    },
+    pat: {
+      camo: { yes: false, text: "No." },
+      lead: { yes: true, text: "From level 1." },
+      skips: {}
+    },
+    benjamin: {
+      camo: { yes: false, text: "No." },
+      lead: { yes: false, text: "No." },
+      extra: "Pure economy/RBE-deletion hero — actively costs you money in CHIMPS specifically since income generation is disabled there.",
+      skips: {}
+    },
+    dand: {
+      camo: { yes: false, text: "No confirmed trait." },
+      lead: { yes: false, text: "No confirmed trait." },
+      extra: "Not covered by the current tier doc, so treat this as the generic build.",
       skips: {}
     },
     other: {
-      note: "No specific adjustments known for this hero yet — showing the generic build.",
+      extra: "No specific adjustments known for this hero yet — showing the generic build.",
       skips: {}
     },
     none: {
-      note: "",
       skips: {}
     }
   };
@@ -1585,7 +1998,19 @@
   function applyHeroEffects(){
     var heroKey = document.getElementById('hero-select').value;
     var effect = heroEffects[heroKey] || heroEffects.none;
-    document.getElementById('hero-note').textContent = effect.note;
+    var noteEl = document.getElementById('hero-note');
+    var html = '';
+    if (effect.camo) {
+      html += '<div class="hero-note-row ' + (effect.camo.yes ? 'yes' : 'no') + '"><span class="hero-note-label">Camo</span><span class="hero-note-text">' + effect.camo.text + '</span></div>';
+    }
+    if (effect.lead) {
+      html += '<div class="hero-note-row ' + (effect.lead.yes ? 'yes' : 'no') + '"><span class="hero-note-label">Lead</span><span class="hero-note-text">' + effect.lead.text + '</span></div>';
+    }
+    if (effect.extra) {
+      html += '<div class="hero-note-extra">' + effect.extra + '</div>';
+    }
+    noteEl.innerHTML = html;
+    noteEl.classList.toggle('show', html !== '');
 
     document.querySelectorAll('.build-row[data-role]').forEach(function(row){
       var role = row.dataset.role;
