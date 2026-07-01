@@ -14,14 +14,20 @@
     --text:#e9edf2;
     --text-dim:#9aa6b2;
     --text-faint:#69757f;
-    --s:#7fb069;
-    --s-bg:rgba(127,176,105,0.12);
-    --a:#e0a458;
-    --a-bg:rgba(224,164,88,0.1);
+    --s:#e0a458;
+    --s-bg:rgba(224,164,88,0.12);
+    --a:#b18ce0;
+    --a-bg:rgba(177,140,224,0.12);
     --b:#5a93c2;
     --b-bg:rgba(90,147,194,0.1);
-    --c:#7d8694;
-    --c-bg:rgba(125,134,148,0.08);
+    --c:#7fb069;
+    --c-bg:rgba(127,176,105,0.12);
+    --d:#9aa6b2;
+    --d-bg:rgba(154,166,178,0.10);
+    --f:#e06a6a;
+    --f-bg:rgba(224,108,108,0.12);
+    --accent:#9fc88a;
+    --accent-bg:rgba(127,176,105,0.12);
     --mono: "SF Mono", "Roboto Mono", Consolas, monospace;
   }
   *{box-sizing:border-box}
@@ -217,8 +223,9 @@
   .tier-badge.a{background:var(--a-bg);color:var(--a)}
   .tier-badge.b{background:var(--b-bg);color:var(--b)}
   .tier-badge.c{background:var(--c-bg);color:var(--c)}
-  .tier-badge.d{background:rgba(224,108,108,0.12);color:#c97a7a}
-  .tier-badge.f{background:rgba(125,134,148,0.10);color:#7d8694}
+  .tier-badge.d{background:var(--d-bg);color:var(--d)}
+  .tier-badge.f{background:var(--f-bg);color:var(--f)}
+  .tier-badge.sm{min-width:26px;height:22px;font-size:11px;padding:0 5px;margin-top:0;border-radius:5px}
 
   .t-card-head{
     display:flex;
@@ -316,6 +323,18 @@
   .tag.carry{background:rgba(180,140,224,0.16);color:#c2a8e0}
   .tag.ceramic{background:rgba(180,140,224,0.16);color:#b89adb}
   .tag.fortified{background:rgba(224,164,88,0.16);color:#d9a25f}
+  .tag.beginner{background:rgba(127,176,105,0.16);color:#9fc88a}
+  .tag.intermediate{background:rgba(224,164,88,0.16);color:#e0a458}
+  .tag.expert{background:rgba(224,108,108,0.16);color:#e08a8a}
+  .tag.lowmicro{background:rgba(90,147,194,0.16);color:#7fb0d9}
+  .tag.highmicro{background:rgba(180,140,224,0.16);color:#c2a8e0}
+  .tag.water{background:rgba(90,147,194,0.16);color:#5a93c2}
+  .tag.singletrack{background:rgba(125,134,148,0.18);color:#a8b0bb}
+  .tag.budget{background:rgba(127,176,105,0.16);color:#7fb069}
+  .tag.safe{background:rgba(90,147,194,0.16);color:#7fb0d9}
+
+  .core-card.filter-dim{opacity:0.25}
+  .core-card.filter-match{opacity:1;border-color:var(--line-2)}
 
   .t-paths{
     margin:8px 0 0;
@@ -449,21 +468,21 @@
   }
   .core-card-head{
     display:flex;
-    align-items:baseline;
+    align-items:center;
     justify-content:space-between;
     gap:8px;
-    margin-bottom:8px;
+    margin-bottom:6px;
   }
   .core-title{
     font-size:14px;
     font-weight:700;
     margin:0;
   }
-  .core-rating{
-    font-size:12px;
-    color:#e0a458;
-    letter-spacing:0.05em;
-    flex-shrink:0;
+  .core-tags{
+    display:flex;
+    gap:4px;
+    flex-wrap:wrap;
+    margin:0 0 8px;
   }
   .core-row{
     display:flex;
@@ -577,8 +596,8 @@
     font-weight:700;
     letter-spacing:0.04em;
     text-transform:uppercase;
-    background:var(--s-bg);
-    color:var(--s);
+    background:var(--accent-bg);
+    color:var(--accent);
     padding:3px 8px;
     border-radius:5px;
   }
@@ -647,8 +666,8 @@
     font-size:10px;
     font-weight:700;
     letter-spacing:0.02em;
-    color:#9fc88a;
-    background:var(--s-bg);
+    color:var(--accent);
+    background:var(--accent-bg);
     border-radius:4px;
     padding:1px 6px;
     flex-shrink:0;
@@ -814,8 +833,8 @@
   .subtab-btn:hover{color:var(--text)}
   .subtab-btn.active{
     color:var(--text);
-    border-color:#9fc88a;
-    background:var(--s-bg);
+    border-color:var(--accent);
+    background:var(--accent-bg);
   }
   .subpanel{display:none}
   .subpanel.active{display:block}
@@ -1415,7 +1434,7 @@
         <div class="t-card">
           <div class="t-card-head"><p class="name">Alchemist</p><span class="path-tag bottom">BOTTOM</span></div>
           <div class="t-tags"><span class="tag lead">lead</span></div>
-          <div class="t-paths"><div class="t-path-row"><span class="path-pill">1/0/4</span><span class="path-desc">Lead to Gold is an awful DDT damager; Rubber to Gold's de-leading has rare-occasion use only</span></div></div>
+          <div class="t-paths"><div class="t-path-row"><span class="path-pill">1/0/4</span><span class="path-desc">Lead to Gold is an awful DDT damager; Rubber to Gold's de-leading has rare-occasion use only. Outside CHIMPS though, multiple community sources use this path purely for its passive cash generation &mdash; a no-farm income booster, not a damage pick, so don't read the D-tier as "useless"</span></div></div>
         </div>
       </div>
     </div>
@@ -1544,27 +1563,50 @@
 
       <div class="subtab-bar nested">
         <button class="subtab-btn active" data-subtab="medium-default">Default</button>
+        <button class="subtab-btn" data-subtab="medium-default2">Default 2</button>
         <button class="subtab-btn" data-subtab="medium-military">Military</button>
       </div>
 
       <div id="subpanel-medium-default" class="subpanel active">
         <div class="build-card">
           <p class="build-title">Round 60 &mdash; Medium</p>
-          <p class="build-sub">Built around the "Tack Zone + Perma Spike" core from the Strategies tab &mdash; Sauda, a Tack Zone carry, a Perma Spike safety net, and Alchemist/Village/Glue Gunner/Ice Monkey support. Medium's budget can't max every piece the way a full CHIMPS run could, so a few things are deliberately capped or skipped below. Ordered by actual play order; several towers get a cheap first stage and get finished later.</p>
+          <p class="build-sub">Sauda, an Alch-buffed Tack Shooter as the main AoE carry, and a Boomerang Monkey as the dedicated Ceramic answer &mdash; doc-rated as more effective than nearly every other ceramic-control tower near its price. Both Tack and Alch are deliberately capped below their tier-5/tier-4 maximums to keep the budget realistic on Medium. Glue and Village round out the CC and camo coverage. Ordered by actual play order; several towers get a cheap first stage and get finished later.</p>
           <div class="build-rows">
             <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Sauda &mdash; place immediately so she's already leveling well by round 60.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Tack Shooter, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 1&ndash;5</span></div><p class="build-detail">Placed first, before the Alchemist &mdash; this is your only damage early on, and waiting on Alchemist's placement cost first leaves rounds 4/5 with nothing actually popping bloons.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, stage 1 <span class="path-pill">0/1/1</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">round 5&ndash;15</span></div><p class="build-detail">Map placement matters here, not just build order: put this closer to the track entrance than your Tack Shooter/DPS towers, so bloons are already slowed before they reach your damage &mdash; not the other way around.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">need by round 28</span></div><p class="build-detail">Base, unupgraded Alchemist already pops Lead on its own &mdash; free upgrade-wise, just needs its placement cost covered after the Glue Gunner above.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Tack Shooter, upgraded <span class="path-pill">2/0/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">need by round 36</span></div><p class="build-detail">Extra pierce, same Tack Shooter as above &mdash; round 36 throws 140 Pink Bloons at you in 3 rushes, and a base Tack Shooter doesn't have the pierce to handle that volume. Cheap insurance before Tack Zone is ready.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, stage 2 <span class="path-pill">2/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 35&ndash;40</span></div><p class="build-detail">Partial Berserker Brew &mdash; a budget step that already buffs Tack Shooter, without committing the full cost yet.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Monkey Village, stage 1 <span class="path-pill">0/2/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing gate">need by round 40</span></div><p class="build-detail">Radar Scanner only, no Jungle Drums first &mdash; pushed behind the Alchemist's partial Brew above. This is later than round 33's real Camo Reds/Yellows wave, so Sauda is on her own for that one; this just needs to be online in time for the round 51 Camo Ceramics.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Tack Shooter, upgraded <span class="path-pill">2/0/4</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 40&ndash;44</span></div><p class="build-detail">Straight to one step short of Tack Zone, buffed by the partial Brew above &mdash; covers round 51's Camo Ceramics and round 59's Camo Lead wave with real pierce while you save for the full Tack Zone push.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 44&ndash;48</span></div><p class="build-detail">Full Berserker Brew, same Alchemist as above &mdash; doc-rated S-tier, buffing Tack Shooter directly as it grows into Tack Zone (Brew/Embrittlement synergy is called out on its own tier-list entry).</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Spike Factory, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag safety">safety net</span><span class="build-timing">round 48&ndash;52</span></div><p class="build-detail">Placed base, delayed behind the Alchemist now that everything more urgent is sorted &mdash; Perma Spike's spike pile still accumulates over time once it's down, so it doesn't need to go in early to be worth it.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, finished <span class="path-pill">0/1+/3</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 57</span></div><p class="build-detail">Relentless/Super Glue &mdash; doc-rated S-tier CC, the highest-rated support piece in this whole core. Chain-stuns the round 59/60 waves so Tack Shooter has more time to clean them up.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Spike Factory, upgraded <span class="path-pill">2/0/4</span></span><span class="build-role-tag tag safety">safety net</span><span class="build-timing">round 57&ndash;59</span></div><p class="build-detail">One tier short of full Perma Spike &mdash; that last jump still isn't realistic this late, and this is plenty for the last few rounds combined with the spike pile it's been building since round 48.</p></div></div>
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Tack Shooter, finished <span class="path-pill">2/0/5</span></span><span class="build-role-tag tag core">core dps</span><span class="build-timing">round 58&ndash;60</span></div><p class="build-detail">Tack Zone &mdash; doc-rated A--tier, the main carry, finished last now that the Glue Gunner and Spike Factory are both sorted.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Tack Shooter, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 1&ndash;5</span></div><p class="build-detail">Placed first &mdash; your only damage in the opening rounds while you save for everything else.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, stage 1 <span class="path-pill">0/1/1</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">round 5&ndash;15</span></div><p class="build-detail">Map placement matters here: put this closer to the track entrance than your Tack Shooter and Boomerang, so bloons are already slowed before they reach your damage &mdash; not the other way around.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">need by round 28</span></div><p class="build-detail">Base Alchemist already pops Lead on its own &mdash; free upgrade-wise, just needs its placement cost covered.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Tack Shooter, upgraded <span class="path-pill">2/0/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">need by round 36</span></div><p class="build-detail">Extra pierce &mdash; round 36 throws 140 Pink Bloons at you in 3 rushes and a base Tack Shooter doesn't have the volume to handle it.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Monkey Village <span class="path-pill">0/2/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing gate">hard gate &mdash; before round 33</span></div><p class="build-detail">Radar Scanner &mdash; Tack Shooter and Boomerang can't target Camo bloons without this. Sauda handles round 24's single Camo herself, but round 33's Camo Reds/Yellows wave is too much for her alone.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang Monkey, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 25&ndash;33</span></div><p class="build-detail">Placed early &mdash; Boomerang has solid base pierce from ricochet and needs to be building toward its finish before round 38's first Ceramics.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, stage 2 <span class="path-pill">2/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 33&ndash;38</span></div><p class="build-detail">Partial brew &mdash; starts buffing both Tack Shooter and Boomerang ahead of round 38's first Ceramics.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Boomerang Monkey, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">need by round 38</span></div><p class="build-detail">MOAB Press &mdash; doc-rated as more cost-effective against Ceramics than nearly any other tower at this price. Stun/knockback on hit gives Tack Shooter and Glue more time to finish what Boomerang hits.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Tack Shooter, finished <span class="path-pill">2/0/4</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 40&ndash;48</span></div><p class="build-detail">Medium ceiling &mdash; one tier short of Tack Zone but still strong with the Alchemist's brew running. Covers round 51's Camo Ceramics and round 59's Camo Lead wave.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, finished <span class="path-pill">3/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 48&ndash;54</span></div><p class="build-detail">Capped one tier short of Berserker Brew &mdash; frees budget compared to the full 4/2/0, still buffs both Tack Shooter and Boomerang with the brew it can throw.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, finished <span class="path-pill">0/1+/3</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">need by round 57</span></div><p class="build-detail">Relentless Glue &mdash; doc-rated S-tier CC. Chain-stuns the round 59/60 waves so Boomerang and Tack Shooter have more time to clear them.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Monkey Village, finished <span class="path-pill">2/3/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">if cash allows</span></div><p class="build-detail">Jungle Drums + MIB &mdash; MIB removes type immunities for all towers in range (Lead, Camo, Frozen). Doesn't add ceramic damage; mainly helps Camo Ceramics (all towers can now see them) and Lead-to-Ceramic transitions (towers that couldn't pop Lead can now get through to the layer underneath).</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="subpanel-medium-default2" class="subpanel">
+        <div class="build-card">
+          <p class="build-title">Round 60 &mdash; Medium</p>
+          <p class="build-sub">Built around the "Striker Jones + Biggest One" core from the Strategies tab &mdash; Jones buffs pierce and blast damage for all explosive towers, two Bomb Shooters carry Ceramic/bloon clearing with Recursive Cluster, and the Mortar's Big One handles heavy MOAB-class damage on top. Alchemist and Glue provide the standard buff/CC backbone. Hero can't be placed immediately (costs 700), so a Bomb Shooter goes down first for early damage. Ordered by actual play order.</p>
+          <div class="build-rows">
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Bomb Shooter A, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Placed before the hero &mdash; Striker Jones costs 700 and you start with less than that, so a base Bomb Shooter goes down first to start generating cash while you save up.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, stage 1 <span class="path-pill">0/1/1</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">round 3&ndash;8</span></div><p class="build-detail">Cheap early slow &mdash; place it upstream of the Bomb Shooter so bloons are already slowed before they reach the blast radius.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 4&ndash;8</span></div><p class="build-detail">Striker Jones &mdash; place as soon as you can afford him. His passive adds pierce to all explosive towers (Bomb Shooters, Mortar) for free, and his active ability concusses MOAB-class on demand.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">need by round 28</span></div><p class="build-detail">Base Alchemist pops Lead on its own with no upgrades &mdash; place it once you have the cash, well before round 28's first Lead bloon. Stays at base for a while; upgrades come later once the Bomb Shooters are sorted.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Bomb Shooter A, upgraded <span class="path-pill">0/2/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 15&ndash;25</span></div><p class="build-detail">Cluster Bombs &mdash; first real upgrade push on the same Bomb Shooter, adds submunition clusters for better multi-bloon clearing.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Monkey Village <span class="path-pill">0/2/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing gate">hard gate &mdash; before round 33</span></div><p class="build-detail">Radar Scanner &mdash; Bomb Shooters are range-targeting towers, they can't hit Camo bloons without camo detection. Must be online before round 33's Camo Reds/Yellows wave. Mortar doesn't need it (fires at a fixed map location, not a bloon), but the Bomb Shooters do.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Bomb Shooter A, finished <span class="path-pill">0/3/2</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 28&ndash;36</span></div><p class="build-detail">Recursive Cluster + Bloon Impact &mdash; Recursive Cluster fires bombs that split into sub-bombs, each of which splits again; devastating against Ceramics and dense waves. Bloon Impact stuns bloons on hit, giving everything else more time to finish them off.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Bomb Shooter B <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 36&ndash;40</span></div><p class="build-detail">Second Bomb Shooter placed base &mdash; immediately starts building toward its own 0/3/2 below, doubling the Recursive Cluster coverage ahead of round 40's MOAB and round 51's Camo Ceramics.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Mortar Monkey, stage 1 <span class="path-pill">0/2/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 38&ndash;44</span></div><p class="build-detail">Placed straight to Signal Flare (mid 2) &mdash; Signal Flare shells strip the Camo property off any bloon they hit, similar to Wizard's Shimmer but from a mortar. Mortar fires at a fixed map position rather than targeting a bloon, so it doesn't need Radar Scanner to hit Camo; it strips Camo for your Bomb Shooters instead.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Alchemist, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag support">support</span><span class="build-timing">round 40&ndash;46</span></div><p class="build-detail">Full Berserker Brew &mdash; doc-rated S-tier buff, now boosting both Bomb Shooters and the Mortar simultaneously, on top of Jones' passive pierce buff.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Bomb Shooter B, finished <span class="path-pill">0/3/2</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 44&ndash;50</span></div><p class="build-detail">Recursive Cluster + Bloon Impact, same path as Bomb Shooter A &mdash; second full cluster bomb online for the round 51 Camo Ceramics and round 59 Camo Lead wave.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Mortar Monkey, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag aoe">aoe</span><span class="build-timing">round 48&ndash;54</span></div><p class="build-detail">The Big One + Signal Flare &mdash; massive blast radius and damage, heavily buffed by both Jones and the Alchemist. Main MOAB-class answer alongside the Bomb Shooters' stun from Bloon Impact.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Glue Gunner, finished <span class="path-pill">0/2/3</span></span><span class="build-role-tag tag control">control</span><span class="build-timing">round 54&ndash;58</span></div><p class="build-detail">Same Glue Gunner as above &mdash; corrosive slow on top of Bloon Impact's stun, keeps bloons locked in the Bomb Shooters' blast range for the final push to round 60.</p></div></div>
           </div>
         </div>
       </div>
@@ -1574,7 +1616,7 @@
           <p class="build-title">Round 60 &mdash; Military</p>
           <p class="build-sub">This mode restricts you to the 7 Military-category towers (Sniper Monkey, Monkey Sub, Buccaneer, Monkey Ace, Heli Pilot, Mortar Monkey, Dartling Gunner) &mdash; no Primary, Magic, or Support, so no Village, Alchemist, Ninja, or Glue Gunner. Your selected Hero is still allowed. Grab the Military Conscription and Advanced Logistics Monkey Knowledge first if you have them &mdash; Military towers cost noticeably more than their counterparts. Ordered by actual play order.</p>
           <div class="build-rows">
-            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Quincy is the standard pick &mdash; strong single-target DPS while the pricier Military towers ramp up.</p></div></div>
+            <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Hero</span><span class="build-role-tag tag carry">carry</span><span class="build-timing">round 1&ndash;3</span></div><p class="build-detail">Place immediately &mdash; strong single-target DPS early helps while the pricier Military towers ramp up.</p></div></div>
             <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey, stage 1 <span class="path-pill">1/1/0</span></span><span class="build-role-tag tag camo">camo</span><span class="build-timing">need by round 24</span></div><p class="build-detail">Full Metal Jacket (top) + Night Vision Goggles (middle) on one Sniper &mdash; one point in each is enough to cover Camo (round 24) and Lead (round 28) together. The closest thing to a Village/Alchemist combo this mode allows.</p></div></div>
             <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Heli Pilot, stage 1 <span class="path-pill">0/0/0</span></span><span class="build-role-tag tag core">core</span><span class="build-timing">round 30&ndash;40</span></div><p class="build-detail">Placed base &mdash; scales into your main mobile DPS as you upgrade it. Camo here comes from the Sniper above, not the Heli yet; that comes once it's finished below.</p></div></div>
             <div class="build-row"><span class="build-count">1</span><div class="build-info"><div class="build-headline"><span class="build-tower">Sniper Monkey, finished <span class="path-pill">4/2/0</span></span><span class="build-role-tag tag moab">moab</span><span class="build-timing">need by round 40</span></div><p class="build-detail">Maim MOAB, same Sniper as above &mdash; stuns MOAB-class on hit, while the middle crosspath keeps Night Vision Goggles active for Camo and speeds up the reload.</p></div></div>
@@ -1689,37 +1731,55 @@
   </section>
 
   <section id="panel-strategies" class="panel">
-    <p class="note">Core CHIMPS strategies, not full builds &mdash; just Hero + Main Carry + Essential Support, the minimum that makes a strategy actually work. Every tower/path referenced here is the same one already on the Tier List tab, so the tiers and path-pills stay consistent across the site. Concept and pairings sourced from community write-ups; reconciled against the Tier List tab wherever the same tower/path appears there.</p>
+    <p class="note">Core CHIMPS strategies, not full builds &mdash; just Hero + Main Carry + Essential Support, the minimum that makes a strategy actually work. The badge on each card is the main carry's actual Tier List rating (not a star rating) &mdash; click a tag to filter by what fits your situation. Every tower/path referenced here is the same one already on the Tier List tab. Concept and pairings sourced from community write-ups; reconciled against the Tier List tab wherever the same tower/path appears there.</p>
+
+    <div class="filter-bar">
+      <span class="filter-label">Filter by fit:</span>
+      <button class="filter-btn tower-btn" data-stratfilter="beginner">beginner</button>
+      <button class="filter-btn tower-btn" data-stratfilter="intermediate">intermediate</button>
+      <button class="filter-btn tower-btn" data-stratfilter="expert">expert</button>
+      <button class="filter-btn tower-btn" data-stratfilter="lowmicro">low-micro</button>
+      <button class="filter-btn tower-btn" data-stratfilter="highmicro">high-micro</button>
+      <button class="filter-btn tower-btn" data-stratfilter="water">water</button>
+      <button class="filter-btn tower-btn" data-stratfilter="singletrack">single-track</button>
+      <button class="filter-btn tower-btn" data-stratfilter="budget">budget</button>
+      <button class="filter-btn tower-btn" data-stratfilter="safe">safe</button>
+      <button class="filter-clear" id="filter-clear-strat">clear</button>
+    </div>
 
     <div class="core-grid">
       <div class="core-card">
-        <div class="core-card-head"><p class="core-title">Sauda + Tack Zone</p><span class="core-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+        <div class="core-card-head"><p class="core-title">Prince of Darkness + Perma Spike</p><span class="tier-badge sm s">S-</span></div>
+        <div class="core-tags"><span class="tag beginner">beginner</span><span class="tag safe">safe</span></div>
+        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Sauda or Psi</span></div>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Wizard Monkey <span class="path-pill">x/x/5</span> (Prince of Darkness, B--tier) + Spike Factory <span class="path-pill">1/0/5</span> (Perma Spike, S--tier)</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Alchemist <span class="path-pill">4/x/x</span>, Sniper Monkey <span class="path-pill">4/2/0</span>, Glue Gunner <span class="path-pill">0/1+/3</span></span></div>
+        <p class="core-best">Best on: safest beginner-friendly late game.</p>
+      </div>
+
+      <div class="core-card">
+        <div class="core-card-head"><p class="core-title">Tack Zone + Perma Spike</p><span class="tier-badge sm s">S-</span></div>
+        <div class="core-tags"><span class="tag beginner">beginner</span><span class="tag safe">safe</span></div>
         <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Sauda</span></div>
-        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Tack Shooter <span class="path-pill">2/0/5</span> (Tack Zone, A--tier)</span></div>
-        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Ice Monkey <span class="path-pill">5/x/x</span>, Alchemist <span class="path-pill">4/x/x</span>, Monkey Village <span class="path-pill">x/3/x</span>, Glue Gunner <span class="path-pill">0/1+/3</span>, Sniper Monkey <span class="path-pill">4/2/0</span></span></div>
-        <p class="core-best">Best on: beginner maps with loops.</p>
-        <p class="core-note">One of the highest DPS setups in the game.</p>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Tack Shooter <span class="path-pill">2/0/5</span> (Tack Zone) + Spike Factory <span class="path-pill">1/0/5</span> (Perma Spike)</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Ice Monkey <span class="path-pill">5/x/x</span>, Alchemist <span class="path-pill">4/x/x</span>, Monkey Village <span class="path-pill">x/3/x</span></span></div>
+        <p class="core-best">Best on: most maps.</p>
+        <p class="core-note">Covers both huge DPS and leak protection &mdash; the Sauda + Tack Zone core below plus a safety net.</p>
       </div>
 
       <div class="core-card">
-        <div class="core-card-head"><p class="core-title">Obyn + Druid Army</p><span class="core-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Obyn Greenfoot</span></div>
-        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Druid <span class="path-pill">0/1/3+</span> (Avatar of Wrath, B-tier) plus several cheap Druids of the Jungle as totems</span></div>
-        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Monkey Village <span class="path-pill">x/3/x</span>, Alchemist <span class="path-pill">4/x/x</span>, Glue Gunner <span class="path-pill">0/1+/3</span></span></div>
-        <p class="core-best">Best on: long maps.</p>
-        <p class="core-note">Very forgiving, and Obyn's own level 18 Total Transformation synergy with Druids of Wrath makes this stronger than it looks.</p>
+        <div class="core-card-head"><p class="core-title">Etienne + Triple Threat</p><span class="tier-badge sm s">S-</span></div>
+        <div class="core-tags"><span class="tag intermediate">intermediate</span><span class="tag budget">budget</span></div>
+        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Etienne</span></div>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Spike Factory <span class="path-pill">1/0/5</span> (Perma Spike, S--tier) + Bomb Shooter <span class="path-pill">0/2/5</span> (Bomb Blitz, A-tier) + Buccaneer <span class="path-pill">2/5/0</span> (Pirate Lord, A-tier)</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">None needed &mdash; Etienne's level 8 global camo covers all three, since none of them have camo detection of their own</span></div>
+        <p class="core-best">Best on: most maps with at least some water for the Buccaneer.</p>
+        <p class="core-note">Three cheap-ish carries instead of one expensive one; reportedly leaves 70&ndash;80k spare on a CHIMPS run for whatever else you want. Keep the Buccaneer inside Etienne's range &mdash; he gives it a real range buff.</p>
       </div>
 
       <div class="core-card">
-        <div class="core-card-head"><p class="core-title">Sauda + Apache Prime</p><span class="core-rating">&#9733;&#9733;&#9733;&#9733;</span></div>
-        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Sauda</span></div>
-        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Heli Pilot <span class="path-pill">5/0/2</span> (Apache Prime, B--tier)</span></div>
-        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Alchemist <span class="path-pill">4/x/x</span>, Monkey Village <span class="path-pill">x/3/x</span>, Glue Gunner <span class="path-pill">0/1+/3</span>, Sniper Monkey <span class="path-pill">4/2/0</span></span></div>
-        <p class="core-best">Best on: maps where Tack Zone can't reach enough track.</p>
-      </div>
-
-      <div class="core-card">
-        <div class="core-card-head"><p class="core-title">Etienne + Sky Shredder</p><span class="core-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+        <div class="core-card-head"><p class="core-title">Etienne + Sky Shredder</p><span class="tier-badge sm a">A</span></div>
+        <div class="core-tags"><span class="tag intermediate">intermediate</span><span class="tag highmicro">high-micro</span></div>
         <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Etienne</span></div>
         <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Monkey Ace <span class="path-pill">5/0/2v</span> (Sky Shredder, A-tier)</span></div>
         <div class="core-row"><span class="core-label">Support</span><span class="core-content">Alchemist <span class="path-pill">4/x/x</span>, Monkey Village <span class="path-pill">x/3/x</span>, Glue Gunner <span class="path-pill">0/1+/3</span>, Ninja Monkey <span class="path-pill">0/4/0</span></span></div>
@@ -1728,24 +1788,38 @@
       </div>
 
       <div class="core-card">
-        <div class="core-card-head"><p class="core-title">Prince of Darkness + Perma Spike</p><span class="core-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Sauda or Psi</span></div>
-        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Wizard Monkey <span class="path-pill">x/x/5</span> (Prince of Darkness, B--tier) + Spike Factory <span class="path-pill">1/0/5</span> (Perma Spike, S--tier)</span></div>
-        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Alchemist <span class="path-pill">4/x/x</span>, Sniper Monkey <span class="path-pill">4/2/0</span> or Heli Pilot <span class="path-pill">0/5/2</span> (Chinook), Glue Gunner <span class="path-pill">0/1+/3</span></span></div>
-        <p class="core-best">Best on: safest beginner-friendly late game.</p>
+        <div class="core-card-head"><p class="core-title">Brickell + Pirate Lord</p><span class="tier-badge sm a">A</span></div>
+        <div class="core-tags"><span class="tag water">water</span><span class="tag lowmicro">low-micro</span></div>
+        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Brickell</span></div>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Buccaneer <span class="path-pill">2/5/0</span> (Pirate Lord, A-tier)</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Energizer Monkey Sub (cooldown reduction), Alchemist <span class="path-pill">4/x/x</span></span></div>
+        <p class="core-best">Best on: water maps with room to fire from both sides.</p>
+        <p class="core-note">Two top-level CHIMPS players debated this at length and settled on S-tier before landing here conservatively at A &mdash; "if the map doesn't have water you just won't use it, so how hard can you really knock it for map dependency." Skill ceiling goes way up with Brickell's mine-stacking, but it's strong even without any of that.</p>
       </div>
 
       <div class="core-card">
-        <div class="core-card-head"><p class="core-title">Grandmaster Ninja Army</p><span class="core-rating">&#9733;&#9733;&#9733;&#9733;</span></div>
+        <div class="core-card-head"><p class="core-title">Striker Jones + Biggest One</p><span class="tier-badge sm a">A</span></div>
+        <div class="core-tags"><span class="tag intermediate">intermediate</span><span class="tag highmicro">high-micro</span></div>
+        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Striker Jones</span></div>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Mortar Monkey <span class="path-pill">5/2/0</span> (The Biggest One, B-tier) + Bomb Shooter <span class="path-pill">x/3+/2</span> (Eliminator, A-tier)</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Alchemist <span class="path-pill">4/x/x</span>, Monkey Village <span class="path-pill">x/3/x</span></span></div>
+        <p class="core-best">Best on: ideal maps without micro; almost any map with mortar micro.</p>
+        <p class="core-note">Without micro it's only good on a select few maps, but mortar micro turns it strong everywhere. The middle crosspath shown (attack speed) is confirmed by top-level players as always correct when pairing with MOAB Eliminator like this, over going pure top path for single-target damage &mdash; faster attack speed means more stuns, and more stuns means more time to kill.</p>
+      </div>
+
+      <div class="core-card">
+        <div class="core-card-head"><p class="core-title">Sauda + Tack Zone</p><span class="tier-badge sm a">A-</span></div>
+        <div class="core-tags"><span class="tag beginner">beginner</span><span class="tag lowmicro">low-micro</span></div>
         <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Sauda</span></div>
-        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Ninja Monkey <span class="path-pill">4+/0/2</span> (Grandmaster Ninja, B--tier) &mdash; weak alone, needs Shinobis</span></div>
-        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Several cheap Ninja Monkeys as Shinobis, Alchemist <span class="path-pill">4/x/x</span>, Monkey Village <span class="path-pill">x/3/x</span></span></div>
-        <p class="core-best">Best on: #Ouch and similar black-border maps.</p>
-        <p class="core-note">Classic high-DPS strategy, but our own tier list flags it as really bad without the Shinobi support.</p>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Tack Shooter <span class="path-pill">2/0/5</span> (Tack Zone, A--tier)</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Ice Monkey <span class="path-pill">5/x/x</span>, Alchemist <span class="path-pill">4/x/x</span>, Monkey Village <span class="path-pill">x/3/x</span>, Glue Gunner <span class="path-pill">0/1+/3</span>, Sniper Monkey <span class="path-pill">4/2/0</span></span></div>
+        <p class="core-best">Best on: beginner maps with loops.</p>
+        <p class="core-note">One of the highest DPS setups in the game. Placement tip from top-level players: put Tack Shooters just below the track ("the death zone") so their tacks spawn centered on the path and every one hits, instead of half firing into empty space.</p>
       </div>
 
       <div class="core-card">
-        <div class="core-card-head"><p class="core-title">BEZ Carry</p><span class="core-rating">&#9733;&#9733;&#9733;&#9733;</span></div>
+        <div class="core-card-head"><p class="core-title">BEZ Carry</p><span class="tier-badge sm a">A-</span></div>
+        <div class="core-tags"><span class="tag expert">expert</span><span class="tag highmicro">high-micro</span></div>
         <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Psi</span></div>
         <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Dartling Gunner <span class="path-pill">2/0/5</span> (Laser Shock BEZ, A--tier)</span></div>
         <div class="core-row"><span class="core-label">Support</span><span class="core-content">Monkey Village <span class="path-pill">x/3/x</span>, Glue Gunner <span class="path-pill">0/1+/3</span>, Ninja Monkey <span class="path-pill">0/4/0</span></span></div>
@@ -1754,30 +1828,82 @@
       </div>
 
       <div class="core-card">
-        <div class="core-card-head"><p class="core-title">Water core</p><span class="core-rating">&#9733;&#9733;&#9733;&#9733;</span></div>
+        <div class="core-card-head"><p class="core-title">Water core</p><span class="tier-badge sm a">A-</span></div>
+        <div class="core-tags"><span class="tag intermediate">intermediate</span><span class="tag water">water</span></div>
         <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Brickell</span></div>
-        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Monkey Sub <span class="path-pill">2/0/3+</span> (Sub Commander, C-tier) + several spam Subs</span></div>
-        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Buccaneer <span class="path-pill">3/1+/0</span> (Carrier Flagship, A--tier)</span></div>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Buccaneer <span class="path-pill">3/1+/0</span> (Carrier Flagship, A--tier) + Monkey Sub <span class="path-pill">2/0/3+</span> (Sub Commander, C-tier) spam</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Brickell's mines and water tower buffs cover most of the rest</span></div>
         <p class="core-best">Best on: water maps.</p>
-        <p class="core-note">One of the strongest water strategies, but per the Tier List tab, Sub Commander itself is only C-tier &mdash; the Buccaneer is doing more of the heavy lifting.</p>
+        <p class="core-note">One of the strongest water strategies. Per the Tier List tab, the Buccaneer is doing more of the heavy lifting here &mdash; Sub Commander itself is only C-tier, so don't lean on Subs alone.</p>
       </div>
 
       <div class="core-card">
-        <div class="core-card-head"><p class="core-title">Phoenix</p><span class="core-rating">&#9733;&#9733;&#9733;</span></div>
-        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Etienne</span></div>
+        <div class="core-card-head"><p class="core-title">Obyn + Druid Army</p><span class="tier-badge sm b">B</span></div>
+        <div class="core-tags"><span class="tag beginner">beginner</span><span class="tag lowmicro">low-micro</span></div>
+        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Obyn Greenfoot</span></div>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Druid <span class="path-pill">0/1/3+</span> (Avatar of Wrath, B-tier) plus several cheap Druids of the Jungle as totems</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Monkey Village <span class="path-pill">x/3/x</span>, Alchemist <span class="path-pill">4/x/x</span>, Glue Gunner <span class="path-pill">0/1+/3</span></span></div>
+        <p class="core-best">Best on: long maps.</p>
+        <p class="core-note">Very forgiving, and Obyn's own level 18 Total Transformation synergy with Druids of Wrath makes this stronger than it looks. Avoid the Mid-path Druid (Spirit of the Forest, <span class="path-pill">1/5/0</span>) as a substitute here &mdash; two top-level CHIMPS players independently called it one of the worst towers and worst strategies in the game (D tier trending toward F), since the vine activation got nerfed hard and it falls apart past one lane. Stick to Bottom (Avatar of Wrath) for this core.</p>
+      </div>
+
+      <div class="core-card">
+        <div class="core-card-head"><p class="core-title">Sauda + Glaive Lord</p><span class="tier-badge sm b">B</span></div>
+        <div class="core-tags"><span class="tag beginner">beginner</span><span class="tag budget">budget</span></div>
+        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Sauda (Gwendolin is the stronger pick if available &mdash; see note)</span></div>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Boomerang Monkey <span class="path-pill">5/2/0</span> (Glaive Lord, B-tier)</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Spike Factory <span class="path-pill">1/0/5</span>, Monkey Village <span class="path-pill">x/3/x</span>, Alchemist <span class="path-pill">4/x/x</span></span></div>
+        <p class="core-best">Best on: budget-conscious clears, beginner/intermediate maps.</p>
+        <p class="core-note">A cheaper carry than most of the cores above &mdash; per its own tier-list entry, Glaive Lord's bouncing glaives wipe ceramics, MOABs, and DDTs across the whole screen, and the middle crosspath (attack speed) shown here is the one that actually matters, the bottom crosspath is a lot weaker. Top CHIMPS players pair this with Gwendolin specifically: her lead-popping covers the round 95 MIB skip, freeing the Village from needing MIB so you can lean harder into that middle crosspath. Add a Dartling Gunner (M.A.D., <span class="path-pill">1/3+/0</span>, C-tier) if you want more dedicated MOAB pressure once it's paid for.</p>
+      </div>
+
+      <div class="core-card">
+        <div class="core-card-head"><p class="core-title">Bloon Solver + Archmage</p><span class="tier-badge sm b">B</span></div>
+        <div class="core-tags"><span class="tag singletrack">single-track</span><span class="tag budget">budget</span></div>
+        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Any</span></div>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Glue Gunner <span class="path-pill">5/1+/0</span> (The Bloon Solver, B-tier) + Wizard Monkey <span class="path-pill">5/2/0</span> (Archmage, B--tier)</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">None needed</span></div>
+        <p class="core-best">Best on: single-track maps only &mdash; doesn't generalize past that.</p>
+        <p class="core-note">A genuinely minimalist 2-tower clear, not a typical hero+carry+support core. Heads up: per the Tier List tab, The Bloon Solver's chain-reaction puddles are currently bugged when paired with Mermonkey's Final Harmonic specifically &mdash; that bug doesn't affect this combo since there's no Mermonkey involved.</p>
+      </div>
+
+      <div class="core-card">
+        <div class="core-card-head"><p class="core-title">Sauda + Apache Prime</p><span class="tier-badge sm b">B-</span></div>
+        <div class="core-tags"><span class="tag intermediate">intermediate</span><span class="tag lowmicro">low-micro</span></div>
+        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Sauda</span></div>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Heli Pilot <span class="path-pill">5/0/2</span> (Apache Prime, B--tier)</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Alchemist <span class="path-pill">4/x/x</span>, Monkey Village <span class="path-pill">x/3/x</span>, Glue Gunner <span class="path-pill">0/1+/3</span>, Sniper Monkey <span class="path-pill">4/2/0</span></span></div>
+        <p class="core-best">Best on: maps where Tack Zone can't reach enough track.</p>
+      </div>
+
+      <div class="core-card">
+        <div class="core-card-head"><p class="core-title">Grandmaster Ninja Army</p><span class="tier-badge sm b">B-</span></div>
+        <div class="core-tags"><span class="tag intermediate">intermediate</span><span class="tag highmicro">high-micro</span></div>
+        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Sauda (Gwendolin also works &mdash; her lead-popping/buff kit supports a Shinobi army just as well)</span></div>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Ninja Monkey <span class="path-pill">4+/0/2</span> (Grandmaster Ninja, B--tier) &mdash; weak alone, needs Shinobis</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Several cheap Ninja Monkeys as Shinobis, Alchemist <span class="path-pill">4/x/x</span>, Monkey Village <span class="path-pill">x/3/x</span></span></div>
+        <p class="core-best">Best on: #Ouch and similar black-border maps.</p>
+        <p class="core-note">Classic high-DPS strategy, but our own tier list flags it as really bad without the Shinobi support.</p>
+      </div>
+
+      <div class="core-card">
+        <div class="core-card-head"><p class="core-title">All-Rounder</p><span class="tier-badge sm b">B-</span></div>
+        <div class="core-tags"><span class="tag beginner">beginner</span><span class="tag lowmicro">low-micro</span></div>
+        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Sauda</span></div>
+        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Druid <span class="path-pill">1/5/0</span> (Spirit of the Forest, B--tier) + Sniper Monkey <span class="path-pill">0/2/5</span> (Elite Defender, C-tier)</span></div>
+        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Alchemist <span class="path-pill">3/2/0</span>, Monkey Village <span class="path-pill">2/3/0</span>, Glue Gunner <span class="path-pill">0/1+/3</span></span></div>
+        <p class="core-best">Best on: most maps, beginner through CHIMPS.</p>
+        <p class="core-note">Scales with you: a Bomb Shooter (doc Bottom path, <span class="path-pill">0/2/5</span>) as a late add-on for round 100, two Monkey Subs (<span class="path-pill">0/4/0</span>) on water maps, and cheap early Alchemists outside CHIMPS double as a no-farm income source.</p>
+      </div>
+
+      <div class="core-card">
+        <div class="core-card-head"><p class="core-title">Phoenix</p><span class="tier-badge sm c">C</span></div>
+        <div class="core-tags"><span class="tag intermediate">intermediate</span><span class="tag highmicro">high-micro</span></div>
+        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Geraldo for round 100 specifically (his items cover the ability's downtime); Etienne or Silas as more general alternatives</span></div>
         <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Wizard Monkey <span class="path-pill">x/4/x</span> (Phoenix, C-tier)</span></div>
         <div class="core-row"><span class="core-label">Support</span><span class="core-content">Monkey Village <span class="path-pill">x/3/x</span>, Alchemist <span class="path-pill">4/x/x</span>, Glue Gunner <span class="path-pill">0/1+/3</span></span></div>
         <p class="core-best">Best on: ability-heavy comfort builds.</p>
-        <p class="core-note">Worth a caveat: our own tier list rates Phoenix C-tier specifically because it's outclassed on official maps &mdash; it's a popular pick on hard community maps, less so here.</p>
-      </div>
-
-      <div class="core-card">
-        <div class="core-card-head"><p class="core-title">Tack Zone + Perma Spike</p><span class="core-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-        <div class="core-row"><span class="core-label">Hero</span><span class="core-content">Sauda</span></div>
-        <div class="core-row"><span class="core-label">Carry</span><span class="core-content">Tack Shooter <span class="path-pill">2/0/5</span> (Tack Zone) + Spike Factory <span class="path-pill">1/0/5</span> (Perma Spike)</span></div>
-        <div class="core-row"><span class="core-label">Support</span><span class="core-content">Ice Monkey <span class="path-pill">5/x/x</span>, Alchemist <span class="path-pill">4/x/x</span>, Monkey Village <span class="path-pill">x/3/x</span></span></div>
-        <p class="core-best">Best on: most maps.</p>
-        <p class="core-note">Covers both huge DPS and leak protection &mdash; this is #1's core plus a safety net.</p>
+        <p class="core-note">Worth a caveat: our own tier list rates Phoenix C-tier specifically because it's outclassed on official maps. Top-level players also flag it as extremely inconsistent for Black Borders since the ability window is slightly too short to clean up what it pops &mdash; timing it well matters enormously, and only Geraldo reliably covers that gap for round 100.</p>
       </div>
     </div>
 
@@ -2058,6 +2184,45 @@
     activeTowerFilters = [];
     document.querySelectorAll('.filter-btn[data-tower]').forEach(function(b){ b.classList.remove('active'); });
     applyFilters();
+  });
+
+  var activeStratFilters = [];
+
+  function applyStratFilters(){
+    var cards = document.querySelectorAll('#panel-strategies .core-card');
+    if (activeStratFilters.length === 0){
+      cards.forEach(function(card){ card.classList.remove('filter-dim', 'filter-match'); });
+      return;
+    }
+    cards.forEach(function(card){
+      var cardTags = Array.prototype.map.call(card.querySelectorAll('.core-tags .tag'), function(t){
+        return t.classList[1];
+      });
+      var matches = activeStratFilters.some(function(f){ return cardTags.indexOf(f) !== -1; });
+      card.classList.toggle('filter-match', matches);
+      card.classList.toggle('filter-dim', !matches);
+    });
+  }
+
+  document.querySelectorAll('.filter-btn[data-stratfilter]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var f = btn.dataset.stratfilter;
+      var idx = activeStratFilters.indexOf(f);
+      if (idx === -1){
+        activeStratFilters.push(f);
+        btn.classList.add('active');
+      } else {
+        activeStratFilters.splice(idx, 1);
+        btn.classList.remove('active');
+      }
+      applyStratFilters();
+    });
+  });
+
+  document.getElementById('filter-clear-strat').addEventListener('click', function(){
+    activeStratFilters = [];
+    document.querySelectorAll('.filter-btn[data-stratfilter]').forEach(function(b){ b.classList.remove('active'); });
+    applyStratFilters();
   });
 
   document.querySelectorAll('.subtab-btn').forEach(function(btn){
