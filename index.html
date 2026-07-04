@@ -372,9 +372,6 @@
 
   /* custom builds tab */
   .cb-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-  .cb-path-toggle{display:flex;gap:4px}
-  .cb-path-btn{font-family:var(--mono);font-size:11px;padding:3px 10px;border-radius:4px;border:1px solid var(--line);background:transparent;color:var(--text-dim);cursor:pointer}
-  .cb-path-btn.active{background:var(--accent-bg);color:var(--text);border-color:var(--accent)}
   .cb-water-label{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text-dim);cursor:pointer}
   .cb-water-label input{cursor:pointer}
   .cb-units{display:flex;flex-direction:column;gap:6px}
@@ -387,6 +384,13 @@
   .cb-note{font-size:11px;color:var(--text-dim);margin-top:5px;line-height:1.45}
   .cb-water-badge{font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(90,147,194,0.22);color:#7fb0d9;letter-spacing:0.04em;text-transform:uppercase}
   .cb-unit .tag{font-size:10px;padding:1px 5px}
+  .cb-water-lot-label{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text-dim);cursor:pointer}
+  .cb-water-lot-label input{cursor:pointer}
+  .cb-water-lot-section{display:none;padding-top:8px}
+  .water-lot-active .cb-onepath{display:none!important}
+  .water-lot-active .cb-water-lot-section{display:block}
+  .cb-unit.cb-spam{border-style:dashed;border-color:rgba(200,160,40,0.55);background:rgba(200,160,40,0.04)}
+  .cb-spam-badge{font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(200,160,40,0.22);color:#c8a028;letter-spacing:0.04em;text-transform:uppercase}
 
   /* tower info tab */
   .ti-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:10px}
@@ -1089,7 +1093,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Alchemist</p><span class="path-tag top">TOP</span></div>
-          <div class="t-tags"><span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span></div>
+          <div class="t-tags"><span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span></div>
           <div class="t-paths">
             <div class="t-path-row"><span class="path-pill">3/x/x</span><span class="path-desc">Berserker Brew &mdash; cheap enough to be an affordable earlygame buff that also fixes Lead; pick this when you want broad, budget value</span></div>
             <div class="t-path-row"><span class="path-pill">4/x/x</span><span class="path-desc">Stronger Stimulant &mdash; a slightly stronger buff than Brew; pick this when you're buffing one specific main DPS tower and can afford the extra cost</span></div>
@@ -1124,7 +1128,7 @@
       <div class="tier-towers">
         <div class="t-card">
           <div class="t-card-head"><p class="name">Dart Monkey</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag lead t5">lead</span></div>
+          <div class="t-tags"><span class="tag lead t5">lead</span><span class="tag camo">camo</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/4+/x</span><span class="path-desc">Super Monkey Fan Club has huge synergy with 1/4/0 Glue Strike for very cost-effective BAD damage; Plasma Monkey Fan Club is great lategame burst if you can cover its downtime</span></div></div>
         </div>
         <div class="t-card">
@@ -1144,7 +1148,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Ice Monkey</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag slow">slow</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag slow">slow</span></div>
           <div class="t-paths">
             <div class="t-path-row"><span class="path-pill">x/4/x</span><span class="path-desc">Snowstorm &mdash; unique freeze on MOABs/DDTs from its ability; pick this as a standalone ceramic-stall/freeze tool that doesn't need any particular hero</span></div>
             <div class="t-path-row"><span class="path-pill">1+/5/0</span><span class="path-desc">Absolute Zero + top crosspath &mdash; slows the game dramatically with permafrost but can't soak MOAB layers alone; pick this specifically when running Silas, since the cheap top crosspath (Ice Shards) feeds his leveling and his shards empower the freeze</span></div>
@@ -1180,7 +1184,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Beast Handler</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/x/4</span><span class="path-desc">Giant Condor is a very strong BFB controller that can move them between lanes; Pou&#257;kai is a powerful, pricey T5 that trivializes many rounds with its high pierce</span></div></div>
         </div>
       </div>
@@ -1239,7 +1243,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Alchemist</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag fortified">fortified</span><span class="tag lead">lead</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag fortified">fortified</span><span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/5/x</span><span class="path-desc">Total Transformation is a strong T5 for lategame DPS, best run with Obyn and Druids of Wrath &mdash; its 40s cooldown with a 20s duration can cover an entire dense round like 95</span></div></div>
         </div>
         <div class="t-card">
@@ -1264,12 +1268,12 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Beast Handler</p><span class="path-tag top">TOP</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag slow">slow</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag slow">slow</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">4/x/x</span><span class="path-desc">Max Orca is a powerful lategame attacker that can self-merge by round 80 from lower-tier beasts; pairs best with Overclock; Megalodon needs 4 Orcas and is mostly just for flexing</span></div></div>
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Beast Handler</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths">
             <div class="t-path-row"><span class="path-pill">x/3/x</span><span class="path-desc">Velociraptor &mdash; global range, one-shots ceramics with high pierce, but its MOAB damage has been gutted and its small range needs real micro; pick this for pure ceramic clearing</span></div>
             <div class="t-path-row"><span class="path-pill">x/4/x</span><span class="path-desc">T-Rex &mdash; still clears regular ceramics easily and keeps decent MOAB damage with a frequent stun (pair with Overclock); max-merge T-Rex layer-skips through MOABs. Pick this when you also want real MOAB damage, not just ceramic cleanup</span></div>
@@ -1372,7 +1376,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Wizard Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span></div>
+          <div class="t-tags"><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/x/5</span><span class="path-desc">Prince of Darkness inherits Shimmer's decamo from earlier on the same path, and cleans up DDTs and MOABs well as long as ceramics keep dying to feed it; pairs great with Corvus (his antistall leaves a steady supply)</span></div></div>
         </div>
         <div class="t-card">
@@ -1418,7 +1422,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Sniper Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/x/5</span><span class="path-desc">Elite Defender (2/0/5) is a decent midgame that can crack ZOMG/DDTs and help vs the BAD, but struggles lategame without a consistent Permanent Brew alch buff</span></div></div>
         </div>
         <div class="t-card">
@@ -1438,7 +1442,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Wizard Monkey</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag lead">lead</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/4/x</span><span class="path-desc">Phoenix covers the whole screen for 20s but lacks burst and has no camo detection of its own (needs it from elsewhere); popular on hard community maps but outclassed on official ones, and neither this nor Wizard Lord Phoenix holds up well vs lategame super ceramics/fortified MOABs</span></div></div>
         </div>
         <div class="t-card">
@@ -1462,7 +1466,7 @@
       <div class="tier-towers">
         <div class="t-card">
           <div class="t-card-head"><p class="name">Tack Shooter</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag frozen">frozen</span><span class="tag lead t5">lead</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/5/0</span><span class="path-desc">Blade Maelstrom can burst through dense rounds like 78 and clears BFB insides; Super Maelstrom needs too much support for too little reward at its low uptime</span></div></div>
         </div>
         <div class="t-card">
@@ -1573,17 +1577,18 @@
         <button class="subtab-btn" data-subtab="easy-primary">Primary</button>
       </div>
 
+      <!-- ── EASY: Standard ──────────────────────── -->
       <div id="subpanel-easy-default" class="subpanel active">
         <div class="cb-controls">
-          <div class="cb-path-toggle">
-            <button class="cb-path-btn active" data-cbpath="one">One Path</button>
-            <button class="cb-path-btn" data-cbpath="multi">Multi Path</button>
-          </div>
           <label class="cb-water-label">
-            <input type="checkbox" class="cb-water-cb"> Map has water
+            <input type="checkbox" class="cb-water-cb"> Map has a little water
+          </label>
+          <label class="cb-water-lot-label">
+            <input type="checkbox" class="cb-water-lot-cb"> Map has a LOT of water
           </label>
         </div>
 
+        <!-- regular build -->
         <div class="cb-onepath">
           <div class="cb-units">
             <div class="cb-unit">
@@ -1629,7 +1634,7 @@
                 <span class="path-pill">3/2/0</span>
                 <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
               </div>
-              <div class="cb-note">Rush to 2/0/0 (Stronger Stimulant) first — that alone grants lead-popping to buffed towers. Perishing Potions (mid T2) adds bonus vs MOABs and Fortified.</div>
+              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first — that alone grants lead-popping to buffed towers. Perishing Potions (mid T2) adds bonus vs MOABs and Fortified.</div>
             </div>
 
             <div class="cb-unit">
@@ -1653,18 +1658,72 @@
           </div>
         </div>
 
-        <div class="cb-multipath" style="display:none">
+        <!-- lot-of-water build -->
+        <div class="cb-water-lot-section">
+          <div class="cb-units">
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Brickell</span>
+                <span class="cb-path-label">Hero</span>
+              </div>
+              <div class="cb-note">Naval hero — Naval Tactics buffs nearby water towers with attack speed. Best choice on water maps.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Glue Gunner</span>
+                <span class="path-pill">0/1/1</span>
+                <span class="tag slow">slow</span>
+              </div>
+              <div class="cb-note">Place at the very beginning of the track. Bigger Globs (mid T1) and Stickier Glue (bot T1) are cheap early upgrades to keep budget low.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Sub</span>
+                <span class="path-pill">3/0/0</span>
+                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span>
+                <span class="cb-gate">3/0/0 before round 36</span>
+              </div>
+              <div class="cb-note">Advanced Intel (top T2) detects camo. Submerge and Support (top T3) strips Camo from bloons in range — rush to 3/0/0 before round 36.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Buccaneer</span>
+                <span class="path-pill">0/4/2</span>
+                <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Main MOAB carry on water maps. Cannon Ship (mid T4) is the sustained damage dealer. Crow's Nest (bot T2) gives camo; Hot Shot (mid T2) pops Lead and Frozen.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">2/0/0</span>
+                <span class="tag lead-aura">lead aura</span>
+              </div>
+              <div class="cb-note">Acidic Mixture Dip (top T2) grants lead-popping to all buffed towers in range.</div>
+            </div>
+
+            <div class="cb-unit cb-spam">
+              <div class="cb-unit-row">
+                <span class="cb-spam-badge">spam</span>
+                <span class="cb-name">Monkey Sub</span>
+                <span class="path-pill">2/4/0</span>
+                <span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag camo">camo</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Fill remaining water with these. Build to 2/3/0 first if money is tight — upgrade to 2/4/0 when budget allows. Advanced Intel (top T2) adds camo detection; First Strike Capability (mid T4) destroys a MOAB-class on use.</div>
+            </div>
+
+          </div>
         </div>
       </div>
 
+      <!-- ── EASY: Primary Only ──────────────────── -->
       <div id="subpanel-easy-primary" class="subpanel">
-        <div class="cb-controls">
-          <div class="cb-path-toggle">
-            <button class="cb-path-btn active" data-cbpath="one">One Path</button>
-            <button class="cb-path-btn" data-cbpath="multi">Multi Path</button>
-          </div>
-        </div>
-
+        <!-- regular build -->
         <div class="cb-onepath">
           <div class="cb-units">
             <div class="cb-unit">
@@ -1724,8 +1783,6 @@
           </div>
         </div>
 
-        <div class="cb-multipath" style="display:none">
-        </div>
       </div>
     </div>
 
@@ -1752,17 +1809,18 @@
         <button class="subtab-btn" data-subtab="medium-military">Military</button>
       </div>
 
+      <!-- ── MEDIUM: Standard ────────────────────── -->
       <div id="subpanel-medium-default" class="subpanel active">
         <div class="cb-controls">
-          <div class="cb-path-toggle">
-            <button class="cb-path-btn active" data-cbpath="one">One Path</button>
-            <button class="cb-path-btn" data-cbpath="multi">Multi Path</button>
-          </div>
           <label class="cb-water-label">
-            <input type="checkbox" class="cb-water-cb"> Map has water
+            <input type="checkbox" class="cb-water-cb"> Map has a little water
+          </label>
+          <label class="cb-water-lot-label">
+            <input type="checkbox" class="cb-water-lot-cb"> Map has a LOT of water
           </label>
         </div>
 
+        <!-- regular build -->
         <div class="cb-onepath">
           <div class="cb-units">
             <div class="cb-unit">
@@ -1804,15 +1862,6 @@
 
             <div class="cb-unit">
               <div class="cb-unit-row">
-                <span class="cb-name">Alchemist</span>
-                <span class="path-pill">3/2/0</span>
-                <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
-              </div>
-              <div class="cb-note">Rush to 2/0/0 (Stronger Stimulant) first — grants lead-popping to all buffed towers. Perishing Potions (mid T2) adds bonus vs MOABs and Fortified.</div>
-            </div>
-
-            <div class="cb-unit">
-              <div class="cb-unit-row">
                 <span class="cb-name">Boomerang</span>
                 <span class="path-pill">0/0/4</span>
                 <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
@@ -1825,47 +1874,107 @@
               <div class="cb-unit-row">
                 <span class="cb-name">Wizard Monkey</span>
                 <span class="path-pill">0/0/4</span>
-                <span class="tag camo-aura">camo aura</span><span class="tag lead">lead</span><span class="tag aoe">aoe</span>
+                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag lead">lead</span>
                 <span class="cb-gate">before round 36</span>
               </div>
-              <div class="cb-note">Shimmer (0/0/2) strips Camo from all bloons in range. Rush to 0/0/3 before round 36, finish to Wall of Fire (0/0/4) after.</div>
+              <div class="cb-note">Monkey Sense (0/0/2) gives camo detection. Shimmer (0/0/3) permanently strips Camo from all bloons in range — reach 0/0/3 before round 36. Necromancer: Unpopped Army (0/0/4) reanimates popped bloons as undead.</div>
             </div>
 
             <div class="cb-unit">
               <div class="cb-unit-row">
                 <span class="cb-name">Ice Monkey</span>
-                <span class="path-pill">0/0/4</span>
-                <span class="tag slow">slow</span><span class="tag aoe">aoe</span>
+                <span class="path-pill">3/0/0</span>
+                <span class="tag camo">camo</span><span class="tag lead">lead</span><span class="tag aoe">aoe</span>
               </div>
-              <div class="cb-note">Icicle Impale (bot T4) launches large icicles for high AoE damage and persistent slow. Bottom path — pairs with MIB Village for Lead coverage.</div>
+              <div class="cb-note">Cold Snap (top T2) adds camo detection and Lead-popping. Ice Shards (top T3) spreads damage when frozen bloons pop.</div>
             </div>
 
             <div class="cb-unit">
               <div class="cb-unit-row">
                 <span class="cb-name">Spike Factory</span>
                 <span class="path-pill">1/0/4</span>
-                <span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag aoe">aoe</span>
+                <span class="tag aoe">aoe</span>
               </div>
-              <div class="cb-note">MOAB SHREDR Spikes (bot T3) shreds MOAB-class. Bot T4 piles long-lasting spikes at the exit as a cleanup safety net. Top T1 crosspath boosts fire rate.</div>
+              <div class="cb-note">Bigger Stacks (top T1) boosts pierce per pile. Deadly Spikes (bot T4) increases damage per spike and pile persistence — spikes carry over 3 active rounds for reliable exit cleanup.</div>
             </div>
           </div>
         </div>
 
-        <div class="cb-multipath" style="display:none">
+        <!-- lot-of-water build -->
+        <div class="cb-water-lot-section">
+          <div class="cb-units">
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Brickell</span>
+                <span class="cb-path-label">Hero</span>
+              </div>
+              <div class="cb-note">Naval hero — Naval Tactics buffs nearby water towers with attack speed. Best choice on water maps.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Glue Gunner</span>
+                <span class="path-pill">0/2/2</span>
+                <span class="tag slow">slow</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Place at the very beginning of the track. Glue Splatter (mid T2) adds splash; Wider Glue (bot T2) increases glue radius for better coverage.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Sub</span>
+                <span class="path-pill">4/0/0</span>
+                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag moab">moab</span>
+                <span class="cb-gate">3/0/0 before round 36</span>
+              </div>
+              <div class="cb-note">Advanced Intel (top T2) detects camo. Submerge and Support (top T3) strips Camo from bloons in range — rush to 3/0/0 before round 36. First Strike Capability (top T4) fires a powerful missile on use that destroys one MOAB-class bloon.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Buccaneer</span>
+                <span class="path-pill">0/4/2</span>
+                <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Main MOAB carry on water maps. Cannon Ship (mid T4) is the sustained damage dealer. Crow's Nest (bot T2) gives camo; Hot Shot (mid T2) pops Lead and Frozen.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">2/0/0</span>
+                <span class="tag lead-aura">lead aura</span>
+              </div>
+              <div class="cb-note">Acidic Mixture Dip (top T2) grants lead-popping to all buffed towers in range.</div>
+            </div>
+
+            <div class="cb-unit cb-spam">
+              <div class="cb-unit-row">
+                <span class="cb-spam-badge">spam</span>
+                <span class="cb-name">Monkey Sub</span>
+                <span class="path-pill">2/4/0</span>
+                <span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag camo">camo</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Fill remaining water with these. Build to 2/3/0 first if money is tight — upgrade to 2/4/0 when budget allows. Advanced Intel (top T2) adds camo detection; First Strike Capability (mid T4) destroys a MOAB-class on use.</div>
+            </div>
+
+          </div>
         </div>
       </div>
 
+      <!-- ── MEDIUM: Military ────────────────────── -->
       <div id="subpanel-medium-military" class="subpanel">
         <div class="cb-controls">
-          <div class="cb-path-toggle">
-            <button class="cb-path-btn active" data-cbpath="one">One Path</button>
-            <button class="cb-path-btn" data-cbpath="multi">Multi Path</button>
-          </div>
           <label class="cb-water-label">
-            <input type="checkbox" class="cb-water-cb"> Map has water
+            <input type="checkbox" class="cb-water-cb"> Map has a little water
+          </label>
+          <label class="cb-water-lot-label">
+            <input type="checkbox" class="cb-water-lot-cb"> Map has a LOT of water
           </label>
         </div>
 
+        <!-- regular build -->
         <div class="cb-onepath">
         <div class="cb-units">
           <div class="cb-unit">
@@ -1896,13 +2005,14 @@
             <div class="cb-note">Place early and build up. IFR (mid T2) adds camo detection. Comanche Defense (bot T4) is sustained high DPS.</div>
           </div>
 
-          <div class="cb-unit cb-water-swap-hide">
+          <div class="cb-unit cb-water-swap-hide cb-spam">
             <div class="cb-unit-row">
+              <span class="cb-spam-badge">spam</span>
               <span class="cb-name">Sniper Monkey</span>
               <span class="path-pill">2/0/5</span>
               <span class="tag moab">moab</span><span class="tag lead">lead</span>
             </div>
-            <div class="cb-note">Elite Defender (bot T5) fires extremely fast, targeting the last bloon. Deadly Precision (top T2) adds damage; Full Metal Jacket (top T1) pops Lead.</div>
+            <div class="cb-note">Elite Defender (bot T5) fires extremely fast, targeting the last bloon. Large Calibre (top T2) adds damage; Full Metal Jacket (top T1) pops Lead.</div>
           </div>
 
           <div class="cb-unit cb-water-unit">
@@ -1917,7 +2027,48 @@
         </div>
         </div>
 
-        <div class="cb-multipath" style="display:none">
+        <!-- lot-of-water build -->
+        <div class="cb-water-lot-section">
+          <div class="cb-units">
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Brickell</span>
+                <span class="cb-path-label">Hero</span>
+              </div>
+              <div class="cb-note">Naval hero — Naval Tactics buffs nearby water towers with attack speed. Best choice on water maps.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Sub</span>
+                <span class="path-pill">3/0/0</span>
+                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span>
+                <span class="cb-gate">3/0/0 before round 36</span>
+              </div>
+              <div class="cb-note">Advanced Intel (top T2) detects camo. Submerge and Support (top T3) strips Camo from bloons in range — rush to 3/0/0 before round 36.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Buccaneer</span>
+                <span class="path-pill">0/4/2</span>
+                <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Main MOAB carry on water maps. Cannon Ship (mid T4) is the sustained damage dealer. Crow's Nest (bot T2) gives camo; Hot Shot (mid T2) pops Lead and Frozen.</div>
+            </div>
+
+            <div class="cb-unit cb-spam">
+              <div class="cb-unit-row">
+                <span class="cb-spam-badge">spam</span>
+                <span class="cb-name">Monkey Sub</span>
+                <span class="path-pill">2/4/0</span>
+                <span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag camo">camo</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Fill remaining water with these. Build to 2/3/0 first if money is tight — upgrade to 2/4/0 when budget allows. Advanced Intel (top T2) adds camo detection; First Strike Capability (mid T4) destroys a MOAB-class on use.</div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -1927,18 +2078,72 @@
         <button class="subtab-btn active" data-subtab="hard-default">Standard</button>
       </div>
 
+      <!-- ── HARD: Standard ──────────────────────── -->
       <div id="subpanel-hard-default" class="subpanel active">
         <div class="cb-controls">
-          <div class="cb-path-toggle">
-            <button class="cb-path-btn active" data-cbpath="one">One Path</button>
-            <button class="cb-path-btn" data-cbpath="multi">Multi Path</button>
-          </div>
+          <label class="cb-water-label">
+            <input type="checkbox" class="cb-water-cb"> Map has a little water
+          </label>
+          <label class="cb-water-lot-label">
+            <input type="checkbox" class="cb-water-lot-cb"> Map has a LOT of water
+          </label>
         </div>
 
+        <!-- regular build -->
         <div class="cb-onepath">
         </div>
 
-        <div class="cb-multipath" style="display:none">
+        <!-- lot-of-water build -->
+        <div class="cb-water-lot-section">
+          <div class="cb-units">
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Brickell</span>
+                <span class="cb-path-label">Hero</span>
+              </div>
+              <div class="cb-note">Naval hero — Naval Tactics buffs nearby water towers with attack speed. Best choice on water maps.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Glue Gunner</span>
+                <span class="path-pill">0/2/3</span>
+                <span class="tag slow">slow</span><span class="tag moab">moab</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Place at the very beginning of the track. Glue Splatter (mid T2) adds splash; MOAB Glue (bot T3) slows MOAB-class bloons.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Sub</span>
+                <span class="path-pill">5/0/0</span>
+                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span>
+                <span class="cb-gate">3/0/0 before round 36</span>
+              </div>
+              <div class="cb-note">Advanced Intel (top T2) detects camo. Submerge and Support (top T3) strips Camo from bloons in range — rush to 3/0/0 before round 36. Finish to Energizer (5/0/0) when money allows.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Buccaneer</span>
+                <span class="path-pill">0/5/2</span>
+                <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Main MOAB carry on water maps. Pirate Lord (mid T5) is the primary damage dealer. Crow's Nest (bot T2) gives camo; Hot Shot (mid T2) pops Lead and Frozen. Build when money allows.</div>
+            </div>
+
+            <div class="cb-unit cb-spam">
+              <div class="cb-unit-row">
+                <span class="cb-spam-badge">spam</span>
+                <span class="cb-name">Monkey Sub</span>
+                <span class="path-pill">2/5/0</span>
+                <span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag camo">camo</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Fill remaining water with these. Pre-Emptive Strike (mid T5) auto-targets every incoming MOAB-class. Advanced Intel (top T2) adds camo detection.</div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -1948,18 +2153,72 @@
         <button class="subtab-btn active" data-subtab="chimps100-default">Standard</button>
       </div>
 
+      <!-- ── CHIMPS: Standard ────────────────────── -->
       <div id="subpanel-chimps100-default" class="subpanel active">
         <div class="cb-controls">
-          <div class="cb-path-toggle">
-            <button class="cb-path-btn active" data-cbpath="one">One Path</button>
-            <button class="cb-path-btn" data-cbpath="multi">Multi Path</button>
-          </div>
+          <label class="cb-water-label">
+            <input type="checkbox" class="cb-water-cb"> Map has a little water
+          </label>
+          <label class="cb-water-lot-label">
+            <input type="checkbox" class="cb-water-lot-cb"> Map has a LOT of water
+          </label>
         </div>
 
+        <!-- regular build -->
         <div class="cb-onepath">
         </div>
 
-        <div class="cb-multipath" style="display:none">
+        <!-- lot-of-water build -->
+        <div class="cb-water-lot-section">
+          <div class="cb-units">
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Brickell</span>
+                <span class="cb-path-label">Hero</span>
+              </div>
+              <div class="cb-note">Naval hero — Naval Tactics buffs nearby water towers with attack speed. Best choice on water maps.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Glue Gunner</span>
+                <span class="path-pill">0/2/3</span>
+                <span class="tag slow">slow</span><span class="tag moab">moab</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Place at the very beginning of the track. Glue Splatter (mid T2) adds splash; MOAB Glue (bot T3) slows MOAB-class bloons.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Sub</span>
+                <span class="path-pill">5/0/0</span>
+                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span>
+                <span class="cb-gate">3/0/0 before round 36</span>
+              </div>
+              <div class="cb-note">Advanced Intel (top T2) detects camo. Submerge and Support (top T3) strips Camo from bloons in range — rush to 3/0/0 before round 36. Finish to Energizer (5/0/0) when money allows.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Buccaneer</span>
+                <span class="path-pill">0/5/2</span>
+                <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Main MOAB carry on water maps. Pirate Lord (mid T5) is the primary damage dealer. Crow's Nest (bot T2) gives camo; Hot Shot (mid T2) pops Lead and Frozen. Build when money allows.</div>
+            </div>
+
+            <div class="cb-unit cb-spam">
+              <div class="cb-unit-row">
+                <span class="cb-spam-badge">spam</span>
+                <span class="cb-name">Monkey Sub</span>
+                <span class="path-pill">2/5/0</span>
+                <span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag camo">camo</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Fill remaining water with these. Pre-Emptive Strike (mid T5) auto-targets every incoming MOAB-class. Advanced Intel (top T2) adds camo detection.</div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -4900,29 +5159,50 @@
   });
 
   // Tower Info filter
-  // Custom Builds: One Path / Multi Path toggle
-  document.querySelectorAll('.cb-path-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var toggle = btn.parentElement;
-      toggle.querySelectorAll('.cb-path-btn').forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      var controls = toggle.parentElement;
-      var container = controls.parentElement;
-      var isOne = btn.dataset.cbpath === 'one';
-      var one = container.querySelector('.cb-onepath');
-      var multi = container.querySelector('.cb-multipath');
-      if (one) one.style.display = isOne ? '' : 'none';
-      if (multi) multi.style.display = isOne ? 'none' : '';
-    });
-  });
 
   // Custom Builds: water toggle
   document.querySelectorAll('.cb-water-cb').forEach(function(cb) {
     cb.addEventListener('change', function() {
-      var container = cb.parentElement.parentElement.parentElement;
+      var controls = cb.parentElement.parentElement;
+      var container = controls.parentElement;
       var isWater = cb.checked;
       container.querySelectorAll('.cb-water-unit').forEach(function(u){ u.classList.toggle('visible', isWater); });
       container.querySelectorAll('.cb-water-swap-hide').forEach(function(u){ u.style.display = isWater ? 'none' : ''; });
+      if (isWater) {
+        var lotCb = controls.querySelector('.cb-water-lot-cb');
+        if (lotCb && lotCb.checked) {
+          lotCb.checked = false;
+          var lotSection = container.querySelector('.cb-water-lot-section');
+          var pathToggle = controls.querySelector('.cb-path-toggle');
+          var onePathDiv = container.querySelector('.cb-onepath');
+          if (lotSection) lotSection.style.display = '';
+          if (pathToggle) pathToggle.style.display = '';
+          if (onePathDiv) onePathDiv.style.display = '';
+        }
+      }
+    });
+  });
+
+  // Custom Builds: lot-of-water toggle
+  document.querySelectorAll('.cb-water-lot-cb').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      var controls = cb.parentElement.parentElement;
+      var container = controls.parentElement;
+      var isLot = cb.checked;
+      var lotSection = container.querySelector('.cb-water-lot-section');
+      var pathToggle = controls.querySelector('.cb-path-toggle');
+      var onePathDiv = container.querySelector('.cb-onepath');
+      if (lotSection) lotSection.style.display = isLot ? 'block' : '';
+      if (pathToggle) pathToggle.style.display = isLot ? 'none' : '';
+      if (onePathDiv) onePathDiv.style.display = isLot ? 'none' : '';
+      if (isLot) {
+        var littleCb = controls.querySelector('.cb-water-cb');
+        if (littleCb && littleCb.checked) {
+          littleCb.checked = false;
+          container.querySelectorAll('.cb-water-unit').forEach(function(u){ u.classList.remove('visible'); });
+          container.querySelectorAll('.cb-water-swap-hide').forEach(function(u){ u.style.display = ''; });
+        }
+      }
     });
   });
 
