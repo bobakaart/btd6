@@ -31,6 +31,7 @@
     --mono: "SF Mono", "Roboto Mono", Consolas, monospace;
   }
   *{box-sizing:border-box}
+  html{scrollbar-gutter:stable}
   html,body{
     margin:0;
     background:var(--bg);
@@ -372,25 +373,26 @@
 
   /* custom builds tab */
   .cb-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-  .cb-water-label{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text-dim);cursor:pointer}
-  .cb-water-label input{cursor:pointer}
-  .cb-units{display:flex;flex-direction:column;gap:6px}
-  .cb-unit{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:10px 12px}
-  .cb-unit.cb-water-unit{display:none;border-color:rgba(90,147,194,0.4);background:rgba(90,147,194,0.06)}
-  .cb-unit.cb-water-unit.visible{display:block}
+  .cb-units{display:flex;flex-direction:column;gap:6px;counter-reset:cb-item}
+  .cb-unit{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:10px 12px;counter-increment:cb-item}
+  .cb-unit-row::before{content:counter(cb-item);font-family:var(--mono);font-size:12px;color:var(--text-dim);min-width:24px;text-align:right;flex-shrink:0;opacity:0.6;align-self:center;margin-right:2px;margin-top:3px}
   .cb-unit-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .cb-name{font-size:13px;font-weight:600}
   .cb-gate{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(100,160,220,0.15);color:#6ab0e8;border:1px solid rgba(100,160,220,0.35);margin-left:4px}
   .cb-note{font-size:11px;color:var(--text-dim);margin-top:5px;line-height:1.45}
-  .cb-water-badge{font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(90,147,194,0.22);color:#7fb0d9;letter-spacing:0.04em;text-transform:uppercase}
   .cb-unit .tag{font-size:10px;padding:1px 5px}
   .cb-water-lot-label{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text-dim);cursor:pointer}
   .cb-water-lot-label input{cursor:pointer}
-  .cb-water-lot-section{display:none;padding-top:8px}
+  .cb-water-lot-section{display:none}
   .water-lot-active .cb-onepath{display:none!important}
   .water-lot-active .cb-water-lot-section{display:block}
   .cb-unit.cb-spam{border-style:dashed;border-color:rgba(200,160,40,0.55);background:rgba(200,160,40,0.04)}
   .cb-spam-badge{font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(200,160,40,0.22);color:#c8a028;letter-spacing:0.04em;text-transform:uppercase}
+  .cb-best-badge{font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(80,180,80,0.22);color:#50b050;letter-spacing:0.04em;text-transform:uppercase}
+  .cb-choice-group{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap}
+  .cb-choice-group .cb-unit{flex:1;min-width:150px}
+  .cb-choice-or{display:flex;align-items:center;font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;padding:0 2px;align-self:center;flex-shrink:0}
+  .tag.water{background:rgba(40,140,200,0.18);color:#2878c0}
 
   /* tower info tab */
   .ti-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:10px}
@@ -1580,9 +1582,6 @@
       <!-- ── EASY: Standard ──────────────────────── -->
       <div id="subpanel-easy-default" class="subpanel active">
         <div class="cb-controls">
-          <label class="cb-water-label">
-            <input type="checkbox" class="cb-water-cb"> Map has a little water
-          </label>
           <label class="cb-water-lot-label">
             <input type="checkbox" class="cb-water-lot-cb"> Map has a LOT of water
           </label>
@@ -1600,7 +1599,7 @@
               <div class="cb-note">Built-in camo detection from level 1.</div>
             </div>
 
-            <div class="cb-unit cb-water-swap-hide">
+            <div class="cb-unit">
               <div class="cb-unit-row">
                 <span class="cb-name">Tack Shooter</span>
                 <span class="path-pill">2/0/4</span>
@@ -1609,15 +1608,6 @@
               <div class="cb-note">Main DPS — prioritise this early. Overdrive (bot T4) carries the damage output.</div>
             </div>
 
-            <div class="cb-unit cb-water-unit">
-              <div class="cb-unit-row">
-                <span class="cb-water-badge">water</span>
-                <span class="cb-name">Monkey Buccaneer</span>
-                <span class="path-pill">0/4/2</span>
-                <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
-              </div>
-              <div class="cb-note">Replaces Tack on water maps. Crow's Nest (bot T2) gives camo; Hot Shot (mid T2) pops Lead and Frozen; Monkey Pirates (mid T4) handles MOABs.</div>
-            </div>
 
             <div class="cb-unit">
               <div class="cb-unit-row">
@@ -1812,9 +1802,6 @@
       <!-- ── MEDIUM: Standard ────────────────────── -->
       <div id="subpanel-medium-default" class="subpanel active">
         <div class="cb-controls">
-          <label class="cb-water-label">
-            <input type="checkbox" class="cb-water-cb"> Map has a little water
-          </label>
           <label class="cb-water-lot-label">
             <input type="checkbox" class="cb-water-lot-cb"> Map has a LOT of water
           </label>
@@ -1832,7 +1819,7 @@
               <div class="cb-note">Built-in camo detection from level 1.</div>
             </div>
 
-            <div class="cb-unit cb-water-swap-hide">
+            <div class="cb-unit">
               <div class="cb-unit-row">
                 <span class="cb-name">Tack Shooter</span>
                 <span class="path-pill">2/0/5</span>
@@ -1841,15 +1828,6 @@
               <div class="cb-note">Rush to 2/0/4 (Overdrive) first — the main damage carry. Finish to Tack Zone (2/0/5) around round 56–58 once you can afford it.</div>
             </div>
 
-            <div class="cb-unit cb-water-unit">
-              <div class="cb-unit-row">
-                <span class="cb-water-badge">water</span>
-                <span class="cb-name">Monkey Buccaneer</span>
-                <span class="path-pill">0/5/2</span>
-                <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
-              </div>
-              <div class="cb-note">Main carry on water maps — replaces Tack. Crow's Nest (bot T2) gives camo; Hot Shot (mid T2) pops Lead and Frozen; Pirate Lord (mid T5) is the primary MOAB damage dealer.</div>
-            </div>
 
             <div class="cb-unit">
               <div class="cb-unit-row">
@@ -1870,14 +1848,43 @@
               <div class="cb-note">Red Hot Rangs (bot T2) pops Lead and Frozen. MOAB Press (bot T4) handles round 40's MOAB.</div>
             </div>
 
-            <div class="cb-unit">
-              <div class="cb-unit-row">
-                <span class="cb-name">Wizard Monkey</span>
-                <span class="path-pill">0/0/4</span>
-                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag lead">lead</span>
-                <span class="cb-gate">before round 36</span>
+            <div class="cb-choice-group">
+
+              <div class="cb-unit">
+                <div class="cb-unit-row">
+                  <span class="cb-best-badge">best</span>
+                  <span class="cb-name">Monkey Sub</span>
+                  <span class="path-pill">3/0/0</span>
+                  <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag water">water</span>
+                  <span class="cb-gate">before round 36</span>
+                </div>
+                <div class="cb-note">Submerge and Support (top T3) instantly strips Camo from all bloons in range. Cheapest and fastest decamo option — needs a water tile.</div>
               </div>
-              <div class="cb-note">Monkey Sense (0/0/2) gives camo detection. Shimmer (0/0/3) permanently strips Camo from all bloons in range — reach 0/0/3 before round 36. Necromancer: Unpopped Army (0/0/4) reanimates popped bloons as undead.</div>
+
+              <div class="cb-choice-or">OR</div>
+
+              <div class="cb-unit">
+                <div class="cb-unit-row">
+                  <span class="cb-name">Wizard Monkey</span>
+                  <span class="path-pill">0/0/4</span>
+                  <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag lead">lead</span>
+                  <span class="cb-gate">before round 36</span>
+                </div>
+                <div class="cb-note">Shimmer (0/0/3) strips Camo in range — rush to 0/0/3 before round 36. Necromancer (0/0/4) reanimates popped bloons for extra DPS. Works on any map.</div>
+              </div>
+
+              <div class="cb-choice-or">OR</div>
+
+              <div class="cb-unit">
+                <div class="cb-unit-row">
+                  <span class="cb-name">Engineer Monkey</span>
+                  <span class="path-pill">0/3/0</span>
+                  <span class="tag camo-aura">camo aura</span>
+                  <span class="cb-gate">before round 36</span>
+                </div>
+                <div class="cb-note">Sentry Expert (mid T3) — land-based decamo option. Works on any map, no water required.</div>
+              </div>
+
             </div>
 
             <div class="cb-unit">
@@ -1966,9 +1973,6 @@
       <!-- ── MEDIUM: Military ────────────────────── -->
       <div id="subpanel-medium-military" class="subpanel">
         <div class="cb-controls">
-          <label class="cb-water-label">
-            <input type="checkbox" class="cb-water-cb"> Map has a little water
-          </label>
           <label class="cb-water-lot-label">
             <input type="checkbox" class="cb-water-lot-cb"> Map has a LOT of water
           </label>
@@ -2005,25 +2009,16 @@
             <div class="cb-note">Place early and build up. IFR (mid T2) adds camo detection. Comanche Defense (bot T4) is sustained high DPS.</div>
           </div>
 
-          <div class="cb-unit cb-water-swap-hide cb-spam">
+          <div class="cb-unit cb-spam">
             <div class="cb-unit-row">
               <span class="cb-spam-badge">spam</span>
               <span class="cb-name">Sniper Monkey</span>
-              <span class="path-pill">2/0/5</span>
+              <span class="path-pill">2/0/4</span>
               <span class="tag moab">moab</span><span class="tag lead">lead</span>
             </div>
-            <div class="cb-note">Elite Defender (bot T5) fires extremely fast, targeting the last bloon. Large Calibre (top T2) adds damage; Full Metal Jacket (top T1) pops Lead.</div>
+            <div class="cb-note">Semi-Automatic (bot T4) greatly boosts attack speed. Large Calibre (top T2) adds damage; Full Metal Jacket (top T1) pops Lead.</div>
           </div>
 
-          <div class="cb-unit cb-water-unit">
-            <div class="cb-unit-row">
-              <span class="cb-water-badge">water</span>
-              <span class="cb-name">Monkey Buccaneer</span>
-              <span class="path-pill">0/5/2</span>
-              <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
-            </div>
-            <div class="cb-note">Replaces Sniper on water maps. Pirate Lord (mid T5) is the main MOAB carry. Crow's Nest (bot T2) gives camo; Hot Shot (mid T2) pops Lead and Frozen.</div>
-          </div>
         </div>
         </div>
 
@@ -2081,9 +2076,6 @@
       <!-- ── HARD: Standard ──────────────────────── -->
       <div id="subpanel-hard-default" class="subpanel active">
         <div class="cb-controls">
-          <label class="cb-water-label">
-            <input type="checkbox" class="cb-water-cb"> Map has a little water
-          </label>
           <label class="cb-water-lot-label">
             <input type="checkbox" class="cb-water-lot-cb"> Map has a LOT of water
           </label>
@@ -2156,9 +2148,6 @@
       <!-- ── CHIMPS: Standard ────────────────────── -->
       <div id="subpanel-chimps100-default" class="subpanel active">
         <div class="cb-controls">
-          <label class="cb-water-label">
-            <input type="checkbox" class="cb-water-cb"> Map has a little water
-          </label>
           <label class="cb-water-lot-label">
             <input type="checkbox" class="cb-water-lot-cb"> Map has a LOT of water
           </label>
@@ -5160,29 +5149,6 @@
 
   // Tower Info filter
 
-  // Custom Builds: water toggle
-  document.querySelectorAll('.cb-water-cb').forEach(function(cb) {
-    cb.addEventListener('change', function() {
-      var controls = cb.parentElement.parentElement;
-      var container = controls.parentElement;
-      var isWater = cb.checked;
-      container.querySelectorAll('.cb-water-unit').forEach(function(u){ u.classList.toggle('visible', isWater); });
-      container.querySelectorAll('.cb-water-swap-hide').forEach(function(u){ u.style.display = isWater ? 'none' : ''; });
-      if (isWater) {
-        var lotCb = controls.querySelector('.cb-water-lot-cb');
-        if (lotCb && lotCb.checked) {
-          lotCb.checked = false;
-          var lotSection = container.querySelector('.cb-water-lot-section');
-          var pathToggle = controls.querySelector('.cb-path-toggle');
-          var onePathDiv = container.querySelector('.cb-onepath');
-          if (lotSection) lotSection.style.display = '';
-          if (pathToggle) pathToggle.style.display = '';
-          if (onePathDiv) onePathDiv.style.display = '';
-        }
-      }
-    });
-  });
-
   // Custom Builds: lot-of-water toggle
   document.querySelectorAll('.cb-water-lot-cb').forEach(function(cb) {
     cb.addEventListener('change', function() {
@@ -5195,14 +5161,6 @@
       if (lotSection) lotSection.style.display = isLot ? 'block' : '';
       if (pathToggle) pathToggle.style.display = isLot ? 'none' : '';
       if (onePathDiv) onePathDiv.style.display = isLot ? 'none' : '';
-      if (isLot) {
-        var littleCb = controls.querySelector('.cb-water-cb');
-        if (littleCb && littleCb.checked) {
-          littleCb.checked = false;
-          container.querySelectorAll('.cb-water-unit').forEach(function(u){ u.classList.remove('visible'); });
-          container.querySelectorAll('.cb-water-swap-hide').forEach(function(u){ u.style.display = ''; });
-        }
-      }
     });
   });
 
@@ -5252,9 +5210,9 @@
   document.querySelectorAll('.subtab-btn').forEach(function(btn){
     btn.addEventListener('click', function(){
       var bar = btn.closest('.subtab-bar');
+      var container = bar.parentElement;
       bar.querySelectorAll('.subtab-btn').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
-      var container = bar.parentElement;
       container.querySelectorAll(':scope > .subpanel').forEach(function(p){ p.classList.remove('active'); });
       var target = container.querySelector(':scope > #subpanel-' + btn.dataset.subtab);
       if (target) target.classList.add('active');
