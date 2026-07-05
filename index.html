@@ -374,12 +374,13 @@
   /* custom builds tab */
   .cb-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
   .cb-units{display:flex;flex-direction:column;gap:6px;counter-reset:cb-item}
-  .cb-unit{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:10px 12px;counter-increment:cb-item}
+  .cb-unit{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:10px 12px;counter-increment:cb-item}
   .cb-unit-row::before{content:counter(cb-item);font-family:var(--mono);font-size:12px;color:var(--text-dim);min-width:24px;text-align:right;flex-shrink:0;opacity:0.6;align-self:center;margin-right:2px;margin-top:3px}
   .cb-unit-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .cb-name{font-size:13px;font-weight:600}
-  .cb-gate{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(100,160,220,0.15);color:#6ab0e8;border:1px solid rgba(100,160,220,0.35);margin-left:4px}
-  .cb-note{font-size:11px;color:var(--text-dim);margin-top:5px;line-height:1.45}
+  .cb-gate{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(220,155,20,0.18);color:#e0a020;border:1px solid rgba(220,155,20,0.45);margin-left:4px}
+  .cb-note{font-size:11px;color:var(--text-dim);margin-top:5px;line-height:1.45;padding-right:80px}
+  .cb-spam .cb-note{padding-right:148px}
   .cb-unit .tag{font-size:10px;padding:1px 5px}
   .cb-water-lot-label{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text-dim);cursor:pointer}
   .cb-water-lot-label input{cursor:pointer}
@@ -391,6 +392,20 @@
   .cb-best-badge{font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(80,180,80,0.22);color:#50b050;letter-spacing:0.04em;text-transform:uppercase}
   .cb-choice-group{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap}
   .cb-choice-group .cb-unit{flex:1;min-width:150px}
+  .cb-cost{position:absolute;bottom:10px;right:12px;font-family:var(--mono);font-size:10px;color:var(--text-dim);opacity:.7;white-space:nowrap;pointer-events:none}
+  .cb-build-total{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding:7px 0 1px;margin-top:4px;font-family:var(--mono);font-size:11px}
+  .cb-build-total-label{color:var(--text-dim);font-size:10px;text-transform:uppercase;letter-spacing:.04em}
+  .cb-build-total-value{color:#c8a030;font-weight:700;font-size:12px}
+  .cb-spam-counter{position:absolute;bottom:8px;right:10px;display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px}
+  .cb-spam-btn{background:rgba(200,160,40,0.14);border:1px solid rgba(200,160,40,0.38);color:#c8a028;border-radius:3px;width:17px;height:17px;cursor:pointer;font-size:12px;line-height:1;padding:0;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+  .cb-spam-btn:hover{background:rgba(200,160,40,0.3)}
+  .cb-spam-count{color:var(--text-dim);min-width:20px;text-align:center}
+  .cb-spam-total{position:static;opacity:.75;margin-left:2px}
+  .cb-budget-left{display:flex;justify-content:space-between;align-items:center;padding:3px 0 0;font-family:var(--mono);font-size:10px}
+  .cb-budget-left-label{color:var(--text-dim);opacity:.7;letter-spacing:.04em}
+  .cb-budget-left-value{font-weight:600}
+  .cb-budget-ok{color:#6abf6a}
+  .cb-budget-over{color:#e05a5a}
   .cb-choice-or{display:flex;align-items:center;font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;padding:0 2px;align-self:center;flex-shrink:0}
   .tag.water{background:rgba(40,140,200,0.18);color:#2878c0}
 
@@ -917,20 +932,54 @@
   }
   .wave-info summary{
     cursor:pointer;
-    padding:10px 14px;
+    padding:9px 14px;
     font-family:var(--mono);
     font-size:11px;
     font-weight:700;
     text-transform:uppercase;
-    letter-spacing:0.04em;
+    letter-spacing:0.05em;
     color:var(--text-dim);
     list-style:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--panel-2);
+    user-select:none;
+    transition:color .12s,background .12s;
   }
+  .wave-info summary::after{content:"▾";font-size:13px;margin-left:8px;transition:transform .18s;display:inline-block}
+  .wave-info[open] summary::after{transform:rotate(-180deg)}
   .wave-info summary:hover{color:var(--text)}
   .wave-info summary::-webkit-details-marker{display:none}
-  .wave-info[open] summary{border-bottom:1px solid var(--line)}
+  .wave-info[open] summary{border-bottom:1px solid var(--line);color:var(--text)}
   .wave-info table.paths{margin:0}
   .wave-info table.paths tr:last-child td{border-bottom:none}
+  .income-section-note{font-size:11px;color:var(--text-dim);padding:8px 14px 6px;line-height:1.5}
+  .income-table-wrap{max-height:280px;overflow-y:auto;border-top:1px solid var(--line);margin:0}
+  .income-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px}
+  .income-table th,.income-table td{padding:3px 7px;border-bottom:1px solid var(--line);text-align:right}
+  .income-table th{background:var(--panel);position:sticky;top:0;z-index:1;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+  .income-table td:first-child,.income-table th:first-child{text-align:left}
+  .income-table tr:last-child td{border-bottom:none}
+  .income-table tr.tax-break{border-top:2px solid rgba(255,165,0,0.35)}
+  .income-table tr.tax-break td:first-child::after{content:attr(data-tax);display:block;font-size:8px;color:#f0a030;letter-spacing:.04em}
+  .ti-cost{font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:5px;letter-spacing:.02em}
+  .ti-cost-label{font-size:9px;opacity:.6;margin-right:4px}
+  .ti-diff-bar{display:flex;align-items:center;gap:5px;margin:10px 0 12px;flex-wrap:wrap}
+  .ti-diff-label{font-size:10px;color:var(--text-dim);font-family:var(--mono);letter-spacing:.04em;margin-right:2px}
+  .ti-diff-btn{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.05em;padding:3px 10px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--text-dim);cursor:pointer;transition:color .12s,border-color .12s,background .12s}
+  .ti-diff-btn:hover{color:var(--text)}
+  .ti-diff-btn.active{color:#c8a030;border-color:rgba(200,160,40,.55);background:rgba(200,160,40,.08)}
+  .ti-base{flex-basis:100%}
+  .ti-calc-total{display:none;font-family:var(--mono);font-size:13px;font-weight:700;color:#c8a030;margin-left:auto;white-space:nowrap}
+  .ti-calc-total.visible{display:inline}
+  .ti-check{width:13px;height:13px;border:1px solid rgba(255,255,255,.18);border-radius:2px;background:transparent;cursor:pointer;margin-left:auto;flex-shrink:0;padding:0;transition:background .1s,border-color .1s}
+  .ti-check.selected{background:rgba(200,160,40,.55);border-color:rgba(200,160,40,.8)}
+  .ti-check:hover:not(.selected){background:rgba(255,255,255,.08)}
+  .ti-calc-clear{font-family:var(--mono);font-size:10px;padding:3px 8px;border:1px solid rgba(255,255,255,.12);border-radius:4px;background:transparent;color:var(--text-dim);cursor:pointer;margin-left:6px;transition:color .12s}
+  .ti-calc-clear:hover{color:var(--text)}
+  .mode-budget{font-family:var(--mono);font-size:11px;color:#c8a030;background:rgba(200,160,30,0.10);border:1px solid rgba(200,160,30,0.28);border-radius:6px;padding:6px 12px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .mode-budget-note{font-size:10px;color:var(--text-dim);font-style:italic}
 
   /* chimps */
   .chimps-grid{
@@ -1556,7 +1605,7 @@
       <button class="subtab-btn active" data-subtab="easy">Easy (40)</button>
       <button class="subtab-btn" data-subtab="medium">Medium (60)</button>
       <button class="subtab-btn" data-subtab="hard">Hard (80)</button>
-      <button class="subtab-btn" data-subtab="chimps100">CHIMPS (100)</button>
+      <button class="subtab-btn" data-subtab="impoppable">Impoppable (100)</button>
     </div>
 
     <div id="subpanel-easy" class="subpanel active">
@@ -1572,12 +1621,14 @@
             <tr><td>40</td><td class="dim">First MOAB (66% HP on Easy)</td><td class="dim">Sniper, Bomb Shooter, or a cheap MOAB Press Boomerang &mdash; this is the final round on Easy</td></tr>
           </tbody>
         </table>
+
       </details>
 
       <div class="subtab-bar nested">
         <button class="subtab-btn active" data-subtab="easy-default">Standard</button>
         <button class="subtab-btn" data-subtab="easy-primary">Primary</button>
       </div>
+      <div class="mode-budget">&#128178; Easy budget: <strong>≈$17,500</strong> by round 40 <span class="mode-budget-note">(total income incl. starting cash)</span></div>
 
       <!-- ── EASY: Standard ──────────────────────── -->
       <div id="subpanel-easy-default" class="subpanel active">
@@ -1632,7 +1683,7 @@
                 <span class="cb-name">Boomerang</span>
                 <span class="path-pill">0/0/4</span>
                 <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
-                <span class="cb-gate">before round 40</span>
+                <span class="cb-gate">0/0/4 before round 40</span>
               </div>
               <div class="cb-note">Red Hot Rangs (bot T2) pops Lead and Frozen. MOAB Press (bot T4) handles the round 40 MOAB.</div>
             </div>
@@ -1757,7 +1808,7 @@
                 <span class="cb-name">Boomerang</span>
                 <span class="path-pill">0/0/4</span>
                 <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
-                <span class="cb-gate">before round 40</span>
+                <span class="cb-gate">0/0/4 before round 40</span>
               </div>
               <div class="cb-note">Red Hot Rangs (bot T2) pops Lead and Frozen. MOAB Press (bot T4) answers round 40's MOAB.</div>
             </div>
@@ -1798,6 +1849,7 @@
         <button class="subtab-btn active" data-subtab="medium-default">Standard</button>
         <button class="subtab-btn" data-subtab="medium-military">Military</button>
       </div>
+      <div class="mode-budget">&#128178; Medium budget: <strong>&#8776;$54,400</strong> by round 60 <span class="mode-budget-note">(total income incl. starting cash)</span></div>
 
       <!-- ── MEDIUM: Standard ────────────────────── -->
       <div id="subpanel-medium-default" class="subpanel active">
@@ -1843,7 +1895,7 @@
                 <span class="cb-name">Boomerang</span>
                 <span class="path-pill">0/0/4</span>
                 <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span>
-                <span class="cb-gate">before round 40</span>
+                <span class="cb-gate">0/0/4 before round 40</span>
               </div>
               <div class="cb-note">Red Hot Rangs (bot T2) pops Lead and Frozen. MOAB Press (bot T4) handles round 40's MOAB.</div>
             </div>
@@ -1856,7 +1908,7 @@
                   <span class="cb-name">Monkey Sub</span>
                   <span class="path-pill">3/0/0</span>
                   <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag water">water</span>
-                  <span class="cb-gate">before round 36</span>
+                  <span class="cb-gate">3/0/0 before round 36</span>
                 </div>
                 <div class="cb-note">Submerge and Support (top T3) instantly strips Camo from all bloons in range. Cheapest and fastest decamo option — needs a water tile.</div>
               </div>
@@ -1868,9 +1920,9 @@
                   <span class="cb-name">Wizard Monkey</span>
                   <span class="path-pill">0/0/4</span>
                   <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag lead">lead</span>
-                  <span class="cb-gate">before round 36</span>
+                  <span class="cb-gate">0/0/3 before round 36</span>
                 </div>
-                <div class="cb-note">Shimmer (0/0/3) strips Camo in range — rush to 0/0/3 before round 36. Necromancer (0/0/4) reanimates popped bloons for extra DPS. Works on any map.</div>
+                <div class="cb-note">Shimmer (0/0/3) strips Camo in range — reach 0/0/3 before round 36. Necromancer (0/0/4) reanimates popped bloons for extra DPS. Works on any map.</div>
               </div>
 
               <div class="cb-choice-or">OR</div>
@@ -1880,7 +1932,7 @@
                   <span class="cb-name">Engineer Monkey</span>
                   <span class="path-pill">0/3/0</span>
                   <span class="tag camo-aura">camo aura</span>
-                  <span class="cb-gate">before round 36</span>
+                  <span class="cb-gate">0/3/0 before round 36</span>
                 </div>
                 <div class="cb-note">Sentry Expert (mid T3) — land-based decamo option. Works on any map, no water required.</div>
               </div>
@@ -1931,11 +1983,11 @@
             <div class="cb-unit">
               <div class="cb-unit-row">
                 <span class="cb-name">Monkey Sub</span>
-                <span class="path-pill">4/0/0</span>
-                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag moab">moab</span>
+                <span class="path-pill">4/2/0</span>
+                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag moab">moab</span><span class="tag lead">lead</span>
                 <span class="cb-gate">3/0/0 before round 36</span>
               </div>
-              <div class="cb-note">Advanced Intel (top T2) detects camo. Submerge and Support (top T3) strips Camo from bloons in range — rush to 3/0/0 before round 36. First Strike Capability (top T4) fires a powerful missile on use that destroys one MOAB-class bloon.</div>
+              <div class="cb-note">3/0/0 (Submerge and Support) is the top priority — reach it before round 36 to strip Camo. The full 4/2/0 build adds First Strike Capability (top T4) for a MOAB-killing ability, and Heat-tipped Darts (mid T2) for Lead and Frozen popping. 4/0/0 is most valuable when the sub is surrounded by other water towers with abilities.</div>
             </div>
 
             <div class="cb-unit">
@@ -1950,10 +2002,10 @@
             <div class="cb-unit">
               <div class="cb-unit-row">
                 <span class="cb-name">Alchemist</span>
-                <span class="path-pill">2/0/0</span>
-                <span class="tag lead-aura">lead aura</span>
+                <span class="path-pill">3/2/0</span>
+                <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
               </div>
-              <div class="cb-note">Acidic Mixture Dip (top T2) grants lead-popping to all buffed towers in range.</div>
+              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first for lead-aura on nearby towers. Berserker Brew (top T3) adds attack speed and damage buff to buffed towers; Acid Pool (bot T2) leaves damage pools on the track.</div>
             </div>
 
             <div class="cb-unit cb-spam">
@@ -2037,11 +2089,11 @@
             <div class="cb-unit">
               <div class="cb-unit-row">
                 <span class="cb-name">Monkey Sub</span>
-                <span class="path-pill">3/0/0</span>
-                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span>
+                <span class="path-pill">4/2/0</span>
+                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag moab">moab</span><span class="tag lead">lead</span>
                 <span class="cb-gate">3/0/0 before round 36</span>
               </div>
-              <div class="cb-note">Advanced Intel (top T2) detects camo. Submerge and Support (top T3) strips Camo from bloons in range — rush to 3/0/0 before round 36.</div>
+              <div class="cb-note">3/0/0 (Submerge and Support) is the top priority — reach it before round 36 to strip Camo. The full 4/2/0 build adds First Strike Capability (top T4) for a MOAB-killing ability, and Heat-tipped Darts (mid T2) for Lead and Frozen popping. 4/0/0 is most valuable when the sub is surrounded by other water towers with abilities.</div>
             </div>
 
             <div class="cb-unit">
@@ -2069,9 +2121,29 @@
     </div>
 
     <div id="subpanel-hard" class="subpanel">
+      <details class="wave-info">
+        <summary>Wave info</summary>
+        <table class="paths">
+          <thead><tr><th>Round</th><th>Threat</th><th>Cover with</th></tr></thead>
+          <tbody>
+            <tr><td>28</td><td class="dim">First Lead</td><td class="dim">Alchemist (innate lead-popping), Druid, or 0/0/2 Boomerang (Red Hot Rangs)</td></tr>
+            <tr><td>36</td><td class="dim">140 Pinks + Camo Regrow Greens</td><td class="dim">Camo detection and AoE must both be online by now</td></tr>
+            <tr><td>40</td><td class="dim">First MOAB</td><td class="dim">Sub, Sniper, or Bomb Shooter for initial MOAB damage</td></tr>
+            <tr><td>51</td><td class="dim">Camo Ceramics</td><td class="dim">Camo detection on your main AoE damage source</td></tr>
+            <tr><td>59</td><td class="dim">Camo Leads + Regrow Ceramics</td><td class="dim">Camo and lead-popping required simultaneously</td></tr>
+            <tr><td>60</td><td class="dim">First BFB</td><td class="dim">BFB has 700 HP vs MOAB's 200 — sustained MOAB DPS, not just burst</td></tr>
+            <tr><td>63</td><td class="dim">Camo BFBs</td><td class="dim">Camo detection must be on your main MOAB damage source, not just a separate decamo tower</td></tr>
+            <tr><td>70</td><td class="dim">First DDTs</td><td class="dim">Camo + Lead + Black + very fast — hardest bloon; need a source that detects camo AND pops Lead (e.g. 4/2/0 Sub or MIB Village)</td></tr>
+            <tr><td>78</td><td class="dim">ZOMG</td><td class="dim">4,000 HP — save activated abilities for this round</td></tr>
+            <tr><td>80</td><td class="dim">ZOMG + BFB rush (final round)</td><td class="dim">Full DPS from all sources; use all abilities</td></tr>
+          </tbody>
+        </table>
+      </details>
+
       <div class="subtab-bar nested">
         <button class="subtab-btn active" data-subtab="hard-default">Standard</button>
       </div>
+      <div class="mode-budget">&#128178; Hard budget: <strong>&#8776;$94,700</strong> by round 80 <span class="mode-budget-note">(total income incl. starting cash)</span></div>
 
       <!-- ── HARD: Standard ──────────────────────── -->
       <div id="subpanel-hard-default" class="subpanel active">
@@ -2109,11 +2181,11 @@
             <div class="cb-unit">
               <div class="cb-unit-row">
                 <span class="cb-name">Monkey Sub</span>
-                <span class="path-pill">5/0/0</span>
-                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span>
+                <span class="path-pill">4/2/0</span>
+                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag moab">moab</span><span class="tag lead">lead</span>
                 <span class="cb-gate">3/0/0 before round 36</span>
               </div>
-              <div class="cb-note">Advanced Intel (top T2) detects camo. Submerge and Support (top T3) strips Camo from bloons in range — rush to 3/0/0 before round 36. Finish to Energizer (5/0/0) when money allows.</div>
+              <div class="cb-note">3/0/0 (Submerge and Support) is the top priority — reach it before round 36 to strip Camo. The full 4/2/0 build adds First Strike Capability (top T4) for a MOAB-killing ability, and Heat-tipped Darts (mid T2) for Lead and Frozen popping.</div>
             </div>
 
             <div class="cb-unit">
@@ -2125,14 +2197,23 @@
               <div class="cb-note">Main MOAB carry on water maps. Pirate Lord (mid T5) is the primary damage dealer. Crow's Nest (bot T2) gives camo; Hot Shot (mid T2) pops Lead and Frozen. Build when money allows.</div>
             </div>
 
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">4/2/0</span>
+                <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
+              </div>
+              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first for lead-aura. Stronger Stimulant (top T4) buffs nearby towers with increased attack speed and damage — prioritise once the Buccaneer and Subs are online. Acid Pool (bot T2) adds passive track damage.</div>
+            </div>
+
             <div class="cb-unit cb-spam">
               <div class="cb-unit-row">
                 <span class="cb-spam-badge">spam</span>
                 <span class="cb-name">Monkey Sub</span>
-                <span class="path-pill">2/5/0</span>
+                <span class="path-pill">2/4/0</span>
                 <span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag camo">camo</span><span class="tag aoe">aoe</span>
               </div>
-              <div class="cb-note">Fill remaining water with these. Pre-Emptive Strike (mid T5) auto-targets every incoming MOAB-class. Advanced Intel (top T2) adds camo detection.</div>
+              <div class="cb-note">Fill remaining water with these. Build to 2/3/0 first if money is tight — upgrade to 2/4/0 when budget allows. Advanced Intel (top T2) adds camo detection; First Strike Capability (mid T4) destroys a MOAB-class on use.</div>
             </div>
 
           </div>
@@ -2140,13 +2221,35 @@
       </div>
     </div>
 
-    <div id="subpanel-chimps100" class="subpanel">
-      <div class="subtab-bar nested">
-        <button class="subtab-btn active" data-subtab="chimps100-default">Standard</button>
-      </div>
+    <div id="subpanel-impoppable" class="subpanel">
+      <details class="wave-info">
+        <summary>Wave info</summary>
+        <table class="paths">
+          <thead><tr><th>Round</th><th>Threat</th><th>Cover with</th></tr></thead>
+          <tbody>
+            <tr><td>28</td><td class="dim">First Lead</td><td class="dim">Alchemist (innate lead-popping), Druid, or 0/0/2 Boomerang (Red Hot Rangs)</td></tr>
+            <tr><td>36</td><td class="dim">140 Pinks + Camo Regrow Greens</td><td class="dim">Camo detection and AoE must both be online by now</td></tr>
+            <tr><td>40</td><td class="dim">First MOAB</td><td class="dim">Sub, Sniper, or Bomb Shooter for initial MOAB damage</td></tr>
+            <tr><td>51</td><td class="dim">Camo Ceramics</td><td class="dim">Camo detection on your main AoE damage source</td></tr>
+            <tr><td>59</td><td class="dim">Camo Leads + Regrow Ceramics</td><td class="dim">Camo and lead-popping required simultaneously</td></tr>
+            <tr><td>60</td><td class="dim">First BFB</td><td class="dim">BFB has 700 HP vs MOAB's 200 — sustained MOAB DPS, not just burst</td></tr>
+            <tr><td>63</td><td class="dim">Camo BFBs</td><td class="dim">Camo detection must be on your main MOAB damage source</td></tr>
+            <tr><td>70</td><td class="dim">First DDTs</td><td class="dim">Camo + Lead + Black + very fast — need a source that detects camo AND pops Lead (e.g. 4/2/0 Sub or MIB Village)</td></tr>
+            <tr><td>78</td><td class="dim">ZOMG</td><td class="dim">4,000 HP — save activated abilities for this round</td></tr>
+            <tr><td>90</td><td class="dim">Multiple ZOMGs</td><td class="dim">Several ZOMGs in quick succession — Pre-Emptive Strike and Pirate Lord abilities are critical here</td></tr>
+            <tr><td>95</td><td class="dim">Purples</td><td class="dim">Immune to explosions and ice — Pirate Lord, Subs, and Alchemist all pop Purples fine</td></tr>
+            <tr><td>100</td><td class="dim">BAD (final round)</td><td class="dim">RBE 67,200; spawns 3 ZOMGs on death — use every ability simultaneously, Pre-Emptive Strikes stagger it down</td></tr>
+          </tbody>
+        </table>
+      </details>
 
-      <!-- ── CHIMPS: Standard ────────────────────── -->
-      <div id="subpanel-chimps100-default" class="subpanel active">
+      <div class="subtab-bar nested">
+        <button class="subtab-btn active" data-subtab="impoppable-default">Standard</button>
+      </div>
+      <div class="mode-budget">&#128178; Impoppable budget: <strong>&#8776;$110,000</strong> by round 100 <span class="mode-budget-note">(total income incl. starting cash and pop income)</span></div>
+
+      <!-- ── Impoppable: Standard ────────────────────── -->
+      <div id="subpanel-impoppable-default" class="subpanel active">
         <div class="cb-controls">
           <label class="cb-water-lot-label">
             <input type="checkbox" class="cb-water-lot-cb"> Map has a LOT of water
@@ -2181,11 +2284,11 @@
             <div class="cb-unit">
               <div class="cb-unit-row">
                 <span class="cb-name">Monkey Sub</span>
-                <span class="path-pill">5/0/0</span>
-                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span>
+                <span class="path-pill">4/2/0</span>
+                <span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span><span class="tag moab">moab</span><span class="tag lead">lead</span>
                 <span class="cb-gate">3/0/0 before round 36</span>
               </div>
-              <div class="cb-note">Advanced Intel (top T2) detects camo. Submerge and Support (top T3) strips Camo from bloons in range — rush to 3/0/0 before round 36. Finish to Energizer (5/0/0) when money allows.</div>
+              <div class="cb-note">3/0/0 (Submerge and Support) is the top priority — reach it before round 36 to strip Camo. The full 4/2/0 build adds First Strike Capability (top T4) for a MOAB-killing ability, and Heat-tipped Darts (mid T2) for Lead and Frozen popping.</div>
             </div>
 
             <div class="cb-unit">
@@ -2197,14 +2300,23 @@
               <div class="cb-note">Main MOAB carry on water maps. Pirate Lord (mid T5) is the primary damage dealer. Crow's Nest (bot T2) gives camo; Hot Shot (mid T2) pops Lead and Frozen. Build when money allows.</div>
             </div>
 
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">4/2/0</span>
+                <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
+              </div>
+              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first for lead-aura. Stronger Stimulant (top T4) buffs nearby towers with increased attack speed and damage — prioritise once the Buccaneer and Subs are online. Acid Pool (bot T2) adds passive track damage.</div>
+            </div>
+
             <div class="cb-unit cb-spam">
               <div class="cb-unit-row">
                 <span class="cb-spam-badge">spam</span>
                 <span class="cb-name">Monkey Sub</span>
-                <span class="path-pill">2/5/0</span>
+                <span class="path-pill">2/4/0</span>
                 <span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag camo">camo</span><span class="tag aoe">aoe</span>
               </div>
-              <div class="cb-note">Fill remaining water with these. Pre-Emptive Strike (mid T5) auto-targets every incoming MOAB-class. Advanced Intel (top T2) adds camo detection.</div>
+              <div class="cb-note">Fill remaining water with these. Build to 2/3/0 first if money is tight — upgrade to 2/4/0 when budget allows. Advanced Intel (top T2) adds camo detection; First Strike Capability (mid T4) destroys a MOAB-class on use.</div>
             </div>
 
           </div>
@@ -2492,6 +2604,7 @@
     <button class="filter-btn" data-tifilter="tack shooter">Tack Shooter</button>
     <button class="filter-btn" data-tifilter="ice monkey">Ice Monkey</button>
     <button class="filter-btn" data-tifilter="glue gunner">Glue Gunner</button>
+    <button class="filter-btn" data-tifilter="desperado">Desperado</button>
     <!-- Military -->
     <button class="filter-btn" data-tifilter="sniper monkey">Sniper Monkey</button>
     <button class="filter-btn" data-tifilter="monkey sub">Monkey Sub</button>
@@ -3123,6 +3236,109 @@
         <span class="ti-uname">Super Glue</span>
         <span class="tag moab">moab</span>
         <div class="ti-desc">Glue so strong it temporarily immobilizes all affected Bloons! Effect: Glue immensely damages and pops bloons over time, directly deals damage on-hit versus <b>MOAB-class</b>, slowing BFBs by 95% and ZOMGs by 90%, locking every other lower-tier bloon in place.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Desperado -->
+<div class="ti-card" data-tower="desperado">
+  <div class="ti-head">
+    <span class="ti-name">Desperado</span>
+    <span class="ti-cat primary">Primary</span>
+    <div class="ti-base">base: 2-shot revolver pistol, 1 damage, range-based attack speed; cannot pop Lead or Camo</div>
+  </div>
+  <div class="ti-paths">
+    <div class="ti-path">
+      <div class="ti-path-label top">TOP</div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">1</span>
+        <span class="ti-uname">Quickdraw</span>
+        <div class="ti-desc">Attacks faster the further Bloons are from Desperado. Effect: +1% attack speed per unit distance to the nearest Bloon, up to +50%.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">2</span>
+        <span class="ti-uname">Standoff</span>
+        <div class="ti-desc">Attacks faster the fewer Bloons are in range. Effect: +60% attack speed base, but loses 15% per additional Bloon in range, down to 0%.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">3</span>
+        <span class="ti-uname">Big Iron</span>
+        <div class="ti-desc">Upgrades to a 6-shot revolver. Effect: Magazine increased from 2 to 6, pistol damage from 1 to 2. Standoff max bonus increased to 120%, loses 30% per Bloon in range.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">4</span>
+        <span class="ti-uname">Twin Sixes</span>
+        <div class="ti-desc">Gains twin high-damage revolvers. Effect: Adds a second identical revolver, shoots twice as fast, damage from 2 to 6, combined magazine of 12 shots.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">5</span>
+        <span class="ti-uname">The Blazing Sun</span>
+        <span class="tag aoe">aoe</span>
+        <div class="ti-desc">Dramatically increased attack speed. Every 50th shot sets the target bloon ablaze, dealing 75 damage over 12 seconds and spreading fire to up to 8 nearby bloons.</div>
+      </div>
+    </div>
+    <div class="ti-path">
+      <div class="ti-path-label mid">MID</div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">1</span>
+        <span class="ti-uname">Eagle Eye</span>
+        <span class="tag camo">camo</span>
+        <div class="ti-desc">Desperado can see <b>Camo</b> Bloons. Effect: Gains <b>camo detection</b> and Camo Prioritization targeting.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">2</span>
+        <span class="ti-uname">Bullseye</span>
+        <div class="ti-desc">Shots have a crit chance that increases with target distance. Effect: 2.5% base crit chance dealing 4× damage; chance increases by +0.25% per unit of target distance.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">3</span>
+        <span class="ti-uname">Deadeye</span>
+        <span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag fortified">fortified</span>
+        <div class="ti-desc">Gains a long-range rifle that pops <b>Lead</b> and <b>Frozen</b> with bonus damage vs <b>Fortified</b>. Take Aim ability grants a nearby Monkey camo detection and improved range. Effect: Rifle deals 10 damage, 4 pierce, +12 vs <b>Fortified</b>, pops <b>Lead</b> and <b>Frozen</b>. Pistol deals 6 damage when bloons are close. Take Aim (15s): target Monkey gains +20% range, improved accuracy, and <b>camo detection</b>.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">4</span>
+        <span class="ti-uname">Bounty Hunter</span>
+        <span class="tag moab">moab</span><span class="tag ceramic">ceramic</span>
+        <div class="ti-desc">Marked to Pop ability: pauses to mark up to 10 Bloons globally with infinite range, then executes them. Marked Bloons take 2× damage from all Desperados and yield 2× cash. Effect: Execution pistol deals 30 damage, pops all bloon types. Pistol deals 16 damage with +16 to <b>Ceramic</b>. All Desperados gain Marked Prioritization targeting. Gradually marks a few bloons passively.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">5</span>
+        <span class="ti-uname">Golden Justice</span>
+        <span class="tag moab">moab</span><span class="tag fortified">fortified</span><span class="tag ceramic">ceramic</span>
+        <div class="ti-desc">Rifle fires an infinite-pierce line dealing 280 damage (+280 <b>Fortified</b>, +24 <b>Ceramic</b>). Pistol gains an explosion that pops all types. Marked to Pop improved: marks with red glimmers, execution pistol deals 600 damage. Crits deal 8× instead of 4× damage.</div>
+      </div>
+    </div>
+    <div class="ti-path">
+      <div class="ti-path-label bot">BOT</div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">1</span>
+        <span class="ti-uname">Wanderer</span>
+        <div class="ti-desc">Attacks much faster alone, less so with more Monkeys in range. Effect: +45% attack speed, but loses 15% per non-Wanderer tower in weapon range, down to 0%. Buff is tracked per weapon independently.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">2</span>
+        <span class="ti-uname">Nomad</span>
+        <div class="ti-desc">Attacks faster with more Bloons in range. When lives are lost, gains temporary speed and range, plus double cash from leaks. Effect: +2% attack speed per bloon in range up to +50%. Nomad passive (60s cooldown): on life loss, gains +16% range and +60% attack speed for 15s, and awards double pop-value cash from leaked bloons.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">3</span>
+        <span class="ti-uname">Enforcer</span>
+        <span class="tag aoe">aoe</span>
+        <div class="ti-desc">Gains a short-range shotgun that knocks back Bloons. Effect: Shotgun fires 3 buckshots that knock back bloons up to <b>Ceramic</b>. Pistol improved to 6 damage.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">4</span>
+        <span class="ti-uname">Avenger</span>
+        <span class="tag moab">moab</span><span class="tag aoe">aoe</span>
+        <div class="ti-desc">Shotgun knocks back <b>MOAB-class</b> bloons and releases shrapnel. Nomad passive improved. Effect: Buckshots knock back <b>MOAB-class</b> up to ZOMGs and damaged visible DDTs. All buckshots release shrapnel on depletion. Nomad passive improved: bloons up to Rainbow lose only 1 life for 15s on proc. Pistol improved to 18 damage with +18 <b>Ceramic</b>.</div>
+      </div>
+      <div class="ti-upgrade">
+        <span class="ti-tier">5</span>
+        <span class="ti-uname">The Desert Phantom</span>
+        <span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag aoe">aoe</span>
+        <div class="ti-desc">Massively improved shotgun with explosive, fire-spreading shrapnel. Effect: Buckshots deal greatly more damage with improved knockback on <b>MOAB-class</b> and normal bloons. Shrapnel has extended reach and can explode and catch fire when hitting non-direct-target bloons. Pistol deals 50 damage with +50 <b>Ceramic</b>.</div>
       </div>
     </div>
   </div>
@@ -5030,6 +5246,156 @@
     </table>
 
     <p class="combo-desc">Past round 100, rounds 101&ndash;140 keep escalating with stacked properties (Fortified Camo Regrow combinations becoming standard) before settling into a repeating pattern. Round 140 ends with a Fortified BAD and a regular BAD together. After round 140, rounds are randomly generated from the available bloon pool, with a few fixed exceptions (round 163 echoes round 63 with Ceramics and Fortified Leads only; round 200 spawns exactly two Fortified BADs). This is Freeplay/Chimps-extended territory, well beyond what a standard CHIMPS clear requires.</p>
+
+    <h3 style="font-family:var(--mono);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);margin:28px 0 6px">Round Income Reference</h3>
+    <p class="combo-desc" style="margin-bottom:10px">$650 starting cash included in Round 1. End-of-round bonus = $(100+R). Marked rows show when cash-per-pop drops. Farms, abilities, and income towers excluded. CHIMPS has no pop income — only the round bonus.</p>
+    <div style="max-height:400px;overflow-y:auto;border:1px solid var(--line);border-radius:6px">
+      <table class="income-table">
+        <thead><tr><th>R</th><th>Pop $</th><th>Total</th><th>Cumul.</th></tr></thead>
+        <tbody>
+        <tr><td>1</td><td>$20</td><td>$771</td><td>$771</td></tr>
+        <tr><td>2</td><td>$35</td><td>$137</td><td>$908</td></tr>
+        <tr><td>3</td><td>$35</td><td>$138</td><td>$1,046</td></tr>
+        <tr><td>4</td><td>$71</td><td>$175</td><td>$1,221</td></tr>
+        <tr><td>5</td><td>$59</td><td>$164</td><td>$1,385</td></tr>
+        <tr><td>6</td><td>$57</td><td>$163</td><td>$1,548</td></tr>
+        <tr><td>7</td><td>$75</td><td>$182</td><td>$1,730</td></tr>
+        <tr><td>8</td><td>$92</td><td>$200</td><td>$1,930</td></tr>
+        <tr><td>9</td><td>$90</td><td>$199</td><td>$2,129</td></tr>
+        <tr><td>10</td><td>$204</td><td>$314</td><td>$2,443</td></tr>
+        <tr><td>11</td><td>$78</td><td>$189</td><td>$2,632</td></tr>
+        <tr><td>12</td><td>$80</td><td>$192</td><td>$2,824</td></tr>
+        <tr><td>13</td><td>$169</td><td>$282</td><td>$3,106</td></tr>
+        <tr><td>14</td><td>$145</td><td>$259</td><td>$3,365</td></tr>
+        <tr><td>15</td><td>$151</td><td>$266</td><td>$3,631</td></tr>
+        <tr><td>16</td><td>$152</td><td>$268</td><td>$3,899</td></tr>
+        <tr><td>17</td><td>$48</td><td>$165</td><td>$4,064</td></tr>
+        <tr><td>18</td><td>$240</td><td>$358</td><td>$4,422</td></tr>
+        <tr><td>19</td><td>$141</td><td>$260</td><td>$4,682</td></tr>
+        <tr><td>20</td><td>$66</td><td>$186</td><td>$4,868</td></tr>
+        <tr><td>21</td><td>$230</td><td>$351</td><td>$5,219</td></tr>
+        <tr><td>22</td><td>$176</td><td>$298</td><td>$5,517</td></tr>
+        <tr><td>23</td><td>$154</td><td>$277</td><td>$5,794</td></tr>
+        <tr><td>24</td><td>$43</td><td>$167</td><td>$5,961</td></tr>
+        <tr><td>25</td><td>$210</td><td>$335</td><td>$6,296</td></tr>
+        <tr><td>26</td><td>$207</td><td>$333</td><td>$6,629</td></tr>
+        <tr><td>27</td><td>$535</td><td>$662</td><td>$7,291</td></tr>
+        <tr><td>28</td><td>$138</td><td>$266</td><td>$7,557</td></tr>
+        <tr><td>29</td><td>$260</td><td>$389</td><td>$7,946</td></tr>
+        <tr><td>30</td><td>$207</td><td>$337</td><td>$8,283</td></tr>
+        <tr><td>31</td><td>$406</td><td>$537</td><td>$8,820</td></tr>
+        <tr><td>32</td><td>$495</td><td>$627</td><td>$9,447</td></tr>
+        <tr><td>33</td><td>$72</td><td>$205</td><td>$9,652</td></tr>
+        <tr><td>34</td><td>$778</td><td>$912</td><td>$10,564</td></tr>
+        <tr><td>35</td><td>$1,015</td><td>$1,150</td><td>$11,714</td></tr>
+        <tr><td>36</td><td>$760</td><td>$896</td><td>$12,610</td></tr>
+        <tr><td>37</td><td>$1,202</td><td>$1,339</td><td>$13,949</td></tr>
+        <tr><td>38</td><td>$1,139</td><td>$1,277</td><td>$15,226</td></tr>
+        <tr><td>39</td><td>$1,620</td><td>$1,759</td><td>$16,985</td></tr>
+        <tr><td>40</td><td>$381</td><td>$521</td><td>$17,506</td></tr>
+        <tr><td>41</td><td>$2,040</td><td>$2,181</td><td>$19,687</td></tr>
+        <tr><td>42</td><td>$517</td><td>$659</td><td>$20,346</td></tr>
+        <tr><td>43</td><td>$1,135</td><td>$1,278</td><td>$21,624</td></tr>
+        <tr><td>44</td><td>$1,150</td><td>$1,294</td><td>$22,918</td></tr>
+        <tr><td>45</td><td>$2,277</td><td>$2,422</td><td>$25,340</td></tr>
+        <tr><td>46</td><td>$570</td><td>$716</td><td>$26,056</td></tr>
+        <tr><td>47</td><td>$1,490</td><td>$1,637</td><td>$27,693</td></tr>
+        <tr><td>48</td><td>$2,695</td><td>$2,843</td><td>$30,536</td></tr>
+        <tr><td>49</td><td>$4,609</td><td>$4,758</td><td>$35,294</td></tr>
+        <tr><td>50</td><td>$2,866</td><td>$3,016</td><td>$38,310</td></tr>
+        <tr class="tax-break" data-tax="tax →50%"><td>51</td><td>$947</td><td>$1,023</td><td>$39,333</td></tr>
+        <tr><td>52</td><td>$1,443</td><td>$1,519</td><td>$40,852</td></tr>
+        <tr><td>53</td><td>$771</td><td>$848</td><td>$41,700</td></tr>
+        <tr><td>54</td><td>$2,043</td><td>$2,120</td><td>$43,821</td></tr>
+        <tr><td>55</td><td>$2,328</td><td>$2,405</td><td>$46,226</td></tr>
+        <tr><td>56</td><td>$1,130</td><td>$1,208</td><td>$47,435</td></tr>
+        <tr><td>57</td><td>$1,702</td><td>$1,780</td><td>$49,215</td></tr>
+        <tr><td>58</td><td>$2,140</td><td>$2,219</td><td>$51,434</td></tr>
+        <tr><td>59</td><td>$2,000</td><td>$2,079</td><td>$53,514</td></tr>
+        <tr><td>60</td><td>$762</td><td>$842</td><td>$54,356</td></tr>
+        <tr class="tax-break" data-tax="tax →20%"><td>61</td><td>$1,071</td><td>$1,103</td><td>$55,459</td></tr>
+        <tr><td>62</td><td>$1,224</td><td>$1,256</td><td>$56,716</td></tr>
+        <tr><td>63</td><td>$2,663</td><td>$2,695</td><td>$59,412</td></tr>
+        <tr><td>64</td><td>$685</td><td>$718</td><td>$60,130</td></tr>
+        <tr><td>65</td><td>$2,906</td><td>$2,939</td><td>$63,070</td></tr>
+        <tr><td>66</td><td>$838</td><td>$871</td><td>$63,941</td></tr>
+        <tr><td>67</td><td>$856</td><td>$890</td><td>$64,831</td></tr>
+        <tr><td>68</td><td>$609</td><td>$643</td><td>$65,475</td></tr>
+        <tr><td>69</td><td>$1,222</td><td>$1,255</td><td>$66,730</td></tr>
+        <tr><td>70</td><td>$2,448</td><td>$2,482</td><td>$69,213</td></tr>
+        <tr><td>71</td><td>$1,332</td><td>$1,366</td><td>$70,579</td></tr>
+        <tr><td>72</td><td>$1,332</td><td>$1,366</td><td>$71,946</td></tr>
+        <tr><td>73</td><td>$1,219</td><td>$1,254</td><td>$73,200</td></tr>
+        <tr><td>74</td><td>$2,870</td><td>$2,904</td><td>$76,105</td></tr>
+        <tr><td>75</td><td>$2,492</td><td>$2,527</td><td>$78,632</td></tr>
+        <tr><td>76</td><td>$1,140</td><td>$1,175</td><td>$79,807</td></tr>
+        <tr><td>77</td><td>$2,363</td><td>$2,398</td><td>$82,206</td></tr>
+        <tr><td>78</td><td>$4,684</td><td>$4,719</td><td>$86,926</td></tr>
+        <tr><td>79</td><td>$6,530</td><td>$6,565</td><td>$93,491</td></tr>
+        <tr><td>80</td><td>$1,220</td><td>$1,256</td><td>$94,748</td></tr>
+        <tr><td>81</td><td>$5,185</td><td>$5,221</td><td>$99,969</td></tr>
+        <tr><td>82</td><td>$4,575</td><td>$4,611</td><td>$104,580</td></tr>
+        <tr><td>83</td><td>$4,566</td><td>$4,602</td><td>$109,183</td></tr>
+        <tr><td>84</td><td>$6,860</td><td>$6,896</td><td>$116,080</td></tr>
+        <tr><td>85</td><td>$2,440</td><td>$2,477</td><td>$118,557</td></tr>
+        <tr class="tax-break" data-tax="tax →10%"><td>86</td><td>$762</td><td>$781</td><td>$119,338</td></tr>
+        <tr><td>87</td><td>$2,440</td><td>$2,459</td><td>$121,797</td></tr>
+        <tr><td>88</td><td>$3,126</td><td>$3,144</td><td>$124,942</td></tr>
+        <tr><td>89</td><td>$1,982</td><td>$2,000</td><td>$126,943</td></tr>
+        <tr><td>90</td><td>$149</td><td>$168</td><td>$127,111</td></tr>
+        <tr><td>91</td><td>$4,000</td><td>$4,019</td><td>$131,130</td></tr>
+        <tr><td>92</td><td>$4,345</td><td>$4,364</td><td>$135,495</td></tr>
+        <tr><td>93</td><td>$1,753</td><td>$1,772</td><td>$137,268</td></tr>
+        <tr><td>94</td><td>$7,473</td><td>$7,492</td><td>$144,760</td></tr>
+        <tr><td>95</td><td>$3,523</td><td>$3,542</td><td>$148,303</td></tr>
+        <tr><td>96</td><td>$9,759</td><td>$9,779</td><td>$158,082</td></tr>
+        <tr><td>97</td><td>$1,220</td><td>$1,239</td><td>$159,322</td></tr>
+        <tr><td>98</td><td>$9,455</td><td>$9,475</td><td>$168,798</td></tr>
+        <tr><td>99</td><td>$2,628</td><td>$2,648</td><td>$171,446</td></tr>
+        <tr><td>100</td><td>$1,334</td><td>$1,354</td><td>$172,801</td></tr>
+        <tr class="tax-break" data-tax="tax →8%"><td>101</td><td>$563</td><td>$573</td><td>$173,374</td></tr>
+        <tr><td>102</td><td>$2,249</td><td>$2,259</td><td>$175,633</td></tr>
+        <tr><td>103</td><td>$5,967</td><td>$5,977</td><td>$181,611</td></tr>
+        <tr><td>104</td><td>$7,387</td><td>$7,397</td><td>$189,009</td></tr>
+        <tr><td>105</td><td>$4,196</td><td>$4,206</td><td>$193,215</td></tr>
+        <tr><td>106</td><td>$1,771</td><td>$1,781</td><td>$194,997</td></tr>
+        <tr><td>107</td><td>$3,658</td><td>$3,669</td><td>$198,666</td></tr>
+        <tr><td>108</td><td>$5,795</td><td>$5,806</td><td>$204,472</td></tr>
+        <tr><td>109</td><td>$7,439</td><td>$7,449</td><td>$211,922</td></tr>
+        <tr><td>110</td><td>$2,477</td><td>$2,488</td><td>$214,410</td></tr>
+        <tr><td>111</td><td>$9,456</td><td>$9,467</td><td>$223,877</td></tr>
+        <tr><td>112</td><td>$2,458</td><td>$2,469</td><td>$226,347</td></tr>
+        <tr><td>113</td><td>$2,971</td><td>$2,982</td><td>$229,329</td></tr>
+        <tr><td>114</td><td>$5,394</td><td>$5,404</td><td>$234,734</td></tr>
+        <tr><td>115</td><td>$5,394</td><td>$5,404</td><td>$240,139</td></tr>
+        <tr><td>116</td><td>$3,932</td><td>$3,943</td><td>$244,082</td></tr>
+        <tr><td>117</td><td>$944</td><td>$955</td><td>$245,038</td></tr>
+        <tr><td>118</td><td>$4,232</td><td>$4,243</td><td>$249,281</td></tr>
+        <tr><td>119</td><td>$2,001</td><td>$2,012</td><td>$251,294</td></tr>
+        <tr><td>120</td><td>$5,032</td><td>$5,043</td><td>$256,338</td></tr>
+        <tr class="tax-break" data-tax="tax →5%"><td>121</td><td>$1,372</td><td>$1,376</td><td>$257,715</td></tr>
+        <tr><td>122</td><td>$1,861</td><td>$1,865</td><td>$259,580</td></tr>
+        <tr><td>123</td><td>$2,500</td><td>$2,504</td><td>$262,085</td></tr>
+        <tr><td>124</td><td>$2,287</td><td>$2,291</td><td>$264,377</td></tr>
+        <tr><td>125</td><td>$4,323</td><td>$4,327</td><td>$268,705</td></tr>
+        <tr><td>126</td><td>$754</td><td>$759</td><td>$269,464</td></tr>
+        <tr><td>127</td><td>$1,097</td><td>$1,102</td><td>$270,566</td></tr>
+        <tr><td>128</td><td>$1,592</td><td>$1,596</td><td>$272,163</td></tr>
+        <tr><td>129</td><td>$2,011</td><td>$2,016</td><td>$274,179</td></tr>
+        <tr><td>130</td><td>$1,554</td><td>$1,559</td><td>$275,739</td></tr>
+        <tr><td>131</td><td>$2,196</td><td>$2,200</td><td>$277,940</td></tr>
+        <tr><td>132</td><td>$2,952</td><td>$2,957</td><td>$280,897</td></tr>
+        <tr><td>133</td><td>$3,072</td><td>$3,077</td><td>$283,974</td></tr>
+        <tr><td>134</td><td>$1,220</td><td>$1,224</td><td>$285,199</td></tr>
+        <tr><td>135</td><td>$1,868</td><td>$1,873</td><td>$287,072</td></tr>
+        <tr><td>136</td><td>$1,463</td><td>$1,468</td><td>$288,540</td></tr>
+        <tr><td>137</td><td>$3,294</td><td>$3,298</td><td>$291,839</td></tr>
+        <tr><td>138</td><td>$960</td><td>$964</td><td>$292,804</td></tr>
+        <tr><td>139</td><td>$1,927</td><td>$1,932</td><td>$294,737</td></tr>
+        <tr><td>140</td><td>$533</td><td>$538</td><td>$295,275</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <section id="panel-sources" class="panel">
@@ -5375,6 +5741,976 @@
 
   document.getElementById('hero-select').addEventListener('change', applyHeroEffects);
   applyHeroEffects();
+
+  // ── UPGRADE COSTS ──────────────────────────────
+  // Source: towerinfo raw.txt — costs per tier per path, all 4 difficulties
+  const UPGRADE_COSTS = {
+    'dart monkey': {
+      base:{e:170,m:200,h:215,i:240},
+      1: [
+        {n:'Sharp Shots',e:120,m:140,h:150,i:170},
+        {n:'Razor Sharp Shots',e:170,m:200,h:215,i:240},
+        {n:'Spike-o-pult',e:270,m:320,h:345,i:385},
+        {n:'Juggernaut',e:1530,m:1800,h:1945,i:2160},
+        {n:'Ultra-Juggernaut',e:12750,m:15000,h:16200,i:18000},
+      ],
+      2: [
+        {n:'Quick Shots',e:85,m:100,h:110,i:120},
+        {n:'Very Quick Shots',e:160,m:190,h:205,i:230},
+        {n:'Triple Shot',e:380,m:450,h:485,i:540},
+        {n:'Super Monkey Fan Club',e:6120,m:7200,h:7775,i:8640},
+        {n:'Plasma Monkey Fan Club',e:38250,m:45000,h:48600,i:54000},
+      ],
+      3: [
+        {n:'Long Range Darts',e:75,m:90,h:95,i:110},
+        {n:'Enhanced Eyesight',e:170,m:200,h:215,i:240},
+        {n:'Crossbow',e:490,m:575,h:620,i:690},
+        {n:'Sharp Shooter',e:1740,m:2050,h:2215,i:2460},
+        {n:'Crossbow Master',e:18275,m:21500,h:23220,i:25800},
+      ],
+    },
+    'boomerang monkey': {
+      base:{e:270,m:315,h:340,i:380},
+      1: [
+        {n:'Improved Rangs',e:170,m:200,h:215,i:240},
+        {n:'Glaives',e:240,m:280,h:300,i:335},
+        {n:'Glaive Ricochet',e:510,m:600,h:650,i:720},
+        {n:'M.O.A.R Glaives',e:1700,m:2000,h:2160,i:2400},
+        {n:'Glaive Lord',e:27625,m:32500,h:35100,i:39000},
+      ],
+      2: [
+        {n:'Faster Throwing',e:150,m:175,h:190,i:210},
+        {n:'Faster Rangs',e:210,m:250,h:270,i:300},
+        {n:'Bionic Boomerang',e:1060,m:1250,h:1350,i:1500},
+        {n:'Turbo Charge',e:3570,m:4200,h:4535,i:5040},
+        {n:'Perma Charge',e:29750,m:35000,h:37800,i:42000},
+      ],
+      3: [
+        {n:'Long Range Rangs',e:85,m:100,h:110,i:120},
+        {n:'Red Hot Rangs',e:255,m:300,h:325,i:360},
+        {n:'Kylie Boomerang',e:1100,m:1300,h:1405,i:1560},
+        {n:'MOAB Press',e:2295,m:2700,h:2915,i:3240},
+        {n:'MOAB Domination',e:42500,m:50000,h:54000,i:60000},
+      ],
+    },
+    'bomb shooter': {
+      base:{e:320,m:375,h:405,i:450},
+      1: [
+        {n:'Bigger Bombs',e:210,m:250,h:270,i:300},
+        {n:'Heavy Bombs',e:550,m:650,h:700,i:780},
+        {n:'Really Big Bombs',e:935,m:1100,h:1190,i:1320},
+        {n:'Bloon Impact',e:2380,m:2800,h:3025,i:3360},
+        {n:'Bloon Crush',e:46750,m:55000,h:59400,i:66000},
+      ],
+      2: [
+        {n:'Faster Reload',e:210,m:250,h:270,i:300},
+        {n:'Missile Launcher',e:340,m:400,h:430,i:480},
+        {n:'MOAB Mauler',e:850,m:1000,h:1080,i:1200},
+        {n:'MOAB Assassin',e:2930,m:3450,h:3725,i:4140},
+        {n:'MOAB Eliminator',e:23800,m:28000,h:30240,i:33600},
+      ],
+      3: [
+        {n:'Extra Range',e:170,m:200,h:215,i:240},
+        {n:'Frag Bombs',e:255,m:300,h:325,i:360},
+        {n:'Cluster Bombs',e:595,m:700,h:755,i:840},
+        {n:'Recursive Cluster',e:2125,m:2500,h:2700,i:3000},
+        {n:'Bomb Blitz',e:19550,m:23000,h:24840,i:27600},
+      ],
+    },
+    'tack shooter': {
+      base:{e:220,m:260,h:280,i:310},
+      1: [
+        {n:'Faster Shooting',e:125,m:150,h:160,i:180},
+        {n:'Even Faster Shooting',e:255,m:300,h:325,i:360},
+        {n:'Hot Shots',e:510,m:600,h:650,i:720},
+        {n:'Ring of Fire',e:2975,m:3500,h:3780,i:4200},
+        {n:'Inferno Ring',e:38675,m:45500,h:49140,i:54600},
+      ],
+      2: [
+        {n:'Long Range Tacks',e:85,m:100,h:110,i:120},
+        {n:'Super Range Tacks',e:190,m:225,h:245,i:270},
+        {n:'Blade Shooter',e:465,m:550,h:595,i:660},
+        {n:'Blade Maelstrom',e:2295,m:2700,h:2915,i:3240},
+        {n:'Super Maelstrom',e:12750,m:15000,h:16200,i:18000},
+      ],
+      3: [
+        {n:'More Tacks',e:95,m:110,h:120,i:130},
+        {n:'Even More Tacks',e:95,m:110,h:120,i:130},
+        {n:'Tack Sprayer',e:380,m:450,h:485,i:540},
+        {n:'Overdrive',e:2720,m:3200,h:3455,i:3840},
+        {n:'The Tack Zone',e:17000,m:20000,h:21600,i:24000},
+      ],
+    },
+    'ice monkey': {
+      base:{e:340,m:400,h:430,i:480},
+      1: [
+        {n:'Permafrost',e:125,m:150,h:160,i:180},
+        {n:'Cold Snap',e:295,m:350,h:380,i:420},
+        {n:'Ice Shards',e:1275,m:1500,h:1620,i:1800},
+        {n:'Embrittlement',e:1955,m:2300,h:2485,i:2760},
+        {n:'Super Brittle',e:23800,m:28000,h:30240,i:33600},
+      ],
+      2: [
+        {n:'Enhanced Freeze',e:170,m:200,h:215,i:240},
+        {n:'Deep Freeze',e:255,m:300,h:325,i:360},
+        {n:'Arctic Wind',e:2335,m:2750,h:2970,i:3300},
+        {n:'Snowstorm',e:3400,m:4000,h:4320,i:4800},
+        {n:'Absolute Zero',e:17850,m:21000,h:22680,i:25200},
+      ],
+      3: [
+        {n:'Larger Radius',e:125,m:150,h:160,i:180},
+        {n:'Re-Freeze',e:170,m:200,h:215,i:240},
+        {n:'Cryo Cannon',e:1615,m:1900,h:2050,i:2280},
+        {n:'Icicles',e:2335,m:2750,h:2970,i:3300},
+        {n:'Icicle Impale',e:25500,m:30000,h:32400,i:36000},
+      ],
+    },
+    'glue gunner': {
+      base:{e:190,m:225,h:245,i:270},
+      1: [
+        {n:'Glue Soak',e:170,m:200,h:215,i:240},
+        {n:'Corrosive Glue',e:255,m:300,h:325,i:360},
+        {n:'Bloon Dissolver',e:1700,m:2000,h:2160,i:2400},
+        {n:'Bloon Liquefier',e:4250,m:5000,h:5400,i:6000},
+        {n:'The Bloon Solver',e:19125,m:22500,h:24300,i:27000},
+      ],
+      2: [
+        {n:'Bigger Globs',e:85,m:100,h:110,i:120},
+        {n:'Glue Splatter',e:825,m:970,h:1050,i:1165},
+        {n:'Glue Hose',e:1655,m:1950,h:2105,i:2340},
+        {n:'Glue Strike',e:3400,m:4000,h:4320,i:4800},
+        {n:'Glue Storm',e:13600,m:16000,h:17280,i:19200},
+      ],
+      3: [
+        {n:'Stickier Glue',e:240,m:280,h:300,i:335},
+        {n:'Stronger Glue',e:340,m:400,h:430,i:480},
+        {n:'MOAB Glue',e:3060,m:3600,h:3890,i:4320},
+        {n:'Relentless Glue',e:3400,m:4000,h:4320,i:4800},
+        {n:'Super Glue',e:20400,m:24000,h:25920,i:28800},
+      ],
+    },
+    'desperado': {
+      base:{e:255,m:300,h:325,i:360},
+      1: [
+        {n:'Quickdraw',e:170,m:200,h:215,i:240},
+        {n:'Standoff',e:170,m:200,h:215,i:240},
+        {n:'Big Iron',e:1020,m:1200,h:1295,i:1440},
+        {n:'Twin Sixes',e:4930,m:5800,h:6265,i:6960},
+        {n:'The Blazing Sun',e:14025,m:16500,h:17820,i:19800},
+      ],
+      2: [
+        {n:'Eagle Eye',e:125,m:150,h:160,i:180},
+        {n:'Bullseye',e:295,m:350,h:380,i:420},
+        {n:'Deadeye',e:2550,m:3000,h:3240,i:3600},
+        {n:'Bounty Hunter',e:5525,m:6500,h:7020,i:7800},
+        {n:'Golden Justice',e:35700,m:42000,h:45360,i:50400},
+      ],
+      3: [
+        {n:'Wanderer',e:185,m:220,h:240,i:265},
+        {n:'Nomad',e:240,m:280,h:300,i:335},
+        {n:'Enforcer',e:1785,m:2100,h:2270,i:2520},
+        {n:'Avenger',e:5525,m:6500,h:7020,i:7800},
+        {n:'The Desert Phantom',e:26350,m:31000,h:33480,i:37200},
+      ],
+    },
+    'sniper monkey': {
+      base:{e:300,m:350,h:380,i:420},
+      1: [
+        {n:'Full Metal Jacket',e:295,m:350,h:380,i:420},
+        {n:'Large Calibre',e:1105,m:1300,h:1405,i:1560},
+        {n:'Deadly Precision',e:1870,m:2200,h:2375,i:2640},
+        {n:'Maim MOAB',e:5355,m:6300,h:6805,i:7560},
+        {n:'Cripple MOAB',e:27200,m:32000,h:34560,i:38400},
+      ],
+      2: [
+        {n:'Night Vision Goggles',e:210,m:250,h:270,i:300},
+        {n:'Shrapnel Shot',e:380,m:450,h:485,i:540},
+        {n:'Bouncing Bullet',e:1785,m:2100,h:2270,i:2520},
+        {n:'Supply Drop',e:6460,m:7600,h:8210,i:9120},
+        {n:'Elite Sniper',e:11900,m:14000,h:15120,i:16800},
+      ],
+      3: [
+        {n:'Fast Firing',e:380,m:450,h:485,i:540},
+        {n:'Even Faster Firing',e:380,m:450,h:485,i:540},
+        {n:'Semi-Automatic',e:2295,m:2700,h:2915,i:3240},
+        {n:'Full Auto Rifle',e:3485,m:4100,h:4430,i:4920},
+        {n:'Elite Defender',e:12665,m:14900,h:16090,i:17880},
+      ],
+    },
+    'monkey sub': {
+      base:{e:275,m:325,h:350,i:390},
+      1: [
+        {n:'Longer Range',e:110,m:130,h:140,i:155},
+        {n:'Advanced Intel',e:425,m:500,h:540,i:600},
+        {n:'Submerge and Support',e:595,m:700,h:755,i:840},
+        {n:'Bloontonium Reactor',e:1955,m:2300,h:2485,i:2760},
+        {n:'Energizer',e:26350,m:31000,h:33480,i:37200},
+      ],
+      2: [
+        {n:'Barbed Darts',e:380,m:450,h:485,i:540},
+        {n:'Heat-tipped Darts',e:255,m:300,h:325,i:360},
+        {n:'Ballistic Missile',e:1145,m:1350,h:1460,i:1620},
+        {n:'First Strike Capability',e:11050,m:13000,h:14040,i:15600},
+        {n:'Pre-Emptive Strike',e:24650,m:29000,h:31320,i:34800},
+      ],
+      3: [
+        {n:'Twin Guns',e:380,m:450,h:485,i:540},
+        {n:'Airburst Darts',e:850,m:1000,h:1080,i:1200},
+        {n:'Triple Guns',e:935,m:1100,h:1190,i:1320},
+        {n:'Armor Piercing Darts',e:2550,m:3000,h:3240,i:3600},
+        {n:'Sub Commander',e:21250,m:25000,h:27000,i:30000},
+      ],
+    },
+    'monkey buccaneer': {
+      base:{e:340,m:400,h:430,i:480},
+      1: [
+        {n:'Faster Shooting',e:235,m:275,h:295,i:330},
+        {n:'Double Shot',e:360,m:425,h:460,i:510},
+        {n:'Destroyer',e:2590,m:3050,h:3295,i:3660},
+        {n:'Aircraft Carrier',e:6800,m:8000,h:8640,i:9600},
+        {n:'Carrier Flagship',e:20825,m:24500,h:26460,i:29400},
+      ],
+      2: [
+        {n:'Grape Shot',e:465,m:550,h:595,i:660},
+        {n:'Hot Shot',e:425,m:500,h:540,i:600},
+        {n:'Cannon Ship',e:765,m:900,h:970,i:1080},
+        {n:'Monkey Pirates',e:3315,m:3900,h:4210,i:4680},
+        {n:'Pirate Lord',e:22950,m:27000,h:29160,i:32400},
+      ],
+      3: [
+        {n:'Long Range',e:170,m:200,h:215,i:240},
+        {n:'Crow\'s Nest',e:295,m:350,h:380,i:420},
+        {n:'Merchantman',e:2040,m:2400,h:2590,i:2880},
+        {n:'Favored Trades',e:4675,m:5500,h:5940,i:6600},
+        {n:'Trade Empire',e:19550,m:23000,h:24840,i:27600},
+      ],
+    },
+    'monkey ace': {
+      base:{e:680,m:800,h:865,i:960},
+      1: [
+        {n:'Rapid Fire',e:550,m:650,h:700,i:780},
+        {n:'Lots More Darts',e:550,m:650,h:700,i:780},
+        {n:'Fighter Plane',e:850,m:1000,h:1080,i:1200},
+        {n:'Operation: Dart Storm',e:2550,m:3000,h:3240,i:3600},
+        {n:'Sky Shredder',e:36125,m:42500,h:45900,i:51000},
+      ],
+      2: [
+        {n:'Exploding Pineapple',e:170,m:200,h:215,i:240},
+        {n:'Spy Plane',e:295,m:350,h:380,i:420},
+        {n:'Bomber Ace',e:765,m:900,h:970,i:1080},
+        {n:'Ground Zero',e:15300,m:18000,h:19440,i:21600},
+        {n:'Tsar Bomba',e:22100,m:26000,h:28080,i:31200},
+      ],
+      3: [
+        {n:'Sharper Darts',e:425,m:500,h:540,i:600},
+        {n:'Centered Path',e:465,m:550,h:595,i:660},
+        {n:'Neva-Miss Targeting',e:2165,m:2550,h:2755,i:3060},
+        {n:'Spectre',e:19890,m:23400,h:25270,i:28080},
+        {n:'Flying Fortress',e:72250,m:85000,h:91800,i:102000},
+      ],
+    },
+    'heli pilot': {
+      base:{e:1360,m:1600,h:1730,i:1920},
+      1: [
+        {n:'Quad Darts',e:680,m:800,h:865,i:960},
+        {n:'Pursuit',e:425,m:500,h:540,i:600},
+        {n:'Razor Rotors',e:1485,m:1750,h:1890,i:2100},
+        {n:'Apache Dartship',e:16660,m:19600,h:21170,i:23520},
+        {n:'Apache Prime',e:38250,m:45000,h:48600,i:54000},
+      ],
+      2: [
+        {n:'Bigger Jets',e:255,m:300,h:325,i:360},
+        {n:'IFR',e:510,m:600,h:650,i:720},
+        {n:'Downdraft',e:2975,m:3500,h:3780,i:4200},
+        {n:'Support Chinook',e:8075,m:9500,h:10260,i:11400},
+        {n:'Special Poperations',e:25500,m:30000,h:32400,i:36000},
+      ],
+      3: [
+        {n:'Faster Darts',e:210,m:250,h:270,i:300},
+        {n:'Faster Firing',e:295,m:350,h:380,i:420},
+        {n:'MOAB Shove',e:2550,m:3000,h:3240,i:3600},
+        {n:'Comanche Defense',e:7225,m:8500,h:9180,i:10200},
+        {n:'Comanche Commander',e:27200,m:32000,h:34560,i:38400},
+      ],
+    },
+    'mortar monkey': {
+      base:{e:640,m:750,h:810,i:900},
+      1: [
+        {n:'Bigger Blast',e:425,m:500,h:540,i:600},
+        {n:'Bloon Buster',e:425,m:500,h:540,i:600},
+        {n:'Shell Shock',e:765,m:900,h:970,i:1080},
+        {n:'The Big One',e:5525,m:6500,h:7020,i:7800},
+        {n:'The Biggest One',e:30600,m:36000,h:38880,i:43200},
+      ],
+      2: [
+        {n:'Faster Reload',e:255,m:300,h:325,i:360},
+        {n:'Rapid Reload',e:425,m:500,h:540,i:600},
+        {n:'Heavy Shells',e:765,m:900,h:970,i:1080},
+        {n:'Artillery Battery',e:5525,m:6500,h:7020,i:7800},
+        {n:'Pop and Awe',e:32300,m:38000,h:41040,i:45600},
+      ],
+      3: [
+        {n:'Increased Accuracy',e:170,m:200,h:215,i:240},
+        {n:'Burny Stuff',e:425,m:500,h:540,i:600},
+        {n:'Signal Flare',e:765,m:900,h:970,i:1080},
+        {n:'Shattering Shells',e:8925,m:10500,h:11340,i:12600},
+        {n:'Blooncineration',e:34000,m:40000,h:43200,i:48000},
+      ],
+    },
+    'dartling gunner': {
+      base:{e:720,m:850,h:920,i:1020},
+      1: [
+        {n:'Focused Firing',e:255,m:300,h:325,i:360},
+        {n:'Laser Shock',e:765,m:900,h:970,i:1080},
+        {n:'Laser Cannon',e:2550,m:3000,h:3240,i:3600},
+        {n:'Plasma Accelerator',e:9985,m:11750,h:12690,i:14100},
+        {n:'Ray of Doom',e:63750,m:75000,h:81000,i:90000},
+      ],
+      2: [
+        {n:'Advanced Targeting',e:215,m:250,h:270,i:300},
+        {n:'Faster Barrel Spin',e:810,m:950,h:1025,i:1140},
+        {n:'Hydra Rocket Pods',e:4080,m:4800,h:5185,i:5760},
+        {n:'Rocket Storm',e:4715,m:5550,h:5995,i:6660},
+        {n:'M.A.D',e:51000,m:60000,h:64800,i:72000},
+      ],
+      3: [
+        {n:'Faster Swivel',e:125,m:150,h:160,i:180},
+        {n:'Powerful Darts',e:1020,m:1200,h:1295,i:1440},
+        {n:'Buckshot',e:2890,m:3400,h:3670,i:4080},
+        {n:'Bloon Area Denial System',e:10200,m:12000,h:12960,i:14400},
+        {n:'Bloon Exclusion Zone',e:49300,m:58000,h:62640,i:69600},
+      ],
+    },
+    'wizard monkey': {
+      base:{e:275,m:325,h:350,i:390},
+      1: [
+        {n:'Guided Magic',e:150,m:175,h:190,i:210},
+        {n:'Arcane Blast',e:380,m:450,h:485,i:540},
+        {n:'Arcane Mastery',e:1230,m:1450,h:1565,i:1740},
+        {n:'Arcane Spike',e:8500,m:10000,h:10800,i:12000},
+        {n:'Archmage',e:27200,m:32000,h:34560,i:38400},
+      ],
+      2: [
+        {n:'Fireball',e:255,m:300,h:325,i:360},
+        {n:'Wall of Fire',e:680,m:800,h:865,i:960},
+        {n:'Dragon\'s Breath',e:2805,m:3300,h:3565,i:3960},
+        {n:'Summon Phoenix',e:5100,m:6000,h:6480,i:7200},
+        {n:'Wizard Lord Phoenix',e:42500,m:50000,h:54000,i:60000},
+      ],
+      3: [
+        {n:'Intense Magic',e:255,m:300,h:325,i:360},
+        {n:'Monkey Sense',e:255,m:300,h:325,i:360},
+        {n:'Shimmer',e:1275,m:1500,h:1620,i:1800},
+        {n:'Necromancer: Unpopped Army',e:2380,m:2800,h:3025,i:3360},
+        {n:'Prince of Darkness',e:22525,m:26500,h:28620,i:31800},
+      ],
+    },
+    'super monkey': {
+      base:{e:2125,m:2500,h:2700,i:3000},
+      1: [
+        {n:'Laser Blasts',e:1700,m:2000,h:2160,i:2400},
+        {n:'Plasma Blasts',e:2125,m:2500,h:2700,i:3000},
+        {n:'Sun Avatar',e:17000,m:20000,h:21600,i:24000},
+        {n:'Sun Temple',e:85000,m:100000,h:108000,i:120000},
+        {n:'True Sun God',e:425000,m:500000,h:540000,i:600000},
+      ],
+      2: [
+        {n:'Super Range',e:1275,m:1500,h:1620,i:1800},
+        {n:'Epic Range',e:1615,m:1900,h:2050,i:2280},
+        {n:'Robo Monkey',e:6375,m:7500,h:8100,i:9000},
+        {n:'Tech Terror',e:21250,m:25000,h:27000,i:30000},
+        {n:'The Anti-Bloon',e:59500,m:70000,h:75600,i:84000},
+      ],
+      3: [
+        {n:'Knockback',e:2550,m:3000,h:3240,i:3600},
+        {n:'Ultravision',e:1020,m:1200,h:1295,i:1440},
+        {n:'Dark Knight',e:4760,m:5600,h:6050,i:6720},
+        {n:'Dark Champion',e:47220,m:55555,h:60000,i:66665},
+        {n:'Legend of the Night',e:140800,m:165650,h:178900,i:198780},
+      ],
+    },
+    'ninja monkey': {
+      base:{e:340,m:400,h:430,i:480},
+      1: [
+        {n:'Ninja Discipline',e:295,m:350,h:380,i:420},
+        {n:'Sharp Shurikens',e:295,m:350,h:380,i:420},
+        {n:'Double Shot',e:765,m:900,h:970,i:1080},
+        {n:'Bloonjitsu',e:2335,m:2750,h:2970,i:3300},
+        {n:'Grandmaster Ninja',e:29750,m:35000,h:37800,i:42000},
+      ],
+      2: [
+        {n:'Distraction',e:210,m:250,h:270,i:300},
+        {n:'Counter-Espionage',e:340,m:400,h:430,i:480},
+        {n:'Shinobi Tactics',e:1020,m:1200,h:1295,i:1440},
+        {n:'Bloon Sabotage',e:4420,m:5200,h:5615,i:6240},
+        {n:'Grand Saboteur',e:18700,m:22000,h:23760,i:26400},
+      ],
+      3: [
+        {n:'Seeking Shuriken',e:255,m:300,h:325,i:360},
+        {n:'Caltrops',e:380,m:450,h:485,i:540},
+        {n:'Flash Bomb',e:1910,m:2250,h:2430,i:2700},
+        {n:'Sticky Bomb',e:4250,m:5000,h:5400,i:6000},
+        {n:'Master Bomber',e:34000,m:40000,h:43200,i:48000},
+      ],
+    },
+    'alchemist': {
+      base:{e:470,m:550,h:595,i:660},
+      1: [
+        {n:'Larger Potions',e:210,m:250,h:270,i:300},
+        {n:'Acidic Mixture Dip',e:295,m:350,h:380,i:420},
+        {n:'Berserker Brew',e:1060,m:1250,h:1350,i:1500},
+        {n:'Stronger Stimulant',e:2550,m:3000,h:3240,i:3600},
+        {n:'Permanent Brew',e:51000,m:60000,h:64800,i:72000},
+      ],
+      2: [
+        {n:'Stronger Acid',e:210,m:250,h:270,i:300},
+        {n:'Perishing Potions',e:405,m:475,h:515,i:570},
+        {n:'Unstable Concoction',e:2550,m:3000,h:3240,i:3600},
+        {n:'Transforming Tonic',e:3825,m:4500,h:4860,i:5400},
+        {n:'Total Transformation',e:38250,m:45000,h:48600,i:54000},
+      ],
+      3: [
+        {n:'Faster Throwing',e:550,m:650,h:700,i:780},
+        {n:'Acid Pool',e:380,m:450,h:485,i:540},
+        {n:'Lead To Gold',e:850,m:1000,h:1080,i:1200},
+        {n:'Rubber to Gold',e:2335,m:2750,h:2970,i:3300},
+        {n:'Bloon Master Alchemist',e:34000,m:40000,h:43200,i:48000},
+      ],
+    },
+    'druid': {
+      base:{e:340,m:400,h:430,i:480},
+      1: [
+        {n:'Hard Thorns',e:295,m:350,h:380,i:420},
+        {n:'Heart of Thunder',e:720,m:850,h:920,i:1020},
+        {n:'Druid of the Storm',e:1445,m:1700,h:1835,i:2040},
+        {n:'Ball Lightning',e:3825,m:4500,h:4860,i:5400},
+        {n:'Monarch of Storms',e:51000,m:60000,h:64800,i:72000},
+      ],
+      2: [
+        {n:'Thorn Swarm',e:210,m:250,h:270,i:300},
+        {n:'Heart of Oak',e:295,m:350,h:380,i:420},
+        {n:'Druid of the Jungle',e:890,m:1050,h:1135,i:1260},
+        {n:'Jungle\'s Bounty',e:4165,m:4900,h:5290,i:5880},
+        {n:'Spirit of the Forest',e:29750,m:35000,h:37800,i:42000},
+      ],
+      3: [
+        {n:'Druidic Reach',e:85,m:100,h:110,i:120},
+        {n:'Heart of Vengeance',e:255,m:300,h:325,i:360},
+        {n:'Druid of Wrath',e:510,m:600,h:650,i:720},
+        {n:'Poplust',e:2125,m:2500,h:2700,i:3000},
+        {n:'Avatar of Wrath',e:38250,m:45000,h:48600,i:54000},
+      ],
+    },
+    'mermonkey': {
+      base:{e:510,m:600,h:650,i:720},
+      1: [
+        {n:'Trident Efficiency',e:125,m:150,h:160,i:180},
+        {n:'Trident Swiftness',e:210,m:250,h:270,i:300},
+        {n:'Abyss Dweller',e:1360,m:1600,h:1730,i:1920},
+        {n:'Abyssal Warrior',e:3570,m:4200,h:4535,i:5040},
+        {n:'Lord of the Abyss',e:19550,m:23000,h:24840,i:27600},
+      ],
+      2: [
+        {n:'Sharper Prongs',e:170,m:200,h:215,i:240},
+        {n:'Tidal Chill',e:255,m:300,h:325,i:360},
+        {n:'Riptide Champion',e:1955,m:2300,h:2485,i:2760},
+        {n:'Arctic Knight',e:6800,m:8000,h:8640,i:9600},
+        {n:'Popseidon',e:44200,m:52000,h:56160,i:62400},
+      ],
+      3: [
+        {n:'Echosense Precision',e:170,m:200,h:215,i:240},
+        {n:'Echosense Network',e:240,m:280,h:300,i:335},
+        {n:'Alluring Melody',e:1700,m:2000,h:2160,i:2400},
+        {n:'Symphonic Resonance',e:6460,m:7600,h:8210,i:9120},
+        {n:'The Final Harmonic',e:21250,m:25000,h:27000,i:30000},
+      ],
+    },
+    'engineer monkey': {
+      base:{e:300,m:350,h:380,i:420},
+      1: [
+        {n:'Sentry Gun',e:425,m:500,h:540,i:600},
+        {n:'Faster Engineering',e:340,m:400,h:430,i:480},
+        {n:'Sprockets',e:490,m:575,h:620,i:690},
+        {n:'Sentry Expert',e:2125,m:2500,h:2700,i:3000},
+        {n:'Sentry Champion',e:27200,m:32000,h:34560,i:38400},
+      ],
+      2: [
+        {n:'Larger Service Area',e:210,m:250,h:270,i:300},
+        {n:'Deconstruction',e:295,m:350,h:380,i:420},
+        {n:'Cleansing Foam',e:765,m:900,h:970,i:1080},
+        {n:'Overclock',e:11475,m:13500,h:14580,i:16200},
+        {n:'Ultraboost',e:61200,m:72000,h:77760,i:86400},
+      ],
+      3: [
+        {n:'Oversize Nails',e:380,m:450,h:485,i:540},
+        {n:'Pin',e:185,m:220,h:235,i:265},
+        {n:'Double Gun',e:380,m:450,h:485,i:540},
+        {n:'Bloon Trap',e:3060,m:3600,h:3890,i:4320},
+        {n:'XXXL Trap',e:38250,m:45000,h:48600,i:54000},
+      ],
+    },
+    'monkey village': {
+      base:{e:1020,m:1200,h:1295,i:1440},
+      1: [
+        {n:'Bigger Radius',e:340,m:400,h:430,i:480},
+        {n:'Jungle Drums',e:1275,m:1500,h:1620,i:1800},
+        {n:'Primary Training',e:680,m:800,h:865,i:960},
+        {n:'Primary Mentoring',e:2125,m:2500,h:2700,i:3000},
+        {n:'Primary Expertise',e:21250,m:25000,h:27000,i:30000},
+      ],
+      2: [
+        {n:'Grow Blocker',e:210,m:250,h:270,i:300},
+        {n:'Radar Scanner',e:1700,m:2000,h:2160,i:2400},
+        {n:'Monkey Intelligence Bureau',e:6375,m:7500,h:8100,i:9000},
+        {n:'Call To Arms',e:17000,m:20000,h:21600,i:24000},
+        {n:'Homeland Defense',e:34000,m:40000,h:43200,i:48000},
+      ],
+      3: [
+        {n:'Monkey Business',e:425,m:500,h:540,i:600},
+        {n:'Monkey Commerce',e:425,m:500,h:540,i:600},
+        {n:'Monkey Town',e:8500,m:10000,h:10800,i:12000},
+        {n:'Monkey City',e:2550,m:3000,h:3240,i:3600},
+        {n:'Monkeyopolis',e:5000,m:0,h:0,i:0},
+      ],
+    },
+    'spike factory': {
+      base:{e:850,m:1000,h:1080,i:1200},
+      1: [
+        {n:'Bigger Stacks',e:680,m:800,h:865,i:960},
+        {n:'White Hot Spikes',e:510,m:600,h:650,i:720},
+        {n:'Spiked Balls',e:1955,m:2300,h:2485,i:2760},
+        {n:'Spiked Mines',e:8075,m:9500,h:10260,i:11400},
+        {n:'Super Mines',e:106250,m:125000,h:135000,i:150000},
+      ],
+      2: [
+        {n:'Faster Production',e:510,m:600,h:650,i:720},
+        {n:'Even Faster Production',e:680,m:800,h:865,i:960},
+        {n:'MOAB SHREDR',e:2125,m:2500,h:2700,i:3000},
+        {n:'Spike Storm',e:5950,m:7000,h:7560,i:8400},
+        {n:'Carpet of Spikes',e:34850,m:41000,h:44280,i:49200},
+      ],
+      3: [
+        {n:'Long Reach',e:125,m:150,h:160,i:180},
+        {n:'Smart Spikes',e:340,m:400,h:430,i:480},
+        {n:'Long Life Spikes',e:1105,m:1300,h:1405,i:1560},
+        {n:'Deadly Spikes',e:3060,m:3600,h:3890,i:4320},
+        {n:'Perma-Spike',e:25500,m:30000,h:32400,i:36000},
+      ],
+    },
+    'banana farm': {
+      base:{e:1060,m:1250,h:1350,i:1500},
+      1: [
+        {n:'Increased Production',e:425,m:500,h:540,i:600},
+        {n:'Greater Production',e:510,m:600,h:650,i:720},
+        {n:'Banana Plantation',e:2550,m:3000,h:3240,i:3600},
+        {n:'Banana Research Facility',e:16150,m:19000,h:20520,i:22800},
+        {n:'Banana Central',e:97750,m:115000,h:124200,i:138000},
+      ],
+      2: [
+        {n:'Long Life Bananas',e:255,m:300,h:325,i:360},
+        {n:'Valuable Bananas',e:680,m:800,h:865,i:960},
+        {n:'Monkey Bank',e:3100,m:3650,h:3940,i:4380},
+        {n:'IMF Loan',e:6120,m:7200,h:7775,i:8640},
+        {n:'Monkey-Nomics',e:85000,m:100000,h:108000,i:120000},
+      ],
+      3: [
+        {n:'EZ Collect',e:210,m:250,h:270,i:300},
+        {n:'Banana Salvage',e:340,m:400,h:430,i:480},
+        {n:'Marketplace',e:2295,m:2700,h:2915,i:3240},
+        {n:'Central Market',e:12750,m:15000,h:16200,i:18000},
+        {n:'Monkey Wall Street',e:59500,m:70000,h:75600,i:84000},
+      ],
+    },
+    'beast handler': {
+      base:{e:210,m:250,h:270,i:300},
+      1: [
+        {n:'Piranha',e:135,m:160,h:175,i:190},
+        {n:'Barracuda',e:690,m:810,h:875,i:970},
+        {n:'Great White',e:1710,m:2010,h:2170,i:2410},
+        {n:'Orca',e:10625,m:12500,h:13500,i:15000},
+        {n:'Megalodon',e:38250,m:45000,h:48600,i:54000},
+      ],
+      2: [
+        {n:'Microraptor',e:150,m:175,h:190,i:210},
+        {n:'Adasaurus',e:705,m:830,h:895,i:995},
+        {n:'Velociraptor',e:1755,m:2065,h:2230,i:2480},
+        {n:'Tyrannosaurus Rex',e:8075,m:9500,h:10260,i:11400},
+        {n:'Giganotosaurus',e:51000,m:60000,h:64800,i:72000},
+      ],
+      3: [
+        {n:'Gyrfalcon',e:160,m:190,h:205,i:230},
+        {n:'Horned Owl',e:730,m:860,h:930,i:1030},
+        {n:'Golden Eagle',e:1800,m:2120,h:2290,i:2545},
+        {n:'Giant Condor',e:7650,m:9000,h:9720,i:10800},
+        {n:'Pouākai',e:25500,m:30000,h:32400,i:36000},
+      ],
+    },
+  };
+
+  // ── HERO PLACEMENT COSTS ───────────────────────
+  const HERO_COSTS = {
+    'quincy':           {e:460, m:540, h:585, i:650},
+    'gwendolin':        {e:615, m:725, h:785, i:870},
+    'striker jones':    {e:595, m:700, h:755, i:840},
+    'obyn greenfoot':   {e:550, m:650, h:700, i:780},
+    'captain churchill':{e:1700,m:2000,h:2160,i:2400},
+    'benjamin':         {e:1020,m:1200,h:1295,i:1440},
+    'ezili':            {e:510, m:600, h:650, i:720},
+    'pat fusty':        {e:680, m:800, h:865, i:960},
+    'adora':            {e:850, m:1000,h:1080,i:1200},
+    'admiral brickell': {e:765, m:900, h:970, i:1080},
+    'etienne':          {e:720, m:850, h:920, i:1020},
+    'sauda':            {e:510, m:600, h:650, i:720},
+    'psi':              {e:850, m:1000,h:1080,i:1200},
+    'geraldo':          {e:640, m:750, h:810, i:900},
+    'corvus':           {e:785, m:925, h:1000,i:1110},
+    'rosalia':          {e:745, m:875, h:945, i:1050},
+    'silas':            {e:720, m:850, h:920, i:1020},
+  };
+  // Inject cost lines into .ti-desc when upgrade list is rendered
+  (function(){
+    document.querySelectorAll('.ti-card').forEach(function(card){
+      var tower = card.dataset.tower;
+      var costs = UPGRADE_COSTS[tower];
+      if(!costs) return;
+      var paths = card.querySelectorAll('.ti-path');
+      [1,2,3].forEach(function(pathNum,pi){
+        var path = paths[pi];
+        if(!path) return;
+        path.querySelectorAll('.ti-upgrade').forEach(function(upg,ti){
+          var c = costs[pathNum] && costs[pathNum][ti];
+          if(!c) return;
+          var desc = upg.querySelector('.ti-desc');
+          if(!desc) return;
+          var div = document.createElement('div');
+          div.className = 'ti-cost';
+          var parts = [];
+          if(c.e) parts.push('<span class="ti-cost-label">E</span>$'+c.e.toLocaleString());
+          if(c.m) parts.push('<span class="ti-cost-label">M</span>$'+c.m.toLocaleString());
+          if(c.h) parts.push('<span class="ti-cost-label">H</span>$'+c.h.toLocaleString());
+          if(c.i) parts.push('<span class="ti-cost-label">I</span>$'+c.i.toLocaleString());
+          div.innerHTML = parts.join(' <span style="opacity:.35">|</span> ');
+          desc.insertBefore(div,desc.firstChild);
+        });
+      });
+    });
+  })();
+
+  // ── CUSTOM BUILD COST CALC ─────────────────────
+  var CB_TOWER_MAP = {
+    'dart monkey':'dart monkey','boomerang':'boomerang monkey','boomerang monkey':'boomerang monkey',
+    'bomb shooter':'bomb shooter','bomb':'bomb shooter','tack shooter':'tack shooter','tack':'tack shooter',
+    'ice monkey':'ice monkey','ice':'ice monkey','glue gunner':'glue gunner','glue':'glue gunner',
+    'desperado':'desperado','sniper monkey':'sniper monkey','sniper':'sniper monkey',
+    'monkey sub':'monkey sub','sub':'monkey sub','monkey buccaneer':'monkey buccaneer','buccaneer':'monkey buccaneer',
+    'monkey ace':'monkey ace','ace':'monkey ace','heli pilot':'heli pilot','heli':'heli pilot',
+    'mortar monkey':'mortar monkey','mortar':'mortar monkey','dartling gunner':'dartling gunner','dartling':'dartling gunner',
+    'wizard monkey':'wizard monkey','wizard':'wizard monkey','super monkey':'super monkey','super':'super monkey',
+    'ninja monkey':'ninja monkey','ninja':'ninja monkey','alchemist':'alchemist','druid':'druid','mermonkey':'mermonkey',
+    'banana farm':'banana farm','farm':'banana farm','spike factory':'spike factory','spikes':'spike factory',
+    'monkey village':'monkey village','village':'monkey village',
+    'engineer monkey':'engineer monkey','engineer':'engineer monkey','beast handler':'beast handler'
+  };
+  var CB_HERO_MAP = {
+    'quincy':'quincy','gwendolin':'gwendolin','striker jones':'striker jones','striker':'striker jones',
+    'obyn greenfoot':'obyn greenfoot','obyn':'obyn greenfoot',
+    'captain churchill':'captain churchill','churchill':'captain churchill',
+    'benjamin':'benjamin','ezili':'ezili','pat fusty':'pat fusty','pat':'pat fusty',
+    'adora':'adora','admiral brickell':'admiral brickell','brickell':'admiral brickell',
+    'etienne':'etienne','sauda':'sauda','psi':'psi','geraldo':'geraldo',
+    'corvus':'corvus','rosalia':'rosalia','silas':'silas'
+  };
+
+  function cbDiff(id) {
+    if (!id) return 'm';
+    if (id.indexOf('easy') > -1) return 'e';
+    if (id.indexOf('medium') > -1) return 'm';
+    if (id.indexOf('hard') > -1) return 'h';
+    if (id.indexOf('impoppable') > -1) return 'i';
+    return 'm';
+  }
+
+  function cbCalcCost(name, pathStr, diff) {
+    var n = name.toLowerCase().trim();
+    if (!pathStr) {
+      var hk = CB_HERO_MAP[n];
+      var hc = hk && HERO_COSTS[hk];
+      return hc ? hc[diff] : null;
+    }
+    var tk = CB_TOWER_MAP[n];
+    var td = tk && UPGRADE_COSTS[tk];
+    if (!td) return null;
+    var p = pathStr.split('/').map(Number);
+    var total = td.base ? td.base[diff] : 0;
+    [1,2,3].forEach(function(path, pi) {
+      for (var t = 0; t < p[pi]; t++) {
+        if (td[path] && td[path][t]) total += td[path][t][diff] || 0;
+      }
+    });
+    return total;
+  }
+
+  var CB_MODE_BUDGET = {easy:17500, medium:54400, hard:94700, impoppable:110000};
+
+  function cbUnitCost(unit, diff) {
+    var nameEl = unit.querySelector('.cb-name');
+    if (!nameEl) return null;
+    var isHero = !!unit.querySelector('.cb-path-label');
+    var pathEl = unit.querySelector('.path-pill');
+    var pathStr = isHero ? null : (pathEl ? pathEl.textContent.trim() : null);
+    return cbCalcCost(nameEl.textContent.trim(), pathStr, diff);
+  }
+
+  function cbInjectCost(unit, cost) {
+    var prev = unit.querySelector('.cb-cost');
+    if (prev) prev.remove();
+    var el = document.createElement('span');
+    el.className = 'cb-cost';
+    el.textContent = '$' + cost.toLocaleString();
+    unit.appendChild(el);
+  }
+
+  function cbInjectSpamCounter(unit, unitCost, initialCount) {
+    var count = (initialCount !== undefined && initialCount !== null) ? Math.max(0, Math.floor(initialCount)) : 1;
+    unit.querySelectorAll('.cb-cost, .cb-spam-counter').forEach(function(el) { el.remove(); });
+    unit.dataset.cbUnitCost = unitCost;
+    unit.dataset.cbCount = count;
+
+    var ctr = document.createElement('div');
+    ctr.className = 'cb-spam-counter';
+    ctr.innerHTML =
+      '<button class="cb-spam-btn" data-dir="-1">−</button>'
+      + '<span class="cb-spam-count">×' + count + '</span>'
+      + '<button class="cb-spam-btn" data-dir="1">+</button>'
+      + '<span class="cb-cost cb-spam-total">$' + (unitCost * count).toLocaleString() + '</span>';
+    unit.appendChild(ctr);
+
+    ctr.addEventListener('click', function(e) {
+      var btn = e.target.closest('.cb-spam-btn');
+      if (!btn) return;
+      var count = parseInt(unit.dataset.cbCount) + parseInt(btn.dataset.dir);
+      if (count < 0) count = 0;
+      unit.dataset.cbCount = count;
+      ctr.querySelector('.cb-spam-count').textContent = '×' + count;
+      ctr.querySelector('.cb-spam-total').textContent = '$' + (unitCost * count).toLocaleString();
+      cbRebuildTotals(unit.closest('.cb-units'));
+    });
+  }
+
+  function cbModeKey(subpanelId) {
+    if (!subpanelId) return null;
+    if (subpanelId.indexOf('easy') > -1) return 'easy';
+    if (subpanelId.indexOf('medium') > -1) return 'medium';
+    if (subpanelId.indexOf('hard') > -1) return 'hard';
+    if (subpanelId.indexOf('impoppable') > -1) return 'impoppable';
+    return null;
+  }
+
+  function cbRebuildTotals(unitsEl) {
+    var sp = unitsEl.closest('[id^="subpanel-"]');
+    var spId = sp ? sp.id : '';
+    var diff = cbDiff(spId);
+    var modeKey = cbModeKey(spId);
+    var buildTotal = 0;
+
+    Array.from(unitsEl.children).forEach(function(child) {
+      if (child.classList.contains('cb-unit')) {
+        if (child.classList.contains('cb-spam')) {
+          buildTotal += (parseInt(child.dataset.cbUnitCost) || 0) * (parseInt(child.dataset.cbCount) || 0);
+        } else {
+          var cost = cbUnitCost(child, diff);
+          if (cost !== null) buildTotal += cost;
+        }
+      } else if (child.classList.contains('cb-choice-group')) {
+        var gc = [];
+        child.querySelectorAll('.cb-unit').forEach(function(u) {
+          var c = cbUnitCost(u, diff); if (c !== null) gc.push(c);
+        });
+        if (gc.length) buildTotal += Math.max.apply(null, gc);
+      }
+    });
+
+    var totEl = unitsEl.querySelector('.cb-build-total');
+    if (totEl) totEl.querySelector('.cb-build-total-value').textContent = '$' + buildTotal.toLocaleString();
+
+    var leftEl = unitsEl.querySelector('.cb-budget-left');
+    if (leftEl && modeKey) {
+      var left = CB_MODE_BUDGET[modeKey] - buildTotal;
+      leftEl.querySelector('.cb-budget-left-label').textContent = left >= 0 ? 'Remaining budget' : 'Over budget';
+      var v = leftEl.querySelector('.cb-budget-left-value');
+      v.className = 'cb-budget-left-value ' + (left >= 0 ? 'cb-budget-ok' : 'cb-budget-over');
+      v.textContent = (left >= 0 ? '$' : '-$') + Math.abs(left).toLocaleString();
+    }
+  }
+
+  function buildCostUI() {
+    document.querySelectorAll('#panel-builds .cb-units').forEach(function(unitsEl) {
+      var sp = unitsEl.closest('[id^="subpanel-"]');
+      var spId = sp ? sp.id : '';
+      var diff = cbDiff(spId);
+      var modeKey = cbModeKey(spId);
+      var budget = modeKey ? (CB_MODE_BUDGET[modeKey] || 0) : 0;
+
+      unitsEl.querySelectorAll('.cb-cost, .cb-spam-counter, .cb-build-total, .cb-budget-left').forEach(function(el) { el.remove(); });
+
+      // First pass: non-spam total + collect spam units
+      var nonSpamTotal = 0;
+      var spamList = [];
+      Array.from(unitsEl.children).forEach(function(child) {
+        if (child.classList.contains('cb-unit')) {
+          var c = cbUnitCost(child, diff);
+          if (c !== null) {
+            if (child.classList.contains('cb-spam')) { spamList.push({unit: child, cost: c}); }
+            else { nonSpamTotal += c; }
+          }
+        } else if (child.classList.contains('cb-choice-group')) {
+          var gc = [];
+          child.querySelectorAll('.cb-unit').forEach(function(u) {
+            var c = cbUnitCost(u, diff); if (c !== null) gc.push(c);
+          });
+          if (gc.length) nonSpamTotal += Math.max.apply(null, gc);
+        }
+      });
+
+      // Compute optimal spam counts: fill budget closest without going over
+      var rem = budget - nonSpamTotal;
+      spamList.forEach(function(s) {
+        s.count = (budget > 0 && s.cost > 0) ? Math.max(1, Math.floor(rem / s.cost)) : 1;
+        rem -= s.cost * s.count;
+      });
+
+      // Second pass: inject cost widgets
+      var spamIdx = 0;
+      Array.from(unitsEl.children).forEach(function(child) {
+        if (child.classList.contains('cb-unit')) {
+          if (child.classList.contains('cb-spam')) {
+            var s = spamList[spamIdx++];
+            if (s) cbInjectSpamCounter(child, s.cost, s.count);
+          } else {
+            var c = cbUnitCost(child, diff);
+            if (c !== null) cbInjectCost(child, c);
+          }
+        } else if (child.classList.contains('cb-choice-group')) {
+          child.querySelectorAll('.cb-unit').forEach(function(unit) {
+            var c = cbUnitCost(unit, diff);
+            if (c !== null) cbInjectCost(unit, c);
+          });
+        }
+      });
+
+      var buildTotal = nonSpamTotal + spamList.reduce(function(acc, s) { return acc + s.cost * s.count; }, 0);
+      if (buildTotal > 0) {
+        var totEl = document.createElement('div');
+        totEl.className = 'cb-build-total';
+        totEl.innerHTML = '<span class="cb-build-total-label">Build total</span>'
+          + '<span class="cb-build-total-value">$' + buildTotal.toLocaleString() + '</span>';
+        unitsEl.appendChild(totEl);
+
+        if (budget) {
+          var left = budget - buildTotal;
+          var leftEl = document.createElement('div');
+          leftEl.className = 'cb-budget-left';
+          leftEl.innerHTML = left >= 0
+            ? '<span class="cb-budget-left-label">Remaining budget</span><span class="cb-budget-left-value cb-budget-ok">$' + left.toLocaleString() + '</span>'
+            : '<span class="cb-budget-left-label">Over budget</span><span class="cb-budget-left-value cb-budget-over">-$' + Math.abs(left).toLocaleString() + '</span>';
+          unitsEl.appendChild(leftEl);
+        }
+      }
+    });
+  }
+
+  buildCostUI();
+
+  // Tower Info cost calculator
+  (function(){
+    var tiCalcDiff = 'h';
+
+    var filterBar = document.getElementById('ti-filter-bar');
+    if (filterBar) {
+      var diffBar = document.createElement('div');
+      diffBar.className = 'ti-diff-bar';
+      diffBar.innerHTML =
+        '<span class="ti-diff-label">Cost difficulty:</span>' +
+        '<button class="ti-diff-btn" data-d="e">Easy</button>' +
+        '<button class="ti-diff-btn" data-d="m">Medium</button>' +
+        '<button class="ti-diff-btn active" data-d="h">Hard</button>' +
+        '<button class="ti-diff-btn" data-d="i">Impop</button>' +
+        '<button class="ti-calc-clear">clear</button>';
+      filterBar.parentNode.insertBefore(diffBar, filterBar.nextSibling);
+
+      diffBar.addEventListener('click', function(e) {
+        if (e.target.closest('.ti-calc-clear')) {
+          document.querySelectorAll('.ti-card').forEach(function(card){
+            card.querySelectorAll('.ti-path').forEach(function(path){
+              path.dataset.tiSel = '0';
+              path.querySelectorAll('.ti-check').forEach(function(b){ b.classList.remove('selected'); });
+            });
+            tiCalcUpdate(card);
+          });
+          return;
+        }
+        var btn = e.target.closest('.ti-diff-btn');
+        if (!btn) return;
+        tiCalcDiff = btn.dataset.d;
+        diffBar.querySelectorAll('.ti-diff-btn').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        document.querySelectorAll('.ti-card').forEach(function(card){ tiCalcUpdate(card); });
+      });
+    }
+
+    document.querySelectorAll('.ti-card').forEach(function(card){
+      var head = card.querySelector('.ti-head');
+      if (head) {
+        var tot = document.createElement('span');
+        tot.className = 'ti-calc-total';
+        var base = head.querySelector('.ti-base');
+        if (base) head.insertBefore(tot, base); else head.appendChild(tot);
+      }
+
+      card.querySelectorAll('.ti-path').forEach(function(path){
+        path.dataset.tiSel = '0';
+        path.querySelectorAll('.ti-upgrade').forEach(function(upg, ti){
+          var btn = document.createElement('button');
+          btn.className = 'ti-check';
+          btn.dataset.tier = String(ti + 1);
+          upg.appendChild(btn);
+          btn.addEventListener('click', function(e){
+            e.stopPropagation();
+            var tier = parseInt(btn.dataset.tier);
+            var cur  = parseInt(path.dataset.tiSel || '0');
+            path.dataset.tiSel = (cur === tier) ? '0' : String(tier);
+            path.querySelectorAll('.ti-check').forEach(function(b){
+              b.classList.toggle('selected', parseInt(b.dataset.tier) <= parseInt(path.dataset.tiSel));
+            });
+            tiCalcUpdate(card);
+          });
+        });
+      });
+    });
+
+    function tiCalcUpdate(card) {
+      var totEl = card.querySelector('.ti-calc-total');
+      if (!totEl) return;
+      var costs = UPGRADE_COSTS[card.dataset.tower];
+      var paths = card.querySelectorAll('.ti-path');
+      var anySelected = false;
+      paths.forEach(function(p){ if (parseInt(p.dataset.tiSel || '0') > 0) anySelected = true; });
+      if (!anySelected || !costs) { totEl.textContent = ''; totEl.classList.remove('visible'); return; }
+      var diff = tiCalcDiff;
+      var total = (costs.base && costs.base[diff]) ? costs.base[diff] : 0;
+      [1,2,3].forEach(function(pathNum, pi){
+        var path = paths[pi];
+        if (!path) return;
+        var tier = parseInt(path.dataset.tiSel || '0');
+        for (var t = 0; t < tier; t++) {
+          var c = costs[pathNum] && costs[pathNum][t];
+          if (c && c[diff]) total += c[diff];
+        }
+      });
+      totEl.textContent = '$' + total.toLocaleString();
+      totEl.classList.add('visible');
+    }
+  })();
 </script>
 
 </body>
