@@ -300,6 +300,12 @@
     margin:0;
     line-height:1.45;
   }
+  .pg-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-width:0}
+  .pg-card-head{display:flex;align-items:baseline;gap:7px;margin-bottom:5px;flex-wrap:wrap}
+  .pg-name{font-size:13px;font-weight:700;color:var(--text);margin:0;line-height:1.3}
+  .pg-tower{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.04em;white-space:nowrap;flex-shrink:0}
+  .pg-desc{font-size:12px;color:var(--text-dim);margin:0;line-height:1.55}
+  .pg-source{font-size:11px;color:var(--text-dim);font-style:italic;margin:18px 0 0;opacity:.65}
   .t-tags{
     display:flex;
     gap:5px;
@@ -954,6 +960,8 @@
   .wave-info[open] summary{border-bottom:1px solid var(--line);color:var(--text)}
   .wave-info table.paths{margin:0}
   .wave-info table.paths tr:last-child td{border-bottom:none}
+  .wave-info table.paths tr.wave-warn td{color:#e8a020;font-weight:600}
+  .wave-info table.paths tr.wave-warn td.dim{color:#e8a020}
   .income-section-note{font-size:11px;color:var(--text-dim);padding:8px 14px 6px;line-height:1.5}
   .income-table-wrap{max-height:280px;overflow-y:auto;border-top:1px solid var(--line);margin:0}
   .income-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px}
@@ -978,6 +986,13 @@
   .ti-check:hover:not(.selected){background:rgba(255,255,255,.08)}
   .ti-calc-clear{font-family:var(--mono);font-size:10px;padding:3px 8px;border:1px solid rgba(255,255,255,.12);border-radius:4px;background:transparent;color:var(--text-dim);cursor:pointer;margin-left:6px;transition:color .12s}
   .ti-calc-clear:hover{color:var(--text)}
+  .cb-settings-panel{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:7px 12px;margin-bottom:10px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:6px}
+  .cb-settings-label{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase;margin-right:2px;flex-shrink:0}
+  .cb-setting-toggle{display:flex;align-items:center;gap:5px;cursor:pointer;padding:3px 9px;border:1px solid var(--line);border-radius:4px;font-family:var(--mono);font-size:11px;color:var(--text-dim);transition:color .12s,border-color .12s,background .12s;user-select:none}
+  .cb-setting-toggle:hover{color:var(--text)}
+  .cb-setting-toggle.active{color:#c8a030;border-color:rgba(200,160,40,.55);background:rgba(200,160,40,.08)}
+  .cb-setting-toggle input[type="checkbox"]{display:none}
+  .cb-cost.cb-cost-free{color:#56c98a}
   .mode-budget{font-family:var(--mono);font-size:11px;color:#c8a030;background:rgba(200,160,30,0.10);border:1px solid rgba(200,160,30,0.28);border-radius:6px;padding:6px 12px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
   .mode-budget-note{font-size:10px;color:var(--text-dim);font-style:italic}
 
@@ -1066,6 +1081,7 @@
 
   <nav class="tabs">
     <button class="active" data-tab="tiers">Tier list</button>
+    <button data-tab="paragons">Paragon Tiers</button>
     <button data-tab="starters">Starters</button>
     <button data-tab="builds">Custom Builds</button>
     <button data-tab="heroes">Heroes</button>
@@ -1139,7 +1155,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Heli Pilot</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag camo">camo</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/1+/3</span><span class="path-desc">Shove/Comanche Commander &mdash; super cheap mid-late support that clumps or gaps MOABs with good micro and can stall DDTs; needs MIB or another lead-removal source elsewhere to actually damage them</span></div></div>
         </div>
         <div class="t-card">
@@ -1158,17 +1174,17 @@
       <div class="tier-towers">
         <div class="t-card">
           <div class="t-card-head"><p class="name">Monkey Sub</p><span class="path-tag top">TOP</span></div>
-          <div class="t-tags"><span class="tag lead">lead</span><span class="tag camo-aura">camo aura</span></div>
+          <div class="t-tags"><span class="tag camo-aura">camo aura</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">4/0/1+</span><span class="path-desc">Reactor/Energizer &mdash; decent early-mid decamo, pairs great with Absolute Zero for freeze uptime and cuts water tower/hero cooldowns</span></div></div>
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Ninja Monkey</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag camo">camo</span><span class="tag slow">slow</span><span class="tag camo-aura">camo aura</span></div>
+          <div class="t-tags"><span class="tag camo">camo</span><span class="tag slow">slow</span><span class="tag camo-aura">camo aura</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/4/0</span><span class="path-desc">Shinobis buff any T5 Ninja's speed/pierce and distract ceramics; Bloon Sabotage is one of the best abilities in the game, especially vs DDT rounds</span></div></div>
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Spike Factory</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag camo">camo</span><span class="tag ceramic">ceramic</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag camo">camo</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">1/0/5</span><span class="path-desc">Perma Spike builds a solid pile without heavy stalling and swallows huge MOAB groups when the round end is extended; pair with Concoction and an RBE-clearing hero</span></div></div>
         </div>
       </div>
@@ -1189,17 +1205,17 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Bomb Shooter</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/3+/2</span><span class="path-desc">Mauler spam with Primary Expertise + Striker Jones gets incredibly strong; Eliminator clears full ZOMGs and can skip the BAD with Striker's level 20</span></div></div>
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Bomb Shooter</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag lead">lead</span><span class="tag ceramic">ceramic</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/2/5</span><span class="path-desc">Bomb Blitz's Bomb Storm ability is now usable in CHIMPS without Corvus, making it strong in almost any setup, especially with Striker Jones resetting its cooldown</span></div></div>
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Ice Monkey</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag slow">slow</span></div>
+          <div class="t-tags"><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag slow">slow</span></div>
           <div class="t-paths">
             <div class="t-path-row"><span class="path-pill">x/4/x</span><span class="path-desc">Snowstorm &mdash; unique freeze on MOABs/DDTs from its ability; pick this as a standalone ceramic-stall/freeze tool that doesn't need any particular hero</span></div>
             <div class="t-path-row"><span class="path-pill">1+/5/0</span><span class="path-desc">Absolute Zero + top crosspath &mdash; slows the game dramatically with permafrost but can't soak MOAB layers alone; pick this specifically when running Silas, since the cheap top crosspath (Ice Shards) feeds his leveling and his shards empower the freeze</span></div>
@@ -1230,7 +1246,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Engineer Monkey</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag fortified">fortified</span><span class="tag camo-aura">camo aura</span><span class="tag lead-aura">lead aura</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag fortified">fortified</span><span class="tag lead">lead</span><span class="tag camo-aura">camo aura</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/4+/0</span><span class="path-desc">Foam with Pin gets good early value from slow+lead pop; Overclock is excellent support for expensive T4s/T5s; Ultraboost takes too long to stack for its cost</span></div></div>
         </div>
         <div class="t-card">
@@ -1246,7 +1262,7 @@
       <div class="tier-towers">
         <div class="t-card">
           <div class="t-card-head"><p class="name">Bomb Shooter</p><span class="path-tag top">TOP</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">4/2/0</span><span class="path-desc">Impact is a high-power stun/knockback in a small range, more effective than nearly every other ceramic-control tower near its price; Crush is a near-free pass to round 100 on single lanes but pricey and range-limited</span></div></div>
         </div>
         <div class="t-card">
@@ -1289,7 +1305,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Dartling Gunner</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/0/5</span><span class="path-desc">Laser Shock BEZ is a top-tier T5 DPS tower needing little help to take out the lategame &mdash; use MIB or multiple AMD Alchemists to grant it Lead-popping</span></div></div>
         </div>
         <div class="t-card">
@@ -1299,7 +1315,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Mermonkey</p><span class="path-tag top">TOP</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag camo">camo</span><span class="tag slow">slow</span><span class="tag camo-aura">camo aura</span></div>
+          <div class="t-tags"><span class="tag camo">camo</span><span class="tag slow">slow</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/0/2</span><span class="path-desc">Lord of the Abyss spreads a big pierce buff and ink slow across any defense (great with Carpet of Spikes) and lets you place water towers on land; struggles with range until Echosense stacks kick in</span></div></div>
         </div>
         <div class="t-card">
@@ -1324,7 +1340,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Beast Handler</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths">
             <div class="t-path-row"><span class="path-pill">x/3/x</span><span class="path-desc">Velociraptor &mdash; global range, one-shots ceramics with high pierce, but its MOAB damage has been gutted and its small range needs real micro; pick this for pure ceramic clearing</span></div>
             <div class="t-path-row"><span class="path-pill">x/4/x</span><span class="path-desc">T-Rex &mdash; still clears regular ceramics easily and keeps decent MOAB damage with a frequent stun (pair with Overclock); max-merge T-Rex layer-skips through MOABs. Pick this when you also want real MOAB damage, not just ceramic cleanup</span></div>
@@ -1353,7 +1369,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Glue Gunner</p><span class="path-tag top">TOP</span></div>
-          <div class="t-tags"><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag slow">slow</span></div>
+          <div class="t-tags"><span class="tag ceramic">ceramic</span><span class="tag slow">slow</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/1+/0</span><span class="path-desc">Solver's puddles chain-react to pop up to BFBs/Fortified MOABs and clear ceramics, but the Final Harmonic bug currently deletes those puddles, weakening its best combo</span></div></div>
         </div>
         <div class="t-card">
@@ -1368,7 +1384,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Mortar Monkey</p><span class="path-tag top">TOP</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">5/2/0</span><span class="path-desc">The Biggest One is a high-pierce MOAB DPS tower that struggles with point damage; pairs best with MOAB Eliminator for ZOMG/BAD cleanup, and both benefit from Striker Jones</span></div></div>
         </div>
         <div class="t-card">
@@ -1378,7 +1394,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Mortar Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag fortified">fortified</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/0/5</span><span class="path-desc">Blooncineration deals high MOAB burn damage with persistent fire walls that clean up Super Ceramics when alch-buffed; Signal Flare alone is a movable decamo option, but its low pierce can leak camos on round 78</span></div></div>
         </div>
         <div class="t-card">
@@ -1398,7 +1414,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Mermonkey</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag camo">camo</span><span class="tag aoe">aoe</span><span class="tag camo-aura">camo aura</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/0/5</span><span class="path-desc">The Final Harmonic does fun things with Glaive Lord or The Bloon Solver, but is currently bugged to delete the Bloon Solver's glue puddles, hurting its best combo</span></div></div>
         </div>
         <div class="t-card">
@@ -1432,12 +1448,12 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Super Monkey</p><span class="path-tag mid">MID</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag slow">slow</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag slow">slow</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/4/1+</span><span class="path-desc">Robo is an affordable, powerful midgame that scales with damage buffs; Tech Terror is a pricey hyperdense-round nuke that naturally damages Lead, letting it slow DDTs too</span></div></div>
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Super Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag slow">slow</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag slow">slow</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">2/0/4</span><span class="path-desc">Dark Champion is an expensive but versatile lategame DPS option that can darkshift anywhere; Legend of the Night is a broken CHIMPS strategy specifically on Three Mines 'Round</span></div></div>
         </div>
         <div class="t-card">
@@ -1452,7 +1468,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Spike Factory</p><span class="path-tag top">TOP</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag fortified">fortified</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag ceramic">ceramic</span><span class="tag fortified">fortified</span><span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag frozen">frozen</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">3+/x/x</span><span class="path-desc">Spiked Mines is a strong midgame and backline option, roughly two Spalls' worth of lategame power for slightly more cost; don't bother chasing Super Mines on expert maps</span></div></div>
         </div>
       </div>
@@ -1506,7 +1522,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Engineer Monkey</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag moab">moab</span><span class="tag fortified">fortified</span><span class="tag aoe">aoe</span></div>
+          <div class="t-tags"><span class="tag moab">moab</span><span class="tag fortified">fortified</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/2/5</span><span class="path-desc">XXXL is hard to save for with the available midgames but fairly powerful once obtained; gaps between deployments mean MOABs/DDTs can slip past without slowdowns elsewhere</span></div></div>
         </div>
       </div>
@@ -1599,6 +1615,22 @@
         <option value="other">Other (no specific adjustments known)</option>
       </select>
       <div id="hero-note" class="hero-note"></div>
+    </div>
+
+    <div id="cb-settings" class="cb-settings-panel">
+      <span class="cb-settings-label">MK</span>
+      <label class="cb-setting-toggle" id="cb-set-hero-wrap">
+        <input type="checkbox" id="cb-set-hero-disc"> Heroes &minus;10% placement
+      </label>
+      <label class="cb-setting-toggle" id="cb-set-boom-wrap">
+        <input type="checkbox" id="cb-set-boom-disc"> Boomerang &minus;$50 base
+      </label>
+      <label class="cb-setting-toggle" id="cb-set-free-wrap">
+        <input type="checkbox" id="cb-set-free-first"> First Glue or Dart free
+      </label>
+      <label class="cb-setting-toggle" id="cb-set-tack-liq-wrap">
+        <input type="checkbox" id="cb-set-tack-liq"> Bloon Liquefier &minus;$1000 Tack T4
+      </label>
     </div>
 
     <div class="subtab-bar">
@@ -2141,9 +2173,9 @@
             <tr><td>51</td><td class="dim">Camo Ceramics</td><td class="dim">Camo detection on your main AoE damage source</td></tr>
             <tr><td>59</td><td class="dim">Camo Leads + Regrow Ceramics</td><td class="dim">Camo and lead-popping required simultaneously</td></tr>
             <tr><td>60</td><td class="dim">First BFB</td><td class="dim">BFB has 700 HP vs MOAB's 200 — sustained MOAB DPS, not just burst</td></tr>
-            <tr><td>63</td><td class="dim">Camo BFBs</td><td class="dim">Camo detection must be on your main MOAB damage source, not just a separate decamo tower</td></tr>
+            <tr class="wave-warn"><td>63</td><td class="dim">Camo BFBs</td><td class="dim">Camo detection must be on your main MOAB damage source — use abilities here</td></tr>
             <tr><td>70</td><td class="dim">First DDTs</td><td class="dim">Camo + Lead + Black + very fast — hardest bloon; need a source that detects camo AND pops Lead (e.g. 4/2/0 Sub or MIB Village)</td></tr>
-            <tr><td>78</td><td class="dim">ZOMG</td><td class="dim">4,000 HP — save activated abilities for this round</td></tr>
+            <tr class="wave-warn"><td>78</td><td class="dim">ZOMG</td><td class="dim">4,000 HP — save activated abilities for this round; Super Brittle becomes available around now</td></tr>
             <tr><td>80</td><td class="dim">ZOMG + BFB rush (final round)</td><td class="dim">Full DPS from all sources; use all abilities</td></tr>
           </tbody>
         </table>
@@ -2151,6 +2183,7 @@
 
       <div class="subtab-bar nested">
         <button class="subtab-btn active" data-subtab="hard-default">Standard</button>
+        <button class="subtab-btn" data-subtab="hard-magic">Magic Only</button>
       </div>
       <div class="mode-budget">&#128178; Hard budget: <strong>&#8776;$94,700</strong> by round 80 <span class="mode-budget-note">(total income incl. starting cash)</span></div>
 
@@ -2208,7 +2241,7 @@
                 <span class="path-pill">5/0/0</span>
                 <span class="tag camo">camo</span><span class="tag lead">lead</span><span class="tag ceramic">ceramic</span><span class="tag aoe">aoe</span>
               </div>
-              <div class="cb-note">Cold Snap (top T2) adds camo detection and Lead-popping. Ice Shards (top T3) spreads damage when frozen bloons are popped. Embrittlement (top T4) debuffs all bloon types. Super Brittle (top T5) amplifies all damage to affected bloons by 80%.</div>
+              <div class="cb-note">Cold Snap (top T2) adds camo detection and Lead-popping. Ice Shards (top T3) spreads damage when frozen bloons are popped. Embrittlement (top T4) debuffs all bloon types. Super Brittle (top T5) amplifies all damage by 80% — only affordable around round 78, making the final 2 rounds easier; consider rushing Super Brittle before finishing Tack Zone to T5.</div>
             </div>
 
             <div class="cb-unit">
@@ -2233,11 +2266,12 @@
 
             <div class="cb-unit">
               <div class="cb-unit-row">
-                <span class="cb-name">Spike Factory</span>
-                <span class="path-pill">1/0/4</span>
+                <span class="cb-name">Bomb Shooter</span>
+                <span class="path-pill">4/0/2</span>
                 <span class="tag aoe">aoe</span>
+                <span class="cb-gate">4/0/2 before round 63</span>
               </div>
-              <div class="cb-note">Bigger Stacks (top T1) boosts pierce per pile. Deadly Spikes (bot T4) increases spike damage and pile persistence — spikes carry over 3 active rounds for reliable exit cleanup.</div>
+              <div class="cb-note">Really Big Bombs (top T3) adds knockback; Bloon Impact (top T4) stuns all bloons hit for 1.4s — reliable crowd control on ceramic and MOAB waves. Frag Bombs (bot T2) crosspath adds extra coverage fragments.</div>
             </div>
 
           </div>
@@ -2300,6 +2334,65 @@
                 <span class="tag moab">moab</span><span class="tag ceramic">ceramic</span><span class="tag lead">lead</span><span class="tag frozen">frozen</span><span class="tag camo">camo</span><span class="tag aoe">aoe</span>
               </div>
               <div class="cb-note">Fill remaining water with these. Build to 2/3/0 first if money is tight — upgrade to 2/4/0 when budget allows. Advanced Intel (top T2) adds camo detection; First Strike Capability (mid T4) destroys a MOAB-class on use.</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HARD: Magic Only ──────────────────────── -->
+      <div id="subpanel-hard-magic" class="subpanel">
+        <div class="cb-onepath">
+          <div class="cb-units">
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Obyn Greenfoot</span>
+                <span class="cb-path-label">Hero</span>
+                <span class="tag camo">camo</span>
+              </div>
+              <div class="cb-note">Camo detection at level 7. Buffs all magic monkeys in range with +10% attack speed — particularly strong on a dense Druid stack. Brambles ability can stall bloons on track.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Wizard Monkey</span>
+                <span class="path-pill">0/0/4</span>
+                <span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span>
+                <span class="cb-gate">0/0/2 before round 24</span>
+                <span class="cb-gate">0/0/3 before round 36</span>
+              </div>
+              <div class="cb-note">Priority pick. Arcane Blast (bot T1) + Linked Arcane (bot T2) pops Lead and provides extra projectile power. Shimmer (bot T3) permanently strips Camo from any bloon passing through its aura — must be online before round 36. Necromancer (bot T4) reanimates killed bloons for free DPS.</div>
+            </div>
+
+            <div class="cb-unit cb-spam">
+              <div class="cb-unit-row">
+                <span class="cb-spam-badge">spam</span>
+                <span class="cb-name">Druid</span>
+                <span class="path-pill">0/1/3</span>
+                <span class="tag lead">lead</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Main DPS — build up to ~10. Thorn Swarm (mid T1) shoots more thorns per shot. Druid of Wrath (bot T3) ramps attack speed the longer it attacks; Obyn's passive amplifies this. Place near the beginning of the track for maximum ramp time.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">5/2/0</span>
+                <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
+                <span class="cb-gate">5/0/0 by round 70</span>
+              </div>
+              <div class="cb-note">Rush to 5/0/0 (Permanent Brew) first — auto-throws brew bottles that permanently buff nearby towers with increased speed, damage, pierce, and lead-aura. After getting Permanent Brew, upgrade to 5/2/0 crosspath (Acid Pool, mid T2). Once Alch hits 5/0/0, upgrade one central Druid to 0/1/4 (Poplust) immediately.</div>
+            </div>
+
+            <div class="cb-unit cb-spam">
+              <div class="cb-unit-row">
+                <span class="cb-spam-badge">spam</span>
+                <span class="cb-name">Druid</span>
+                <span class="path-pill">0/1/4</span>
+                <span class="tag lead">lead</span><span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Poplust (bot T4) buffs all nearby Druids with +15% pierce and attack speed, stacking up to 5&times; on any single Druid. Place centrally to overlap as many Druids as possible. After the first luster is placed, spam more 0/1/4 Druids to stack buffs. Upgrade earlier 0/1/3 Druids to 0/1/4 once budget allows.</div>
             </div>
 
           </div>
@@ -2409,6 +2502,156 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <section id="panel-paragons" class="panel">
+
+    <!-- S tier ─────────────────────────────────── -->
+    <div class="tier-row">
+      <div class="tier-badge s">S</div>
+      <div class="tier-towers">
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Herald of Everfrost</p>
+            <span class="pg-tower">Ice Monkey</span>
+          </div>
+          <p class="pg-desc">Ability skips a boss skull entirely — preserving an extra Diamond Back body segment effectively doubles damage targets in the final phase. Map-wide +8 damage debuff to all blimps; slows BADs to a fixed speed in free play (more effective the higher the round). Degree barely matters — get it cheap.</p>
+        </div>
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Mega Massive Munitions Factory</p>
+            <span class="pg-tower">Spike Factory</span>
+          </div>
+          <p class="pg-desc">Spike Again ability multiplies by number of map tracks — exceptional on multi-track maps (Spa Pits, Balance), much weaker on single-track (Logs). Pair with Bloon Crush at map start to stall and stack spikes. Insta-kills large boss HP chunks in timed events. Weak in least cash due to cost.</p>
+        </div>
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Master Builder</p>
+            <span class="pg-tower">Engineer Monkey</span>
+          </div>
+          <p class="pg-desc">Best least-tiers paragon: XXXL Trap pre-fight, Ultraboost for farming and damage, Sentry Champion covers mid phases. Power Glove ability AoE-overclocks a wide area in free play; engineer + wizard paragon overclock interaction shreds boss HP fast. Attack speed ramps up each round until it caps.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- A tier ─────────────────────────────────── -->
+    <div class="tier-row">
+      <div class="tier-badge a">A</div>
+      <div class="tier-towers">
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Apex Plasma Master</p>
+            <span class="pg-tower">Dart Monkey</span>
+          </div>
+          <p class="pg-desc">Highly map-dependent — S tier on short maps (Sulfur Springs, No Harvest Cornfield), C&ndash;D tier on most others. Cheapest paragon by a large margin. Only worth building on a map that plays to its strengths.</p>
+        </div>
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Navarch of the Seas</p>
+            <span class="pg-tower">Monkey Buccaneer</span>
+          </div>
+          <p class="pg-desc">Hooks and instantly kills BADs — dominant in free play. Easy to farm a high degree via Trade Empire income. Map-wide range lets it sit in a corner (avoids Vortex stun radius etc.). Target on last for +10% military MK attack speed. Pairs with Goliath Doomship for +20% attack speed.</p>
+        </div>
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Goliath Doomship</p>
+            <span class="pg-tower">Monkey Ace</span>
+          </div>
+          <p class="pg-desc">Highest pure damage output of any boss-oriented paragon. Bombing run ability is best aimed over a short path directly over the boss, not spread across the map. Flying Fortress pre-fight easily builds high degree. Best in least tiers and least time; poor in least cash due to cost. Pairs with Navarch for +20% attack speed.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- B tier ─────────────────────────────────── -->
+    <div class="tier-row">
+      <div class="tier-badge b">B</div>
+      <div class="tier-towers">
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Ballistic Obliteration Missile Bunker</p>
+            <span class="pg-tower">Bomb Shooter</span>
+          </div>
+          <p class="pg-desc">Ability pierces through Diamond Back's entire body with correct positioning (target last, place off-center). Striker Jones level 10 resets the bomb ability cooldown. Leaking a bloon cuts the cooldown by ~&frac13;. Most expensive primary paragon; placement and target settings matter.</p>
+        </div>
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Nautic Siege Core</p>
+            <span class="pg-tower">Monkey Sub</span>
+          </div>
+          <p class="pg-desc">Submerged: 10% ability cooldown reduction for all paragons in range (maintains this while ability fires). Unsubmerged: active damage mode. Ability is very strong with a long cooldown — fire at the start of a boss fight. Buffs nearby hero and sub damage. Target on last for +10% military MK bonus.</p>
+        </div>
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Magus Perfectus</p>
+            <span class="pg-tower">Wizard Monkey</span>
+          </div>
+          <p class="pg-desc">Requires mana management: Metamorphosis when full &rarr; Phoenix Explosion while mana refills &rarr; Metamorphosis again once ready. With engineer paragon overclock it tears through enormous boss HP. Fantastic in least time; mediocre in least tiers and least cash. Expensive.</p>
+        </div>
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Ascended Shadow</p>
+            <span class="pg-tower">Ninja Monkey</span>
+          </div>
+          <p class="pg-desc">Global camo detection, 50% blimp slow, and &times;2 damage vs Phase (camo boss). Increases all ninja range on the map — fewer shinobies needed to reach the 20&times; shinobi buff cap. Grand Saboteur ability boosts active shinobies' damage. Primarily free-play oriented.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- C tier ─────────────────────────────────── -->
+    <div class="tier-row">
+      <div class="tier-badge c">C</div>
+      <div class="tier-towers">
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Glaive Dominus</p>
+            <span class="pg-tower">Boomerang Monkey</span>
+          </div>
+          <p class="pg-desc">Jack-of-all-trades — no major weak point but nothing it truly excels at. Buffs all primary towers +11% attack speed when on the field. Price increase removed its former cheap-bossing niche; less useful for least-cash runs now.</p>
+        </div>
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Crucible of Steel and Flame</p>
+            <span class="pg-tower">Tack Shooter</span>
+          </div>
+          <p class="pg-desc">No camo detection. 2nd cheapest paragon. Meteor ability covers a huge AoE with a fast cooldown — best value is in free play. Map-dependent on having a strong central tack placement. Broadly similar to Glaive Dominus but slightly more free-play leaning.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- D tier ─────────────────────────────────── -->
+    <div class="tier-row">
+      <div class="tier-badge d">D</div>
+      <div class="tier-towers">
+
+        <div class="pg-card">
+          <div class="pg-card-head">
+            <p class="pg-name">Root of All Nature</p>
+            <span class="pg-tower">Druid</span>
+          </div>
+          <p class="pg-desc">Damage scales with cash on hand (&gt;$1M: +25%, &gt;$2.5M: +50%, &gt;$5M: double). Transform mode drains 1% of current cash per second (min $1K / max $10K) and disables all income — losing $600K+ per minute while transformed. In bossing you almost never want idle cash, so the bonus is rarely achievable. Rework candidate.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <p class="pg-source">Rankings based on collaborative discussion with Mahalik Pops (competitive BTD6 player, multiple ranked boss world records).</p>
+
   </section>
 
   <section id="panel-starters" class="panel">
@@ -2922,7 +3165,6 @@
     <span class="ti-name">Bomb Shooter</span>
     <span class="ti-cat primary">Primary</span>
     <span class="tag aoe">aoe</span><em class="ti-base-note">(base)</em>
-    <em class="ti-base-note">(base)</em>
     <div class="ti-base">base: lobbed bomb with explosion, cannot pop Lead or Camo; explosion has aoe</div>
   </div>
   <div class="ti-paths">
@@ -3995,7 +4237,7 @@
       <div class="ti-upgrade">
         <span class="ti-tier">3</span>
         <span class="ti-uname">Heavy Shells</span>
-        <span class="tag lead">lead</span><span class="tag ceramic">ceramic</span><span class="tag fortified">fortified</span>
+        <span class="tag moab">moab</span><span class="tag lead">lead</span><span class="tag ceramic">ceramic</span><span class="tag fortified">fortified</span>
         <div class="ti-desc">Heavy shells do extra damage to <b>Ceramic</b>, <b>Lead</b>, all <b>Fortified</b>, and all stunned Bloons. Effect: Explosions pop Black Bloons and deal +3 damage to <b>Ceramics</b>, +1 damage to <b>Leads</b>, +1 damage to <b>Fortified</b>, +1 damage to MOAB-class.</div>
       </div>
       <div class="ti-upgrade">
@@ -4153,6 +4395,7 @@
   <div class="ti-head">
     <span class="ti-name">Wizard Monkey</span>
     <span class="ti-cat magic">Magic</span>
+    <span class="tag lead">lead</span><em class="ti-base-note">(base)</em>
     <div class="ti-base">base: fires magic bolts; innate <b>Lead</b>-popping (magic damage type pops Lead and Frozen); no camo detection by default</div>
   </div>
   <div class="ti-paths">
@@ -4332,17 +4575,22 @@
       <div class="ti-upgrade">
         <span class="ti-tier">3</span>
         <span class="ti-uname">Dark Knight</span>
+        <span class="tag moab">moab</span>
         <span class="tag slow">slow</span>
         <div class="ti-desc">Description: Dark blades increase knockback and pierce and deal extra damage to MOAB-class Bloons. Gains Darkshift ability to shift to a nearby location. Effect: Gains +2 MOAB-class damage, Leads and Ceramics <b>slowed</b> by 90%, and gains +3 pierce. Can teleport onto any valid land location within range with a new ability.</div>
       </div>
       <div class="ti-upgrade">
         <span class="ti-tier">4</span>
         <span class="ti-uname">Dark Champion</span>
+        <span class="tag moab">moab</span>
+        <span class="tag ceramic">ceramic</span>
         <div class="ti-desc">Description: Champion dark blades excel at puncturing and ruining all Bloon types. Darkshift ability extends mapwide. Effect: Gains +1 damage to all bloons, another +1 damage to Camos, another +1 damage to MOAB-class, +2 damage to ceramics, can completely lock Leads and Ceramics, doubles attack speed, gains another +4 pierce, and pops any bloon type. Ability now allows it to teleport to any valid land location on screen.</div>
       </div>
       <div class="ti-upgrade">
         <span class="ti-tier">5</span>
         <span class="ti-uname">Legend of the Night</span>
+        <span class="tag moab">moab</span>
+        <span class="tag ceramic">ceramic</span>
         <div class="ti-desc">Description: We turn to him, when all hope is lost... Effect: If bloons reach the exit, a black hole is summoned on all exits, deleting any bloons passing through them. Black holes last for up to 7.5s with a 3 minute cooldown, and a max of 2 times per round per tower. Main attack gains +8 damage and +15 pierce, and additional +16 damage against MOAB-class, extra +2 versus Ceramics, and another +2 versus Camo.</div>
       </div>
     </div>
@@ -4354,6 +4602,7 @@
   <div class="ti-head">
     <span class="ti-name">Ninja Monkey</span>
     <span class="ti-cat magic">Magic</span>
+    <span class="tag camo">camo</span><em class="ti-base-note">(base)</em>
     <div class="ti-base">base: throws shurikens; innate <b>camo detection</b> (can target Camo bloons without upgrades); does not pop Lead by default</div>
   </div>
   <div class="ti-paths">
@@ -4456,6 +4705,7 @@
   <div class="ti-head">
     <span class="ti-name">Alchemist</span>
     <span class="ti-cat magic">Magic</span>
+    <span class="tag lead">lead</span><em class="ti-base-note">(base)</em>
     <div class="ti-base">base: throws acid potions; innate <b>Lead</b>-popping (acid pops Lead); no camo detection by default</div>
   </div>
   <div class="ti-paths">
@@ -4562,7 +4812,7 @@
     <span class="ti-name">Druid</span>
     <span class="ti-cat magic">Magic</span>
     <span class="tag aoe">aoe</span><em class="ti-base-note">(base)</em>
-    <em class="ti-base-note">(base)</em>
+    <span class="tag lead">lead</span><em class="ti-base-note">(base)</em>
     <div class="ti-base">base: throws thorns and casts lightning; innate <b>Lead</b>-popping (lightning pops Lead); no camo detection by default</div>
   </div>
   <div class="ti-paths">
@@ -4625,6 +4875,7 @@
       <div class="ti-upgrade">
         <span class="ti-tier">5</span>
         <span class="ti-uname">Spirit of the Forest</span>
+        <span class="tag ceramic">ceramic</span>
         <div class="ti-desc">Description: Grows thorned vines along the path that deal constant damage and bonus damage to ceramics. Vines nearest the Spirit of the Forest do more damage. Activated ability grabs more Bloons. Effect: Continually grows <b>thorned vines</b> starting from its direct location covering wide track area. Vines deal constant damage to bloons passing through. Also greatly strengthens most attacks. Ability provides 25 lives per use. Gives an extra 1000 cash every round.</div>
       </div>
     </div>
@@ -6483,6 +6734,17 @@
   })();
 
   // ── CUSTOM BUILD COST CALC ─────────────────────
+  var CB_SETTINGS_KEY = 'btd6-cb-mk';
+  var CB_SETTINGS = (function() {
+    try {
+      var s = JSON.parse(localStorage.getItem(CB_SETTINGS_KEY) || '{}');
+      return { heroDiscount: !!s.heroDiscount, boomDiscount: !!s.boomDiscount, freeFirstGD: !!s.freeFirstGD, tackLiqDisc: !!s.tackLiqDisc };
+    } catch(e) { return { heroDiscount: false, boomDiscount: false, freeFirstGD: false, tackLiqDisc: false }; }
+  })();
+  function cbSaveSettings() {
+    try { localStorage.setItem(CB_SETTINGS_KEY, JSON.stringify(CB_SETTINGS)); } catch(e) {}
+  }
+
   var CB_TOWER_MAP = {
     'dart monkey':'dart monkey','boomerang':'boomerang monkey','boomerang monkey':'boomerang monkey',
     'bomb shooter':'bomb shooter','bomb':'bomb shooter','tack shooter':'tack shooter','tack':'tack shooter',
@@ -6521,16 +6783,22 @@
     if (!pathStr) {
       var hk = CB_HERO_MAP[n];
       var hc = hk && HERO_COSTS[hk];
-      return hc ? hc[diff] : null;
+      var cost = hc ? hc[diff] : null;
+      if (cost !== null && CB_SETTINGS.heroDiscount) cost = Math.floor(cost * 0.9);
+      return cost;
     }
     var tk = CB_TOWER_MAP[n];
     var td = tk && UPGRADE_COSTS[tk];
     if (!td) return null;
     var p = pathStr.split('/').map(Number);
-    var total = td.base ? td.base[diff] : 0;
+    var base = td.base ? td.base[diff] : 0;
+    if (CB_SETTINGS.boomDiscount && tk === 'boomerang monkey') base = Math.max(0, base - 50);
+    var total = base;
     [1,2,3].forEach(function(path, pi) {
       for (var t = 0; t < p[pi]; t++) {
-        if (td[path] && td[path][t]) total += td[path][t][diff] || 0;
+        var upgCost = (td[path] && td[path][t]) ? (td[path][t][diff] || 0) : 0;
+        if (CB_SETTINGS.tackLiqDisc && tk === 'tack shooter' && path === 1 && t === 3) upgCost = Math.max(0, upgCost - 1000);
+        total += upgCost;
       }
     });
     return total;
@@ -6544,7 +6812,15 @@
     var isHero = !!unit.querySelector('.cb-path-label');
     var pathEl = unit.querySelector('.path-pill');
     var pathStr = isHero ? null : (pathEl ? pathEl.textContent.trim() : null);
-    return cbCalcCost(nameEl.textContent.trim(), pathStr, diff);
+    var cost = cbCalcCost(nameEl.textContent.trim(), pathStr, diff);
+    if (unit.dataset.cbFree === '1' && cost !== null && pathStr) {
+      var n = nameEl.textContent.trim().toLowerCase();
+      var tk = CB_TOWER_MAP[n];
+      var td = tk && UPGRADE_COSTS[tk];
+      var base = (td && td.base) ? (td.base[diff] || 0) : 0;
+      cost = Math.max(0, cost - base);
+    }
+    return cost;
   }
 
   function cbInjectCost(unit, cost) {
@@ -6552,7 +6828,12 @@
     if (prev) prev.remove();
     var el = document.createElement('span');
     el.className = 'cb-cost';
-    el.textContent = '$' + cost.toLocaleString();
+    if (unit.dataset.cbFree === '1' && cost === 0) {
+      el.classList.add('cb-cost-free');
+      el.textContent = 'FREE';
+    } else {
+      el.textContent = '$' + cost.toLocaleString();
+    }
     unit.appendChild(el);
   }
 
@@ -6638,12 +6919,22 @@
       var budget = modeKey ? (CB_MODE_BUDGET[modeKey] || 0) : 0;
 
       unitsEl.querySelectorAll('.cb-cost, .cb-spam-counter, .cb-build-total, .cb-budget-left').forEach(function(el) { el.remove(); });
+      unitsEl.querySelectorAll('[data-cb-free]').forEach(function(el) { delete el.dataset.cbFree; });
 
       // First pass: non-spam total + collect spam units
       var nonSpamTotal = 0;
       var spamList = [];
+      var freeFirstUsed = false;
       Array.from(unitsEl.children).forEach(function(child) {
         if (child.classList.contains('cb-unit')) {
+          if (CB_SETTINGS.freeFirstGD && !freeFirstUsed && !child.querySelector('.cb-path-label')) {
+            var nameEl = child.querySelector('.cb-name');
+            var nm = nameEl ? nameEl.textContent.trim().toLowerCase() : '';
+            if (nm === 'glue gunner' || nm === 'dart monkey') {
+              child.dataset.cbFree = '1';
+              freeFirstUsed = true;
+            }
+          }
           var c = cbUnitCost(child, diff);
           if (c !== null) {
             if (child.classList.contains('cb-spam')) { spamList.push({unit: child, cost: c}); }
@@ -6706,6 +6997,28 @@
   }
 
   buildCostUI();
+
+  // Wire MK settings checkboxes
+  (function() {
+    var checks = [
+      {id: 'cb-set-hero-disc', key: 'heroDiscount'},
+      {id: 'cb-set-boom-disc', key: 'boomDiscount'},
+      {id: 'cb-set-free-first', key: 'freeFirstGD'},
+      {id: 'cb-set-tack-liq', key: 'tackLiqDisc'}
+    ];
+    checks.forEach(function(item) {
+      var el = document.getElementById(item.id);
+      if (!el) return;
+      el.checked = CB_SETTINGS[item.key];
+      if (el.checked) el.closest('.cb-setting-toggle').classList.add('active');
+      el.addEventListener('change', function() {
+        CB_SETTINGS[item.key] = this.checked;
+        this.closest('.cb-setting-toggle').classList.toggle('active', this.checked);
+        cbSaveSettings();
+        buildCostUI();
+      });
+    });
+  })();
 
   // Tower Info cost calculator
   (function(){
