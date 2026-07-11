@@ -386,6 +386,7 @@
   .cb-unit-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .cb-name{font-size:13px;font-weight:600}
   .cb-gate{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(220,155,20,0.18);color:#e0a020;border:1px solid rgba(220,155,20,0.45);margin-left:4px}
+  .cb-gate.opt-b{background:rgba(160,100,210,0.18);color:#b87de0;border-color:rgba(160,100,210,0.45)}
   .cb-upgrade-badge{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:2px 6px;border-radius:4px;background:rgba(100,160,255,0.15);color:#6aacff;border:1px solid rgba(100,160,255,0.35);flex-shrink:0}
   .cb-note{font-size:11px;color:var(--text-dim);margin-top:5px;line-height:1.45;padding-right:80px}
   .cb-spam .cb-note{padding-right:148px}
@@ -405,6 +406,7 @@
   .cb-build-total-label{color:var(--text-dim);font-size:10px;text-transform:uppercase;letter-spacing:.04em}
   .cb-build-total-value{color:#c8a030;font-weight:700;font-size:12px}
   .cb-spam-counter{position:absolute;bottom:8px;right:10px;display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px}
+  .cb-unit[data-cb-no-counter] .cb-spam-counter{display:none!important}
   .cb-spam-btn{background:rgba(200,160,40,0.14);border:1px solid rgba(200,160,40,0.38);color:#c8a028;border-radius:3px;width:17px;height:17px;cursor:pointer;font-size:12px;line-height:1;padding:0;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
   .cb-spam-btn:hover{background:rgba(200,160,40,0.3)}
   .cb-spam-count{color:var(--text-dim);min-width:20px;text-align:center}
@@ -990,6 +992,8 @@
   .ti-calc-clear:hover{color:var(--text)}
   .cb-cost.cb-cost-free{color:#56c98a}
   .mode-budget{font-family:var(--mono);font-size:11px;color:#c8a030;background:rgba(200,160,30,0.10);border:1px solid rgba(200,160,30,0.28);border-radius:6px;padding:6px 12px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  #chimps-round-sel{width:34px;font:inherit;font-size:11px;font-weight:700;background:rgba(120,210,255,0.10);border:none;border-bottom:1.5px solid rgba(120,210,255,0.7);color:#7ed4f5;text-align:center;padding:0 1px;border-radius:2px;-moz-appearance:textfield;appearance:textfield;cursor:text}
+  #chimps-round-sel::-webkit-inner-spin-button,#chimps-round-sel::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}
   .mode-budget-note{font-size:10px;color:var(--text-dim);font-style:italic}
 
   /* chimps */
@@ -1782,8 +1786,8 @@
       <button class="subtab-btn" data-subtab="medium">Medium (60)</button>
       <button class="subtab-btn" data-subtab="hard">Hard (80)</button>
       <button class="subtab-btn" data-subtab="impoppable">Impoppable (100)</button>
+      <button class="subtab-btn" data-subtab="chimps">CHIMPS (100)</button>
       <button class="subtab-btn" data-subtab="boss">Boss Challenges</button>
-      <button class="subtab-btn" data-subtab="chimps">CHIMPS</button>
     </div>
 
     <div id="subpanel-easy" class="subpanel active">
@@ -2584,6 +2588,69 @@
 
         <!-- regular build -->
         <div class="cb-onepath">
+          <div class="cb-units">
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Obyn Greenfoot</span>
+                <span class="cb-path-label">Hero</span>
+                <span class="tag camo">camo</span>
+              </div>
+              <div class="cb-note">Camo detection at level 7. Buffs all magic monkeys in range with +10% attack speed — particularly strong on a dense Druid stack. Brambles ability can stall bloons on track.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Wizard Monkey</span>
+                <span class="path-pill">0/0/4</span>
+                <span class="tag lead">lead</span><span class="tag camo">camo</span><span class="tag camo-aura">camo aura</span>
+                <span class="cb-gate">0/0/2 before round 24</span>
+                <span class="cb-gate">0/0/3 before round 36</span>
+              </div>
+              <div class="cb-note">Rush to 0/0/2 early, then 0/0/3 before round 36. Arcane Blast (bot T1) + Linked Arcane (bot T2) pops Lead. Shimmer (bot T3) permanently strips Camo from any bloon passing through its aura — must be online before round 36. Necromancer (bot T4) is a late upgrade; finish the Druid rush first.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">5/2/0</span>
+                <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
+                <span class="cb-gate">rush 4/2/0 first</span>
+              </div>
+              <div class="cb-note">Rush to 4/2/0 as part of the initial push (alongside 7 Druids and Wizard 0/0/3), then save for 5/0/0 (Permanent Brew). Permanent Brew auto-throws brew bottles that permanently buff nearby towers with increased speed, damage, pierce, and lead-aura. Finish with 5/2/0 (Acid Pool crosspath). Set target priority to Strong.</div>
+            </div>
+
+            <div class="cb-unit cb-spam" data-cb-init-count="5">
+              <div class="cb-unit-row">
+                <span class="cb-spam-badge">spam</span>
+                <span class="cb-name">Banana Farm</span>
+                <span class="path-pill">2/0/3</span>
+                <span class="tag eco">eco</span>
+              </div>
+              <div class="cb-note">Start with 2/0/0s — place 4&ndash;5, then upgrade all to 2/0/3 (Greater Production + Marketplace). Weave farm purchases and upgrades between other tower steps — do not focus on farms exclusively. Good time to start: once hero, Alch, and roughly 2 Druids are placed as your core. Continue buying and upgrading farms in between each Druid rush step.</div>
+            </div>
+
+            <div class="cb-unit cb-spam" data-cb-init-count="7">
+              <div class="cb-unit-row">
+                <span class="cb-spam-badge">spam</span>
+                <span class="cb-name">Druid</span>
+                <span class="path-pill">0/1/3</span>
+                <span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">Rush target is 7 Druids at 0/1/3 as part of the early push. Thorn Swarm (mid T1) shoots more thorns per shot. Druid of Wrath (bot T3) ramps attack speed the longer it attacks; Obyn's passive amplifies this. Place near the beginning of the track for maximum ramp time.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="0/1/3">
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Druid</span>
+                <span class="path-pill">0/1/4</span>
+                <span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">After the rush phase, revisit your 0/1/3 Druids and upgrade each to 0/1/4 (Poplust). Poplust buffs all nearby Druids with +15% pierce and attack speed, stacking up to 5&times; on any single Druid. Place upgraded Druids centrally to maximise overlap. Counter shows the per-upgrade cost only.</div>
+            </div>
+
+          </div>
         </div>
 
         <!-- lot-of-water build -->
@@ -2821,116 +2888,353 @@
     <!-- ── CHIMPS subpanel ─────────────────────────── -->
     <div id="subpanel-chimps" class="subpanel">
 
-      <p style="font-size:13px;color:var(--text-dim);line-height:1.6;margin:0 0 14px">Two starter routes depending on the map. Both use the same Alchemist support. Transition to your own build after the starter is set.</p>
-
       <div class="boss-sell-note" style="background:rgba(100,160,255,0.06);border:1px solid rgba(100,160,255,0.14);color:#7aabdc;margin-bottom:20px">
-        <strong>CHIMPS rules:</strong> No selling &middot; No income towers &middot; No Monkey Knowledge &middot; No Powers &middot; $650 starting cash &middot; Hard pricing
+        <strong>CHIMPS rules:</strong> No selling &middot; No income towers &middot; No Monkey Knowledge &middot; No Powers<br>
+        $650 starting cash &middot; Hard Difficulty
       </div>
 
-      <!-- Route A: No Water -->
-      <div style="font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-faint);margin-bottom:8px">No Water</div>
-      <div class="boss-tiers" style="margin-bottom:22px">
-
-        <div class="boss-tier-card pre">
-          <div class="boss-tier-inner">
-            <div class="boss-tier-num">R1</div>
-            <div class="boss-tier-body">
-              <p class="boss-base">Place a <strong>Dart Monkey</strong> at <span class="path-pill">0/0/0</span> &mdash; cheap filler to hold the first rounds while you save for the Ninja.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="boss-tier-card">
-          <div class="boss-tier-inner">
-            <div class="boss-tier-num">R5</div>
-            <div class="boss-tier-body">
-              <p class="boss-base">Place a <strong>Ninja Monkey</strong> before round 6. Ninja detects camo from base, so R6 is covered on placement.</p>
-              <div class="boss-rows">
-                <div class="boss-row"><span class="boss-badge note">Final path</span><span><span class="path-pill">4/0/2</span> &mdash; Bloonjitsu for high DPS, Caltrops crosspath.</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="boss-tier-card">
-          <div class="boss-tier-inner">
-            <div class="boss-tier-num">R10</div>
-            <div class="boss-tier-body">
-              <p class="boss-base">Place an <strong>Alchemist</strong> near the Ninja. Base Alch already pops Lead &mdash; lead coverage for R28 is immediate on placement.</p>
-              <div class="boss-rows">
-                <div class="boss-row"><span class="boss-badge note">Final path</span><span><span class="path-pill">3/2/0</span> &mdash; Berserker Brew buff + Acid Pool crosspath.</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <div class="subtab-bar nested">
+        <button class="subtab-btn active" data-subtab="chimps-nowater">No Water</button>
+        <button class="subtab-btn" data-subtab="chimps-water">Water</button>
       </div>
+      <div class="mode-budget">&#128178; Est. income R1&ndash;<input id="chimps-round-sel" type="number" min="1" max="100" value="100">: <strong id="chimps-income-display">$172,801</strong> &middot; $650 starting cash &middot; Hard pricing</div>
 
-      <!-- Route B: Water Map -->
-      <div style="font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-faint);margin-bottom:8px">Water Map</div>
-      <div class="boss-tiers" style="margin-bottom:22px">
+      <!-- No Water variant -->
+      <div id="subpanel-chimps-nowater" class="subpanel active">
+        <div class="cb-onepath">
+          <div class="cb-units">
 
-        <div class="boss-tier-card pre">
-          <div class="boss-tier-inner">
-            <div class="boss-tier-num">R1</div>
-            <div class="boss-tier-body">
-              <p class="boss-base">Place a <strong>Dart Monkey</strong>. Rush it to <span class="path-pill">0/0/2</span> &mdash; the extra camo coverage helps the Sub handle early camo waves.</p>
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Dart Monkey</span>
+                <span class="path-pill">0/0/0</span>
+              </div>
+              <div class="cb-note">R1 filler while you save for the Ninja.</div>
             </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Ninja Monkey</span>
+                <span class="path-pill">2/0/1</span>
+                <span class="tag camo">camo</span>
+                <span class="cb-gate">before R6</span>
+              </div>
+              <div class="cb-note">Camo detection from base. Place before R6 to cover the first camo wave. Start at 2/0/1 &mdash; Sharp Shurikens (top T2) + Seeking Shuriken (bot T1).</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Obyn Greenfoot</span>
+                <span class="cb-path-label">Hero</span>
+              </div>
+              <div class="cb-note">Reach level 8 before R51 &mdash; at level 8 Obyn grants camo detection to Druids and passively buffs their range and pierce.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">2/0/0</span>
+                <span class="tag lead-aura">lead aura</span>
+              </div>
+              <div class="cb-note">Place near the Ninja. Acidic Mixture Dip (top T2) grants lead-popping to nearby towers &mdash; covers R28 and R30. Keep here until you can afford the 3/2/0 upgrade.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="2/0/1" data-cb-init-count="1" data-cb-no-counter>
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Ninja Monkey</span>
+                <span class="path-pill">4/0/2</span>
+                <span class="tag camo">camo</span>
+              </div>
+              <div class="cb-note">Upgrade the existing Ninja. Bloonjitsu (top T4) for heavy multi-target DPS + Caltrops (bot T2) slows bloons on the track.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="2/0/0" data-cb-init-count="1" data-cb-no-counter>
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">3/2/0</span>
+                <span class="tag lead">lead</span>
+                <span class="tag lead-aura">lead aura</span>
+              </div>
+              <div class="cb-note">Berserker Brew (top T3) + Perishing Potions (mid T2). Berserker Brew creates a buff potion that temporarily boosts nearby towers&apos; attack speed, pierce, and damage.</div>
+            </div>
+
+            <div class="cb-unit cb-spam" data-cb-init-count="4">
+              <div class="cb-unit-row">
+                <span class="cb-spam-badge">spam</span>
+                <span class="cb-name">Druid</span>
+                <span class="path-pill">0/1/4</span>
+                <span class="tag aoe">aoe</span>
+                <span class="cb-gate">4&times; before R63</span>
+              </div>
+              <div class="cb-note">Thorn Swarm (mid T1) + Poplust (bot T4). Build all 4 before R63. Obyn&apos;s passive amplifies Druid pierce and range significantly &mdash; place near the track start for maximum ramp time.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Village</span>
+                <span class="path-pill">0/2/0</span>
+                <span class="tag camo-aura">camo aura</span>
+                <span class="cb-gate">before R63 if Obyn &lt; level 8</span>
+              </div>
+              <div class="cb-note">Radar Scanner (mid T2) grants camo detection to all towers in range. Prioritise during the Druid spam phase if Obyn is not yet level 8 &mdash; needed before R51 camo ceramics. Upgrade to 2/2/0 later.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Glue Gunner</span>
+                <span class="path-pill">0/2/2</span>
+                <span class="tag slow">slow</span>
+                <span class="tag aoe">aoe</span>
+                <span class="cb-gate">after Druid core</span>
+              </div>
+              <div class="cb-note">Add once 4 Druids are at 0/1/4. Glue Splatter (mid T2) AoE + Stronger Glue (bot T2) slows bloons longer.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="3/2/0" data-cb-init-count="1" data-cb-no-counter>
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">4/2/0</span>
+                <span class="tag lead">lead</span>
+                <span class="tag lead-aura">lead aura</span>
+              </div>
+              <div class="cb-note">Stronger Stimulant (top T4) &mdash; buff potion now also boosts attack damage. Key mid-game milestone before Permanent Brew.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="0/2/2" data-cb-init-count="1" data-cb-no-counter>
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Glue Gunner</span>
+                <span class="path-pill">0/2/3</span>
+                <span class="tag slow">slow</span>
+                <span class="tag aoe">aoe</span>
+                <span class="tag moab">moab</span>
+              </div>
+              <div class="cb-note">MOAB Glue (bot T3) slows MOAB-class bloons. Upgrade the existing 0/2/2 Glue Gunner once the Alch hits 4/2/0.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="0/2/0" data-cb-init-count="1" data-cb-no-counter>
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Monkey Village</span>
+                <span class="path-pill">2/2/0</span>
+                <span class="tag camo-aura">camo aura</span>
+              </div>
+              <div class="cb-note">Upgrade the existing Village. Jungle Drums (top T2) adds an attack speed buff for all towers in range.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="4/2/0" data-cb-init-count="1" data-cb-no-counter>
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">5/2/0</span>
+                <span class="tag lead">lead</span>
+                <span class="tag lead-aura">lead aura</span>
+              </div>
+              <div class="cb-note">Permanent Brew &mdash; no longer needs manual activation; constantly buffs nearby towers with increased attack speed and damage.</div>
+            </div>
+
+            <!-- end-game choice divider -->
+            <div style="font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);margin:10px 0 4px;display:flex;align-items:center;gap:8px">
+              <span style="flex:1;height:1px;background:var(--line)"></span>
+              <span>must pick Option A or B before R95 (difficult wave)</span>
+              <span style="flex:1;height:1px;background:var(--line)"></span>
+            </div>
+
+            <!-- Option A -->
+            <div class="cb-unit cb-upgrade" data-cb-from="0/1/4" data-cb-init-count="0">
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Druid</span>
+                <span class="path-pill">0/1/5</span>
+                <span class="tag aoe">aoe</span>
+                <span class="tag ceramic t5">ceramic</span>
+                <span class="cb-gate">Option A</span>
+              </div>
+              <div class="cb-note">Avatar of Wrath &mdash; attack speed ramps with bloon count on screen. Strongest if cash allows before R95.</div>
+            </div>
+
+            <!-- Option B -->
+            <div class="cb-unit cb-upgrade" data-cb-from="4/0/2" data-cb-init-count="0">
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Ninja Monkey</span>
+                <span class="path-pill">5/0/2</span>
+                <span class="tag camo">camo</span>
+                <span class="cb-gate opt-b">Option B</span>
+              </div>
+              <div class="cb-note">Grandmaster Ninja &mdash; buffs all Ninjas on the map globally (+attack speed + damage). Lands at 5/0/2 since Caltrops crosspath is already locked in.</div>
+            </div>
+
+            <div class="cb-unit" data-cb-init-count="0">
+              <div class="cb-unit-row">
+                <span class="cb-name">Spike Factory</span>
+                <span class="path-pill">1/0/4</span>
+                <span class="tag moab">moab</span>
+                <span class="cb-gate opt-b">Option B</span>
+              </div>
+              <div class="cb-note">Place at the end of the track. Set target to <strong>Close</strong> so spikes accumulate at the exit. Bigger Stacks (top T1) + Deadly Spikes (bot T4). Persistent ground-cover damage for MOAB-class.</div>
+            </div>
+
+            <div class="cb-unit" data-cb-init-count="0">
+              <div class="cb-unit-row">
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">0/3/0</span>
+                <span class="tag aoe">aoe</span>
+                <span class="cb-gate opt-b">Option B</span>
+              </div>
+              <div class="cb-note">Place next to the Spike Factory at the end of the track. Unstable Concoction (mid T3) clears groups of regular bloons heading into the Spike patch.</div>
+            </div>
+
           </div>
         </div>
+      </div><!-- /subpanel-chimps-nowater -->
 
-        <div class="boss-tier-card">
-          <div class="boss-tier-inner">
-            <div class="boss-tier-num">Early</div>
-            <div class="boss-tier-body">
-              <p class="boss-base">Place a <strong>Monkey Sub</strong> on water as soon as you can afford it.</p>
-              <div class="boss-rows">
-                <div class="boss-row"><span class="boss-badge note">Final path</span><span><span class="path-pill">2/0/4</span> &mdash; Advanced Intel gives global targeting alongside whatever your other towers can see.</span></div>
+      <!-- Water variant -->
+      <div id="subpanel-chimps-water" class="subpanel">
+        <div class="cb-onepath">
+          <div class="cb-units">
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Obyn Greenfoot</span>
+                <span class="cb-path-label">Hero</span>
+                <span class="tag camo">camo</span>
               </div>
+              <div class="cb-note">Place once the Sub reaches 2/0/2. Level 8 before R51. Passive buffs range and pierce for all Druids.</div>
             </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Dart Monkey</span>
+                <span class="path-pill">0/0/2</span>
+                <span class="tag camo">camo</span>
+              </div>
+              <div class="cb-note">R1 land filler. Enhanced Eyesight (bot T2) gives camo detection &mdash; covers early camo alongside the Sub.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Sub</span>
+                <span class="path-pill">2/0/4</span>
+                <span class="tag moab">moab</span>
+                <span class="cb-gate">reach 2/0/2 before placing Obyn</span>
+              </div>
+              <div class="cb-note">Place on water at R1. Work toward 2/0/1 &rarr; 2/0/2 &rarr; place Obyn and Alch &rarr; then continue to 2/0/4. Advanced Intel (top T2) + Armor Piercing Darts (bot T4).</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">4/2/0</span>
+                <span class="tag lead">lead</span>
+                <span class="tag lead-aura">lead aura</span>
+                <span class="cb-gate">rush 2/1/0 first</span>
+              </div>
+              <div class="cb-note">Place after Obyn. Rush 2/1/0 for Acidic Mixture Dip lead coverage. Then upgrade to 4/2/0 for Stronger Stimulant buff.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Monkey Village</span>
+                <span class="path-pill">0/2/0</span>
+                <span class="tag camo">camo</span>
+                <span class="cb-gate">before R42</span>
+              </div>
+              <div class="cb-note">Radar Scanner (mid T2) gives the Sub camo detection. Must have before R42. Upgrade to 2/2/0 later for Jungle Drums speed buff.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="0/2/0">
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Monkey Village</span>
+                <span class="path-pill">2/2/0</span>
+                <span class="tag camo">camo</span>
+                <span class="cb-gate">before R51</span>
+              </div>
+              <div class="cb-note">Upgrade the existing Village from 0/2/0. Adds Jungle Drums (top T2) attack speed aura for all towers in range.</div>
+            </div>
+
+            <div class="cb-unit cb-spam" data-cb-init-count="4">
+              <div class="cb-unit-row">
+                <span class="cb-spam-badge">spam</span>
+                <span class="cb-name">Druid</span>
+                <span class="path-pill">0/1/4</span>
+                <span class="tag aoe">aoe</span>
+                <span class="cb-gate">4&times; before R63</span>
+              </div>
+              <div class="cb-note">Thorn Swarm (mid T1) + Poplust (bot T4). Build all 4 before R63. Obyn&apos;s passive amplifies Druid DPS significantly.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Glue Gunner</span>
+                <span class="path-pill">0/2/3</span>
+                <span class="tag slow">slow</span>
+                <span class="tag moab">moab</span>
+                <span class="tag aoe">aoe</span>
+                <span class="cb-gate">after Druid core</span>
+              </div>
+              <div class="cb-note">Add once 4 Druids are at 0/1/4. Glue Splatter AoE + MOAB Glue slows MOAB-class bloons.</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Spike Factory</span>
+                <span class="path-pill">1/0/4</span>
+                <span class="tag moab">moab</span>
+              </div>
+              <div class="cb-note">Bigger Stacks (top T1) + Deadly Spikes (bot T4).</div>
+            </div>
+
+            <div class="cb-unit">
+              <div class="cb-unit-row">
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">0/3/0</span>
+              </div>
+              <div class="cb-note">Place next to the Spike Factory. Unstable Concoction clears regular bloons.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="4/2/0">
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Alchemist</span>
+                <span class="path-pill">5/2/0</span>
+                <span class="tag lead">lead</span>
+                <span class="tag lead-aura">lead aura</span>
+                <span class="cb-gate">T5 priority 1</span>
+              </div>
+              <div class="cb-note">Permanent Brew &mdash; constant buff to all nearby towers. First T5 priority.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="0/1/4">
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Druid</span>
+                <span class="path-pill">0/1/5</span>
+                <span class="tag aoe">aoe</span>
+                <span class="tag ceramic t5">ceramic</span>
+                <span class="cb-gate">T5 priority 2 &mdash; before R95</span>
+              </div>
+              <div class="cb-note">Avatar of Wrath. Aim for before R95. If cash is tight, upgrade Sub instead as fallback.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="1/0/4">
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Spike Factory</span>
+                <span class="path-pill">1/0/5</span>
+                <span class="tag moab">moab</span>
+                <span class="cb-gate">T5 priority 3</span>
+              </div>
+              <div class="cb-note">Perma-Spike &mdash; spikes never expire.</div>
+            </div>
+
           </div>
         </div>
-
-        <div class="boss-tier-card">
-          <div class="boss-tier-inner">
-            <div class="boss-tier-num">R10</div>
-            <div class="boss-tier-body">
-              <p class="boss-base">Place an <strong>Alchemist</strong> near the Sub. Same role as the no-water route &mdash; lead coverage on placement, buff support as it upgrades.</p>
-              <div class="boss-rows">
-                <div class="boss-row"><span class="boss-badge note">Final path</span><span><span class="path-pill">3/2/0</span> &mdash; same as no-water: Berserker Brew + Acid Pool crosspath.</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Transition -->
-      <div class="boss-tiers">
-        <div class="boss-tier-card pre">
-          <div class="boss-tier-inner">
-            <div class="boss-tier-num" style="font-size:10px;line-height:1.4">Your<br>build</div>
-            <div class="boss-tier-body">
-              <p class="boss-base">Starter is set &mdash; camo and lead are handled. <span style="color:var(--text-faint);font-size:11px">(5) = T5 goal; upgrade when money allows.</span></p>
-              <div class="boss-rows">
-                <div class="boss-row"><span class="boss-badge note">Hero</span><span><strong>Obyn Greenfoot</strong> &mdash; level 8 before round 51.</span></div>
-                <div class="boss-row"><span class="boss-badge bloonarius">Druid &times;4</span><span><span class="path-pill">0/1/4(5)</span></span></div>
-                <div class="boss-row"><span class="boss-badge note">Village</span><span><span class="path-pill">2/3/0</span> &mdash; place before round 51. If not yet placed, get Obyn to level 8 first.</span></div>
-                <div class="boss-row"><span class="boss-badge note">Alchemist</span><span><span class="path-pill">4/2/0(5)</span></span></div>
-                <div class="boss-row"><span class="boss-badge note">Spike Factory</span><span><span class="path-pill">1/0/4(5)</span></span></div>
-                <div class="boss-row"><span class="boss-badge note">Alch (Spike support)</span><span><span class="path-pill">0/3/0</span></span></div>
-                <div class="boss-row"><span class="boss-badge note">Glue Gunner</span><span><span class="path-pill">0/2/3</span></span></div>
-              </div>
-              <div style="font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-faint);margin:12px 0 6px">T5 Priority</div>
-              <div class="boss-steps">
-                <div class="boss-step"><span class="boss-step-n">1</span><span>Alchemist &rarr; <span class="path-pill">5/2/0</span></span></div>
-                <div class="boss-step"><span class="boss-step-n">2</span><span>Druid &rarr; <span class="path-pill">0/1/5</span></span></div>
-                <div class="boss-step"><span class="boss-step-n">3</span><span>Spike Factory &rarr; <span class="path-pill">1/0/5</span></span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div><!-- /subpanel-chimps-water -->
 
     </div><!-- /subpanel-chimps -->
 
@@ -7904,6 +8208,7 @@
     if (!id) return 'm';
     if (id.indexOf('easy') > -1) return 'e';
     if (id.indexOf('medium') > -1) return 'm';
+    if (id.indexOf('chimps') > -1) return 'h';
     if (id.indexOf('hard') > -1) return 'h';
     if (id.indexOf('impoppable') > -1) return 'i';
     return 'm';
@@ -7935,7 +8240,7 @@
     return total;
   }
 
-  var CB_MODE_BUDGET = {easy:17500, medium:54400, hard:94700, impoppable:110000};
+  var CB_MODE_BUDGET = {easy:17500, medium:54400, hard:94700, impoppable:110000, chimps:172801};
 
   function cbUnitCost(unit, diff) {
     var nameEl = unit.querySelector('.cb-name');
@@ -7999,6 +8304,7 @@
     if (!subpanelId) return null;
     if (subpanelId.indexOf('easy') > -1) return 'easy';
     if (subpanelId.indexOf('medium') > -1) return 'medium';
+    if (subpanelId.indexOf('chimps') > -1) return 'chimps';
     if (subpanelId.indexOf('hard') > -1) return 'hard';
     if (subpanelId.indexOf('impoppable') > -1) return 'impoppable';
     return null;
@@ -8013,7 +8319,7 @@
 
     Array.from(unitsEl.children).forEach(function(child) {
       if (child.classList.contains('cb-unit')) {
-        if (child.classList.contains('cb-spam') || child.classList.contains('cb-upgrade')) {
+        if (child.classList.contains('cb-spam') || child.classList.contains('cb-upgrade') || 'cbInitCount' in child.dataset) {
           buildTotal += (parseInt(child.dataset.cbUnitCost) || 0) * (parseInt(child.dataset.cbCount) || 0);
         } else {
           var cost = cbUnitCost(child, diff);
@@ -8030,6 +8336,15 @@
 
     var totEl = unitsEl.querySelector('.cb-build-total');
     if (totEl) totEl.querySelector('.cb-build-total-value').textContent = '$' + buildTotal.toLocaleString();
+
+    var budget = modeKey ? (CB_MODE_BUDGET[modeKey] || 0) : 0;
+    var remEl = unitsEl.querySelector('.cb-budget-left');
+    if (remEl && budget > 0) {
+      var remaining = budget - buildTotal;
+      var remVal = remEl.querySelector('.cb-build-total-value');
+      remVal.textContent = (remaining >= 0 ? '+' : '−') + '$' + Math.abs(remaining).toLocaleString();
+      remVal.style.color = remaining >= 0 ? '#5bba6f' : '#e07060';
+    }
 
   }
 
@@ -8072,7 +8387,7 @@
             c = cbUnitCost(child, diff);
           }
           if (c !== null) {
-            if (child.classList.contains('cb-spam') || child.classList.contains('cb-upgrade')) {
+            if (child.classList.contains('cb-spam') || child.classList.contains('cb-upgrade') || 'cbInitCount' in child.dataset) {
               spamList.push({unit: child, cost: c});
             } else {
               nonSpamTotal += c;
@@ -8090,7 +8405,7 @@
       // Compute optimal spam counts: fill budget closest without going over
       var rem = budget - nonSpamTotal;
       spamList.forEach(function(s) {
-        var fixed = s.unit.dataset.cbInitCount ? parseInt(s.unit.dataset.cbInitCount) : null;
+        var fixed = 'cbInitCount' in s.unit.dataset ? parseInt(s.unit.dataset.cbInitCount) : null;
         s.count = fixed !== null ? fixed : (budget > 0 && s.cost > 0) ? Math.max(1, Math.floor(rem / s.cost)) : 1;
         rem -= s.cost * s.count;
       });
@@ -8099,9 +8414,17 @@
       var spamIdx = 0;
       Array.from(unitsEl.children).forEach(function(child) {
         if (child.classList.contains('cb-unit')) {
-          if (child.classList.contains('cb-spam') || child.classList.contains('cb-upgrade')) {
+          if (child.classList.contains('cb-spam') || child.classList.contains('cb-upgrade') || 'cbInitCount' in child.dataset) {
             var s = spamList[spamIdx++];
-            if (s) cbInjectSpamCounter(child, s.cost, s.count);
+            if (s) {
+              if ('cbNoCounter' in child.dataset) {
+                child.dataset.cbUnitCost = s.cost;
+                child.dataset.cbCount = 1;
+                cbInjectCost(child, s.cost);
+              } else {
+                cbInjectSpamCounter(child, s.cost, s.count);
+              }
+            }
           } else {
             var c = cbUnitCost(child, diff);
             if (c !== null) cbInjectCost(child, c);
@@ -8122,11 +8445,52 @@
           + '<span class="cb-build-total-value">$' + buildTotal.toLocaleString() + '</span>';
         unitsEl.appendChild(totEl);
 
+        if (budget > 0) {
+          var remaining = budget - buildTotal;
+          var remEl = document.createElement('div');
+          remEl.className = 'cb-build-total cb-budget-left';
+          remEl.innerHTML = '<span class="cb-build-total-label">Est. remaining</span>'
+            + '<span class="cb-build-total-value" style="color:' + (remaining >= 0 ? '#5bba6f' : '#e07060') + '">'
+            + (remaining >= 0 ? '+' : '−') + '$' + Math.abs(remaining).toLocaleString() + '</span>';
+          unitsEl.appendChild(remEl);
+        }
       }
     });
   }
 
   buildCostUI();
+
+  // CHIMPS per-round income selector
+  (function() {
+    var roundIncome = {};
+    var tbl = document.querySelector('.income-table tbody');
+    if (tbl) {
+      tbl.querySelectorAll('tr').forEach(function(tr) {
+        var cells = tr.querySelectorAll('td');
+        if (cells.length >= 4) {
+          var r = parseInt(cells[0].textContent.trim());
+          var c = parseInt(cells[3].textContent.replace(/[^0-9]/g, ''));
+          if (!isNaN(r) && !isNaN(c)) roundIncome[r] = c;
+        }
+      });
+    }
+
+    var sel = document.getElementById('chimps-round-sel');
+    var disp = document.getElementById('chimps-income-display');
+    if (!sel) return;
+
+    function applyRound(r) {
+      r = Math.min(100, Math.max(1, isNaN(r) ? 100 : r));
+      sel.value = r;
+      var income = roundIncome[r] !== undefined ? roundIncome[r] : 172801;
+      CB_MODE_BUDGET.chimps = income;
+      if (disp) disp.textContent = '$' + income.toLocaleString();
+      buildCostUI();
+    }
+
+    sel.addEventListener('change', function() { applyRound(parseInt(this.value)); });
+    sel.addEventListener('keydown', function(e) { if (e.key === 'Enter') applyRound(parseInt(this.value)); });
+  })();
 
 
   // Tower Info cost calculator
