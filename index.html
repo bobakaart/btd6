@@ -376,6 +376,7 @@
     color:var(--text-dim);
     line-height:1.45;
   }
+  .t-card-note{font-size:10px;color:var(--text-dim);margin-top:7px;font-style:italic;opacity:0.8}
 
   /* custom builds tab */
   .cb-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
@@ -385,6 +386,7 @@
   .cb-unit-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .cb-name{font-size:13px;font-weight:600}
   .cb-gate{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(220,155,20,0.18);color:#e0a020;border:1px solid rgba(220,155,20,0.45);margin-left:4px}
+  .cb-upgrade-badge{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:2px 6px;border-radius:4px;background:rgba(100,160,255,0.15);color:#6aacff;border:1px solid rgba(100,160,255,0.35);flex-shrink:0}
   .cb-note{font-size:11px;color:var(--text-dim);margin-top:5px;line-height:1.45;padding-right:80px}
   .cb-spam .cb-note{padding-right:148px}
   .cb-unit .tag{font-size:10px;padding:1px 5px}
@@ -986,12 +988,6 @@
   .ti-check:hover:not(.selected){background:rgba(255,255,255,.08)}
   .ti-calc-clear{font-family:var(--mono);font-size:10px;padding:3px 8px;border:1px solid rgba(255,255,255,.12);border-radius:4px;background:transparent;color:var(--text-dim);cursor:pointer;margin-left:6px;transition:color .12s}
   .ti-calc-clear:hover{color:var(--text)}
-  .cb-settings-panel{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:7px 12px;margin-bottom:10px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:6px}
-  .cb-settings-label{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase;margin-right:2px;flex-shrink:0}
-  .cb-setting-toggle{display:flex;align-items:center;gap:5px;cursor:pointer;padding:3px 9px;border:1px solid var(--line);border-radius:4px;font-family:var(--mono);font-size:11px;color:var(--text-dim);transition:color .12s,border-color .12s,background .12s;user-select:none}
-  .cb-setting-toggle:hover{color:var(--text)}
-  .cb-setting-toggle.active{color:#c8a030;border-color:rgba(200,160,40,.55);background:rgba(200,160,40,.08)}
-  .cb-setting-toggle input[type="checkbox"]{display:none}
   .cb-cost.cb-cost-free{color:#56c98a}
   .mode-budget{font-family:var(--mono);font-size:11px;color:#c8a030;background:rgba(200,160,30,0.10);border:1px solid rgba(200,160,30,0.28);border-radius:6px;padding:6px 12px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
   .mode-budget-note{font-size:10px;color:var(--text-dim);font-style:italic}
@@ -1068,6 +1064,160 @@
     .wrap{padding:20px 16px}
     nav.tabs{overflow-x:auto}
   }
+
+  /* ── Farm guide ──────────────────────────────────────────────────── */
+  .farm-intro{font-size:13px;color:var(--text-dim);margin:0 0 18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .farm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+  @media(max-width:700px){.farm-grid{grid-template-columns:1fr}}
+  .farm-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .farm-card-head{padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:10px}
+  .farm-path-name{font-size:15px;font-weight:700;margin:0 0 2px}
+  .farm-t5{font-family:var(--mono);font-size:11px;color:var(--text-faint);margin:0 0 8px}
+  .farm-stat{display:flex;gap:6px;margin-bottom:4px;font-size:12px;align-items:baseline}
+  .farm-stat-lbl{font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-faint);min-width:68px;flex-shrink:0}
+  .farm-stat-val{color:var(--text-dim);line-height:1.5}
+  .farm-sub-hd{font-family:var(--mono);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-faint);margin:10px 0 4px}
+  .farm-list{margin:0;padding:0 0 0 14px;font-size:12px;color:var(--text-dim);line-height:1.7}
+  .farm-list.pros li::marker{color:#9fc88a}
+  .farm-list.cons li::marker{color:#e06a6a}
+  .farm-use{background:var(--panel-2);border-radius:6px;padding:8px 10px;margin-top:10px}
+  .farm-use-lbl{font-family:var(--mono);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-faint);margin-bottom:3px}
+  .farm-use-val{font-size:12px;color:var(--text);line-height:1.6}
+  .farm-rec-section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+  .farm-rec-hd{font-size:14px;font-weight:700;margin:0 0 12px}
+  .farm-table{width:100%;border-collapse:collapse;font-size:13px}
+  .farm-table th{text-align:left;padding:7px 12px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-faint);border-bottom:2px solid var(--line)}
+  .farm-table td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--text-dim);vertical-align:top;line-height:1.5}
+  .farm-table tr:last-child td{border-bottom:none}
+  .farm-table td:first-child{color:var(--text);font-weight:600;white-space:nowrap}
+  .farm-top{color:#e0a458}
+  .farm-mid{color:#7fb0d9}
+  .farm-bot{color:#9fc88a}
+  /* ── Bloon info tab ──────────────────────────────────────────────────── */
+  /* ── Boss challenge guide ────────────────────────────────── */
+  .boss-hero-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
+  @media(max-width:520px){.boss-hero-grid{grid-template-columns:1fr}}
+  .boss-hero-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .boss-hero-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+  .boss-hero-name{font-size:14px;font-weight:700}
+  .boss-note-box{background:rgba(100,160,255,0.06);border:1px solid rgba(100,160,255,0.14);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--text-dim);line-height:1.6;margin-bottom:16px}
+  .boss-mechanic-box{background:rgba(224,120,50,0.06);border:1px solid rgba(224,120,50,0.22);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--text-dim);line-height:1.6;margin-bottom:20px}
+  .boss-tiers{display:flex;flex-direction:column;gap:10px}
+  .boss-tier-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .boss-tier-inner{display:flex;align-items:stretch}
+  .boss-tier-num{width:52px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;font-weight:700;background:var(--panel-2);border-right:1px solid var(--line);letter-spacing:0.04em}
+  .boss-tier-body{flex:1;padding:12px 14px;min-width:0}
+  .boss-base{font-size:13px;color:var(--text);margin:0 0 10px;line-height:1.5}
+  .boss-rows{display:flex;flex-direction:column;gap:6px}
+  .boss-row{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text-dim);line-height:1.5}
+  .boss-badge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:0.03em;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;white-space:nowrap}
+  .boss-badge.bloonarius{background:rgba(60,180,80,0.18);color:#60c870;border:1px solid rgba(60,180,80,0.3)}
+  .boss-badge.dreadbloon{background:rgba(160,120,70,0.18);color:#c09058;border:1px solid rgba(160,120,70,0.3)}
+  .boss-badge.phayze{background:rgba(60,200,210,0.16);color:#50c8d8;border:1px solid rgba(60,200,210,0.3)}
+  .boss-badge.vortex{background:rgba(80,110,230,0.16);color:#7090e8;border:1px solid rgba(80,110,230,0.3)}
+  .boss-badge.blasto{background:rgba(220,90,40,0.16);color:#e07050;border:1px solid rgba(220,90,40,0.3)}
+  .boss-badge.note{background:rgba(154,166,178,0.12);color:#9aa6b2;border:1px solid rgba(154,166,178,0.22)}
+  .boss-paragon-opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:10px}
+  .boss-paragon-card{background:var(--panel-2);border-radius:8px;padding:10px 12px;border:1px solid var(--line)}
+  .boss-paragon-name{font-size:12px;font-weight:700;margin:0 0 4px}
+  .boss-paragon-desc{font-size:11px;color:var(--text-dim);line-height:1.5;margin:0}
+  .boss-footer-note{font-size:11px;color:var(--text-faint);font-style:italic;margin-top:8px}
+  .boss-tier-card.pre .boss-tier-num{font-size:11px;line-height:1.3;color:#5ab870;background:rgba(50,170,80,0.07);border-right-color:rgba(50,170,80,0.2)}
+  .boss-tier-card.pre{border-color:rgba(50,170,80,0.22)}
+  .boss-steps{display:flex;flex-direction:column;gap:5px}
+  .boss-step{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text-dim);line-height:1.5}
+  .boss-step-n{font-family:var(--mono);font-size:10px;color:var(--text-faint);flex-shrink:0;margin-top:2px;min-width:16px;text-align:right}
+  .boss-step-gate{font-family:var(--mono);font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;background:rgba(224,164,88,0.14);color:#e0a458;border:1px solid rgba(224,164,88,0.25);flex-shrink:0;margin-top:1px;white-space:nowrap}
+  .boss-sell-note{margin-top:10px;padding:7px 10px;border-radius:6px;font-size:11px;font-weight:600;background:rgba(200,80,80,0.07);border:1px solid rgba(200,80,80,0.18);color:#c07070}
+
+  .bi-intro{font-size:13px;color:var(--text-dim);margin:0 0 24px;line-height:1.6;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .bi-section{margin-bottom:30px}
+  .bi-section-title{font-family:var(--mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-faint);margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+  .bi-basic-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  .bi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:10px}
+  .bi-mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+  @media(max-width:620px){.bi-basic-grid{grid-template-columns:repeat(3,1fr)}}
+  .bi-card{background:var(--panel);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+  .bi-card-bar{height:4px;width:100%}
+  .bi-card-body{padding:12px 14px}
+  .bi-card-head{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+  .bi-icon{width:32px;height:40px;border-radius:55% 55% 48% 48%/65% 65% 35% 35%;flex-shrink:0;position:relative;box-shadow:inset 3px 4px 6px rgba(255,255,255,0.26),inset -1px -2px 5px rgba(0,0,0,0.35)}
+  .bi-icon::after{content:'';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);width:1.5px;height:8px;background:rgba(255,255,255,0.28);border-radius:0 0 1px 1px}
+  .bi-icon-blimp{width:48px;height:26px;border-radius:50%;flex-shrink:0;box-shadow:inset 3px 3px 6px rgba(255,255,255,0.22),inset -1px -2px 4px rgba(0,0,0,0.35)}
+  .bi-name{font-size:14px;font-weight:700}
+  .bi-rbe{font-family:var(--mono);font-size:11px;color:var(--text-faint)}
+  .bi-desc{font-size:12px;color:var(--text-dim);line-height:1.5;margin:0 0 8px}
+  .bi-imm-row{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:8px}
+  .bi-row-lbl{font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-faint);margin-right:2px;flex-shrink:0}
+  .bi-eff{font-size:12px;color:var(--text-dim);line-height:1.6;margin:0 0 4px}
+  .bi-good{font-size:12px;color:#9fc88a;line-height:1.6;margin:0}
+  .bi-card-sm .bi-card-body{padding:8px 10px}
+  .bi-card-sm .bi-icon{width:26px;height:32px}
+  .bi-card-sm .bi-icon::after{bottom:-5px;height:6px}
+  .bi-card-sm .bi-name{font-size:12px}
+  .bi-card-sm .bi-rbe{font-size:10px}
+  .bi-card-sm .bi-desc{font-size:11px;margin:0}
+  .tag.imm-explosion{background:rgba(224,120,32,0.18);color:#e08850}
+  .tag.imm-freeze{background:rgba(96,180,224,0.16);color:#68c0e0}
+  .tag.imm-energy{background:rgba(152,64,208,0.16);color:#c080e8}
+  .tag.imm-sharp{background:rgba(160,168,180,0.15);color:#a8b0bc}
+  .tag.imm-none{background:rgba(80,180,80,0.12);color:#70b870}
+  .mib-intro{font-size:13px;color:var(--text-dim);line-height:1.6;margin:0 0 14px;padding:12px 14px;background:rgba(100,160,255,0.06);border:1px solid rgba(100,160,255,0.14);border-radius:8px}
+  .mib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+  .mib-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .mib-card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+  .mib-tower{font-size:13px;font-weight:700}
+  .mib-badge{font-size:9px;font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:0.04em;padding:2px 8px;border-radius:4px;flex-shrink:0}
+  .mib-badge.high{background:rgba(224,164,88,0.16);color:#e0a458;border:1px solid rgba(224,164,88,0.28)}
+  .mib-badge.med{background:rgba(90,147,194,0.14);color:#7fb0d9;border:1px solid rgba(90,147,194,0.25)}
+  .mib-badge.low{background:rgba(154,166,178,0.12);color:#9aa6b2;border:1px solid rgba(154,166,178,0.2)}
+  .mib-without{font-size:12px;color:var(--text-faint);line-height:1.5;margin:0 0 5px}
+  .mib-with{font-size:12px;color:#9fc88a;line-height:1.5;margin:0}
+  .bi-bad-lbl{font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:#c06060;display:block;margin-bottom:4px;margin-top:6px}
+  .bi-bad{font-size:12px;color:#b87070;line-height:1.6;margin:0 0 4px}
+  .bi-bad em{color:#9fc88a;font-style:italic}
+
+  .farm-tips-section{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  .farm-tips-hd{font-size:13px;font-weight:700;margin:0 0 10px}
+  .farm-tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+  .farm-tip{background:var(--panel-2);border-radius:8px;padding:10px 12px}
+  .farm-tip-title{font-size:12px;font-weight:700;color:var(--text);margin:0 0 4px}
+  .farm-tip-body{font-size:12px;color:var(--text-dim);line-height:1.6;margin:0}
+
+  /* Weekly checklist */
+  .wk-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+  .wk-title{font-size:16px;font-weight:700;margin:0}
+  .wk-reset-btn{appearance:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:var(--text-dim);font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:5px 12px;border-radius:5px;cursor:pointer;transition:background 0.12s,color 0.12s}
+  .wk-reset-btn:hover{background:rgba(255,255,255,0.1);color:var(--text)}
+  .wk-intro{font-size:12px;color:var(--text-faint);margin:0 0 18px}
+  .wk-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+  .wk-card.wk-team{border-color:rgba(154,166,178,0.14)}
+  .wk-card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+  .wk-card-name{font-size:14px;font-weight:700}
+  .wk-schedule{font-family:var(--mono);font-size:10px;color:var(--text-faint)}
+  .wk-card-links{margin-bottom:8px}
+  .wk-link{font-size:12px;color:#7aabdc;text-decoration:none}
+  .wk-link:hover{text-decoration:underline}
+  .wk-checks{display:flex;flex-direction:column;gap:7px}
+  .wk-check-label{display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none}
+  .wk-cb{width:16px;height:16px;accent-color:#9fc88a;cursor:pointer;flex-shrink:0}
+  .wk-check-text{font-size:13px;color:var(--text-dim);transition:color 0.12s}
+  .wk-check-label:has(.wk-cb:checked) .wk-check-text{text-decoration:line-through;color:var(--text-faint)}
+  .wk-tip{font-family:var(--mono);font-size:10px;color:var(--text-faint);margin-left:4px}
+  .wk-divider{font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-faint);border-top:1px solid var(--line);padding-top:14px;margin:14px 0 10px;display:flex;align-items:baseline;gap:8px}
+  .wk-divider-note{font-size:10px;font-weight:400;letter-spacing:0;text-transform:none;font-family:inherit;opacity:0.7}
+  .wk-head-r{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+  .wk-timer{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px}
+
+  /* Reference panel dropdown */
+  .ref-pane{display:none}
+  .ref-pane.active{display:block}
+  .tab-dd{position:relative;display:flex;align-items:stretch}
+  .tab-dd-menu{position:absolute;top:calc(100% + 5px);left:0;min-width:160px;background:var(--panel-2);border:1px solid var(--line-2);border-radius:8px;padding:4px;z-index:100;display:none;flex-direction:column;box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+  .tab-dd-menu.open{display:flex}
+  .tab-dd-item{font-family:inherit;font-size:13px;color:var(--text-dim);padding:8px 14px;cursor:pointer;border-radius:5px;transition:background .1s,color .1s;white-space:nowrap;user-select:none}
+  .tab-dd-item:hover{background:rgba(255,255,255,0.07);color:var(--text)}
+  .tab-dd-item.active{color:var(--text);font-weight:500}
 </style>
 </head>
 <body>
@@ -1081,13 +1231,20 @@
 
   <nav class="tabs">
     <button class="active" data-tab="tiers">Tier list</button>
-    <button data-tab="paragons">Paragon Tiers</button>
+    <button data-tab="paragons">Paragon Tier List</button>
     <button data-tab="starters">Starters</button>
     <button data-tab="builds">Custom Builds</button>
     <button data-tab="heroes">Heroes</button>
-    <button data-tab="towerinfo">Tower info</button>
-    <button data-tab="waveinfo">Wave info</button>
-    <button data-tab="sources">Sources</button>
+    <div class="tab-dd" id="ref-tab-dd">
+      <button class="tab-dd-btn" id="ref-tab-dd-btn">Bloon &amp; Tower Info &#9662;</button>
+      <div class="tab-dd-menu" id="ref-tab-dd-menu">
+        <div class="tab-dd-item" data-ref="panel-towerinfo">Tower Info</div>
+        <div class="tab-dd-item" data-ref="panel-bloons">Bloon Types</div>
+        <div class="tab-dd-item" data-ref="panel-waveinfo">Wave Info</div>
+        <div class="tab-dd-item" data-ref="panel-farmguide">Banana Farm</div>
+      </div>
+    </div>
+    <button data-tab="weekly">Weekly</button>
   </nav>
 
   <section id="panel-tiers" class="panel active">
@@ -1165,6 +1322,7 @@
             <div class="t-path-row"><span class="path-pill">3/x/x</span><span class="path-desc">Berserker Brew &mdash; cheap enough to be an affordable earlygame buff that also fixes Lead; pick this when you want broad, budget value</span></div>
             <div class="t-path-row"><span class="path-pill">4/x/x</span><span class="path-desc">Stronger Stimulant &mdash; a slightly stronger buff than Brew; pick this when you're buffing one specific main DPS tower and can afford the extra cost</span></div>
           </div>
+          <div class="t-card-note">Set target priority to Strong.</div>
         </div>
       </div>
     </div>
@@ -1312,6 +1470,7 @@
           <div class="t-card-head"><p class="name">Alchemist</p><span class="path-tag mid">MID</span></div>
           <div class="t-tags"><span class="tag moab">moab</span><span class="tag fortified">fortified</span><span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag aoe">aoe</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">x/5/x</span><span class="path-desc">Total Transformation is a strong T5 for lategame DPS, best run with Obyn and Druids of Wrath &mdash; its 40s cooldown with a 20s duration can cover an entire dense round like 95</span></div></div>
+          <div class="t-card-note">Set target priority to Strong.</div>
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Mermonkey</p><span class="path-tag top">TOP</span></div>
@@ -1409,7 +1568,7 @@
         </div>
         <div class="t-card">
           <div class="t-card-head"><p class="name">Druid</p><span class="path-tag bottom">BOTTOM</span></div>
-          <div class="t-tags"><span class="tag lead">lead</span><span class="tag aoe">aoe</span><span class="tag ceramic t5">ceramic</span></div>
+          <div class="t-tags"><span class="tag aoe">aoe</span><span class="tag ceramic t5">ceramic</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">0/1/3+</span><span class="path-desc">Avatar of Wrath synergizes with Total Transformation's attack speed for great lategame DPS, though it's notably weaker on DDT rounds since there's less RBE on screen</span></div></div>
         </div>
         <div class="t-card">
@@ -1566,6 +1725,7 @@
           <div class="t-card-head"><p class="name">Alchemist</p><span class="path-tag bottom">BOTTOM</span></div>
           <div class="t-tags"><span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span></div>
           <div class="t-paths"><div class="t-path-row"><span class="path-pill">1/0/4</span><span class="path-desc">Lead to Gold is an awful DDT damager; Rubber to Gold's de-leading has rare-occasion use only. Outside CHIMPS though, multiple community sources use this path purely for its passive cash generation &mdash; a no-farm income booster, not a damage pick, so don't read the D-tier as "useless"</span></div></div>
+          <div class="t-card-note">Set target priority to Strong.</div>
         </div>
       </div>
     </div>
@@ -1617,27 +1777,13 @@
       <div id="hero-note" class="hero-note"></div>
     </div>
 
-    <div id="cb-settings" class="cb-settings-panel">
-      <span class="cb-settings-label">MK</span>
-      <label class="cb-setting-toggle" id="cb-set-hero-wrap">
-        <input type="checkbox" id="cb-set-hero-disc"> Heroes &minus;10% placement
-      </label>
-      <label class="cb-setting-toggle" id="cb-set-boom-wrap">
-        <input type="checkbox" id="cb-set-boom-disc"> Boomerang &minus;$50 base
-      </label>
-      <label class="cb-setting-toggle" id="cb-set-free-wrap">
-        <input type="checkbox" id="cb-set-free-first"> First Glue or Dart free
-      </label>
-      <label class="cb-setting-toggle" id="cb-set-tack-liq-wrap">
-        <input type="checkbox" id="cb-set-tack-liq"> Bloon Liquefier &minus;$1000 Tack T4
-      </label>
-    </div>
-
     <div class="subtab-bar">
       <button class="subtab-btn active" data-subtab="easy">Easy (40)</button>
       <button class="subtab-btn" data-subtab="medium">Medium (60)</button>
       <button class="subtab-btn" data-subtab="hard">Hard (80)</button>
       <button class="subtab-btn" data-subtab="impoppable">Impoppable (100)</button>
+      <button class="subtab-btn" data-subtab="boss">Boss Challenges</button>
+      <button class="subtab-btn" data-subtab="chimps">CHIMPS</button>
     </div>
 
     <div id="subpanel-easy" class="subpanel active">
@@ -1660,7 +1806,7 @@
         <button class="subtab-btn active" data-subtab="easy-default">Standard</button>
         <button class="subtab-btn" data-subtab="easy-primary">Primary</button>
       </div>
-      <div class="mode-budget">&#128178; Easy budget: <strong>≈$17,500</strong> by round 40 <span class="mode-budget-note">(total income incl. starting cash)</span></div>
+      <div class="mode-budget">&#128178; Amount of cash needed for towers only &mdash; farm income and round earnings not included.</div>
 
       <!-- ── EASY: Standard ──────────────────────── -->
       <div id="subpanel-easy-default" class="subpanel active">
@@ -1707,7 +1853,7 @@
                 <span class="path-pill">3/2/0</span>
                 <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
               </div>
-              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first — that alone grants lead-popping to buffed towers. Perishing Potions (mid T2) adds bonus vs MOABs and Fortified.</div>
+              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first — that alone grants lead-popping to buffed towers. Perishing Potions (mid T2) adds bonus vs MOABs and Fortified. Set target priority to Strong.</div>
             </div>
 
             <div class="cb-unit">
@@ -1777,7 +1923,7 @@
                 <span class="path-pill">2/0/0</span>
                 <span class="tag lead-aura">lead aura</span>
               </div>
-              <div class="cb-note">Acidic Mixture Dip (top T2) grants lead-popping to all buffed towers in range.</div>
+              <div class="cb-note">Acidic Mixture Dip (top T2) grants lead-popping to all buffed towers in range. Set target priority to Strong.</div>
             </div>
 
             <div class="cb-unit cb-spam">
@@ -1881,7 +2027,7 @@
         <button class="subtab-btn active" data-subtab="medium-default">Standard</button>
         <button class="subtab-btn" data-subtab="medium-military">Military</button>
       </div>
-      <div class="mode-budget">&#128178; Medium budget: <strong>&#8776;$54,400</strong> by round 60 <span class="mode-budget-note">(total income incl. starting cash)</span></div>
+      <div class="mode-budget">&#128178; Amount of cash needed for towers only &mdash; farm income and round earnings not included.</div>
 
       <!-- ── MEDIUM: Standard ────────────────────── -->
       <div id="subpanel-medium-default" class="subpanel active">
@@ -1928,7 +2074,7 @@
                 <span class="path-pill">3/2/0</span>
                 <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span>
               </div>
-              <div class="cb-note">Acidic Mixture Dip (top T2) lets nearby towers pop Lead. Berserker Brew (top T3) adds an attack-speed and damage buff. Mid T2 crosspath improves acid splash potency.</div>
+              <div class="cb-note">Acidic Mixture Dip (top T2) lets nearby towers pop Lead. Berserker Brew (top T3) adds an attack-speed and damage buff. Mid T2 crosspath improves acid splash potency. Set target priority to Strong.</div>
             </div>
 
             <div class="cb-unit">
@@ -2046,7 +2192,7 @@
                 <span class="path-pill">3/2/0</span>
                 <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
               </div>
-              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first for lead-aura on nearby towers. Berserker Brew (top T3) adds attack speed and damage buff to buffed towers; Acid Pool (bot T2) leaves damage pools on the track.</div>
+              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first for lead-aura on nearby towers. Berserker Brew (top T3) adds attack speed and damage buff to buffed towers; Acid Pool (bot T2) leaves damage pools on the track. Set target priority to Strong.</div>
             </div>
 
             <div class="cb-unit cb-spam">
@@ -2185,7 +2331,7 @@
         <button class="subtab-btn active" data-subtab="hard-default">Standard</button>
         <button class="subtab-btn" data-subtab="hard-magic">Magic Only</button>
       </div>
-      <div class="mode-budget">&#128178; Hard budget: <strong>&#8776;$94,700</strong> by round 80 <span class="mode-budget-note">(total income incl. starting cash)</span></div>
+      <div class="mode-budget">&#128178; Amount of cash needed for towers only &mdash; farm income and round earnings not included.</div>
 
       <!-- ── HARD: Standard ──────────────────────── -->
       <div id="subpanel-hard-default" class="subpanel active">
@@ -2232,7 +2378,7 @@
                 <span class="path-pill">4/2/0</span>
                 <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
               </div>
-              <div class="cb-note">Acidic Mixture Dip (top T2) lets nearby towers pop Lead. Berserker Brew (top T3) adds an attack-speed and damage buff. Stronger Stimulant (top T4) extends the brew to fortified bloons. Mid T2 crosspath improves acid splash.</div>
+              <div class="cb-note">Acidic Mixture Dip (top T2) lets nearby towers pop Lead. Berserker Brew (top T3) adds an attack-speed and damage buff. Stronger Stimulant (top T4) extends the brew to fortified bloons. Mid T2 crosspath improves acid splash. Set target priority to Strong.</div>
             </div>
 
             <div class="cb-unit">
@@ -2323,7 +2469,7 @@
                 <span class="path-pill">4/2/0</span>
                 <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
               </div>
-              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first for lead-aura. Stronger Stimulant (top T4) buffs nearby towers with increased attack speed and damage — prioritise once the Buccaneer and Subs are online. Acid Pool (bot T2) adds passive track damage.</div>
+              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first for lead-aura. Stronger Stimulant (top T4) buffs nearby towers with increased attack speed and damage — prioritise once the Buccaneer and Subs are online. Acid Pool (bot T2) adds passive track damage. Set target priority to Strong.</div>
             </div>
 
             <div class="cb-unit cb-spam">
@@ -2362,37 +2508,38 @@
                 <span class="cb-gate">0/0/2 before round 24</span>
                 <span class="cb-gate">0/0/3 before round 36</span>
               </div>
-              <div class="cb-note">Priority pick. Arcane Blast (bot T1) + Linked Arcane (bot T2) pops Lead and provides extra projectile power. Shimmer (bot T3) permanently strips Camo from any bloon passing through its aura — must be online before round 36. Necromancer (bot T4) reanimates killed bloons for free DPS.</div>
+              <div class="cb-note">Rush to 0/0/2 early, then 0/0/3 before round 36. Arcane Blast (bot T1) + Linked Arcane (bot T2) pops Lead. Shimmer (bot T3) permanently strips Camo from any bloon passing through its aura — must be online before round 36. Necromancer (bot T4) is a late upgrade; finish the Druid rush first.</div>
             </div>
 
-            <div class="cb-unit cb-spam">
-              <div class="cb-unit-row">
-                <span class="cb-spam-badge">spam</span>
-                <span class="cb-name">Druid</span>
-                <span class="path-pill">0/1/3</span>
-                <span class="tag lead">lead</span><span class="tag aoe">aoe</span>
-              </div>
-              <div class="cb-note">Main DPS — build up to ~10. Thorn Swarm (mid T1) shoots more thorns per shot. Druid of Wrath (bot T3) ramps attack speed the longer it attacks; Obyn's passive amplifies this. Place near the beginning of the track for maximum ramp time.</div>
-            </div>
 
             <div class="cb-unit">
               <div class="cb-unit-row">
                 <span class="cb-name">Alchemist</span>
                 <span class="path-pill">5/2/0</span>
                 <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
-                <span class="cb-gate">5/0/0 by round 70</span>
+                <span class="cb-gate">rush 4/2/0 first</span>
               </div>
-              <div class="cb-note">Rush to 5/0/0 (Permanent Brew) first — auto-throws brew bottles that permanently buff nearby towers with increased speed, damage, pierce, and lead-aura. After getting Permanent Brew, upgrade to 5/2/0 crosspath (Acid Pool, mid T2). Once Alch hits 5/0/0, upgrade one central Druid to 0/1/4 (Poplust) immediately.</div>
+              <div class="cb-note">Rush to 4/2/0 as part of the initial push (alongside 7 Druids and Wizard 0/0/3), then save for 5/0/0 (Permanent Brew). Permanent Brew auto-throws brew bottles that permanently buff nearby towers with increased speed, damage, pierce, and lead-aura. Finish with 5/2/0 (Acid Pool crosspath). Set target priority to Strong.</div>
             </div>
 
-            <div class="cb-unit cb-spam">
+            <div class="cb-unit cb-spam" data-cb-init-count="7">
               <div class="cb-unit-row">
                 <span class="cb-spam-badge">spam</span>
                 <span class="cb-name">Druid</span>
-                <span class="path-pill">0/1/4</span>
-                <span class="tag lead">lead</span><span class="tag aoe">aoe</span>
+                <span class="path-pill">0/1/3</span>
+                <span class="tag aoe">aoe</span>
               </div>
-              <div class="cb-note">Poplust (bot T4) buffs all nearby Druids with +15% pierce and attack speed, stacking up to 5&times; on any single Druid. Place centrally to overlap as many Druids as possible. After the first luster is placed, spam more 0/1/4 Druids to stack buffs. Upgrade earlier 0/1/3 Druids to 0/1/4 once budget allows.</div>
+              <div class="cb-note">Rush target is 7 Druids at 0/1/3 as part of the early push. Thorn Swarm (mid T1) shoots more thorns per shot. Druid of Wrath (bot T3) ramps attack speed the longer it attacks; Obyn's passive amplifies this. Place near the beginning of the track for maximum ramp time.</div>
+            </div>
+
+            <div class="cb-unit cb-upgrade" data-cb-from="0/1/3">
+              <div class="cb-unit-row">
+                <span class="cb-upgrade-badge">upgrade</span>
+                <span class="cb-name">Druid</span>
+                <span class="path-pill">0/1/4</span>
+                <span class="tag aoe">aoe</span>
+              </div>
+              <div class="cb-note">After the rush phase, revisit your 0/1/3 Druids and upgrade each to 0/1/4 (Poplust). Poplust buffs all nearby Druids with +15% pierce and attack speed, stacking up to 5&times; on any single Druid. Place upgraded Druids centrally to maximise overlap. Counter shows the per-upgrade cost only.</div>
             </div>
 
           </div>
@@ -2425,7 +2572,7 @@
       <div class="subtab-bar nested">
         <button class="subtab-btn active" data-subtab="impoppable-default">Standard</button>
       </div>
-      <div class="mode-budget">&#128178; Impoppable budget: <strong>&#8776;$110,000</strong> by round 100 <span class="mode-budget-note">(total income incl. starting cash and pop income)</span></div>
+      <div class="mode-budget">&#128178; Amount of cash needed for towers only &mdash; farm income and round earnings not included.</div>
 
       <!-- ── Impoppable: Standard ────────────────────── -->
       <div id="subpanel-impoppable-default" class="subpanel active">
@@ -2485,7 +2632,7 @@
                 <span class="path-pill">4/2/0</span>
                 <span class="tag lead">lead</span><span class="tag lead-aura">lead aura</span><span class="tag moab">moab</span><span class="tag fortified">fortified</span>
               </div>
-              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first for lead-aura. Stronger Stimulant (top T4) buffs nearby towers with increased attack speed and damage — prioritise once the Buccaneer and Subs are online. Acid Pool (bot T2) adds passive track damage.</div>
+              <div class="cb-note">Rush to 2/0/0 (Acidic Mixture Dip) first for lead-aura. Stronger Stimulant (top T4) buffs nearby towers with increased attack speed and damage — prioritise once the Buccaneer and Subs are online. Acid Pool (bot T2) adds passive track damage. Set target priority to Strong.</div>
             </div>
 
             <div class="cb-unit cb-spam">
@@ -2502,6 +2649,291 @@
         </div>
       </div>
     </div>
+
+    <!-- ── Boss Challenges subpanel ─────────────────────────── -->
+    <div id="subpanel-boss" class="subpanel">
+
+      <p style="font-size:13px;color:var(--text-dim);line-height:1.6;margin:0 0 18px">Build order guide for <strong style="color:var(--text)">Elite</strong> boss events. If a setup beats Elite it handles Normal too. All info is for solo play.</p>
+
+      <!-- Hero pick -->
+      <div style="font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-faint);margin-bottom:8px">Hero</div>
+      <div class="boss-hero-grid">
+        <div class="boss-hero-card">
+          <div class="boss-hero-head">
+            <div class="boss-hero-name">Geraldo</div>
+            <span class="tier-badge sm s">Best</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.5">Best hero for bosses. His shop items scale with each tier and provide major DPS and economy boosts throughout the entire run.</div>
+        </div>
+        <div class="boss-hero-card">
+          <div class="boss-hero-head">
+            <div class="boss-hero-name">Benjamin</div>
+            <span class="tier-badge sm b">Alt</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.5">Easier to use than Geraldo. Syphon Funding passively generates cash. Good pick if you're learning the farming loop first.</div>
+        </div>
+      </div>
+
+      <!-- Blasto mechanic callout -->
+      <div class="boss-mechanic-box">
+        <strong style="color:#e08050">Blastapopoulos &mdash; decoy rule (all tiers):</strong> On skull rounds Blasto launches fireballs at the closest, furthest, and most expensive tower. Place a handful of <span class="path-pill">0-0-0</span> towers directly next to the boss spawn and in the far corners of the map. These cheap decoys absorb the fireballs and protect your expensive towers. Do this on every tier.
+      </div>
+
+      <!-- Tier cards + farming phases -->
+      <div class="boss-tiers">
+
+        <!-- Pre-T1 farming -->
+        <div class="boss-tier-card pre">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num">Pre<br>T1</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Spam <span class="path-pill">2-0-0</span> Banana Farms as fast as possible to build up cash for the T1 purchase.</p>
+              <div class="boss-sell-note">Sell everything before the T1 skull &mdash; use the cash to buy your <span class="path-pill">2-0-5</span> Sniper.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T1 -->
+        <div class="boss-tier-card">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num" style="color:#7fb0d9">T1</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Get a <strong><span class="path-pill">2-0-5</span> Sniper Monkey</strong>. Standard core tower on almost every boss.</p>
+              <div class="boss-rows">
+                <div class="boss-row"><span class="boss-badge bloonarius">Bloonarius</span><span>Bloon spawns from the boss need cleanup. Add 2&times; <span class="path-pill">4-0-2</span> Boomerang Monkey + a <span class="path-pill">3-2-0</span> Alchemist.</span></div>
+                <div class="boss-row"><span class="boss-badge dreadbloon">Dreadbloon</span><span>Military layer + rock bloons: 2&ndash;3 Overdrives + a <span class="path-pill">4-1-0</span> Ice Monkey. Add a <span class="path-pill">4-0-1</span> Alchemist if budget allows.</span></div>
+                <div class="boss-row"><span class="boss-badge phayze">Phayze</span><span>Use <span class="path-pill">0-2-5</span> Sniper instead of <span class="path-pill">2-0-5</span>.</span></div>
+                <div class="boss-row"><span class="boss-badge blasto">Blastapopoulos</span><span>Place <span class="path-pill">0-0-0</span> decoy towers next to the boss spawn and in the far corners. See the note above &mdash; applies every tier.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pre-T2 farming -->
+        <div class="boss-tier-card pre">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num">Pre<br>T2</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Rebuild income core after T1. This setup carries you through T2 and T3.</p>
+              <div class="boss-steps">
+                <div class="boss-step"><span class="boss-step-n">1</span><span>Sell your T1 defence. Place 1 Banana Farm at <span class="path-pill">0-0-0</span>.</span></div>
+                <div class="boss-step"><span class="boss-step-n">2</span><span>Build a Monkey Village &rarr; <span class="path-pill">1-0-5</span>. It absorbs the farm and becomes your income core for the rest of the run.</span></div>
+                <div class="boss-step"><span class="boss-step-n">3</span><span>Spam <span class="path-pill">2-2-0</span> Banana Farms around the Village.</span></div>
+              </div>
+              <div class="boss-sell-note" style="background:rgba(100,160,255,0.06);border:1px solid rgba(100,160,255,0.14);color:#7aabdc">Keep the Village core active from here on &mdash; don&apos;t sell it.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T2 -->
+        <div class="boss-tier-card">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num" style="color:#9fc88a">T2</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Get a <strong><span class="path-pill">1-5-0</span> Dartling Gunner</strong>. Main T2 DPS tower.</p>
+              <div class="boss-rows">
+                <div class="boss-row"><span class="boss-badge bloonarius">Bloonarius</span><span>Insides need cleanup. Options: <span class="path-pill">0-1-5</span> Druid + Alch buff + Poplusts covers boss and insides, or upgrade Dartling to <span class="path-pill">5-2-0</span>.</span></div>
+                <div class="boss-row"><span class="boss-badge dreadbloon">Dreadbloon</span><span>Military immunity needs a non-military answer. Pick one: <span class="path-pill">2-5-0</span> Spike Factory, or <span class="path-pill">1-0-5</span> Druid + Poplusts, or <span class="path-pill">2-0-5</span> Tack + <span class="path-pill">4-1-0</span> Ice + Alch buff.</span></div>
+                <div class="boss-row"><span class="boss-badge blasto">Blastapopoulos</span><span>Maintain your <span class="path-pill">0-0-0</span> decoy setup.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pre-T3 farming -->
+        <div class="boss-tier-card pre">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num">Pre<br>T3</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Switch to high-value farms. The Village <span class="path-pill">1-0-5</span> has a radius &mdash; use it as a zone.</p>
+              <div class="boss-steps">
+                <div class="boss-step"><span class="boss-step-n">1</span><span>Buy a <strong>Banana Farmer</strong> ($50) to auto-collect from all farms.</span></div>
+                <div class="boss-step"><span class="boss-step-n">2</span><span><strong>Inside the Village radius:</strong> place 1&times; <span class="path-pill">5-2-0</span>, then fill remaining space with <span class="path-pill">4-2-0</span> farms.</span></div>
+                <div class="boss-step"><span class="boss-step-n">3</span><span><strong>Outside the radius</strong> (when core is full): spam <span class="path-pill">2-0-4</span> farms + place 1&times; <span class="path-pill">2-0-5</span>.</span></div>
+              </div>
+              <div class="boss-sell-note" style="background:rgba(100,160,255,0.06);border:1px solid rgba(100,160,255,0.14);color:#7aabdc">Inside radius: 1&times; <span class="path-pill">5-2-0</span> + many <span class="path-pill">4-2-0</span>. Outside: <span class="path-pill">2-0-4</span> spam + 1&times; <span class="path-pill">2-0-5</span>. This layout carries through T4 and T5.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T3 -->
+        <div class="boss-tier-card">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num" style="color:#b18ce0">T3</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Build a <strong>Dart Paragon</strong> &mdash; the ultimate Dart Monkey fusion tower.</p>
+              <div class="boss-rows">
+                <div class="boss-row"><span class="boss-badge note">What is a Paragon?</span><span>A Paragon is created by having 3 Dart Monkeys each upgraded to T5 on a different path, then clicking the Paragon upgrade button. It costs a lot but merges all three into one extremely powerful tower. The more Dart Monkeys (and money) you put in, the higher its Degree (power level, 1&ndash;100).</span></div>
+                <div class="boss-row"><span class="boss-badge note">Boost Degree</span><span>To get a stronger Paragon: place 25 Dart Monkeys and upgrade them all to <span class="path-pill">0-2-2</span> before buying the Paragon. Then put $50,000 extra into the power slider when purchasing.</span></div>
+                <div class="boss-row"><span class="boss-badge vortex">Vortex</span><span>Place the Dart Paragon carefully &mdash; if it gets stunned, your defence is completely exposed. Plan placement around the stun window.</span></div>
+                <div class="boss-row"><span class="boss-badge dreadbloon">Dreadbloon</span><span>Primary immunity needs coverage. <span class="path-pill">1-5-0</span> Dartling works. If budget is tight, beat the primary layer first then sell the Dartling to fund the Paragon.</span></div>
+                <div class="boss-row"><span class="boss-badge blasto">Blastapopoulos</span><span>Maintain decoy setup.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T4 -->
+        <div class="boss-tier-card">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num" style="color:#e0a458">T4</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Add a <strong>second Paragon</strong> alongside your Degree 40 Dart Paragon. Also buy a <strong><span class="path-pill">2-0-5</span> Monkey Ace</strong> to farm pops for Tier 5.</p>
+              <div class="boss-rows">
+                <div class="boss-row"><span class="boss-badge phayze">Phayze</span><span>Use <span class="path-pill">0-2-5</span> Ace instead of <span class="path-pill">2-0-5</span>.</span></div>
+                <div class="boss-row"><span class="boss-badge blasto">Blastapopoulos</span><span>Maintain decoy setup.</span></div>
+              </div>
+              <div class="boss-paragon-opts">
+                <div class="boss-paragon-card">
+                  <div class="boss-paragon-name">Wizard Paragon</div>
+                  <p class="boss-paragon-desc">Most expensive. Similar single-target DPS to Ninja when you micro Metamorphosis. Key advantage: doesn&apos;t steal pops from your Ace during rounds 101&ndash;120 &mdash; important for T5 degree. Buy at the start of Round 95 so Metamorphosis comes off cooldown before the T4 skull.</p>
+                </div>
+                <div class="boss-paragon-card">
+                  <div class="boss-paragon-name">Ninja Paragon</div>
+                  <p class="boss-paragon-desc">Strong all-round choice. Degree 20: place 25&times; <span class="path-pill">2-0-2</span> Ninja before buying. Degree 40: pour $500,000 into the power slider.</p>
+                </div>
+                <div class="boss-paragon-card">
+                  <div class="boss-paragon-name">Boat Paragon</div>
+                  <p class="boss-paragon-desc">Best on water-heavy maps or if you already boat-farmed &mdash; farming pops push the degree up naturally. Otherwise go Ninja.</p>
+                </div>
+              </div>
+              <p class="boss-footer-note">Ninja &amp; Wizard Degree 40: place 25&times; <span class="path-pill">2-0-2</span> before buying the Paragon, then pour in money equal to the Paragon cost (Ninja &asymp; $500k, Wizard &asymp; $750k).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- T5 -->
+        <div class="boss-tier-card">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num" style="color:#e06a6a">T5</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Keep the T4 Paragons. Add an <strong>Ace Paragon</strong> at the highest degree you can reach.</p>
+              <div class="boss-rows">
+                <div class="boss-row"><span class="boss-badge note">Wingmonkey MK</span><span>Use the Wingmonkey Monkey Knowledge on the Ace Paragon if you have it. Aim the ability directly over the boss before activating &mdash; targeting matters for maximum damage.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /boss-tiers -->
+    </div><!-- /subpanel-boss -->
+
+    <!-- ── CHIMPS subpanel ─────────────────────────── -->
+    <div id="subpanel-chimps" class="subpanel">
+
+      <p style="font-size:13px;color:var(--text-dim);line-height:1.6;margin:0 0 14px">Two starter routes depending on the map. Both use the same Alchemist support. Transition to your own build after the starter is set.</p>
+
+      <div class="boss-sell-note" style="background:rgba(100,160,255,0.06);border:1px solid rgba(100,160,255,0.14);color:#7aabdc;margin-bottom:20px">
+        <strong>CHIMPS rules:</strong> No selling &middot; No income towers &middot; No Monkey Knowledge &middot; No Powers &middot; $650 starting cash &middot; Hard pricing
+      </div>
+
+      <!-- Route A: No Water -->
+      <div style="font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-faint);margin-bottom:8px">No Water</div>
+      <div class="boss-tiers" style="margin-bottom:22px">
+
+        <div class="boss-tier-card pre">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num">R1</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Place a <strong>Dart Monkey</strong> at <span class="path-pill">0/0/0</span> &mdash; cheap filler to hold the first rounds while you save for the Ninja.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="boss-tier-card">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num">R5</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Place a <strong>Ninja Monkey</strong> before round 6. Ninja detects camo from base, so R6 is covered on placement.</p>
+              <div class="boss-rows">
+                <div class="boss-row"><span class="boss-badge note">Final path</span><span><span class="path-pill">4/0/2</span> &mdash; Bloonjitsu for high DPS, Caltrops crosspath.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="boss-tier-card">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num">R10</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Place an <strong>Alchemist</strong> near the Ninja. Base Alch already pops Lead &mdash; lead coverage for R28 is immediate on placement.</p>
+              <div class="boss-rows">
+                <div class="boss-row"><span class="boss-badge note">Final path</span><span><span class="path-pill">3/2/0</span> &mdash; Berserker Brew buff + Acid Pool crosspath.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Route B: Water Map -->
+      <div style="font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-faint);margin-bottom:8px">Water Map</div>
+      <div class="boss-tiers" style="margin-bottom:22px">
+
+        <div class="boss-tier-card pre">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num">R1</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Place a <strong>Dart Monkey</strong>. Rush it to <span class="path-pill">0/0/2</span> &mdash; the extra camo coverage helps the Sub handle early camo waves.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="boss-tier-card">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num">Early</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Place a <strong>Monkey Sub</strong> on water as soon as you can afford it.</p>
+              <div class="boss-rows">
+                <div class="boss-row"><span class="boss-badge note">Final path</span><span><span class="path-pill">2/0/4</span> &mdash; Advanced Intel gives global targeting alongside whatever your other towers can see.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="boss-tier-card">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num">R10</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Place an <strong>Alchemist</strong> near the Sub. Same role as the no-water route &mdash; lead coverage on placement, buff support as it upgrades.</p>
+              <div class="boss-rows">
+                <div class="boss-row"><span class="boss-badge note">Final path</span><span><span class="path-pill">3/2/0</span> &mdash; same as no-water: Berserker Brew + Acid Pool crosspath.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Transition -->
+      <div class="boss-tiers">
+        <div class="boss-tier-card pre">
+          <div class="boss-tier-inner">
+            <div class="boss-tier-num" style="font-size:10px;line-height:1.4">Your<br>build</div>
+            <div class="boss-tier-body">
+              <p class="boss-base">Starter is set &mdash; camo and lead are handled. <span style="color:var(--text-faint);font-size:11px">(5) = T5 goal; upgrade when money allows.</span></p>
+              <div class="boss-rows">
+                <div class="boss-row"><span class="boss-badge note">Hero</span><span><strong>Obyn Greenfoot</strong> &mdash; level 8 before round 51.</span></div>
+                <div class="boss-row"><span class="boss-badge bloonarius">Druid &times;4</span><span><span class="path-pill">0/1/4(5)</span></span></div>
+                <div class="boss-row"><span class="boss-badge note">Village</span><span><span class="path-pill">2/3/0</span> &mdash; place before round 51. If not yet placed, get Obyn to level 8 first.</span></div>
+                <div class="boss-row"><span class="boss-badge note">Alchemist</span><span><span class="path-pill">4/2/0(5)</span></span></div>
+                <div class="boss-row"><span class="boss-badge note">Spike Factory</span><span><span class="path-pill">1/0/4(5)</span></span></div>
+                <div class="boss-row"><span class="boss-badge note">Alch (Spike support)</span><span><span class="path-pill">0/3/0</span></span></div>
+                <div class="boss-row"><span class="boss-badge note">Glue Gunner</span><span><span class="path-pill">0/2/3</span></span></div>
+              </div>
+              <div style="font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-faint);margin:12px 0 6px">T5 Priority</div>
+              <div class="boss-steps">
+                <div class="boss-step"><span class="boss-step-n">1</span><span>Alchemist &rarr; <span class="path-pill">5/2/0</span></span></div>
+                <div class="boss-step"><span class="boss-step-n">2</span><span>Druid &rarr; <span class="path-pill">0/1/5</span></span></div>
+                <div class="boss-step"><span class="boss-step-n">3</span><span>Spike Factory &rarr; <span class="path-pill">1/0/5</span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /subpanel-chimps -->
+
   </section>
 
   <section id="panel-paragons" class="panel">
@@ -2922,7 +3354,7 @@
     </div>
   </section>
 
-<section id="panel-towerinfo" class="panel">
+<section id="panel-towerinfo" class="ref-pane">
 
   <div class="filter-bar" id="ti-filter-bar">
     <span class="filter-label">Filter by tower:</span>
@@ -4812,8 +5244,7 @@
     <span class="ti-name">Druid</span>
     <span class="ti-cat magic">Magic</span>
     <span class="tag aoe">aoe</span><em class="ti-base-note">(base)</em>
-    <span class="tag lead">lead</span><em class="ti-base-note">(base)</em>
-    <div class="ti-base">base: throws thorns and casts lightning; innate <b>Lead</b>-popping (lightning pops Lead); no camo detection by default</div>
+    <div class="ti-base">base: throws thorns and casts lightning; <b>cannot pop Lead</b> by default &mdash; requires Hard Thorns (path 1 T1); no camo detection by default</div>
   </div>
   <div class="ti-paths">
     <div class="ti-path">
@@ -4828,7 +5259,6 @@
       <div class="ti-upgrade">
         <span class="ti-tier">2</span>
         <span class="ti-uname">Heart of Thunder</span>
-        <span class="tag lead">lead</span>
         <div class="ti-desc">Description: Unleashes regular blasts of forked lightning that arc from bloon to bloon. Effect: Creates regular <b>blasts of forked lightning</b> onto bloons as it attacks, splitting repetitively and affecting up to 31 bloons per lightning bolt, inflicting 2 damage to each bloon damaged.</div>
       </div>
       <div class="ti-upgrade">
@@ -5534,7 +5964,7 @@
 </section>
 
 
-  <section id="panel-waveinfo" class="panel">
+  <section id="panel-waveinfo" class="ref-pane">
 
     <div class="legend">
       <span class="tag camo">camo</span><span class="legend-label">camo bloons present</span>
@@ -5735,36 +6165,693 @@
     </div>
   </section>
 
-  <section id="panel-sources" class="panel">
 
-    <div class="source-group">
-      <p class="source-group-title">Primary reference</p>
-      <ul class="source-list">
-        <li><a href="https://docs.google.com/document/d/1O7fgbjmgJUcNSQ-cBrQvebbj_MnA8DAlh5h1tjMyGw4/" target="_blank" rel="noopener">BTD6 Tower Tier List doc (Google Doc)</a> &mdash; per-path S&ndash;F tier ranking, drives the current Tier List tab and hero rankings.</li>
-      </ul>
+  <section id="panel-bloons" class="ref-pane">
+
+    <p class="bi-intro">Every bloon type, its immunities, what bypasses them, and which towers get the biggest boost from a Monkey Intelligence Bureau (<span class="path-pill">0-3-0</span> Village — removes all immunities for towers in range).</p>
+
+    <!-- ── BASIC BLOONS ── -->
+    <div class="bi-section">
+      <div class="bi-section-title">Basic bloons — no immunities, any tower can pop them</div>
+      <div class="bi-basic-grid">
+
+        <div class="bi-card bi-card-sm">
+          <div class="bi-card-bar" style="background:#e84040"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:linear-gradient(145deg,#e85050,#c02020)"></div>
+              <div><div class="bi-name">Red</div><div class="bi-rbe">1 RBE · slowest</div></div>
+            </div>
+            <div class="bi-desc">No immunities. Any attack pops it.</div>
+          </div>
+        </div>
+
+        <div class="bi-card bi-card-sm">
+          <div class="bi-card-bar" style="background:#3a80e8"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:linear-gradient(145deg,#4a90f0,#2060c0)"></div>
+              <div><div class="bi-name">Blue</div><div class="bi-rbe">2 RBE · very slow</div></div>
+            </div>
+            <div class="bi-desc">Contains 1 Red.</div>
+          </div>
+        </div>
+
+        <div class="bi-card bi-card-sm">
+          <div class="bi-card-bar" style="background:#38b038"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:linear-gradient(145deg,#48c048,#208020)"></div>
+              <div><div class="bi-name">Green</div><div class="bi-rbe">3 RBE · slow</div></div>
+            </div>
+            <div class="bi-desc">Contains 1 Blue.</div>
+          </div>
+        </div>
+
+        <div class="bi-card bi-card-sm">
+          <div class="bi-card-bar" style="background:#d0a800"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:linear-gradient(145deg,#f0c820,#b08800)"></div>
+              <div><div class="bi-name">Yellow</div><div class="bi-rbe">6 RBE · fast</div></div>
+            </div>
+            <div class="bi-desc">Contains 1 Green.</div>
+          </div>
+        </div>
+
+        <div class="bi-card bi-card-sm">
+          <div class="bi-card-bar" style="background:#e84898"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:linear-gradient(145deg,#f058a8,#c02878)"></div>
+              <div><div class="bi-name">Pink</div><div class="bi-rbe">11 RBE · very fast</div></div>
+            </div>
+            <div class="bi-desc">Contains 1 Yellow. Fastest basic bloon.</div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <div class="source-group">
-      <p class="source-group-title">Game mode guides</p>
-      <ul class="source-list">
-        <li><a href="https://bloons.fandom.com/wiki/Military_Monkeys_Only" target="_blank" rel="noopener">Military Only &ndash; Bloons Wiki</a></li>
-        <li><a href="https://basicallyaverage.com/middle-of-the-road-military-only-btd6-guide/" target="_blank" rel="noopener">Middle of the Road Military Only Guide &ndash; Basically Average</a></li>
-      </ul>
+    <!-- ── IMMUNE BLOONS ── -->
+    <div class="bi-section">
+      <div class="bi-section-title">Special bloons — immunities</div>
+      <div class="bi-grid">
+
+        <!-- BLACK -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#505050"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:linear-gradient(145deg,#555,#222)"></div>
+              <div><div class="bi-name">Black</div><div class="bi-rbe">Contains 2 Pink</div></div>
+            </div>
+            <div class="bi-desc">Can be frozen by Ice Monkey. Note: fire damage (Wizard Fireball, Dragon Breath) is NOT explosive — fire CAN pop Black.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag imm-explosion">Explosives</span></div>
+            <div class="bi-bad-lbl">Not good (base):</div>
+            <p class="bi-bad">Bomb Shooter, Mortar Monkey, Monkey Ace (bomb runs), Heli Pilot (missiles) — <em>MIB <span class="path-pill">0-3-0</span> fixes Bomb Shooter and Mortar</em></p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px">What works:</div>
+            <p class="bi-eff">Sharp attacks, cold/ice, fire, energy — anything that isn't a bomb or mortar shell.</p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px;margin-top:6px">Good towers:</div>
+            <p class="bi-good">Ice Monkey, Ninja Monkey, Dart Monkey, Tack Shooter, Wizard (fire), Alchemist</p>
+          </div>
+        </div>
+
+        <!-- WHITE -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#8898b0"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:linear-gradient(145deg,#c8d8e8,#8898a8)"></div>
+              <div><div class="bi-name">White</div><div class="bi-rbe">Contains 2 Pink</div></div>
+            </div>
+            <div class="bi-desc">The opposite of Black — explosions work fine, freezing does not. Often paired with Black in Zebra bloons.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag imm-freeze">Freeze / Cold</span></div>
+            <div class="bi-bad-lbl">Not good (base):</div>
+            <p class="bi-bad">Ice Monkey — <em>MIB <span class="path-pill">0-3-0</span> fixes this</em></p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px">What works:</div>
+            <p class="bi-eff">Explosives, sharp attacks, fire, energy — everything except Ice Monkey's cold attacks.</p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px;margin-top:6px">Good towers:</div>
+            <p class="bi-good">Bomb Shooter, Ninja Monkey, Dart Monkey, Wizard Monkey — anything that isn't Ice Monkey</p>
+          </div>
+        </div>
+
+        <!-- PURPLE -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#8030c8"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:linear-gradient(145deg,#9840e0,#5818a0)"></div>
+              <div><div class="bi-name">Purple</div><div class="bi-rbe">Contains 2 Pink</div></div>
+            </div>
+            <div class="bi-desc">Catches magic-heavy setups completely off guard. Wizard and Super Monkey deal zero damage without help.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag imm-energy">Energy / Fire / Plasma</span></div>
+            <div class="bi-bad-lbl">Not good (base):</div>
+            <p class="bi-bad">Wizard Monkey (fire/energy attacks), Super Monkey (plasma beams), Druid (lightning) — <em>MIB <span class="path-pill">0-3-0</span> fixes all three</em></p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px">What works:</div>
+            <p class="bi-eff">Physical attacks (darts, blades, shurikens, boomerangs), explosives, cold/ice, acid — anything non-energy.</p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px;margin-top:6px">Good towers:</div>
+            <p class="bi-good">Bomb Shooter, Ninja Monkey, Dart Monkey, Tack Shooter, Ice Monkey, Boomerang, Sniper</p>
+          </div>
+        </div>
+
+        <!-- LEAD -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#607080"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:linear-gradient(145deg,#7a8c9a,#404e58)"></div>
+              <div><div class="bi-name">Lead</div><div class="bi-rbe">Contains 2 Black · 23 HP</div></div>
+            </div>
+            <div class="bi-desc">Thick lead casing stops all sharp projectiles. Releases 2 Black children when popped — keep a non-explosive cleanup tower nearby.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag imm-sharp">Sharp / Piercing</span></div>
+            <div class="bi-bad-lbl">Not good (base):</div>
+            <p class="bi-bad">Dart Monkey, Ninja Monkey, Boomerang Monkey, Tack Shooter, Spike Factory — <em>MIB <span class="path-pill">0-3-0</span> fixes all of these</em></p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px">What works:</div>
+            <p class="bi-eff">Explosives, fire, ice/cold, energy/plasma — non-sharp damage types all work on the Lead shell.</p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px;margin-top:6px">Good towers:</div>
+            <p class="bi-good">Bomb Shooter, Mortar Monkey, Ice Monkey, Wizard Monkey (fire), Alchemist</p>
+          </div>
+        </div>
+
+        <!-- ZEBRA -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:linear-gradient(90deg,#404040 50%,#a8b8c0 50%)"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:repeating-linear-gradient(45deg,#2a2a2a 0,#2a2a2a 6px,#c0c8d0 6px,#c0c8d0 12px)"></div>
+              <div><div class="bi-name">Zebra</div><div class="bi-rbe">Contains 1 Black + 1 White</div></div>
+            </div>
+            <div class="bi-desc">Combines both Black and White immunities — explosives AND ice fail simultaneously. Common pain point for Bomb + Ice setups.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag imm-explosion">Explosives</span><span class="tag imm-freeze">Freeze / Cold</span></div>
+            <div class="bi-bad-lbl">Not good (base):</div>
+            <p class="bi-bad">Bomb Shooter, Mortar Monkey (explosion immune) + Ice Monkey (freeze immune) — <em>MIB <span class="path-pill">0-3-0</span> fixes all three at once</em></p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px">What works:</div>
+            <p class="bi-eff">Sharp attacks, energy/plasma, fire — attacks that are neither explosive nor ice-based.</p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px;margin-top:6px">Good towers:</div>
+            <p class="bi-good">Ninja Monkey, Dart Monkey, Wizard Monkey (energy beams), Super Monkey, Tack Shooter</p>
+          </div>
+        </div>
+
+        <!-- RAINBOW -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:linear-gradient(90deg,#e04040,#e09040,#d8c030,#40b040,#4060e0,#8040d0)"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:linear-gradient(135deg,#e04040,#e09040,#d8c030,#40b040,#4060e0,#8040d0)"></div>
+              <div><div class="bi-name">Rainbow</div><div class="bi-rbe">Contains 2 Zebras</div></div>
+            </div>
+            <div class="bi-desc">No immunities itself — but it releases Zebras. Have Explosion-immune and Freeze-immune coverage ready for the children.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag imm-none">None</span></div>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px">Good towers:</div>
+            <p class="bi-good">Any tower — but make sure your setup handles Zebra children (Ninja, Wizard energy, Tack)</p>
+          </div>
+        </div>
+
+        <!-- CERAMIC -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#b07028"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon" style="background:linear-gradient(145deg,#c07830,#885018)"></div>
+              <div><div class="bi-name">Ceramic</div><div class="bi-rbe">10 HP + 2 Rainbows</div></div>
+            </div>
+            <div class="bi-desc">No immunities — the challenge is raw HP. Fortified Ceramics have 20 HP. High-damage-per-hit towers shine here.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag imm-none">None</span></div>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px">Good towers:</div>
+            <p class="bi-good">Juggernaut (Dart 4-0-0, deals +damage to Ceramics), Bomb Shooter, Mortar, Alchemist, Sniper</p>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <div class="source-group">
-      <p class="source-group-title">General tier lists</p>
-      <ul class="source-list">
-        <li><a href="https://btd6apk.com/btd6-tower-tier-list/" target="_blank" rel="noopener">BTD6 Tower Tier List 2026 &ndash; btd6apk.com</a></li>
-      </ul>
+    <!-- ── MODIFIERS ── -->
+    <div class="bi-section">
+      <div class="bi-section-title">Bloon modifiers — can appear on any bloon type</div>
+      <div class="bi-mod-grid">
+
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#4a7840"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div style="width:32px;height:32px;flex-shrink:0;border-radius:50%;background:linear-gradient(145deg,#4a7840,#283820);display:flex;align-items:center;justify-content:center;font-size:15px">👁</div>
+              <div><div class="bi-name">Camo</div><span class="tag camo" style="font-size:10px">Modifier</span></div>
+            </div>
+            <div class="bi-desc">Invisible to most towers. Only towers with camo detection can target Camo bloons — they completely bypass towers without it.</div>
+            <div class="bi-bad-lbl">Not good (base):</div>
+            <p class="bi-bad">Bomb Shooter, Dart Monkey, Tack Shooter, Ice Monkey, Boomerang, Glue Gunner, Mortar, Super Monkey, Wizard — essentially every tower except Ninja Monkey — <em>Village <span class="path-pill">0-0-2</span> fixes all towers in range; MIB <span class="path-pill">0-3-0</span> also grants camo detection</em></p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px">Native camo detection:</div>
+            <p class="bi-eff">Ninja Monkey (native), Sniper (upgrade), Village <span class="path-pill">0-0-1</span>/<span class="path-pill">0-0-2</span> (grants nearby towers camo sight), MIB <span class="path-pill">0-3-0</span></p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px;margin-top:6px">Watch for:</div>
+            <p class="bi-good">DDT bloons are Camo MOAB-class — requires camo detection AND enough damage output for a tough blimp</p>
+          </div>
+        </div>
+
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#38b038"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div style="width:32px;height:32px;flex-shrink:0;border-radius:50%;background:linear-gradient(145deg,#38b038,#186818);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#9fc88a">↑</div>
+              <div><div class="bi-name">Regrow</div><span class="tag" style="background:rgba(56,176,56,0.16);color:#7fc870;font-size:10px">Modifier</span></div>
+            </div>
+            <div class="bi-desc">Regenerates to a higher tier after a few seconds if not fully destroyed. A Regrow Red can balloon back to Regrow Pink if wounded and left alive.</div>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px">Counter:</div>
+            <p class="bi-eff">Kill bloons fully — don't just wound them. Spike Factory at the exit is excellent for cleanup. Jungle Drums Village (<span class="path-pill">0-1-0</span>) speeds up attack rate to ensure kills.</p>
+          </div>
+        </div>
+
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#d09020"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div style="width:32px;height:32px;flex-shrink:0;border-radius:50%;background:linear-gradient(145deg,#e0a820,#a06010);display:flex;align-items:center;justify-content:center;font-size:15px">🛡</div>
+              <div><div class="bi-name">Fortified</div><span class="tag fortified" style="font-size:10px">Modifier</span></div>
+            </div>
+            <div class="bi-desc">Doubles HP. Fortified Lead: 46 HP. Fortified Ceramic: 20 HP. Fortified MOAB: 400 HP. Fortified BAD: 56,000 HP.</div>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px">Counter:</div>
+            <p class="bi-eff">High single-hit damage: Sniper Monkey, Bomb Shooter, Avatar of Wrath (Druid 5-0-0). Alchemist's Acidic Mixture Dip shreds Fortified bloons efficiently.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <div class="source-group">
-      <p class="source-group-title">Strategies (core combos)</p>
-      <ul class="source-list">
-        <li><a href="https://bloon.games/best-strategies-to-beat-chimps-mode-in-btd6/" target="_blank" rel="noopener">Best Strategies to Beat CHIMPS Mode &ndash; bloon.games</a></li>
-      </ul>
+    <!-- ── MOAB-CLASS ── -->
+    <div class="bi-section">
+      <div class="bi-section-title">MOAB-class bloons</div>
+      <div class="bi-grid">
+
+        <!-- MOAB -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#3a80c0"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon-blimp" style="background:linear-gradient(145deg,#4a90d0,#286090)"></div>
+              <div><div class="bi-name">MOAB</div><div class="bi-rbe">200 HP · 4 Ceramics</div></div>
+            </div>
+            <div class="bi-desc">Massive Ornary Air Blimp. First MOAB-class tier — slow but requires focused fire.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag imm-none">None</span></div>
+            <p class="bi-eff">All damage types work. MOAB Mauler (<span class="path-pill">0-3-0</span> Bomb) deals ×4 damage to all MOAB-class.</p>
+            <p class="bi-good" style="margin-top:4px">MOAB Mauler, Sniper (MOAB upgrades), Bomb Shooter, Heli Pilot</p>
+          </div>
+        </div>
+
+        <!-- BFB -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#c88018"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon-blimp" style="background:linear-gradient(145deg,#d89020,#906010)"></div>
+              <div><div class="bi-name">BFB</div><div class="bi-rbe">700 HP · 4 MOABs</div></div>
+            </div>
+            <div class="bi-desc">Brutal Flying Behemoth. 3.5× the HP of a MOAB. Releases 4 MOABs on death.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag imm-none">None</span></div>
+            <p class="bi-eff">All damage types work. High burst damage is preferred over sustained low-damage towers.</p>
+            <p class="bi-good" style="margin-top:4px">MOAB Assassin (Bomb <span class="path-pill">0-4-0</span>), Sniper, Druid Avatar, Monkey Ace (missiles)</p>
+          </div>
+        </div>
+
+        <!-- ZOMG -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#28a040"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon-blimp" style="background:linear-gradient(145deg,#30b050,#187028)"></div>
+              <div><div class="bi-name">ZOMG</div><div class="bi-rbe">4,000 HP · 4 BFBs</div></div>
+            </div>
+            <div class="bi-desc">Zeppelin of Mighty Gargantuaness. Extremely high HP — requires concentrated high-damage output or the entire track to whittle down.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag imm-none">None</span></div>
+            <p class="bi-eff">All damage types work. Raw DPS is the bottleneck — strong economy to afford enough towers.</p>
+            <p class="bi-good" style="margin-top:4px">Permabrew Druids, Plasma Monkey Fan Club, Avatar of Wrath, overclock-buffed BRFs</p>
+          </div>
+        </div>
+
+        <!-- DDT -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#282c30"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon-blimp" style="background:linear-gradient(145deg,#383c40,#181c20)"></div>
+              <div><div class="bi-name">DDT</div><div class="bi-rbe">400 HP · 2 Camo Regrow Ceramics</div></div>
+            </div>
+            <div class="bi-desc">Dark Dirigible Titan. Moves faster than most MOAB-class. Combines Camo + Lead immunity — most setups can't touch it without preparation.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag camo">Camo</span><span class="tag imm-sharp">Sharp</span><span class="tag imm-freeze">Freeze</span></div>
+            <div class="bi-bad-lbl">Not good (base):</div>
+            <p class="bi-bad">Ice Monkey (freeze immune + no camo detection), Dart Monkey (sharp immune + no camo detection), Tack Shooter, Spike Factory, Boomerang Monkey — <em>MIB <span class="path-pill">0-3-0</span> removes all immunities; Village <span class="path-pill">0-0-2</span> adds global camo detection</em></p>
+            <div class="bi-row-lbl" style="display:block;margin-bottom:4px;margin-top:4px">What works:</div>
+            <p class="bi-eff">Explosives with camo detection, fire attacks with camo detection, MIB (removes all immunities). Village <span class="path-pill">0-0-2</span> gives global camo detection.</p>
+            <p class="bi-good" style="margin-top:4px">Ninja + Bomb under MIB, Wizard (camo detection + fire), Bomb Shooter + Village <span class="path-pill">0-0-2</span>, Druid + MIB</p>
+          </div>
+        </div>
+
+        <!-- BAD -->
+        <div class="bi-card">
+          <div class="bi-card-bar" style="background:#c02020"></div>
+          <div class="bi-card-body">
+            <div class="bi-card-head">
+              <div class="bi-icon-blimp" style="background:linear-gradient(145deg,#d03030,#880808)"></div>
+              <div><div class="bi-name">BAD</div><div class="bi-rbe">28,000 HP · 2 ZOMGs + 3 DDTs</div></div>
+            </div>
+            <div class="bi-desc">Big Airship of Doom. Appears round 98+. No immunities — the challenge is pure HP. Releases 2 ZOMGs and 3 DDTs on death; have DDT coverage ready.</div>
+            <div class="bi-imm-row"><span class="bi-row-lbl">Immune:</span><span class="tag imm-none">None</span></div>
+            <p class="bi-eff">All damage types work. Max DPS from every tower simultaneously — prepare separate DDT-ready towers for children.</p>
+            <p class="bi-good" style="margin-top:4px">Every high-DPS tower available — then Ninja/Wizard/MIB setup to handle the 3 DDT children</p>
+          </div>
+        </div>
+
+      </div>
     </div>
+
+    <!-- ── MIB ── -->
+    <div class="bi-section">
+      <div class="bi-section-title">Monkey Intelligence Bureau (<span class="path-pill">0-3-0</span> Village) — which towers benefit most</div>
+      <p class="mib-intro"><strong>MIB removes all bloon immunities</strong> for every tower within its radius — Camo detection, Lead popping, explosion immunity on Black/Zebra, freeze immunity on White/Zebra, and energy/fire immunity on Purple. One <span class="path-pill">0-3-0</span> Village covers an entire cluster of towers. These are the towers where it changes the most.</p>
+      <div class="mib-grid">
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Bomb Shooter</div><span class="mib-badge high">High impact</span></div>
+          <p class="mib-without">Without MIB: Explosions bounce off Black and Zebra bloons — zero damage. A core damage tower with a critical blind spot.</p>
+          <p class="mib-with">With MIB: Explosions pop Black and Zebra freely. MOAB Mauler (<span class="path-pill">0-3-0</span>) and MOAB Assassin (<span class="path-pill">0-4-0</span>) hit all bloon types at full damage.</p>
+        </div>
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Wizard Monkey</div><span class="mib-badge high">High impact</span></div>
+          <p class="mib-without">Without MIB: Fire (Fireball, Dragon Breath, Meteor) and energy beams deal zero damage to Purple bloons. Most of Wizard's damage kit is blocked.</p>
+          <p class="mib-with">With MIB: Wizard pops Purple with all attacks. Becomes a full-coverage AoE damage dealer across every bloon type.</p>
+        </div>
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Super Monkey</div><span class="mib-badge high">High impact</span></div>
+          <p class="mib-without">Without MIB: Plasma beams and laser vision cannot pop Purple bloons. Super Monkey's core attacks are energy-based — Purple is a hard stop.</p>
+          <p class="mib-with">With MIB: Plasma and laser attacks pop Purple at full attack speed. Extreme fire rate becomes fully effective against all bloon types.</p>
+        </div>
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Ice Monkey</div><span class="mib-badge high">High impact</span></div>
+          <p class="mib-without">Without MIB: White and Zebra bloons cannot be frozen — Ice Monkey's entire mechanic fails against these two types.</p>
+          <p class="mib-with">With MIB: Can freeze White and Zebra bloons. Particularly powerful when paired with a high-pierce sharp tower to shatter the frozen bloons.</p>
+        </div>
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Mortar Monkey</div><span class="mib-badge high">High impact</span></div>
+          <p class="mib-without">Without MIB: Explosion damage bounces off Black and Zebra. Mortar has no fallback non-explosive attack.</p>
+          <p class="mib-with">With MIB: Mortar hits all bloon types. Also gains Camo detection automatically — useful on Camo rounds without a Radar Scanner.</p>
+        </div>
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Druid</div><span class="mib-badge high">High impact</span></div>
+          <p class="mib-without">Without MIB: Lightning bolt attacks are energy-based — cannot pop Purple. Thorn/bramble attacks are sharp — cannot pop Lead. Two separate weaknesses.</p>
+          <p class="mib-with">With MIB: Lightning hits Purple, thorns pop Lead. Avatar of Wrath (<span class="path-pill">5-0-0</span>) becomes a complete all-types damage dealer.</p>
+        </div>
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Tack Shooter</div><span class="mib-badge med">Medium impact</span></div>
+          <p class="mib-without">Without MIB: Tacks are sharp — cannot pop Lead. Tack Zone (<span class="path-pill">0-0-5</span>) is one of the best AoE towers in the game, but deals zero damage to Lead.</p>
+          <p class="mib-with">With MIB: Tack Zone pops Lead at full pierce and AoE. One of the biggest single-tower unlock values in the game for a cheap MIB investment.</p>
+        </div>
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Ninja Monkey</div><span class="mib-badge med">Medium impact</span></div>
+          <p class="mib-without">Without MIB: Shurikens are sharp — cannot pop Lead. (Ninja already has native Camo detection, so no camo benefit from MIB.)</p>
+          <p class="mib-with">With MIB: Shurikens pop Lead bloons. High natural pierce means they efficiently shred through Lead shells and clean up the Black children.</p>
+        </div>
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Dart Monkey</div><span class="mib-badge med">Medium impact</span></div>
+          <p class="mib-without">Without MIB: Darts are sharp — cannot pop Lead. Also cannot target Camo bloons by default.</p>
+          <p class="mib-with">With MIB: Darts pop Lead and gain Camo detection. Useful for budget Lead coverage early game, or when running Dart-heavy setups.</p>
+        </div>
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Spike Factory</div><span class="mib-badge med">Medium impact</span></div>
+          <p class="mib-without">Without MIB: Spikes are sharp — cannot pop Lead. Camo bloons walk straight over spikes as if they're not there.</p>
+          <p class="mib-with">With MIB: Spikes pop Lead and also damage Camo bloons. Permaspike (<span class="path-pill">0-0-5</span>) and Spike Storm (<span class="path-pill">4-0-0</span>) both benefit significantly in late rounds.</p>
+        </div>
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Boomerang Monkey</div><span class="mib-badge med">Medium impact</span></div>
+          <p class="mib-without">Without MIB: Boomerangs are sharp — cannot pop Lead. MOAB Domination (<span class="path-pill">0-0-5</span>) is blocked by Lead shells.</p>
+          <p class="mib-with">With MIB: Boomerangs pop Lead. MOAB Domination gains the ability to shred Lead before hitting the Black children inside.</p>
+        </div>
+
+        <div class="mib-card">
+          <div class="mib-card-head"><div class="mib-tower">Glue Gunner</div><span class="mib-badge low">Low impact</span></div>
+          <p class="mib-without">Without MIB: Glue cannot slow Purple bloons (energy immunity). Also cannot target Camo bloons.</p>
+          <p class="mib-with">With MIB: Glue slows Purple bloons and can target Camo. Useful if Glue is your slow-utility of choice in a magic-heavy setup.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <section id="panel-farmguide" class="ref-pane">
+
+    <p class="farm-intro">Community-sourced path breakdown for the Banana Farm. Covers income rates, micro requirements, crosspaths, and which path suits each game mode.</p>
+
+    <div class="farm-grid">
+
+      <!-- TOP PATH -->
+      <div class="farm-card">
+        <div class="farm-card-head">
+          <div class="farm-path-name"><span class="farm-top">Top Path</span></div>
+          <div class="farm-t5">Banana Plantation → Banana Research Facility → Banana Central</div>
+          <div class="farm-stat"><span class="farm-stat-lbl">income</span><span class="farm-stat-val">~$500/round base; ~$800+ with Overclock; ~$5,800/round fully maxed</span></div>
+          <div class="farm-stat"><span class="farm-stat-lbl">micro</span><span class="farm-stat-val">Medium — collect manually or use Banana Farmer power</span></div>
+          <div class="farm-stat"><span class="farm-stat-lbl">crosspath</span><span class="farm-stat-val"><span class="path-pill">x-2-0</span> always</span></div>
+        </div>
+        <div class="farm-sub-hd">Pros</div>
+        <ul class="farm-list pros">
+          <li>Highest income ceiling of all three paths</li>
+          <li>Overclock (Eng 0-4-0) adds 80% more crates for ~60% extra cost — exceptional return</li>
+          <li>Ultraboost (Eng 0-5-0) stacks at 1, 5, 8, 10 — each adds a full extra crate permanently</li>
+          <li>Banana Central (5-2-0) buffs all 4-2-0 farms in range by 25%</li>
+          <li>Cheapest early-game start: 2-0-0 is the go-to first farm on any mode</li>
+        </ul>
+        <div class="farm-sub-hd">Cons</div>
+        <ul class="farm-list cons">
+          <li>T3 (3-0-0 Plantation) is more expensive and weaker than a 0-0-3 Marketplace — only buy it en route to T4</li>
+          <li>Most expensive path to reach peak efficiency</li>
+          <li>Needs Engineer Overclock to be truly dominant; solid standalone, not exceptional</li>
+        </ul>
+        <div class="farm-use">
+          <div class="farm-use-lbl">Use when</div>
+          <div class="farm-use-val">Boss events (regular or timed), any long run where you have Engineer support available</div>
+        </div>
+      </div>
+
+      <!-- MID PATH -->
+      <div class="farm-card">
+        <div class="farm-card-head">
+          <div class="farm-path-name"><span class="farm-mid">Mid Path</span></div>
+          <div class="farm-t5">Banana Bank → Offshore Bank → IMF Loan</div>
+          <div class="farm-stat"><span class="farm-stat-lbl">income</span><span class="farm-stat-val">~$790/round (with MK); ~$700/round (without) — paid as a lump sum per fill</span></div>
+          <div class="farm-stat"><span class="farm-stat-lbl">micro</span><span class="farm-stat-val">High — deposit cash, wait for fill, collect, use loan ability actively</span></div>
+          <div class="farm-stat"><span class="farm-stat-lbl">crosspath</span><span class="farm-stat-val"><span class="path-pill">2-x-0</span> (top for more income; bottom for slightly less micro)</span></div>
+        </div>
+        <div class="farm-sub-hd">Pros</div>
+        <ul class="farm-list pros">
+          <li>Most cost-efficient T3/T4: roughly 130% of a Marketplace's cost for ~200% of the income</li>
+          <li>IMF Loan injects a massive lump sum on demand — great for snowballing fast</li>
+          <li>2-3-0 Bank: $9,500 over ~12 rounds with MK ($7,000 over 10 rounds without)</li>
+        </ul>
+        <div class="farm-sub-hd">Cons</div>
+        <ul class="farm-list cons">
+          <li>Cash is locked until the bank fills — can't spend it mid-accumulation</li>
+          <li>Needs Monkey Knowledge (Collectible) to reach full potential</li>
+          <li>Heavy micro required — a poorly managed bank underperforms a Marketplace</li>
+        </ul>
+        <div class="farm-use">
+          <div class="farm-use-lbl">Use when</div>
+          <div class="farm-use-val">Boss events (Least Tiers), early-game snowball rushes, unranked / timed boss strats</div>
+        </div>
+      </div>
+
+      <!-- BOTTOM PATH -->
+      <div class="farm-card">
+        <div class="farm-card-head">
+          <div class="farm-path-name"><span class="farm-bot">Bottom Path</span></div>
+          <div class="farm-t5">Marketplace → Central Market → Monkey Wall Street</div>
+          <div class="farm-stat"><span class="farm-stat-lbl">income</span><span class="farm-stat-val">~$320–$400/round — deposited automatically each round</span></div>
+          <div class="farm-stat"><span class="farm-stat-lbl">micro</span><span class="farm-stat-val">None — fully auto-collects every round</span></div>
+          <div class="farm-stat"><span class="farm-stat-lbl">crosspath</span><span class="farm-stat-val"><span class="path-pill">0-2-x</span> always; never buy <span class="path-pill">0-0-2</span> unless going straight to 0-0-3</span></div>
+        </div>
+        <div class="farm-sub-hd">Pros</div>
+        <ul class="farm-list pros">
+          <li>Zero micro — income deposited automatically at the end of every round</li>
+          <li>Extra sellback value on all bottom-path farms</li>
+          <li>0-0-3 Marketplace earns the same as a 3-0-0 Plantation but is cheaper and easier to manage</li>
+          <li>0-0-5 Monkey Wall Street acts as a built-in Banana Farmer for all farms on screen</li>
+          <li>Synergizes with Boat Farming (Trade Empire 0-5-x)</li>
+        </ul>
+        <div class="farm-sub-hd">Cons</div>
+        <ul class="farm-list cons">
+          <li>Lowest income ceiling — no Overclock synergy worth the cost</li>
+          <li>0-0-5 MWS is an expensive auto-collector, not an income powerhouse on its own</li>
+          <li>Only upgrade to T4 when out of placement space (or to hit a Village range)</li>
+        </ul>
+        <div class="farm-use">
+          <div class="farm-use-lbl">Use when</div>
+          <div class="farm-use-val">Normal modes (Easy / Medium / Hard / Impoppable), boat farming maps, or any time you want zero farm micro</div>
+        </div>
+      </div>
+
+    </div><!-- /farm-grid -->
+
+    <div class="farm-rec-section">
+      <p class="farm-rec-hd">Which path for which mode?</p>
+      <table class="farm-table">
+        <thead>
+          <tr>
+            <th>Mode</th>
+            <th>Recommended</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Easy / Medium / Hard</td>
+            <td class="farm-bot">Bottom (0-0-3 spam)</td>
+            <td>Auto-collects, same income as T3 top at a lower price. Spam Marketplaces until out of space, then upgrade to Central Market.</td>
+          </tr>
+          <tr>
+            <td>Impoppable</td>
+            <td class="farm-bot">Bottom (0-0-3 → 0-0-4)</td>
+            <td>Start with 2× 2-0-0, build up to as many 0-2-3 farms as you want. Enough to fund a Flying Fortress and solo all 100 rounds comfortably.</td>
+          </tr>
+          <tr>
+            <td>CHIMPS</td>
+            <td style="color:var(--text-faint)">N/A</td>
+            <td>Farms generate no income in CHIMPS mode.</td>
+          </tr>
+          <tr>
+            <td>Freeplay (100+)</td>
+            <td class="farm-top">Top (5-2-0 + Overclock)</td>
+            <td>5-2-0 Banana Central + 0-3-0 Banana Farmer Pro (power) + x-x-4 Village discounts + 0-4-0 Overclock. Farmer Pro auto-collects everything so top path becomes fully passive at its highest income ceiling.</td>
+          </tr>
+          <tr>
+            <td>Boss — Regular / Timed</td>
+            <td class="farm-top">Top (4-2-0 spam → 5-2-0)</td>
+            <td>Spam 4-2-0 BRFs with 0-4-0 Overclock per farm. Then add a 1-0-5 Village (Monkeyopolis — bigger radius absorbs nearby farms for income + discounts remaining ones). Finally upgrade one 4-2-0 to 5-2-0 Banana Central, which buffs all BRFs in range by 25%. Ultraboost stacks (1, 5, 8, 10) each add a permanent extra crate.</td>
+          </tr>
+          <tr>
+            <td>Boss — Least Tiers</td>
+            <td class="farm-mid">Mid (2-3-0 → 2-4-0)</td>
+            <td>Burst income with minimal tower slots. 2-3-0 Bank returns ~$9,500 after 12 rounds with MK. Use IMF Loan ability for big one-shot cash injections.</td>
+          </tr>
+          <tr>
+            <td>Boat Farming</td>
+            <td class="farm-bot">Bottom (0-0-3 / 0-0-4)</td>
+            <td>Trade Empire (Buccaneer 0-5-x) boosts all bottom-path farms. Both paths auto-collect with no micro needed.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="farm-tips-section">
+        <p class="farm-tips-hd">Tips &amp; tricks</p>
+        <div class="farm-tips-grid">
+
+          <div class="farm-tip">
+            <div class="farm-tip-title">2-2-0 + 2-0-2 fast bank setup</div>
+            <p class="farm-tip-body">Get your first farm to 2-2-0 and a second to 2-0-2. The 2-0-2 earns the same per round as a 2-0-0 but sells for more. Sell it when you have enough to push the first farm to 2-3-0 Bank.</p>
+          </div>
+
+          <div class="farm-tip">
+            <div class="farm-tip-title">2-0-2 sell trick (+~$150 profit)</div>
+            <p class="farm-tip-body">With Banana Salvage MK: upgrading any 2-0-0 to 2-0-2 right before selling nets ~$150 profit. The 0-0-2 upgrade costs $650 but pushes sellback from ~$1,800 to ~$2,600 — a net gain of ~$150 on the spot.</p>
+          </div>
+
+          <div class="farm-tip">
+            <div class="farm-tip-title">Banana Farmer Pro = top path passive</div>
+            <p class="farm-tip-body">The Banana Farmer Pro power auto-collects all crates on screen. With it active, top path farms require zero micro — you get the highest income ceiling with no manual collection at all.</p>
+          </div>
+
+          <div class="farm-tip">
+            <div class="farm-tip-title">Monkeyopolis transition (boss strats)</div>
+            <p class="farm-tip-body">Absorb a 2-4-0 farm into a 0-0-5 Village (Monkeyopolis) for massive discounts. After collecting IMF Loan cash, this lets you rapidly transition from mid-path banking to top-path scaling.</p>
+          </div>
+
+          <div class="farm-tip">
+            <div class="farm-tip-title">IMF deposit target: ~$8,431</div>
+            <p class="farm-tip-body">For boss strats: deposit into IMF until you hit ~$8,431, then wait for natural interest to fill to $12,500. Collect, trigger the loan ability, and use both for a large cash spike to fund your transition.</p>
+          </div>
+
+          <div class="farm-tip">
+            <div class="farm-tip-title">Top path endgame: 4-2-0 spam → 1-0-5 Village → 5-2-0</div>
+            <p class="farm-tip-body">Spam 4-2-0 BRFs (with Overclock per farm). Add a 1-0-5 Monkeyopolis — the T1 top upgrade gives it bigger radius so it can absorb more nearby farms and its 10% discount reaches further. Then upgrade one 4-2-0 to 5-2-0 Banana Central, which buffs all 4-2-0s in its range by 25%.</p>
+          </div>
+
+          <div class="farm-tip">
+            <div class="farm-tip-title">Farm calculator</div>
+            <p class="farm-tip-body">An in-depth interactive farm calculator is available at <span style="font-family:var(--mono);font-size:11px;color:var(--text-faint)">blackeyefly.github.io</span> — useful for comparing income across paths at specific round counts.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section id="panel-weekly" class="panel">
+
+    <div class="wk-header">
+      <h2 class="wk-title">Weekly Events</h2>
+      <button class="wk-reset-btn" id="wk-reset-btn">Reset Week</button>
+    </div>
+    <p class="wk-intro">Check off each event as you complete it — saved in your browser automatically.</p>
+
+    <!-- Race Event -->
+    <div class="wk-card">
+      <div class="wk-card-head">
+        <span class="wk-card-name">Race Event</span>
+        <div class="wk-head-r"><span class="wk-schedule">Fri 3:00am → Mon 10:30pm EST &middot; weekly</span><span class="wk-timer" id="wk-timer-race"></span></div>
+      </div>
+      <div class="wk-card-links">
+        <a class="wk-link" href="https://www.youtube.com/@BTD6Fenix" target="_blank" rel="noopener">Fenix's YouTube &rarr;</a>
+      </div>
+      <div class="wk-checks">
+        <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-race"><span class="wk-check-text">Complete Race</span></label>
+      </div>
+    </div>
+
+    <!-- Odyssey -->
+    <div class="wk-card">
+      <div class="wk-card-head">
+        <span class="wk-card-name">Odyssey</span>
+        <div class="wk-head-r"><span class="wk-schedule">Thu 3:00am → Wed 3:00am EST &middot; weekly</span><span class="wk-timer" id="wk-timer-ody"></span></div>
+      </div>
+      <div class="wk-card-links">
+        <a class="wk-link" href="https://www.youtube.com/@BTD6Fenix" target="_blank" rel="noopener">Fenix's YouTube (Hard guide) &rarr;</a>
+      </div>
+      <div class="wk-checks">
+        <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-ody-easy"><span class="wk-check-text">Easy Odyssey</span></label>
+        <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-ody-normal"><span class="wk-check-text">Normal Odyssey</span></label>
+        <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-ody-hard"><span class="wk-check-text">Hard Odyssey<span class="wk-tip">→ check Fenix guide</span></span></label>
+      </div>
+    </div>
+
+    <!-- Boss Event -->
+    <div class="wk-card">
+      <div class="wk-card-head">
+        <span class="wk-card-name">Boss Bloon Event</span>
+        <div class="wk-head-r"><span class="wk-schedule">Sat 3:00am → Wed 10:00pm EST &middot; weekly</span><span class="wk-timer" id="wk-timer-boss"></span></div>
+      </div>
+      <div class="wk-card-links">
+        <a class="wk-link" href="https://www.youtube.com/@BTD6Fenix" target="_blank" rel="noopener">Fenix's YouTube &rarr;</a>
+      </div>
+      <div class="wk-checks">
+        <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-boss-normal"><span class="wk-check-text">Ranked Normal</span></label>
+        <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-boss-elite"><span class="wk-check-text">Ranked Elite</span></label>
+      </div>
+    </div>
+
+    <div class="wk-divider">Team Events <span class="wk-divider-note">Less important &middot; Level 30 required</span></div>
+
+    <!-- Boss Rush -->
+    <div class="wk-card wk-team">
+      <div class="wk-card-head">
+        <span class="wk-card-name">Boss Rush</span>
+        <span class="wk-schedule">Tue 6:00pm &rarr; Sun 6:00pm EST &middot; every other week</span>
+      </div>
+      <div class="wk-checks">
+        <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-boss-rush"><span class="wk-check-text">Boss Rush (4 attempts/day cap)</span></label>
+      </div>
+    </div>
+
+    <!-- Contested Territory -->
+    <div class="wk-card wk-team">
+      <div class="wk-card-head">
+        <span class="wk-card-name">Contested Territory</span>
+        <span class="wk-schedule">Tue 6:00pm &rarr; Tue 6:00pm EST &middot; every other week (alternates with Boss Rush)</span>
+      </div>
+      <div class="wk-checks">
+        <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-ct"><span class="wk-check-text">Contested Territory</span></label>
+      </div>
+    </div>
+
   </section>
 
   <footer>
@@ -5774,7 +6861,7 @@
 </div>
 
 <script>
-  document.querySelectorAll('nav.tabs button').forEach(function(btn){
+  document.querySelectorAll('nav.tabs button:not(.tab-dd-btn)').forEach(function(btn){
     btn.addEventListener('click', function(){
       document.querySelectorAll('nav.tabs button').forEach(function(b){ b.classList.remove('active'); });
       document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
@@ -5782,6 +6869,59 @@
       document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
     });
   });
+
+  // Bloon & Tower Info — nav dropdown (button = menu only, items = navigate)
+  (function(){
+    var REF_PANES = ['panel-towerinfo','panel-bloons','panel-waveinfo','panel-farmguide'];
+    var ddBtn  = document.getElementById('ref-tab-dd-btn');
+    var ddMenu = document.getElementById('ref-tab-dd-menu');
+    if (!ddBtn || !ddMenu) return;
+
+    function closeMenu(){ ddMenu.classList.remove('open'); }
+
+    // Button: only open/close the menu — no navigation
+    ddBtn.addEventListener('click', function(){
+      ddMenu.classList.contains('open') ? closeMenu() : ddMenu.classList.add('open');
+    });
+
+    // Dropdown items: full navigation
+    ddMenu.querySelectorAll('.tab-dd-item').forEach(function(item){
+      item.addEventListener('click', function(){
+        // Hide all regular panels and ref-panes
+        document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+        REF_PANES.forEach(function(pid){
+          var el = document.getElementById(pid);
+          if (el) el.classList.remove('active');
+        });
+        // Activate selected ref-pane
+        var target = document.getElementById(item.dataset.ref);
+        if (target) target.classList.add('active');
+        // Mark dropdown button as the active tab
+        document.querySelectorAll('nav.tabs button').forEach(function(b){ b.classList.remove('active'); });
+        ddBtn.classList.add('active');
+        // Update active item highlight
+        ddMenu.querySelectorAll('.tab-dd-item').forEach(function(i){ i.classList.toggle('active', i === item); });
+        closeMenu();
+      });
+    });
+
+    // Close menu & clear ref-panes when any regular tab is clicked
+    document.querySelectorAll('nav.tabs button[data-tab]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        closeMenu();
+        ddBtn.classList.remove('active');
+        REF_PANES.forEach(function(pid){
+          var el = document.getElementById(pid);
+          if (el) el.classList.remove('active');
+        });
+      });
+    });
+
+    // Close menu on outside click
+    document.addEventListener('click', function(e){
+      if (!e.target.closest('#ref-tab-dd')) closeMenu();
+    });
+  })();
 
   var activeFilters = [];
   var activeTowerFilters = [];
@@ -6534,7 +7674,7 @@
         {n:'Druidic Reach',e:85,m:100,h:110,i:120},
         {n:'Heart of Vengeance',e:255,m:300,h:325,i:360},
         {n:'Druid of Wrath',e:510,m:600,h:650,i:720},
-        {n:'Poplust',e:2125,m:2500,h:2700,i:3000},
+        {n:'Poplust',e:1995,m:2350,h:2540,i:2820},
         {n:'Avatar of Wrath',e:38250,m:45000,h:48600,i:54000},
       ],
     },
@@ -6734,16 +7874,7 @@
   })();
 
   // ── CUSTOM BUILD COST CALC ─────────────────────
-  var CB_SETTINGS_KEY = 'btd6-cb-mk';
-  var CB_SETTINGS = (function() {
-    try {
-      var s = JSON.parse(localStorage.getItem(CB_SETTINGS_KEY) || '{}');
-      return { heroDiscount: !!s.heroDiscount, boomDiscount: !!s.boomDiscount, freeFirstGD: !!s.freeFirstGD, tackLiqDisc: !!s.tackLiqDisc };
-    } catch(e) { return { heroDiscount: false, boomDiscount: false, freeFirstGD: false, tackLiqDisc: false }; }
-  })();
-  function cbSaveSettings() {
-    try { localStorage.setItem(CB_SETTINGS_KEY, JSON.stringify(CB_SETTINGS)); } catch(e) {}
-  }
+  var CB_SETTINGS = {heroDiscount:false,boomDiscount:false,freeFirstGD:false,tackLiqDisc:false};
 
   var CB_TOWER_MAP = {
     'dart monkey':'dart monkey','boomerang':'boomerang monkey','boomerang monkey':'boomerang monkey',
@@ -6882,7 +8013,7 @@
 
     Array.from(unitsEl.children).forEach(function(child) {
       if (child.classList.contains('cb-unit')) {
-        if (child.classList.contains('cb-spam')) {
+        if (child.classList.contains('cb-spam') || child.classList.contains('cb-upgrade')) {
           buildTotal += (parseInt(child.dataset.cbUnitCost) || 0) * (parseInt(child.dataset.cbCount) || 0);
         } else {
           var cost = cbUnitCost(child, diff);
@@ -6900,14 +8031,6 @@
     var totEl = unitsEl.querySelector('.cb-build-total');
     if (totEl) totEl.querySelector('.cb-build-total-value').textContent = '$' + buildTotal.toLocaleString();
 
-    var leftEl = unitsEl.querySelector('.cb-budget-left');
-    if (leftEl && modeKey) {
-      var left = CB_MODE_BUDGET[modeKey] - buildTotal;
-      leftEl.querySelector('.cb-budget-left-label').textContent = left >= 0 ? 'Remaining budget' : 'Over budget';
-      var v = leftEl.querySelector('.cb-budget-left-value');
-      v.className = 'cb-budget-left-value ' + (left >= 0 ? 'cb-budget-ok' : 'cb-budget-over');
-      v.textContent = (left >= 0 ? '$' : '-$') + Math.abs(left).toLocaleString();
-    }
   }
 
   function buildCostUI() {
@@ -6935,10 +8058,25 @@
               freeFirstUsed = true;
             }
           }
-          var c = cbUnitCost(child, diff);
+          var c;
+          if (child.classList.contains('cb-upgrade')) {
+            var fromPath = child.dataset.cbFrom;
+            var upNmEl = child.querySelector('.cb-name');
+            var upPpEl = child.querySelector('.path-pill');
+            var upNm = upNmEl ? upNmEl.textContent.trim() : '';
+            var upToP = upPpEl ? upPpEl.textContent.trim() : null;
+            var upToC = cbCalcCost(upNm, upToP, diff);
+            var upFrC = fromPath ? cbCalcCost(upNm, fromPath, diff) : 0;
+            c = (upToC !== null) ? Math.max(0, (upToC || 0) - (upFrC || 0)) : null;
+          } else {
+            c = cbUnitCost(child, diff);
+          }
           if (c !== null) {
-            if (child.classList.contains('cb-spam')) { spamList.push({unit: child, cost: c}); }
-            else { nonSpamTotal += c; }
+            if (child.classList.contains('cb-spam') || child.classList.contains('cb-upgrade')) {
+              spamList.push({unit: child, cost: c});
+            } else {
+              nonSpamTotal += c;
+            }
           }
         } else if (child.classList.contains('cb-choice-group')) {
           var gc = [];
@@ -6952,7 +8090,8 @@
       // Compute optimal spam counts: fill budget closest without going over
       var rem = budget - nonSpamTotal;
       spamList.forEach(function(s) {
-        s.count = (budget > 0 && s.cost > 0) ? Math.max(1, Math.floor(rem / s.cost)) : 1;
+        var fixed = s.unit.dataset.cbInitCount ? parseInt(s.unit.dataset.cbInitCount) : null;
+        s.count = fixed !== null ? fixed : (budget > 0 && s.cost > 0) ? Math.max(1, Math.floor(rem / s.cost)) : 1;
         rem -= s.cost * s.count;
       });
 
@@ -6960,7 +8099,7 @@
       var spamIdx = 0;
       Array.from(unitsEl.children).forEach(function(child) {
         if (child.classList.contains('cb-unit')) {
-          if (child.classList.contains('cb-spam')) {
+          if (child.classList.contains('cb-spam') || child.classList.contains('cb-upgrade')) {
             var s = spamList[spamIdx++];
             if (s) cbInjectSpamCounter(child, s.cost, s.count);
           } else {
@@ -6983,42 +8122,12 @@
           + '<span class="cb-build-total-value">$' + buildTotal.toLocaleString() + '</span>';
         unitsEl.appendChild(totEl);
 
-        if (budget) {
-          var left = budget - buildTotal;
-          var leftEl = document.createElement('div');
-          leftEl.className = 'cb-budget-left';
-          leftEl.innerHTML = left >= 0
-            ? '<span class="cb-budget-left-label">Remaining budget</span><span class="cb-budget-left-value cb-budget-ok">$' + left.toLocaleString() + '</span>'
-            : '<span class="cb-budget-left-label">Over budget</span><span class="cb-budget-left-value cb-budget-over">-$' + Math.abs(left).toLocaleString() + '</span>';
-          unitsEl.appendChild(leftEl);
-        }
       }
     });
   }
 
   buildCostUI();
 
-  // Wire MK settings checkboxes
-  (function() {
-    var checks = [
-      {id: 'cb-set-hero-disc', key: 'heroDiscount'},
-      {id: 'cb-set-boom-disc', key: 'boomDiscount'},
-      {id: 'cb-set-free-first', key: 'freeFirstGD'},
-      {id: 'cb-set-tack-liq', key: 'tackLiqDisc'}
-    ];
-    checks.forEach(function(item) {
-      var el = document.getElementById(item.id);
-      if (!el) return;
-      el.checked = CB_SETTINGS[item.key];
-      if (el.checked) el.closest('.cb-setting-toggle').classList.add('active');
-      el.addEventListener('change', function() {
-        CB_SETTINGS[item.key] = this.checked;
-        this.closest('.cb-setting-toggle').classList.toggle('active', this.checked);
-        cbSaveSettings();
-        buildCostUI();
-      });
-    });
-  })();
 
   // Tower Info cost calculator
   (function(){
@@ -7109,6 +8218,97 @@
       totEl.textContent = '$' + total.toLocaleString();
       totEl.classList.add('visible');
     }
+  })();
+
+  // Weekly event countdown timers
+  (function(){
+    function pad2(n){ return n<10?'0'+n:''+n; }
+
+    function nextUTC(dow, h, m){
+      var now = new Date();
+      var t = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), h, m, 0, 0));
+      var d = (dow - now.getUTCDay() + 7) % 7;
+      if(d===0 && (now.getUTCHours()>h || (now.getUTCHours()===h && now.getUTCMinutes()>=m))) d=7;
+      t.setUTCDate(t.getUTCDate()+d);
+      return t;
+    }
+
+    function fmtMs(ms){
+      var mn = Math.floor(ms/60000);
+      var d  = Math.floor(mn/1440);
+      var h  = Math.floor((mn%1440)/60);
+      var m  = mn%60;
+      if(d>0) return d+'d '+h+'h';
+      if(h>0) return h+'h '+pad2(m)+'m';
+      return m+'m';
+    }
+
+    function fmtStartEST(date){
+      var est = new Date(date.getTime() - 5*3600000);
+      var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      return days[est.getUTCDay()]+' '+pad2(est.getUTCHours())+':'+pad2(est.getUTCMinutes())+' EST';
+    }
+
+    // All times in UTC. start→end per event:
+    // Race:    Fri 08:00 → Tue 03:30
+    // Odyssey: Thu 08:00 → Wed 08:00
+    // Boss:    Sat 08:00 → Thu 03:00
+    var WK_EV = [
+      {id:'wk-timer-race', sd:5,sh:8,sm:0,  ed:2,eh:3, em:30},
+      {id:'wk-timer-ody',  sd:4,sh:8,sm:0,  ed:3,eh:8, em:0 },
+      {id:'wk-timer-boss', sd:6,sh:8,sm:0,  ed:4,eh:3, em:0 }
+    ];
+
+    function updateWkTimers(){
+      var now = new Date();
+      WK_EV.forEach(function(ev){
+        var el = document.getElementById(ev.id);
+        if(!el) return;
+        var nEnd   = nextUTC(ev.ed, ev.eh, ev.em);
+        var nStart = nextUTC(ev.sd, ev.sh, ev.sm);
+        if(nEnd < nStart){
+          // Active window — show countdown
+          var ms   = nEnd - now;
+          var hrs  = ms / 3600000;
+          var col, bg, bo;
+          if(hrs>=48)     { col='#9fc88a'; bg='rgba(127,176,105,0.12)'; bo='rgba(127,176,105,0.28)'; }
+          else if(hrs>=24){ col='#e0a458'; bg='rgba(224,164,88,0.12)';  bo='rgba(224,164,88,0.28)';  }
+          else            { col='#e06a6a'; bg='rgba(224,106,106,0.12)'; bo='rgba(224,106,106,0.28)'; }
+          el.textContent = 'Ends in '+fmtMs(ms);
+          el.style.cssText = 'color:'+col+';background:'+bg+';border:1px solid '+bo;
+        } else {
+          // Not yet active — show next start
+          el.textContent = 'Starts '+fmtStartEST(nStart);
+          el.style.cssText = 'color:var(--text-faint);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07)';
+        }
+      });
+    }
+
+    updateWkTimers();
+    setInterval(updateWkTimers, 30000);
+  })();
+
+  // Weekly checklist — localStorage persistence
+  (function(){
+    function weeklySave(el){
+      try{ localStorage.setItem('btd6-wk-'+el.id, el.checked); }catch(e){}
+    }
+    function weeklyLoad(){
+      document.querySelectorAll('#panel-weekly .wk-cb').forEach(function(el){
+        try{ if(localStorage.getItem('btd6-wk-'+el.id)==='true') el.checked=true; }catch(e){}
+      });
+    }
+    document.querySelectorAll('#panel-weekly .wk-cb').forEach(function(el){
+      el.addEventListener('change', function(){ weeklySave(el); });
+    });
+    var resetBtn = document.getElementById('wk-reset-btn');
+    if(resetBtn) resetBtn.addEventListener('click', function(){
+      document.querySelectorAll('#panel-weekly .wk-cb').forEach(function(el){
+        el.checked=false;
+        try{ localStorage.removeItem('btd6-wk-'+el.id); }catch(e){}
+      });
+    });
+    weeklyLoad();
   })();
 </script>
 
