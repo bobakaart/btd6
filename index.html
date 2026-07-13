@@ -379,6 +379,20 @@
   .t-card-note{font-size:10px;color:var(--text-dim);margin-top:7px;font-style:italic;opacity:0.8}
 
   /* custom builds tab */
+  .cb-data-warning{
+    display:flex;align-items:center;gap:10px;
+    background:repeating-linear-gradient(135deg,rgba(224,60,60,0.16),rgba(224,60,60,0.16) 10px,rgba(224,60,60,0.24) 10px,rgba(224,60,60,0.24) 20px);
+    border:2px solid #e03c3c;
+    border-radius:8px;
+    padding:12px 16px;
+    margin-bottom:16px;
+    font-size:14px;
+    font-weight:800;
+    color:#ff8a8a;
+    letter-spacing:0.01em;
+    line-height:1.4;
+  }
+  .cb-data-warning .cb-data-warning-icon{font-size:20px;flex-shrink:0}
   .cb-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
   .cb-units{display:flex;flex-direction:column;gap:6px;counter-reset:cb-item}
   .cb-unit{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:10px 12px;counter-increment:cb-item}
@@ -926,6 +940,13 @@
     border-color:var(--accent);
     background:var(--accent-bg);
   }
+  .subtab-btn:disabled{
+    cursor:not-allowed;
+    opacity:0.4;
+    color:var(--text-faint);
+    background:var(--panel);
+  }
+  .subtab-btn:disabled:hover{color:var(--text-faint)}
   .subpanel{display:none}
   .subpanel.active{display:block}
 
@@ -1120,6 +1141,7 @@
   .boss-badge.phayze{background:rgba(60,200,210,0.16);color:#50c8d8;border:1px solid rgba(60,200,210,0.3)}
   .boss-badge.vortex{background:rgba(80,110,230,0.16);color:#7090e8;border:1px solid rgba(80,110,230,0.3)}
   .boss-badge.blasto{background:rgba(220,90,40,0.16);color:#e07050;border:1px solid rgba(220,90,40,0.3)}
+  .boss-badge.lych{background:rgba(150,90,220,0.16);color:#a878e0;border:1px solid rgba(150,90,220,0.3)}
   .boss-badge.note{background:rgba(154,166,178,0.12);color:#9aa6b2;border:1px solid rgba(154,166,178,0.22)}
   .boss-paragon-opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:10px}
   .boss-paragon-card{background:var(--panel-2);border-radius:8px;padding:10px 12px;border:1px solid var(--line)}
@@ -1133,6 +1155,18 @@
   .boss-step-n{font-family:var(--mono);font-size:10px;color:var(--text-faint);flex-shrink:0;margin-top:2px;min-width:16px;text-align:right}
   .boss-step-gate{font-family:var(--mono);font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;background:rgba(224,164,88,0.14);color:#e0a458;border:1px solid rgba(224,164,88,0.25);flex-shrink:0;margin-top:1px;white-space:nowrap}
   .boss-sell-note{margin-top:10px;padding:7px 10px;border-radius:6px;font-size:11px;font-weight:600;background:rgba(200,80,80,0.07);border:1px solid rgba(200,80,80,0.18);color:#c07070}
+
+  /* ── Boss Rush (custom builds) ───────────────────────────── */
+  .br-intro{font-size:13px;color:var(--text-dim);margin:0 0 18px;line-height:1.6}
+  .br-mechanic-box{background:rgba(154,110,224,0.06);border:1px solid rgba(154,110,224,0.22);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--text-dim);line-height:1.6;margin-bottom:18px}
+  .br-section{margin-bottom:22px}
+  .br-section:last-child{margin-bottom:0}
+  .br-section-title{font-family:var(--mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-faint);margin:0 0 4px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  .br-unit-row{padding:9px 0;border-bottom:1px solid var(--line)}
+  .br-unit-row:last-child{border-bottom:none}
+  .br-unit-head{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px}
+  .br-unit-head strong{font-size:13px;color:var(--text)}
+  .br-unit-desc{font-size:12px;color:var(--text-dim);line-height:1.5}
 
   .bi-intro{font-size:13px;color:var(--text-dim);margin:0 0 24px;line-height:1.6;padding-bottom:14px;border-bottom:1px solid var(--line)}
   .bi-section{margin-bottom:30px}
@@ -1788,6 +1822,7 @@
       <button class="subtab-btn" data-subtab="impoppable">Impoppable (100)</button>
       <button class="subtab-btn" data-subtab="chimps">CHIMPS (100)</button>
       <button class="subtab-btn" data-subtab="boss">Boss Challenges</button>
+      <button class="subtab-btn" data-subtab="bossrush">Boss Rush</button>
     </div>
 
     <div id="subpanel-easy" class="subpanel active">
@@ -2885,6 +2920,554 @@
       </div><!-- /boss-tiers -->
     </div><!-- /subpanel-boss -->
 
+    <!-- ── Boss Rush subpanel ─────────────────────────── -->
+    <div id="subpanel-bossrush" class="subpanel">
+      <p class="br-intro">Boss Rush is endless &mdash; the active boss and weekly modifiers rotate, so there&apos;s no single fixed build. These are units and openers that hold up across most weeks; use <strong style="color:var(--text)">General</strong> for the mode-wide core, then check the boss-specific tab for that week&apos;s mechanic. All info is for solo play.</p>
+
+      <div class="subtab-bar nested">
+        <button class="subtab-btn active" data-subtab="bossrush-general">General</button>
+        <button class="subtab-btn" data-subtab="bossrush-lych">Lych</button>
+        <button class="subtab-btn" data-subtab="bossrush-bloonarius">Bloonarius</button>
+        <button class="subtab-btn" data-subtab="bossrush-dreadbloon">Dreadbloon</button>
+        <button class="subtab-btn" data-subtab="bossrush-phayze">Phayze</button>
+        <button class="subtab-btn" data-subtab="bossrush-vortex" disabled title="No verified build yet">Vortex</button>
+        <button class="subtab-btn" data-subtab="bossrush-blasto">Blastapopoulos</button>
+      </div>
+
+      <!-- ── General ──────────────────────────── -->
+      <div id="subpanel-bossrush-general" class="subpanel active">
+        <div class="boss-note-box">Weekly tactics/VODs: <a href="https://www.youtube.com/@yoboi3li" target="_blank" rel="noopener">youtube.com/@yoboi3li</a> posts a new Boss Rush walkthrough most weeks &mdash; good for seeing how a strong player adapts to that week's specific boss/modifiers.</div>
+        <p class="br-intro" style="margin:0 0 14px">Units below are sorted by how often they actually show up across the reported builds on the boss-specific tabs (6 builds tallied so far: 2&times; Lych, Blastapopoulos, Phayze, Bloonarius, Dreadbloon) &mdash; most-used first. This updates as more builds get added.</p>
+        <div class="br-section">
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">6/6 builds</span><span class="path-pill">3-1-0</span> &rarr; <span class="path-pill">3-2-0</span> &rarr; <span class="path-pill">4-2-0</span><strong>Monkey Ace</strong> (spam)</div>
+            <div class="br-unit-desc">Fighter Plane (top T3) into Spy Plane (mid T2, camo) into Operation: Dart Storm (top T4) &mdash; the single most consistent pick across every build. Cheap enough per copy that it never needs to be sold, hits the boss and adds at once, and keeps working through a camo cloak once Spy Plane is in.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">6/6 builds</span><span class="path-pill">2-5-0</span><strong>Dartling Gunner</strong> (M.A.D.)</div>
+            <div class="br-unit-desc">The universal endgame burst finisher. Pair with an Engineer's Overclock (see Timing Tricks below) and fire right as the boss telegraphs its big attack, not on cooldown.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">5/6 builds</span><span class="path-pill">0-0-4</span><strong>Engineer Monkey</strong> (Bloon Trap &rarr; XXXL Trap)</div>
+            <div class="br-unit-desc">The near-universal economy core &mdash; two Bloon Traps merge into one XXXL Trap for passive income with zero micro. A second Engineer's Overclock (mid T4) is the standard way to power a burst tower's ability.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">4/6 builds</span><strong>Druid</strong> (path varies by role)</div>
+            <div class="br-unit-desc">Some Druid shows up in most builds, but which crosspath depends on the job: Druid of Wrath <span class="path-pill">0-1-3</span> as cheap early filler, Druid of the Jungle <span class="path-pill">0-3-0</span> for single-target cleanup, or a Poplust <span class="path-pill">0-0-4</span> + Avatar of Wrath <span class="path-pill">1-0-5</span> pairing as a late-game damage army.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">3/6 builds</span><span class="path-pill">2-3-0</span> &rarr; <span class="path-pill">2-5-0</span><strong>Spike Factory</strong> (spam, Automatic targeting)</div>
+            <div class="br-unit-desc">White Hot Spikes into MOAB SHREDR into Carpet of Spikes &mdash; a non-Military, near-zero-micro damage core. Spike piles detect and pop Camo on their own by default, so this core often needs no dedicated camo answer.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">3/6 builds</span><strong>Bomb Shooter</strong> (path varies)</div>
+            <div class="br-unit-desc">MOAB Mauler <span class="path-pill">0-3-2</span> as a cheap opener/wall that handles boss damage and cleanup almost by itself; pushed to Bloon Crush (top T5) elsewhere as a DDT-stunning insurance pick.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">3/6 builds</span><span class="boss-badge note">Hero</span><strong>Ezili</strong></div>
+            <div class="br-unit-desc">The most common hero pick in the farming-heavy late-game builds. Set her targeting to Last if the boss has a mechanic that punishes weak hits (e.g. Blastapopoulos's purple meter), and place her totem off to one side for max coverage.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">3/6 builds</span><span class="boss-badge note">Hero</span><strong>Sauda</strong></div>
+            <div class="br-unit-desc">The most common opener hero. Sword Shrine gets extra hits on the boss for free during the opening rounds &mdash; a strong econ + early boss-damage hybrid pick.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">2/6 builds</span><span class="path-pill">0-2-0</span> &rarr; <span class="path-pill">2-2-0</span><strong>Monkey Village</strong></div>
+            <div class="br-unit-desc">An income/buff hub some runs build around; also grants free crosspathing to towers inside its radius. Several builds skip it entirely in favor of a pure Bloon Trap economy.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">2/6 builds</span><strong>Ice Monkey</strong> (Super Brittle / Icicle Impale)</div>
+            <div class="br-unit-desc">Recurring DDT/Ceramic insurance layer, usually placed defensively around a late-game Paragon rather than as core damage.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">2/6 builds</span><span class="path-pill">5-0-2</span><strong>Desperado</strong> (Blazing Sun)</div>
+            <div class="br-unit-desc">A slow-burn secondary damage pick &mdash; cheap to start, genuinely strong once fully upgraded, often sold later to help fund a bigger purchase.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">2/6 builds</span><strong>Super Monkey</strong> (Sun Avatar &rarr; Sun Temple)</div>
+            <div class="br-unit-desc">Sun Avatar (top T3) for damage, then Sun Temple (top T4) to sacrifice a maxed support tower for a permanent buff. Keep anything you want to keep (especially a M.A.D. Dartling) outside its range before buying the Temple.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">2/6 builds</span><strong>Dart Monkey</strong> (Fan Club spam)</div>
+            <div class="br-unit-desc">Super Monkey Fan Club (mid T4) / Plasma Monkey Fan Club (mid T5) periodically convert nearby Darts into Super Monkeys for burst pop-farming &mdash; the engine behind farming a Dart (or Druid) Paragon as a build's win condition.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">1/6 builds</span><span class="path-pill">5-1-0</span><strong>Sniper Monkey</strong> (Cripple MOAB + Night Vision Goggles)</div>
+            <div class="br-unit-desc">True MOAB-class damage with camo detection built in &mdash; shows up as a DDT-insurance pick more than a main core.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">1/6 builds</span><span class="path-pill">0-4-0</span><strong>Ninja Monkey</strong> (Bloon Sabotage)</div>
+            <div class="br-unit-desc">Slows all bloons 50% for 15s &mdash; buy a few and stagger their use one at a time so a DDT can't sneak past a Paragon between activations.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">1/6 builds</span><strong>Heli Pilot</strong> (Support Chinook)</div>
+            <div class="br-unit-desc">Bottom T5 redeploy ability &mdash; used late-game to reposition an existing tower (a M.A.D. Dartling, a Spike Factory) without rebuying it.</div>
+          </div>
+        </div>
+
+        <div class="br-section">
+          <div class="br-section-title">Timing Tricks</div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">Ability sync</span></div>
+            <div class="br-unit-desc">Most bosses telegraph their big attack with a visible tell (a flash, a charge-up animation). Save your Engineer's Overclock and your burst tower's ability (M.A.D., etc.) for that window instead of firing on cooldown &mdash; it both maximizes the burst and covers you through the boss's dangerous phase.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">Refresh via rebuy</span></div>
+            <div class="br-unit-desc">If a key ability (M.A.D., etc.) is still on cooldown but you need it again now, buy a second copy of that tower and sell the original &mdash; the new one's ability is ready immediately. Costs the price difference, but it's often worth it to avoid a leak.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">Boss-only Set Target</span></div>
+            <div class="br-unit-desc">On a Spike Factory (or other Set Target-capable tower), manually aim at a track point the boss reliably crosses but regular bloons mostly don't. The spike pile then stacks up purely for boss damage instead of getting chipped away by fodder &mdash; reset the target as the boss moves down the track.</div>
+          </div>
+        </div>
+
+        <div class="boss-note-box" style="margin-bottom:0">Sell values in Boss Rush are reduced compared to normal games (Lych in particular took an extra cut in a past balance pass &mdash; independently confirmed by multiple players getting roughly a third of value back). Don&apos;t plan around selling your whole defence to fund one endgame purchase &mdash; build a core you intend to keep, and treat big late buys as additive.</div>
+      </div><!-- /subpanel-bossrush-general -->
+
+      <!-- ── Lych ──────────────────────────── -->
+      <div id="subpanel-bossrush-lych" class="subpanel">
+        <div class="br-mechanic-box"><strong style="color:#a878e0">Lych &mdash; tombstones:</strong> Lych buries tombstones on the track that hatch into MOAB-class bloons if not destroyed in time. You need boss damage, point-target tombstone removal, and MOAB popping running at once &mdash; ground point-target towers alone (e.g. Gatling Gunner) tend to fall behind on the tombstones.</div>
+        <div class="br-section">
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge lych">Opener</span><strong>Sauda</strong> hero + Dart/Ace start</div>
+            <div class="br-unit-desc">Sword Shrine strikes get an early free hit on Lych, speeding up the rush into a first Fighter Plane.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">4-1-0</span><strong>Monkey Ace</strong> (spam)</div>
+            <div class="br-unit-desc">Airborne targeting reaches the boss, tombstones, and hatched MOABs without pixel-perfect ground placement &mdash; the backbone of the highest-reported Lych runs (see the build below).</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><strong>Carrier</strong> &rarr; Carrier Flagship</div>
+            <div class="br-unit-desc">Alternate spam option once a Village core is up; a separate community report reached round 70&ndash;80 with this instead of Ace spam.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">2-0-5</span> / <span class="path-pill">5-0-2</span><strong>Sniper Monkey</strong></div>
+            <div class="br-unit-desc">True damage cleanly removes tombstones and chips MOAB-tier HP without targeting fuss.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">2-0-2</span><strong>Monkey Village</strong></div>
+            <div class="br-unit-desc">Same income/buff role as the general opener &mdash; most reported Lych runs route through a Village core early.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><strong>Engineer Sentry</strong> / <strong>Dartling MAD</strong></div>
+            <div class="br-unit-desc">Sell-into endgame burst once the round count gets high enough that a leak is imminent.</div>
+          </div>
+        </div>
+        <div class="boss-sell-note">Lych&apos;s sell value was cut hard in a past balance pass specifically to curb sell-for-MAD strategies in this mode &mdash; budget for a purchase, don&apos;t plan around selling into it.</div>
+
+        <div class="br-section">
+          <div class="br-section-title">Reported Build &mdash; reached round &asymp;90</div>
+          <div class="boss-steps">
+            <div class="boss-step"><span class="boss-step-n">1</span><span>Start with <strong>Sauda</strong> hero, the free starting Dart Monkey, and a <strong>Monkey Ace</strong>.</span></div>
+            <div class="boss-step"><span class="boss-step-n">2</span><span>3&times; <strong>Monkey Ace</strong> <span class="path-pill">4-1-0</span>, then a <strong>Monkey Village</strong> <span class="path-pill">2-0-2</span> (income/buff core &mdash; call it Village A).</span></div>
+            <div class="boss-step"><span class="boss-step-n">3</span><span><strong>Sniper Monkey</strong> <span class="path-pill">2-0-5</span>, then a second <strong>Monkey Village</strong> <span class="path-pill">0-2-2</span> (Village B).</span></div>
+            <div class="boss-step"><span class="boss-step-n">4</span><span>Upgrade Village A: <span class="path-pill">2-0-2</span> &rarr; <span class="path-pill">2-0-4</span>.</span></div>
+            <div class="boss-step"><span class="boss-step-n">5</span><span>Spam more <strong>Monkey Ace</strong> <span class="path-pill">4-1-0</span> inside range of both Villages.</span></div>
+            <div class="boss-step"><span class="boss-step-n">6</span><span>Upgrade Sniper: <span class="path-pill">2-0-5</span> &rarr; <span class="path-pill">5-0-2</span>.</span></div>
+            <div class="boss-step"><span class="boss-step-n">7</span><span>Buy a <strong>Dartling Gunner</strong> <span class="path-pill">2-5-0</span> (M.A.D.) for burst.</span></div>
+            <div class="boss-step"><span class="boss-step-n">8</span><span>Buy a <strong>Monkey Sub</strong> <span class="path-pill">4-0-2</span>.</span></div>
+            <div class="boss-step"><span class="boss-step-n">9</span><span>Upgrade Village B: <span class="path-pill">0-2-2</span> &rarr; <span class="path-pill">0-3-2</span>.</span></div>
+            <div class="boss-step"><span class="boss-step-n">10</span><span>Upgrade Sub: <span class="path-pill">4-0-2</span> &rarr; <span class="path-pill">5-0-2</span>.</span></div>
+            <div class="boss-step"><span class="boss-step-n">11</span><span>Upgrade Village B: <span class="path-pill">0-3-2</span> &rarr; <span class="path-pill">0-4-2</span>.</span></div>
+          </div>
+          <div class="br-unit-desc" style="margin-top:8px;font-style:italic">Community-reported (r/btd6) &mdash; got one player to round &asymp;90; treat as a strong starting point, not a guaranteed script, since weekly modifiers shift what actually leaks.</div>
+        </div>
+
+        <div class="br-section">
+          <div class="br-section-title">Reported Build 2 &mdash; video walkthrough, reached round &asymp;95</div>
+          <div class="boss-steps">
+            <div class="boss-step"><span class="boss-step-n">1</span><span>Hero: <strong>Ezili</strong>. Start with a <strong>Monkey Ace</strong> <span class="path-pill">3-1-0</span> (Fighter Plane) and the free starting <strong>Engineer Monkey</strong> &mdash; place the Engineer in a corner near the track entrance, it'll host a Bloon Trap later.</span></div>
+            <div class="boss-step"><span class="boss-step-n">2</span><span>Second <strong>Monkey Ace</strong> <span class="path-pill">3-1-0</span>.</span></div>
+            <div class="boss-step"><span class="boss-step-n">3</span><span>Upgrade both Aces' top path to Operation: Dart Storm (<span class="path-pill">4-1-0</span>) before buying any other defence &mdash; cheap boss + cleanup damage that never needs to be sold.</span></div>
+            <div class="boss-step"><span class="boss-step-n">4</span><span>Build the Engineer into a Bloon Trap (<span class="path-pill">0-0-4</span>), crosspathed top T2 (Faster Engineering) for quicker cycling. Place a $50 Banana Farmer nearby to auto-collect.</span></div>
+            <div class="boss-step"><span class="boss-step-n">5</span><span>Add 5&ndash;6 <strong>Spike Factories</strong> on Automatic targeting for cleanup and chip damage.</span></div>
+            <div class="boss-step"><span class="boss-step-n">6</span><span>Around round 30, add 2 <strong>Druids</strong> <span class="path-pill">0-1-3</span> (Druid of Wrath, target Strong) as temporary cleanup &mdash; sell them once past the early crunch.</span></div>
+            <div class="boss-step"><span class="boss-step-n">7</span><span>Upgrade both Aces' mid path to Spy Plane (&rarr; <span class="path-pill">4-2-0</span>) once camo bloons start appearing.</span></div>
+            <div class="boss-step"><span class="boss-step-n">8</span><span>Upgrade the Spike Factories' mid path to MOAB SHREDR (mid T3).</span></div>
+            <div class="boss-step"><span class="boss-step-n">9</span><span>Once a second Bloon Trap is up, sell one and merge the other into an XXXL Trap (bottom T5).</span></div>
+            <div class="boss-step"><span class="boss-step-n">10</span><span>Around round 40, hand-target the Spike Factory nearest the exit to cover the leak risk; once past R40 return it to Automatic and push it to Carpet of Spikes (mid T5).</span></div>
+            <div class="boss-step"><span class="boss-step-n">11</span><span>Get a second Engineer's Overclock (mid T4) online; set a Cleansing Foam Engineer's foam onto the Bloon Trap for bonus income off camo/lead bloons passing through.</span></div>
+            <div class="boss-step"><span class="boss-step-n">12</span><span>Save up (&asymp;$65k) for a <strong>Dartling Gunner</strong> <span class="path-pill">2-5-0</span> (M.A.D.).</span></div>
+            <div class="boss-step"><span class="boss-step-n">13</span><span>Endgame loop: wait for Lych's big ability tell (a green flash), then Overclock + fire the M.A.D. ability every cycle; aim the M.A.D. at incoming skulls first.</span></div>
+            <div class="boss-step"><span class="boss-step-n">14</span><span>Add a late <strong>Spike Factory</strong> <span class="path-pill">4-0-2</span> and push one existing Spike Factory's top path to Super Mines (top T5) for extra late-round damage.</span></div>
+            <div class="boss-step"><span class="boss-step-n">15</span><span>Get a <strong>Heli Pilot</strong> to Support Chinook (bottom T5) to redeploy Spike Factories as the map fills up.</span></div>
+          </div>
+          <div class="br-unit-desc" style="margin-top:8px">No Village or Paragon anywhere in this run &mdash; the sell-value nerf makes both hard to justify. At the Boss Rush reward picks between tiers, favor the defensive/life-saving option over pure offense; the runner in this video specifically flagged dying at round &asymp;95 to a pick they regretted.</div>
+          <div class="br-unit-desc" style="margin-top:6px;font-style:italic">Reconstructed from a spoken video walkthrough &mdash; some upgrade numbers are best-effort and may be slightly off. The reliable takeaway is the overall shape: Ace core (never sold) + Spike Factory spam (near-zero micro) + Engineer Bloon Trap economy + Overclock/M.A.D. burst timed to the boss's tell.</div>
+        </div>
+      </div><!-- /subpanel-bossrush-lych -->
+
+      <!-- ── Bloonarius ──────────────────────────── -->
+      <div id="subpanel-bossrush-bloonarius" class="subpanel">
+        <div class="br-mechanic-box"><strong style="color:#60c870">Bloonarius &mdash; self-spawns:</strong> Bloonarius spawns waves of regular bloons from itself on skull rounds. You need cleanup capacity alongside boss damage, or the spawns snowball into a leak.</div>
+        <div class="br-section">
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">4-0-2</span><strong>Boomerang Monkey</strong></div>
+            <div class="br-unit-desc">MOAB Press + Red Hot Rangs hits the boss and clears its bloon spawns in the same arc.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">3-2-0</span><strong>Alchemist</strong></div>
+            <div class="br-unit-desc">Buffs your core and mops up weaker spawns via Berserker Brew uptime.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">3-0-0</span><strong>Druid</strong> (Druid of the Storm) + <span class="path-pill">0-0-4</span><strong>Druid</strong> (Poplust)</div>
+            <div class="br-unit-desc">The Poplust Druid buffs attack speed/pierce on nearby Druids; stack a couple of Druid of the Storm in its radius to handle boss-adjacent spawns and scale into strong AoE damage against the boss itself.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-3-2</span><strong>Bomb Shooter</strong> (MOAB Mauler + Frag Bombs, spam, target Strong)</div>
+            <div class="br-unit-desc">A wall of 5&ndash;6 of these as an opener handles both the boss and its self-spawns almost entirely on its own &mdash; cheap enough that you don't need much else early.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-3-0</span><strong>Druid</strong> (Druid of the Jungle, x2, target Strong)</div>
+            <div class="br-unit-desc">The vine kills the strongest non-MOAB bloon on screen &mdash; good insurance against the round-10-ish ceramic rush and the boss's spawns generally. Switch to First targeting once your Bloon Traps are up so the traps get more of the income and the Druids become a backup.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">3-2-0</span> &rarr; <span class="path-pill">4-2-0</span><strong>Monkey Ace</strong> (Fighter Plane/Spy Plane &rarr; Operation: Dart Storm)</div>
+            <div class="br-unit-desc">Same low-micro, never-sold core seen across other bosses &mdash; camo detection from Spy Plane covers the boss's spawns too.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">5-0-2</span><strong>Desperado</strong> (Blazing Sun + Nomad, target Strong)</div>
+            <div class="br-unit-desc">A slower-burn secondary damage pick &mdash; cheap to start, gets genuinely strong once fully upgraded. Fund the push to top T5 gradually as spare cash allows.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-0-4</span><strong>Engineer Monkey</strong> (Bloon Trap, x2 &rarr; merge to XXXL Trap)</div>
+            <div class="br-unit-desc">Passive economy core &mdash; get at least one Trap online before round 40 or the boss's MOABs will leak. If you're short on cash, it's safe to sell almost anything else (except your Desperado) to rush this first.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">2-5-0</span><strong>Dartling Gunner</strong> (M.A.D.)</div>
+            <div class="br-unit-desc">Same recurring burst pick as other bosses &mdash; Overclock first, then fire the ability immediately after buying.</div>
+          </div>
+        </div>
+
+        <div class="br-section">
+          <div class="br-section-title">Dart Paragon Farm (this build's win condition)</div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">5-0-0</span><strong>Dart Monkey</strong> (Ultra-Juggernaut)</div>
+            <div class="br-unit-desc">A single heavily-upgraded Dart parked on the bench for cleanup/utility &mdash; not part of the farm itself.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-3-2</span> &rarr; <span class="path-pill">0-4-2</span> / <span class="path-pill">0-5-2</span><strong>Dart Monkey</strong> spam</div>
+            <div class="br-unit-desc">Same Fan Club farming pattern as the Phayze build: Super Monkey Fan Club (mid T4) and at least one Plasma Monkey Fan Club (mid T5) periodically convert nearby Darts into Super Monkeys for burst pop-farming toward the Paragon. Cycle Plasma when it's up, chain 2&times; Super Monkey Fan Club abilities while it's on cooldown.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-0-5</span><strong>Dart Monkey</strong> (Crossbow Master, x2)</div>
+            <div class="br-unit-desc">Needed (alongside the relevant Monkey Knowledge) to push your eventual Paragon up to degree 40+.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><strong>Dart Monkey Paragon</strong></div>
+            <div class="br-unit-desc">Sell down to just the M.A.D., the big Trap, and the Overclock, then assemble the farmed Darts into a Paragon &mdash; degree 40 is the practical target (see the Paragon Tier List tab for the general recipe).</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">DDT insurance</span></div>
+            <div class="br-unit-desc">A couple of Ice Monkeys (one pushed to Embrittlement/Super Brittle top T5, one to Icicle Impale <span class="path-pill">0-0-5</span> bottom) plus 2&ndash;3 Ninja Monkeys on Bloon Sabotage <span class="path-pill">0-4-0</span> (buy/use one at a time so their uptimes stagger) keep DDTs from sneaking past the Paragon. Use Ezili's Hex ability against tough rounds and keep her totem placed as far to one side as possible for max coverage.</div>
+          </div>
+        </div>
+
+        <div class="br-section">
+          <div class="br-section-title">Reported Build &mdash; video walkthrough</div>
+          <div class="boss-steps">
+            <div class="boss-step"><span class="boss-step-n">1</span><span>Hero: <strong>Ezili</strong>. Start with a <strong>Bomb Shooter</strong> <span class="path-pill">0-3-1</span> (target Strong), upgrade to Frag Bombs (<span class="path-pill">0-3-2</span>), then place 4&ndash;5 more of the same in a row.</span></div>
+            <div class="boss-step"><span class="boss-step-n">2</span><span>Place a <strong>Druid</strong> <span class="path-pill">0-3-0</span> (Druid of the Jungle) for the early ceramic rush, then one final Bomb Shooter (target Strong).</span></div>
+            <div class="boss-step"><span class="boss-step-n">3</span><span>Place a <strong>Desperado</strong> (target Strong) and Ezili. Get a <strong>Monkey Ace</strong> to <span class="path-pill">3-2-0</span> (Fighter Plane + Spy Plane) with Wingmonkey-aimed targeting, mainly for its camo detection.</span></div>
+            <div class="boss-step"><span class="boss-step-n">4</span><span>Push the Desperado's top path to Twin Sixes once you can afford it. Around $4,000, sell all but your last Bomb Shooter; keep saving toward ~$13,500 to finish upgrading the Desperado.</span></div>
+            <div class="boss-step"><span class="boss-step-n">5</span><span>Get an Engineer to Double Gun (bottom T3) en route to a Bloon Trap, then place a second <strong>Druid</strong> <span class="path-pill">0-3-0</span> &mdash; keep both on Strong targeting for now.</span></div>
+            <div class="boss-step"><span class="boss-step-n">6</span><span>Set the Bloon Trap's target roughly between the two top tracks. Push the Ace to Operation: Dart Storm (<span class="path-pill">4-2-0</span>), then get a second Bloon Trap.</span></div>
+            <div class="boss-step"><span class="boss-step-n">7</span><span>Switch both Druids to First targeting so the Traps take more of the income, keeping the Druids as an emergency backup.</span></div>
+            <div class="boss-step"><span class="boss-step-n">8</span><span>Around $41,000, sell one Trap to merge the other into an XXXL Trap &mdash; get this done before round 40 or the boss's MOABs will kill you. In a pinch you can sell anything except the Desperado to rush this, including your Operation: Dart Storm (rebuy it after).</span></div>
+            <div class="boss-step"><span class="boss-step-n">9</span><span>Save toward ~$45,000, then sell the Desperado and buy a <strong>Dartling Gunner</strong> <span class="path-pill">2-5-0</span> (M.A.D.). Overclock it immediately, use the M.A.D. ability, then get a <strong>Dart Monkey</strong> to <span class="path-pill">5-0-0</span> (Ultra-Juggernaut) and park it on the bench &mdash; get this up in time or you'll die quickly.</span></div>
+            <div class="boss-step"><span class="boss-step-n">10</span><span>Place 3&times; Dart Monkeys and push them to Super Monkey Fan Club (<span class="path-pill">0-4-2</span>); build out a large spam of <span class="path-pill">0-3-2</span> Darts around them to farm pops for the Paragon. Keep Ezili's totem placed as far to one side as possible.</span></div>
+            <div class="boss-step"><span class="boss-step-n">11</span><span>Upgrade one Dart to Plasma Monkey Fan Club (<span class="path-pill">0-5-2</span>) and start using its ability. Get an Ice Monkey to Embrittlement (top T4), then sell off any now-useless towers to make room for more Darts.</span></div>
+            <div class="boss-step"><span class="boss-step-n">12</span><span>Push the Ice Monkey to Super Brittle (top T5) and add 2 more Super Monkey Fan Club Darts. Loop: use Plasma Monkey Fan Club when it's up, otherwise chain 2&times; Super Monkey Fan Club abilities.</span></div>
+            <div class="boss-step"><span class="boss-step-n">13</span><span>Use Ezili's Hex ability on tough rounds (~round 80). Keep the M.A.D. targeted at the boss &mdash; it does nothing if left on default/automatic.</span></div>
+            <div class="boss-step"><span class="boss-step-n">14</span><span>Get 2 Darts to Crossbow Master (<span class="path-pill">0-0-5</span>) &mdash; needed with the right Monkey Knowledge to reach Paragon degree 40. Sell down to just the M.A.D., the big Trap, and the Overclock, then assemble the <strong>Dart Monkey Paragon</strong> (degree 40+).</span></div>
+            <div class="boss-step"><span class="boss-step-n">15</span><span>Post-Paragon: get an Ice Monkey to Icicle Impale (<span class="path-pill">0-0-5</span>), then 2&ndash;3 Ninja Monkeys to Bloon Sabotage (<span class="path-pill">0-4-0</span>) &mdash; buy and activate them one at a time so their uptimes stagger evenly.</span></div>
+            <div class="boss-step"><span class="boss-step-n">16</span><span>Spend remaining cash on a second M.A.D. + Overclock, then a Flying Fortress Ace (<span class="path-pill">2-0-5</span>) + Overclock (or Spike Factory Super Mines as an alternative) &mdash; none of this is critical, just extra value.</span></div>
+          </div>
+          <div class="br-unit-desc" style="margin-top:8px">This build leans on Monkey Knowledge for full effectiveness (Wingmonkey targeting, the Crossbow Master degree-40 unlock); expect a lower final round if you're missing key MK.</div>
+          <div class="br-unit-desc" style="margin-top:6px;font-style:italic">Reconstructed from a spoken video walkthrough &mdash; some upgrade numbers are best-effort. The reliable takeaway is the overall shape: a cheap Bomb Shooter wall handles the boss and its spawns almost entirely on its own, freeing the rest of the budget to rush a Bloon Trap economy before round 40 and then pivot fully into farming a Dart Monkey Paragon.</div>
+        </div>
+      </div><!-- /subpanel-bossrush-bloonarius -->
+
+      <!-- ── Dreadbloon ──────────────────────────── -->
+      <div id="subpanel-bossrush-dreadbloon" class="subpanel">
+        <div class="br-mechanic-box"><strong style="color:#c09058">Dreadbloon &mdash; rotating immunity &amp; rocks:</strong> In Boss Rush, Dreadbloon cycles through temporary immunity phases against different damage categories (Military, Magic, etc.), each accompanied by a rock-bloon layer. Military towers are <em>not</em> permanently useless here &mdash; they just go dead during a Military-immune window. Keep at least one tower of a different class ready to carry through whichever phase is active, and time big purchases (like finalizing a Paragon) for right after a phase clears so the rocks are gone first.</div>
+        <div class="br-section">
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">2-5-0</span><strong>Spike Factory</strong></div>
+            <div class="br-unit-desc">Non-Military, strong flat damage &mdash; a safe non-Military fallback during a Military-immune window.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">3-0-0</span><strong>Druid</strong> (Druid of the Storm) + <span class="path-pill">0-0-4</span><strong>Druid</strong> (Poplust)</div>
+            <div class="br-unit-desc">Strong AoE core that also handles the rock-bloon layer; Poplust buffs the Storm Druids' pierce and attack speed. Note Druids are Magic-class, so they go dead during a Magic-immune phase &mdash; don't rely on them alone.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">2-0-5</span><strong>Tack Shooter</strong> + <span class="path-pill">4-1-0</span><strong>Ice Monkey</strong></div>
+            <div class="br-unit-desc">Tack&apos;s non-Military tag plus Ice&apos;s slow keeps the lane clear; add an Alchemist buff if budget allows.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">3-1-0</span> &rarr; <span class="path-pill">4-1-0</span><strong>Monkey Ace</strong> (early opener, sold at Skull 10)</div>
+            <div class="br-unit-desc">Fine to use Military early &mdash; a fast, cheap opener that carries you to the point you can afford your real core, then gets sold for more defense.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">1-0-3</span><strong>Druid</strong> (Druid of Wrath, spam up to ~10, sold later)</div>
+            <div class="br-unit-desc">Cheap temporary filler while you build up &mdash; gets sold off (around Skull 19 in the reported build) once your real core is established. Don't go over ~10 or you risk a cash crunch.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-0-4</span><strong>Engineer Monkey</strong> (Bloon Trap &times;2 &rarr; XXXL Trap)</div>
+            <div class="br-unit-desc">Same economy core as other bosses &mdash; gets sacrificed later once a Sun Temple goes up, so don't over-invest in it long-term.</div>
+          </div>
+        </div>
+
+        <div class="br-section">
+          <div class="br-section-title">Druid Paragon Farm (this build's win condition)</div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">5-0-2</span><strong>Desperado</strong> (Blazing Sun, temporary)</div>
+            <div class="br-unit-desc">A mid-build damage bridge &mdash; gets sold later to help fund a Sun Avatar Super Monkey.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">3-0-0</span><strong>Super Monkey</strong> (Sun Avatar &rarr; Sun Temple)</div>
+            <div class="br-unit-desc">Push to Sun Avatar (top T3) first for damage, then to Sun Temple (top T4) once your Bloon Trap Engineers have done their job &mdash; the Temple sacrifices every tower within its range for a permanent buff. <strong>Keep your M.A.D. Dartling placed outside this range</strong> &mdash; sacrificing it would be a disaster.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">2-5-0</span><strong>Dartling Gunner</strong> (M.A.D.)</div>
+            <div class="br-unit-desc">Same recurring burst pick as other bosses &mdash; just make sure it's placed outside the eventual Sun Temple radius before that upgrade goes in.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-0-5</span><strong>Engineer Monkey</strong> (Sentry Champion)</div>
+            <div class="br-unit-desc">A separate, dedicated Engineer pushed to top T5 for strong standalone damage; pair with a second Engineer's Overclock (mid T4) kept in its range for burst uptime.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-5-0</span><strong>Druid</strong> (Spirit of the Forest)</div>
+            <div class="br-unit-desc">Normally a weak, situational pick (see the Starters tab) because its ground vines get stuck on one lane on multi-lane maps &mdash; but Boss Rush arenas are small/single-focus enough that it can solo most of the incidental cleanup here.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">1-0-5</span><strong>Druid</strong> (Avatar of Wrath army) + <span class="path-pill">0-0-4</span><strong>Druid</strong> (Poplust)</div>
+            <div class="br-unit-desc">Build several Avatar of Wrath Druids buffed by Poplust support Druids. <strong>Make sure to invest some top path</strong> (at least Hard Thorns) &mdash; skipping the top path entirely was reported to deal literally zero damage to the boss. A little mid-path lightning investment is optional but can net a few extra pops.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><strong>Druid Paragon</strong></div>
+            <div class="br-unit-desc">The win condition &mdash; built from the Avatar of Wrath army above. Sell down to your core damage dealers once it's assembled; time the sale/purchase for right after a rock-immunity phase clears.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">Score stretch goals</span></div>
+            <div class="br-unit-desc">A straightforward run nets around 140. For ~150, avoid using the Druid Paragon's ability much and bank the saved cash (plus Benjamin's passive income) toward a second Paragon (Engineer). Pushing to 170 (unconfirmed by the source) would mean keeping the Druid Paragon at degree 40, never using its ability, and saving further for a third, Ace Paragon.</div>
+          </div>
+        </div>
+
+        <div class="br-section">
+          <div class="br-section-title">Reported Build &mdash; video walkthrough</div>
+          <div class="boss-steps">
+            <div class="boss-step"><span class="boss-step-n">1</span><span>Hero: <strong>Benjamin</strong> (for passive income &mdash; any hero works about as well here). Start with a <strong>Monkey Ace</strong> on the Figure Infinite flight pattern, push to <span class="path-pill">3-1-0</span> then <span class="path-pill">4-1-0</span>.</span></div>
+            <div class="boss-step"><span class="boss-step-n">2</span><span>Place Benjamin. Spam <strong>Druids</strong> <span class="path-pill">1-0-3</span> (Druid of Wrath) up to about 10 total.</span></div>
+            <div class="boss-step"><span class="boss-step-n">3</span><span>At Skull 10, sell the Monkey Ace for more defense.</span></div>
+            <div class="boss-step"><span class="boss-step-n">4</span><span>Get a second Monkey Ace to <span class="path-pill">3-2-0</span> (Fighter Plane + Spy Plane), target Strong, and enable the camo-priority targeting option &mdash; it's your only camo answer for a while.</span></div>
+            <div class="boss-step"><span class="boss-step-n">5</span><span>At the end of Skull 19, sell all your Druid of Wrath spam (including the extra one you kept as leeway) for a <strong>Desperado</strong> pushed to <span class="path-pill">5-0-2</span> (Blazing Sun).</span></div>
+            <div class="boss-step"><span class="boss-step-n">6</span><span>Get an <strong>Engineer</strong> to <span class="path-pill">2-0-4</span> (Bloon Trap) near the front, then a single <strong>Druid</strong> <span class="path-pill">0-3-0</span> (Druid of the Jungle) for cleanup. Leave it on Strong for now (First is fine if you're behind).</span></div>
+            <div class="boss-step"><span class="boss-step-n">7</span><span>Get a second Engineer to <span class="path-pill">2-0-4</span> as soon as possible. Place a $50 Banana Farmer to auto-collect the traps.</span></div>
+            <div class="boss-step"><span class="boss-step-n">8</span><span>Around $40,000, sell the worse-positioned Bloon Trap and merge the other into an XXXL Trap.</span></div>
+            <div class="boss-step"><span class="boss-step-n">9</span><span>Start a <strong>Super Monkey</strong> toward Sun Avatar (top T3). At Skull 40, sell the Desperado to help fund it.</span></div>
+            <div class="boss-step"><span class="boss-step-n">10</span><span>Get an <strong>Engineer</strong> to Sentry Champion (top T5, &asymp;$32,000). Add another Engineer's Overclock (mid T4), kept in range of the Sun Avatar.</span></div>
+            <div class="boss-step"><span class="boss-step-n">11</span><span>Add some range to the Sun Avatar, then place your <strong>Dartling Gunner</strong> just <em>outside</em> its range &mdash; it's about to become a Sun Temple, which sacrifices everything within range. Do the same for whatever grants the Bloon Trap camo detection.</span></div>
+            <div class="boss-step"><span class="boss-step-n">12</span><span>Keep the Sentry Champion fully overclocked (get a third Overclock if you want a buffer). At Skull 59, overclock the M.A.D.; at Skull 60, use its ability.</span></div>
+            <div class="boss-step"><span class="boss-step-n">13</span><span>Buy the Sun Temple (top T4 on the Super Monkey) once affordable &mdash; your Bloon Trap Engineers are done being useful at this point. Rebuy the Overclock Engineer if it got sacrificed.</span></div>
+            <div class="boss-step"><span class="boss-step-n">14</span><span>Get a <strong>Druid</strong> to Spirit of the Forest (mid T5) as soon as you can &mdash; it single-handedly covers most remaining cleanup. Use your second Overclock on the M.A.D. and fire its ability again.</span></div>
+            <div class="boss-step"><span class="boss-step-n">15</span><span>Build a Poplust + Avatar of Wrath Druid army (<span class="path-pill">1-0-5</span> for the Avatars, <span class="path-pill">0-0-4</span> for the Poplust supports) &mdash; don't forget the top-path investment on the Avatars or they deal no boss damage. Point the M.A.D. away from the boss to help with regular cleanup, and get a Heli Pilot to Support Chinook (bottom T5) to reposition the M.A.D. as needed.</span></div>
+            <div class="boss-step"><span class="boss-step-n">16</span><span>Keep overclocking both the Sentry Champion and your Avatar of Wrath Druids. Get a third Overclock and a Flying Fortress Ace (<span class="path-pill">2-0-5</span>) &mdash; the Ace carries you through the Magic-immune phase since Druids go dead during it.</span></div>
+            <div class="boss-step"><span class="boss-step-n">17</span><span>Once the Magic-immune phase ends, sell down to just your core damage (Sentry Champion, Bloon Trap) and assemble the <strong>Druid Paragon</strong>. Keep the Flying Fortress around a little longer to clear remaining rocks before selling it too (safe anywhere from immediately to around Skull 112&ndash;113, once all rocks are gone).</span></div>
+            <div class="boss-step"><span class="boss-step-n">18</span><span>For a plain 140 run: use the Druid Paragon's ability and sell everything once things wind down. For ~150: barely use the ability at all, bank the saved cash plus Benjamin's income, and buy a second (Engineer) Paragon instead.</span></div>
+          </div>
+          <div class="br-unit-desc" style="margin-top:6px;font-style:italic">Reconstructed from a spoken video walkthrough &mdash; some upgrade numbers are best-effort, and the exact mechanics of Dreadbloon's rotating immunity phases (which categories, how long, how often) weren't fully specified in the source. The reliable takeaway is the overall shape: cheap early filler (Ace, Druid of Wrath spam) bridges into a Bloon Trap economy, which funds a Sun Avatar/Sun Temple + Sentry Champion core, which funds a full pivot into farming a Druid Paragon &mdash; with a non-Magic backup (Flying Fortress Ace) covering the window where your Druids go dead.</div>
+        </div>
+      </div><!-- /subpanel-bossrush-dreadbloon -->
+
+      <!-- ── Phayze ──────────────────────────── -->
+      <div id="subpanel-bossrush-phayze" class="subpanel">
+        <div class="br-mechanic-box"><strong style="color:#50c8d8">Phayze &mdash; cloak &amp; portal:</strong> Phayze cloaks itself periodically; towers without camo detection lose target lock and stop dealing damage during that window. In Boss Rush specifically, Phayze also opens a portal partway through the run (around round 30) that bloons spawn from &mdash; retarget any point-target/collector towers (Bloon Trap, Spike Factory) onto the portal once it appears.</div>
+        <div class="br-section">
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">5-1-0</span><strong>Sniper Monkey</strong> (Cripple MOAB + Night Vision Goggles)</div>
+            <div class="br-unit-desc">Camo detection actually comes from Night Vision Goggles (mid T1), not from Cripple MOAB itself &mdash; pair the two so your MOAB-damage Sniper keeps firing through the cloak window.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-2-5</span><strong>Monkey Ace</strong> <span style="color:var(--text-faint);font-size:11px">(instead of 2-0-5)</span></div>
+            <div class="br-unit-desc">Spy Plane (mid T2) grants camo detection, so the bottom-path Flying Fortress Ace keeps working through the cloak &mdash; take mid over top-path attack speed for your core Ace.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">General rule</span></div>
+            <div class="br-unit-desc">Any core tower with camo detection (built-in, crosspathed, or via Village/Monkey Knowledge) keeps working through the cloak &mdash; prioritize detection on whatever you plan to carry the fight.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-0-2</span> &rarr; <span class="path-pill">0-3-2</span><strong>Spike Factory</strong> (spam)</div>
+            <div class="br-unit-desc">Smart Spikes into MOAB SHREDR. Manually Set Target to a track point the boss reliably crosses but regular bloons mostly don't &mdash; spike piles then stack up purely for boss damage instead of decaying on fodder. Sell these later to fund your Ace once it's established.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">4-2-0</span> &rarr; <span class="path-pill">5-2-0</span><strong>Dart Monkey</strong> (Juggernaut &rarr; Ultra-Juggernaut)</div>
+            <div class="br-unit-desc">The rolling Juggernaut ball physically clears regular bloons before they reach your Spike Factory piles, protecting the spikes for boss damage. Doubles as strong Ceramic/Fortified/Lead cleanup on its own.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-2-4</span><strong>Engineer Monkey</strong> (Bloon Trap)</div>
+            <div class="br-unit-desc">Passive income near the entrance; retarget onto the portal once it opens (see mechanic note above).</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">2-0-4</span><strong>Monkey Village</strong> (Jungle Drums &rarr; Monkey Town &rarr; Monkey City)</div>
+            <div class="br-unit-desc">An economy-focused Village feeding the Bloon Trap and core towers &mdash; Monkey City adds a free Dart Monkey every round on top of the cash bonus.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">2-5-0</span><strong>Dartling Gunner</strong> (M.A.D.)</div>
+            <div class="br-unit-desc">Same recurring burst pick as other bosses. Pair with an Engineer's Overclock (mid T4) and fire right after buying, rather than waiting.</div>
+          </div>
+        </div>
+
+        <div class="br-section">
+          <div class="br-section-title">Dart Paragon Farm (this build's actual win condition)</div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">4-0-2</span><strong>Monkey Village</strong> (Primary Mentoring, second Village)</div>
+            <div class="br-unit-desc">A dedicated support Village near your Dart farm &mdash; Primary Mentoring gives every Dart Monkey in range free Tier 1 upgrades plus extra range, making a large Dart spam much cheaper to run.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">4-0-0</span><strong>Super Monkey</strong> (Sun Temple)</div>
+            <div class="br-unit-desc">Sacrifice a maxed support tower (e.g. a fully-upgraded Spike Factory) into it for a permanent buff, then pack Dart Monkeys around it and the support Village above.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-4-2</span> / <span class="path-pill">0-5-2</span><strong>Dart Monkey</strong> spam</div>
+            <div class="br-unit-desc">Super Monkey Fan Club (mid T4) or Plasma Monkey Fan Club (mid T5, stronger) periodically convert nearby Darts into Super Monkeys for burst pop-farming &mdash; cycle the abilities back-to-back to farm pops toward the Paragon.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><strong>Dart Monkey Paragon</strong></div>
+            <div class="br-unit-desc">The actual win condition for this build &mdash; assemble your farmed Darts into a Paragon (see the Paragon Tier List tab for the general recipe). Final round reached scales directly with Paragon degree; without one, this build's late-game score collapses.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">DDT insurance</span></div>
+            <div class="br-unit-desc">Layer redundancy around the Paragon so one DDT slipping past doesn't end the run: a Sniper on Cripple MOAB <span class="path-pill">5-2-0</span> (Strong targeting), an Ice Monkey on Super Brittle (top T5) plus a second on Icicle Impale <span class="path-pill">0-2-5</span>, and a Bomb Shooter pushed toward Bloon Crush (top T5, stuns) on First targeting.</div>
+          </div>
+        </div>
+
+        <div class="br-section">
+          <div class="br-section-title">Reported Build &mdash; video walkthrough</div>
+          <div class="boss-steps">
+            <div class="boss-step"><span class="boss-step-n">1</span><span>Hero: <strong>Sauda</strong> (target Strong). Place the free starting <strong>Dart Monkey</strong>, leaving room nearby for two Spike Factories.</span></div>
+            <div class="boss-step"><span class="boss-step-n">2</span><span>First <strong>Spike Factory</strong> <span class="path-pill">0-0-2</span> (Smart Spikes). Set Target to a spot that hits the boss but not regular bloons.</span></div>
+            <div class="boss-step"><span class="boss-step-n">3</span><span>Push it to <span class="path-pill">0-3-2</span> (MOAB SHREDR) as fast as possible; keep re-targeting it to a track point the boss crosses but fodder mostly doesn't &mdash; this is the theme for every Spike Factory in this build.</span></div>
+            <div class="boss-step"><span class="boss-step-n">4</span><span>Second <strong>Spike Factory</strong>, then rush the starting Dart Monkey to <span class="path-pill">4-2-0</span> (Juggernaut) &mdash; its rolling ball stops regular bloons from chewing through your spike piles.</span></div>
+            <div class="boss-step"><span class="boss-step-n">5</span><span>Start an <strong>Engineer</strong>'s Bloon Trap <span class="path-pill">0-2-4</span>, targeted roughly where the boss currently is.</span></div>
+            <div class="boss-step"><span class="boss-step-n">6</span><span>Third <strong>Spike Factory</strong>. Place a <strong>Monkey Village</strong> and push it top path to <span class="path-pill">2-0-0</span> (Jungle Drums), then bottom path through Monkey Town to Monkey City (<span class="path-pill">2-0-4</span>).</span></div>
+            <div class="boss-step"><span class="boss-step-n">7</span><span>Get a <strong>Monkey Ace</strong> online and set all Spike Factories to Automatic targeting.</span></div>
+            <div class="boss-step"><span class="boss-step-n">8</span><span>Around round 30, retarget the Bloon Trap onto the portal that opens.</span></div>
+            <div class="boss-step"><span class="boss-step-n">9</span><span>Around $28,000, sell all three Spike Factories to fund pushing the Ace to <strong>Sky Shredder</strong> (top T5) &mdash; use the Wingmonkey Monkey Knowledge on its ability if you have it.</span></div>
+            <div class="boss-step"><span class="boss-step-n">10</span><span>Get an Engineer's Overclock and use it on the Sky Shredder to afford a <strong>Dartling Gunner</strong> M.A.D. <span class="path-pill">2-5-0</span> faster. Buy the M.A.D., then use a second Overclock on it. Retarget the Bloon Trap to the far side so the M.A.D.'s shots aren't blocked.</span></div>
+            <div class="boss-step"><span class="boss-step-n">11</span><span>Place a second <strong>Monkey Village</strong> and push it to <span class="path-pill">4-0-2</span> (Primary Mentoring) near where you'll farm Darts. Spam cheap Dart Monkeys in its radius and upgrade as many as space allows to <span class="path-pill">0-3-2</span>, then start pushing tier-5s.</span></div>
+            <div class="boss-step"><span class="boss-step-n">12</span><span>Keep overclocking and firing the M.A.D. ability for damage; do not overclock the Sky Shredder by mistake.</span></div>
+            <div class="boss-step"><span class="boss-step-n">13</span><span>Around round 68&ndash;70, sell your non-Dart towers (Village included) and retarget the Bloon Trap. Rebuild the support Village afterward if you sold it early.</span></div>
+            <div class="boss-step"><span class="boss-step-n">14</span><span>Assemble your Darts into a <strong>Dart Monkey Paragon</strong> &mdash; aim for degree 20 or higher if possible; even a low-degree Paragon still nets a solid score, but skipping it entirely tanks your final round.</span></div>
+            <div class="boss-step"><span class="boss-step-n">15</span><span>Get a <strong>Super Monkey</strong> to <span class="path-pill">4-0-0</span> (Sun Temple) and sacrifice a maxed Spike Factory (Carpet of Spikes) into it; keep it inside the economy Village's Monkey City/Jungle Drums radius.</span></div>
+            <div class="boss-step"><span class="boss-step-n">16</span><span>Fill remaining space around the Temple/Village with Dart Monkeys on <span class="path-pill">0-4-2</span> (Super Monkey Fan Club) and at least one on <span class="path-pill">0-5-2</span> (Plasma Monkey Fan Club). Cycle the Plasma ability, then chain Super Monkey Fan Club abilities while it's on cooldown.</span></div>
+            <div class="boss-step"><span class="boss-step-n">17</span><span>Add a <strong>Sniper Monkey</strong> <span class="path-pill">5-2-0</span> (Cripple MOAB, target Strong) placed to reliably hit the boss.</span></div>
+            <div class="boss-step"><span class="boss-step-n">18</span><span>Push a couple of Dart Monkeys to <span class="path-pill">0-0-5</span> (Crossbow Master) and one to <span class="path-pill">5-2-0</span> (Ultra-Juggernaut) for extra utility; place an Ultra-Juggernaut low enough to see the track without touching it.</span></div>
+            <div class="boss-step"><span class="boss-step-n">19</span><span>Layer DDT insurance around the Paragon: an Ice Monkey on Super Brittle (top T5), a second Ice Monkey <span class="path-pill">0-2-5</span> (Icicle Impale), a Bomb Shooter pushed toward Bloon Crush (top T5, stuns) on First targeting, and keep Sauda/a Spectre-path Ace nearby for chip damage.</span></div>
+            <div class="boss-step"><span class="boss-step-n">20</span><span>Endgame: keep using the Plasma Monkey Fan Club ability, chain Super Monkey Fan Club abilities whenever it's on cooldown, and keep the DDT layer alive until you eventually die to volume &mdash; a clean run of this build lands in the 120&ndash;140 round range depending on Paragon degree.</span></div>
+          </div>
+          <div class="br-unit-desc" style="margin-top:8px">This build leans heavily on Monkey Knowledge (Wingmonkey targeting, discount MK for the double-Village setup, etc.) &mdash; if you're missing key MK, expect a noticeably lower final round than what's described here.</div>
+          <div class="br-unit-desc" style="margin-top:6px;font-style:italic">Reconstructed from a spoken video walkthrough &mdash; some upgrade numbers are best-effort and a couple of minor side-purchases mentioned in passing (an extra Dart crosspath late in the run) were too unclear to transcribe reliably and were left out. The reliable takeaway is the overall shape: Spike Factory core with boss-only targeting + Juggernaut protection, sell into a Sky Shredder Ace and M.A.D. for mid-game damage, then pivot the whole economy into farming a Dart Monkey Paragon via Sun Temple sacrifice + Fan Club spam, with a DDT-insurance layer protecting it.</div>
+        </div>
+      </div><!-- /subpanel-bossrush-phayze -->
+
+      <!-- ── Vortex ──────────────────────────── -->
+      <div id="subpanel-bossrush-vortex" class="subpanel">
+        <div class="br-mechanic-box"><strong style="color:#7090e8">Vortex &mdash; stun pulses:</strong> Vortex periodically stuns towers in a radius around it. A single powerful tower caught in that radius goes offline right when you need it most.</div>
+        <div class="br-section">
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">Layout</span></div>
+            <div class="br-unit-desc">Spread damage across 2+ cores instead of one mega-tower near the boss path &mdash; losing one core to the stun shouldn&apos;t zero your DPS.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">1-5-0</span><strong>Dartling Gunner</strong></div>
+            <div class="br-unit-desc">Good primary-immunity coverage that&apos;s cheap enough to lose temporarily to a stun without crippling the run.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">Paragons</span></div>
+            <div class="br-unit-desc">If running a Paragon, plan its placement around the stun radius and timing rather than tucking it into the most &quot;efficient&quot; spot.</div>
+          </div>
+        </div>
+      </div><!-- /subpanel-bossrush-vortex -->
+
+      <!-- ── Blastapopoulos ──────────────────────────── -->
+      <div id="subpanel-bossrush-blasto" class="subpanel">
+        <div class="br-mechanic-box"><strong style="color:#e07050">Blastapopoulos &mdash; decoy rule &amp; purple meter:</strong> On skull rounds Blasto launches fireballs at your closest, furthest, and most expensive tower. Cheap decoys eat the hit instead of your core. Separately, attacking Blasto fills a purple meter; once full it triggers an "overheat" that sets the map on fire &mdash; but it also resets the cooldown on any Engineer Overclock already active on the map, so buying/rebuying Overclocks right after an overheat gets you extra ability uptime for free.</div>
+        <div class="br-section">
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-0-0</span><strong>Dart Monkey</strong> / <strong>Desperado</strong> decoys</div>
+            <div class="br-unit-desc">Place a handful directly next to the boss spawn and in the far map corners; refresh every skull round.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">Placement</span></div>
+            <div class="br-unit-desc">Keep your single most expensive tower (Paragon, 5-x-x, etc.) away from the map&apos;s extreme corners so it isn&apos;t an automatic &quot;furthest&quot; target.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-3-2</span><strong>Bomb Shooter</strong> (MOAB Mauler)</div>
+            <div class="br-unit-desc">Cheap early boss-damage opener &mdash; target Strong. Gets sold later once Spike Factories can cover MOAB-class damage on their own.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-3-2</span><strong>Spike Factory</strong> (MOAB SHREDR, spam, Automatic)</div>
+            <div class="br-unit-desc">The core damage layer &mdash; aim for 5&ndash;7 of these hitting the boss before pushing for a Dartling M.A.D. Spike piles detect and pop Camo innately, so a dedicated camo answer usually isn&apos;t needed here.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-1-3</span><strong>Druid</strong> (Druid of Wrath, 2&ndash;3&times;)</div>
+            <div class="br-unit-desc">Cleanup for whatever the Spike Factories don&apos;t catch. Mix targeting between Strong and First across your Druids &mdash; two Druids together clean up regardless of whether Engineer traps are currently down.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">2-0-4</span><strong>Engineer Monkey</strong> (Bloon Trap)</div>
+            <div class="br-unit-desc">Bottom T4 Bloon Trap for passive income near the entrance; a second one merges into an XXXL Trap (bottom T5).</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">0-3-1</span> &rarr; <span class="path-pill">0-4-1</span><strong>Engineer Monkey</strong> (Cleansing Foam &rarr; Overclock)</div>
+            <div class="br-unit-desc">A second, mid-path Engineer: Cleansing Foam (mid T3) aimed at the trap collects bonus income from Camo bloons; Overclock (mid T4) powers the M.A.D. burst below.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">2-5-0</span><strong>Dartling Gunner</strong> (M.A.D.) + <span class="path-pill">5-0-0</span> (Ray of Doom)</div>
+            <div class="br-unit-desc">Use Overclock first, then fire the M.A.D. ability &mdash; it still does strong damage even if rocks hit it in the meantime, so don&apos;t hold off waiting for a clean window. A second Dartling with Ray of Doom (top T5) adds sustained cleanup once M.A.D. is online.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="path-pill">2-0-4</span> &rarr; <span class="path-pill">2-0-5</span><strong>Monkey Ace</strong> (Spectre &rarr; Flying Fortress)</div>
+            <div class="br-unit-desc">A single bottom-path Ace next to Ezili adds solid generalist MOAB-class damage once your Spike Factory core is established; fund the push to Flying Fortress (bottom T5) by selling early/misplaced towers.</div>
+          </div>
+          <div class="br-unit-row">
+            <div class="br-unit-head"><span class="boss-badge note">Ezili targeting</span></div>
+            <div class="br-unit-desc">Set Ezili's target priority to Last. Her attacks fill the purple meter disproportionately without dealing much real damage to the boss, so keep her off Blasto and let her handle other threats.</div>
+          </div>
+        </div>
+
+        <div class="br-section">
+          <div class="br-section-title">Reported Build &mdash; video walkthrough</div>
+          <div class="boss-steps">
+            <div class="boss-step"><span class="boss-step-n">1</span><span>Hero: <strong>Ezili</strong>. Start with a <strong>Bomb Shooter</strong> <span class="path-pill">0-3-2</span> (MOAB Mauler, target Strong) and a <strong>Druid</strong> (target Strong).</span></div>
+            <div class="boss-step"><span class="boss-step-n">2</span><span>Upgrade the Druid to <span class="path-pill">0-1-0</span> (Thorn Swarm).</span></div>
+            <div class="boss-step"><span class="boss-step-n">3</span><span>Build a <strong>Spike Factory</strong> along the bottom path: <span class="path-pill">0-0-2</span> &rarr; <span class="path-pill">0-2-2</span>, then push mid to MOAB SHREDR (<span class="path-pill">0-3-2</span>) around the 4th skull &mdash; sell the Bomb Shooter to help fund it.</span></div>
+            <div class="boss-step"><span class="boss-step-n">4</span><span>Second <strong>Spike Factory</strong>; finish selling the Bomb Shooter once it's redundant.</span></div>
+            <div class="boss-step"><span class="boss-step-n">5</span><span>Push the Druid to <span class="path-pill">0-1-3</span> (Druid of Wrath).</span></div>
+            <div class="boss-step"><span class="boss-step-n">6</span><span>Third <strong>Spike Factory</strong> to MOAB SHREDR.</span></div>
+            <div class="boss-step"><span class="boss-step-n">7</span><span>Start an <strong>Engineer</strong>'s Bloon Trap (<span class="path-pill">0-0-4</span>) at a corner near the track entrance; place a $50 Banana Farmer nearby to auto-collect.</span></div>
+            <div class="boss-step"><span class="boss-step-n">8</span><span>Fourth <strong>Spike Factory</strong> to MOAB SHREDR; crosspath the Engineer's top to Faster Engineering (<span class="path-pill">2-0-4</span>).</span></div>
+            <div class="boss-step"><span class="boss-step-n">9</span><span>Fifth <strong>Spike Factory</strong>; place Ezili and set her targeting to Last.</span></div>
+            <div class="boss-step"><span class="boss-step-n">10</span><span>Second <strong>Druid</strong> (mix Strong/First targeting across your Druids) and a second <strong>Engineer</strong> for a second Bloon Trap.</span></div>
+            <div class="boss-step"><span class="boss-step-n">11</span><span>Keep spamming <strong>Spike Factories</strong> toward the middle of the map so each covers both sides of the track; skip a dedicated camo answer &mdash; spikes detect Camo on their own. Third <strong>Druid</strong> on Strong.</span></div>
+            <div class="boss-step"><span class="boss-step-n">12</span><span>Sell your earliest, worst-positioned Spike Factories once better-placed ones are up; sell the second Engineer/trap into merging the first Bloon Trap up to an XXXL Trap (bottom T5).</span></div>
+            <div class="boss-step"><span class="boss-step-n">13</span><span>Get a second Engineer's Cleansing Foam online quickly (<span class="path-pill">0-3-1</span>), aimed at the trap for bonus income off Camo bloons &mdash; also saves you from needing the M.A.D. to clean up camo bloons later.</span></div>
+            <div class="boss-step"><span class="boss-step-n">14</span><span>Keep adding MOAB SHREDR Spike Factories until you have 5&ndash;7 hitting the boss.</span></div>
+            <div class="boss-step"><span class="boss-step-n">15</span><span>Around $52k, get the Engineer's Overclock (mid T4) online.</span></div>
+            <div class="boss-step"><span class="boss-step-n">16</span><span>Around $55k, sell some Spike Factories to fund a <strong>Dartling Gunner</strong> <span class="path-pill">2-5-0</span> (M.A.D.). Use Overclock first, then buy the M.A.D. and fire its ability immediately &mdash; don&apos;t wait for a clean window, it still hits hard even through rock damage.</span></div>
+            <div class="boss-step"><span class="boss-step-n">17</span><span>Move your Ace next to Ezili and push it along the bottom path to Spectre (<span class="path-pill">2-0-4</span>).</span></div>
+            <div class="boss-step"><span class="boss-step-n">18</span><span>Sell junk towers (old Spike Factories, any misplaced towers) to push the Ace to Flying Fortress (<span class="path-pill">2-0-5</span>). Place several Desperados <span class="path-pill">0-0-0</span> in the map corners as fireball decoys.</span></div>
+            <div class="boss-step"><span class="boss-step-n">19</span><span>Get a second Overclock for full uptime on both the M.A.D. and the Ace. Time each Overclock purchase for right after an overheat (purple meter maxes out, map catches fire) &mdash; it resets existing Overclock cooldowns, so buying fresh ones right after banks extra uptime.</span></div>
+            <div class="boss-step"><span class="boss-step-n">20</span><span>Add a second Dartling Gunner with Ray of Doom (<span class="path-pill">5-0-0</span>) for sustained cleanup, and keep stacking Overclocks around each overheat.</span></div>
+            <div class="boss-step"><span class="boss-step-n">21</span><span>Around $85k, sell your (XXXL) Bloon Trap to fund pushing a Spike Factory's top path to Super Mines (top T5).</span></div>
+          </div>
+          <div class="br-unit-desc" style="margin-top:8px">Advanced trick: buying a second M.A.D. Dartling Gunner and selling the first effectively refreshes the M.A.D. ability early instead of waiting on its cooldown &mdash; useful whenever you need a second burst sooner than the cooldown allows.</div>
+          <div class="br-unit-desc" style="margin-top:6px;font-style:italic">Reconstructed from a spoken video walkthrough &mdash; some upgrade numbers are best-effort and may be slightly off. The reliable takeaway is the overall shape: Bomb Shooter opener into heavy Spike Factory spam (near-zero micro, innate camo detection) + Druid cleanup + Engineer Bloon Trap economy + Overclock/M.A.D. burst synced to the boss's overheat cycle.</div>
+        </div>
+      </div><!-- /subpanel-bossrush-blasto -->
+
+    </div><!-- /subpanel-bossrush -->
+
     <!-- ── CHIMPS subpanel ─────────────────────────── -->
     <div id="subpanel-chimps" class="subpanel">
 
@@ -3094,6 +3677,7 @@
 
       <!-- Water variant -->
       <div id="subpanel-chimps-water" class="subpanel">
+        <div class="cb-data-warning"><span class="cb-data-warning-icon">&#9888;&#65039;</span><span>WARNING: This build is placeholder data and has not been verified &mdash; do not use it as-is.</span></div>
         <div class="cb-onepath">
           <div class="cb-units">
 
@@ -3391,9 +3975,33 @@
   </section>
 
   <section id="panel-starters" class="panel">
+    <div class="filter-bar" id="st-filter-bar">
+      <span class="filter-label">Filter by tower:</span>
+      <span class="filter-label" style="color:var(--text-dim);font-size:11px">Primary:</span>
+      <button class="filter-btn tower-btn" data-stfilter="boomerang">Boomerang</button>
+      <button class="filter-btn tower-btn" data-stfilter="bomb">Bomb</button>
+      <button class="filter-btn tower-btn" data-stfilter="tack">Tack</button>
+      <button class="filter-btn tower-btn" data-stfilter="ice">Ice</button>
+      <span class="filter-label" style="color:var(--text-dim);font-size:11px">Military:</span>
+      <button class="filter-btn tower-btn" data-stfilter="sniper">Sniper</button>
+      <button class="filter-btn tower-btn" data-stfilter="sub">Sub</button>
+      <button class="filter-btn tower-btn" data-stfilter="buccaneer">Buccaneer</button>
+      <button class="filter-btn tower-btn" data-stfilter="ace">Ace</button>
+      <button class="filter-btn tower-btn" data-stfilter="heli">Heli</button>
+      <button class="filter-btn tower-btn" data-stfilter="mortar">Mortar</button>
+      <button class="filter-btn tower-btn" data-stfilter="dartling">Dartling</button>
+      <span class="filter-label" style="color:var(--text-dim);font-size:11px">Magic:</span>
+      <button class="filter-btn tower-btn" data-stfilter="wizard">Wizard</button>
+      <button class="filter-btn tower-btn" data-stfilter="super">Super</button>
+      <button class="filter-btn tower-btn" data-stfilter="alchemist">Alchemist</button>
+      <button class="filter-btn tower-btn" data-stfilter="druid">Druid</button>
+      <span class="filter-label" style="color:var(--text-dim);font-size:11px">Support:</span>
+      <button class="filter-btn tower-btn" data-stfilter="engineer">Engineer</button>
+      <button class="filter-clear" id="st-filter-clear">clear</button>
+    </div>
     <div class="core-grid">
 
-      <div class="core-card">
+      <div class="core-card" data-towers="buccaneer">
         <div class="core-card-head"><p class="core-title">Brickell + Pirate Lord</p><span class="tier-badge sm s">S</span></div>
         <div class="core-tags"><span class="tag water">water map</span><span class="tag highmicro">high ceiling</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Brickell</span></div>
@@ -3402,7 +4010,7 @@
         <p class="core-note">Map dependency (water required) was explicitly ruled out as a reason to drop it from S. Mine-stacking with Brickell is a high-skill ceiling option that pushes it further. Make sure the boat can fire from both sides simultaneously to maximise DPS.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="boomerang">
         <div class="core-card-head"><p class="core-title">Glaive Lord</p><span class="tier-badge sm a">A</span></div>
         <div class="core-tags"><span class="tag">any map</span><span class="tag lowmicro">low micro</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Gwen (recommended)</span></div>
@@ -3411,7 +4019,7 @@
         <p class="core-note">Middle crosspath is stronger than bottom. Gwen lets you skip a MIB Village, freeing significant budget. After the first Glaive Lord is online, spam additional Glaive Lords — one of the most-used tier-5s in the current meta.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="tack ice">
         <div class="core-card-head"><p class="core-title">Tack Zone + Super Brittle</p><span class="tier-badge sm a">A</span></div>
         <div class="core-tags"><span class="tag singletrack">single lane best</span><span class="tag lowmicro">low micro</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">any</span></div>
@@ -3420,7 +4028,7 @@
         <p class="core-note">Place Tack Shooters below the track so tacks spawn mid-path in the kill zone. Alch buff between rounds 39–40 powers up the combo. Falls off when lanes spread — pair with Apache Prime to cover a second lane.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="mortar bomb">
         <div class="core-card-head"><p class="core-title">Striker Jones + Biggest One</p><span class="tier-badge sm a">A</span></div>
         <div class="core-tags"><span class="tag">any map</span><span class="tag lowmicro">easy micro</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Striker Jones</span></div>
@@ -3429,7 +4037,7 @@
         <p class="core-note">Always go 5/2/0 Mortar (not 5/0/2) — the attack speed crosspath is what drives the stun uptime. Mortar micro is described as the easiest in the game; large radius is very forgiving. Highest ceiling on open maps like Moonlanding.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="ace">
         <div class="core-card-head"><p class="core-title">Sky Shredder</p><span class="tier-badge sm a">A</span></div>
         <div class="core-tags"><span class="tag">any map</span><span class="tag highmicro">high ceiling</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">any</span></div>
@@ -3438,7 +4046,7 @@
         <p class="core-note">Placed solidly at A because it's very good in a casual context — no micro needed for a working defence. Some rounds require starting the Ace in a specific position for optimal coverage on black border runs.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="druid alchemist">
         <div class="core-card-head"><p class="core-title">Obyn + Permabrew Druids</p><span class="tier-badge sm a">A</span></div>
         <div class="core-tags"><span class="tag">any map</span><span class="tag lowmicro">low micro</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Obyn Greenfoot</span></div>
@@ -3447,7 +4055,7 @@
         <p class="core-note">Ranked a tier above Avatar of Wrath and three above Spirit of the Forest by the same creators as the rest of this list. Key advantage over Avatar of Wrath: Permabrew buffs ALL towers in range simultaneously, so stacking more Druids multiplies its value instead of concentrating power in one T5. Demonstrated beating #Ouch half-optimised. Add Relentless Glue (0/0/4+) for MOAB stalling late, and a Sabotage Ninja for round 99. Double-discount Villages bring each Druid to around $1,800.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="sub">
         <div class="core-card-head"><p class="core-title">Sub Commander + Brickell</p><span class="tier-badge sm b">B</span></div>
         <div class="core-tags"><span class="tag water">water map</span><span class="tag singletrack">1–2 lane best</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Brickell</span></div>
@@ -3456,7 +4064,7 @@
         <p class="core-note">Ceramic cleanup is the main weakness — sub fires single-target, pops to ceramics, pivots, and those ceramics can leak. Skill ceiling technically infinite via mine-stacking. Falls off on expert or 3+ lane maps where sub angles become suboptimal.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="engineer">
         <div class="core-card-head"><p class="core-title">Sentry Champion</p><span class="tier-badge sm b">B</span></div>
         <div class="core-tags"><span class="tag">any map</span><span class="tag highmicro">ability-dependent</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Pat Fusty or Gwen</span></div>
@@ -3465,7 +4073,7 @@
         <p class="core-note">Use 5/0/1 crosspath (pierce) — not 5/2/0, which had a bug placing sentries randomly across the full range. In CHIMPS you can sell sentries for a burst of kills on round 100 cleanup.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="heli">
         <div class="core-card-head"><p class="core-title">Comanche Commander + Gwen</p><span class="tier-badge sm c">C</span></div>
         <div class="core-tags"><span class="tag singletrack">single lane best</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Gwen</span></div>
@@ -3474,7 +4082,7 @@
         <p class="core-note">Keep Gwen near the Heli's base close to the track start. Multi-lane is the core weakness — Pursuit targeting has "mental breakdowns" on branching paths. Etienne or a Glue Storm cover the round 98 gap better than Gwen on harder maps.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="boomerang">
         <div class="core-card-head"><p class="core-title">Psi + Perma-Charge</p><span class="tier-badge sm c">C</span></div>
         <div class="core-tags"><span class="tag">any map</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Psi</span></div>
@@ -3483,7 +4091,7 @@
         <p class="core-note">Fallen victim to power creep. Debated between C and D. Not a standalone win condition — needs support to handle what Psi and Perma-Charge leave behind.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="wizard">
         <div class="core-card-head"><p class="core-title">Wizard Lord Phoenix</p><span class="tier-badge sm c">C</span></div>
         <div class="core-tags"><span class="tag">any map</span><span class="tag highmicro">RNG-heavy</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Geraldo (strongly recommended)</span></div>
@@ -3500,7 +4108,7 @@
         <p class="core-note">Not strong standalone — described as a flex support that amps other towers rather than a self-sufficient strategy. Do NOT use his level-10 Hug ability freely — it removes his stuns for the duration. Only use it when exactly one strong bloon needs cleanup (e.g. a lone MOAB at end of round).</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="druid">
         <div class="core-card-head"><p class="core-title">Spirit of the Forest</p><span class="tier-badge sm d">D</span></div>
         <div class="core-tags"><span class="tag singletrack">single lane only</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Obyn (implied)</span></div>
@@ -3509,7 +4117,7 @@
         <p class="core-note">Called "one of the worst towers and worst strats in the game." Vines were nerfed when made rate-buffable — now extremely slow. On multi-lane maps vines get stuck on one lane and never reach the other. Originally floated as F, bumped to D.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="super">
         <div class="core-card-head"><p class="core-title">Dark Champion</p><span class="tier-badge sm d">D</span></div>
         <div class="core-tags"><span class="tag">any map</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">any + Overclock recommended</span></div>
@@ -3518,7 +4126,7 @@
         <p class="core-note">"Very fun but not the most effective." Dark Knight (tier 4) is weak in mid-game and gets pierce-capped vs MOABs. Needs a strong mid-game carrier to cover rounds 40–80. Falls off hard at round 81 against super ceramics.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="alchemist super">
         <div class="core-card-head"><p class="core-title">Perma-Brew + Sun Avatars</p><span class="tier-badge sm d">D</span></div>
         <div class="core-tags"><span class="tag">any map</span><span class="tag budget">expensive</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Geraldo or Quincy</span></div>
@@ -3527,7 +4135,7 @@
         <p class="core-note">Double save-up is the core problem (~$70k total before round 60). Robo Monkey (Super mid path) actually works better with Perma-Brew in essentially every way. 3 Sun Avatars generally wins once Perma-Brew is up, but purples (round 95) need supplemental coverage.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="super">
         <div class="core-card-head"><p class="core-title">Geraldo + Sun Avatars</p><span class="tier-badge sm d">D</span></div>
         <div class="core-tags"><span class="tag">any map</span><span class="tag budget">expensive</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Geraldo</span></div>
@@ -3536,7 +4144,7 @@
         <p class="core-note">Slightly above the Perma-Brew variant because you skip the second save-up. "They're just weak because they're sun avatars." Place Dart Monkeys early inside three discount Village ranges to set up the triple-discount later.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="sniper">
         <div class="core-card-head"><p class="core-title">Cripple MOAB</p><span class="tier-badge sm d">D</span></div>
         <div class="core-tags"><span class="tag">any map</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">any</span></div>
@@ -3545,7 +4153,7 @@
         <p class="core-note">"Mediocre now" — "not good anymore." Previously soloed every DDT in the game; no longer deals enough damage as a standalone main DPS. As a secondary in a sniper-heavy strat it's serviceable, but not a carry.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="super">
         <div class="core-card-head"><p class="core-title">Adora + Sun Avatars</p><span class="tier-badge sm f">F</span></div>
         <div class="core-tags"><span class="tag">advanced and below</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">Adora</span></div>
@@ -3554,7 +4162,7 @@
         <p class="core-note">True F-tier. Sun Avatars are considered weak even with Adora's buff. Adora herself "not as strong in the meta as she used to be." Only workable on run-of-the-mill Advanced maps and below.</p>
       </div>
 
-      <div class="core-card">
+      <div class="core-card" data-towers="dartling">
         <div class="core-card-head"><p class="core-title">Plasma Accelerator Spam</p><span class="tier-badge sm f">F</span></div>
         <div class="core-tags"><span class="tag">any map</span><span class="tag budget">very expensive</span></div>
         <div class="core-row"><span class="core-row-label">Hero</span><span class="core-row-val">any</span></div>
@@ -3662,35 +4270,35 @@
 
   <div class="filter-bar" id="ti-filter-bar">
     <span class="filter-label">Filter by tower:</span>
-    <!-- Primary -->
-    <button class="filter-btn" data-tifilter="dart monkey">Dart Monkey</button>
-    <button class="filter-btn" data-tifilter="boomerang monkey">Boomerang Monkey</button>
-    <button class="filter-btn" data-tifilter="bomb shooter">Bomb Shooter</button>
-    <button class="filter-btn" data-tifilter="tack shooter">Tack Shooter</button>
-    <button class="filter-btn" data-tifilter="ice monkey">Ice Monkey</button>
-    <button class="filter-btn" data-tifilter="glue gunner">Glue Gunner</button>
-    <button class="filter-btn" data-tifilter="desperado">Desperado</button>
-    <!-- Military -->
-    <button class="filter-btn" data-tifilter="sniper monkey">Sniper Monkey</button>
-    <button class="filter-btn" data-tifilter="monkey sub">Monkey Sub</button>
-    <button class="filter-btn" data-tifilter="monkey buccaneer">Monkey Buccaneer</button>
-    <button class="filter-btn" data-tifilter="monkey ace">Monkey Ace</button>
-    <button class="filter-btn" data-tifilter="heli pilot">Heli Pilot</button>
-    <button class="filter-btn" data-tifilter="mortar monkey">Mortar Monkey</button>
-    <button class="filter-btn" data-tifilter="dartling gunner">Dartling Gunner</button>
-    <!-- Magic -->
-    <button class="filter-btn" data-tifilter="wizard monkey">Wizard Monkey</button>
-    <button class="filter-btn" data-tifilter="super monkey">Super Monkey</button>
-    <button class="filter-btn" data-tifilter="ninja monkey">Ninja Monkey</button>
-    <button class="filter-btn" data-tifilter="alchemist">Alchemist</button>
-    <button class="filter-btn" data-tifilter="druid">Druid</button>
-    <!-- Support -->
-    <button class="filter-btn" data-tifilter="banana farm">Banana Farm</button>
-    <button class="filter-btn" data-tifilter="spike factory">Spike Factory</button>
-    <button class="filter-btn" data-tifilter="monkey village">Monkey Village</button>
-    <button class="filter-btn" data-tifilter="engineer monkey">Engineer Monkey</button>
-    <button class="filter-btn" data-tifilter="beast handler">Beast Handler</button>
-    <button class="filter-btn" data-tifilter="mermonkey">Mermonkey</button>
+    <span class="filter-label" style="color:var(--text-dim);font-size:11px">Primary:</span>
+    <button class="filter-btn tower-btn" data-tifilter="dart monkey">Dart</button>
+    <button class="filter-btn tower-btn" data-tifilter="boomerang monkey">Boomerang</button>
+    <button class="filter-btn tower-btn" data-tifilter="bomb shooter">Bomb</button>
+    <button class="filter-btn tower-btn" data-tifilter="tack shooter">Tack</button>
+    <button class="filter-btn tower-btn" data-tifilter="ice monkey">Ice</button>
+    <button class="filter-btn tower-btn" data-tifilter="glue gunner">Glue</button>
+    <button class="filter-btn tower-btn" data-tifilter="desperado">Desperado</button>
+    <span class="filter-label" style="color:var(--text-dim);font-size:11px">Military:</span>
+    <button class="filter-btn tower-btn" data-tifilter="sniper monkey">Sniper</button>
+    <button class="filter-btn tower-btn" data-tifilter="monkey sub">Sub</button>
+    <button class="filter-btn tower-btn" data-tifilter="monkey buccaneer">Buccaneer</button>
+    <button class="filter-btn tower-btn" data-tifilter="monkey ace">Ace</button>
+    <button class="filter-btn tower-btn" data-tifilter="heli pilot">Heli</button>
+    <button class="filter-btn tower-btn" data-tifilter="mortar monkey">Mortar</button>
+    <button class="filter-btn tower-btn" data-tifilter="dartling gunner">Dartling</button>
+    <span class="filter-label" style="color:var(--text-dim);font-size:11px">Magic:</span>
+    <button class="filter-btn tower-btn" data-tifilter="wizard monkey">Wizard</button>
+    <button class="filter-btn tower-btn" data-tifilter="super monkey">Super</button>
+    <button class="filter-btn tower-btn" data-tifilter="ninja monkey">Ninja</button>
+    <button class="filter-btn tower-btn" data-tifilter="alchemist">Alchemist</button>
+    <button class="filter-btn tower-btn" data-tifilter="druid">Druid</button>
+    <button class="filter-btn tower-btn" data-tifilter="mermonkey">Mermonkey</button>
+    <span class="filter-label" style="color:var(--text-dim);font-size:11px">Support:</span>
+    <button class="filter-btn tower-btn" data-tifilter="spike factory">Spike Factory</button>
+    <button class="filter-btn tower-btn" data-tifilter="monkey village">Village</button>
+    <button class="filter-btn tower-btn" data-tifilter="engineer monkey">Engineer</button>
+    <button class="filter-btn tower-btn" data-tifilter="beast handler">Beast Handler</button>
+    <button class="filter-btn tower-btn" data-tifilter="banana farm">Banana Farm</button>
     <button class="filter-clear" id="ti-filter-clear">clear</button>
   </div>
 
@@ -7076,7 +7684,7 @@
     <div class="wk-card">
       <div class="wk-card-head">
         <span class="wk-card-name">Race Event</span>
-        <div class="wk-head-r"><span class="wk-schedule">Fri 3:00am → Mon 10:30pm EST &middot; weekly</span><span class="wk-timer" id="wk-timer-race"></span></div>
+        <div class="wk-head-r"><span class="wk-schedule">Fri 3:00am → Mon 11:00pm EST &middot; weekly</span><span class="wk-timer" id="wk-timer-race"></span></div>
       </div>
       <div class="wk-card-links">
         <a class="wk-link" href="https://www.youtube.com/@BTD6Fenix" target="_blank" rel="noopener">Fenix's YouTube &rarr;</a>
@@ -7090,7 +7698,7 @@
     <div class="wk-card">
       <div class="wk-card-head">
         <span class="wk-card-name">Odyssey</span>
-        <div class="wk-head-r"><span class="wk-schedule">Thu 3:00am → Wed 3:00am EST &middot; weekly</span><span class="wk-timer" id="wk-timer-ody"></span></div>
+        <div class="wk-head-r"><span class="wk-schedule">Thu 3:00am → Tue 10:00pm EST &middot; weekly</span><span class="wk-timer" id="wk-timer-ody"></span></div>
       </div>
       <div class="wk-card-links">
         <a class="wk-link" href="https://www.youtube.com/@BTD6Fenix" target="_blank" rel="noopener">Fenix's YouTube (Hard guide) &rarr;</a>
@@ -7114,6 +7722,17 @@
       <div class="wk-checks">
         <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-boss-normal"><span class="wk-check-text">Ranked Normal</span></label>
         <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-boss-elite"><span class="wk-check-text">Ranked Elite</span></label>
+      </div>
+    </div>
+
+    <!-- Social Season -->
+    <div class="wk-card">
+      <div class="wk-card-head">
+        <span class="wk-card-name">Social Season</span>
+        <span class="wk-schedule">&middot; Tue 6:00pm EST reset &middot; weekly</span>
+      </div>
+      <div class="wk-checks">
+        <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-social"><span class="wk-check-text">Social Season</span></label>
       </div>
     </div>
 
@@ -7322,6 +7941,41 @@
     activeTiFilter = null;
     document.querySelectorAll('#ti-filter-bar .filter-btn').forEach(function(b){ b.classList.remove('active'); });
     applyTiFilter();
+  });
+
+  // Starters (Core Loadout) filter
+  var activeStFilters = [];
+  function applyStFilters(){
+    var cards = document.querySelectorAll('#panel-starters .core-card');
+    if (activeStFilters.length === 0){
+      cards.forEach(function(card){ card.classList.remove('filter-dim', 'filter-match'); });
+      return;
+    }
+    cards.forEach(function(card){
+      var cardTowers = (card.dataset.towers || '').split(' ');
+      var matches = activeStFilters.some(function(f){ return cardTowers.indexOf(f) !== -1; });
+      card.classList.toggle('filter-match', matches);
+      card.classList.toggle('filter-dim', !matches);
+    });
+  }
+  document.querySelectorAll('#st-filter-bar .filter-btn[data-stfilter]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var t = btn.dataset.stfilter;
+      var idx = activeStFilters.indexOf(t);
+      if (idx === -1){
+        activeStFilters.push(t);
+        btn.classList.add('active');
+      } else {
+        activeStFilters.splice(idx, 1);
+        btn.classList.remove('active');
+      }
+      applyStFilters();
+    });
+  });
+  document.getElementById('st-filter-clear').addEventListener('click', function(){
+    activeStFilters = [];
+    document.querySelectorAll('#st-filter-bar .filter-btn').forEach(function(b){ b.classList.remove('active'); });
+    applyStFilters();
   });
 
   // Tower info — expandable upgrade rows
@@ -8599,12 +9253,12 @@
     }
 
     // All times in UTC. start→end per event:
-    // Race:    Fri 08:00 → Tue 03:30
-    // Odyssey: Thu 08:00 → Wed 08:00
+    // Race:    Fri 08:00 → Tue 04:00
+    // Odyssey: Thu 08:00 → Wed 03:00
     // Boss:    Sat 08:00 → Thu 03:00
     var WK_EV = [
-      {id:'wk-timer-race', sd:5,sh:8,sm:0,  ed:2,eh:3, em:30},
-      {id:'wk-timer-ody',  sd:4,sh:8,sm:0,  ed:3,eh:8, em:0 },
+      {id:'wk-timer-race', sd:5,sh:8,sm:0,  ed:2,eh:4, em:0 },
+      {id:'wk-timer-ody',  sd:4,sh:8,sm:0,  ed:3,eh:3, em:0 },
       {id:'wk-timer-boss', sd:6,sh:8,sm:0,  ed:4,eh:3, em:0 }
     ];
 
