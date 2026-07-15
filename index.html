@@ -7803,7 +7803,7 @@
     <div class="wk-card">
       <div class="wk-card-head">
         <span class="wk-card-name">Social Season</span>
-        <span class="wk-schedule">&middot; Tue 6:00pm EST reset &middot; weekly</span>
+        <span class="wk-schedule">&middot; Wed 6:00pm EST reset &middot; weekly</span>
       </div>
       <div class="wk-checks">
         <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-social"><span class="wk-check-text">Social Season</span></label>
@@ -7816,7 +7816,7 @@
     <div class="wk-card wk-team">
       <div class="wk-card-head">
         <span class="wk-card-name">Boss Rush</span>
-        <span class="wk-schedule">Tue 6:00pm &rarr; Sun 6:00pm EST &middot; every other week</span>
+        <span class="wk-schedule">Starts Wed 6:00pm EST &middot; every other week &middot; begins the day after CT ends, not back-to-back</span>
       </div>
       <div class="wk-checks">
         <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-boss-rush"><span class="wk-check-text">Boss Rush (4 attempts/day cap)</span></label>
@@ -7827,7 +7827,7 @@
     <div class="wk-card wk-team">
       <div class="wk-card-head">
         <span class="wk-card-name">Contested Territory</span>
-        <span class="wk-schedule">Tue 6:00pm &rarr; Tue 6:00pm EST &middot; every other week (alternates with Boss Rush)</span>
+        <span class="wk-schedule">Tue 6:00pm &rarr; Tue 6:00pm EST &middot; every other week &middot; own full biweekly cycle</span>
       </div>
       <div class="wk-checks">
         <label class="wk-check-label"><input class="wk-cb" type="checkbox" id="wk-ct"><span class="wk-check-text">Contested Territory</span></label>
@@ -9783,20 +9783,54 @@
       return m+'m';
     }
 
-    function fmtStartEST(date){
-      var est = new Date(date.getTime() - 5*3600000);
-      var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-      return days[est.getUTCDay()]+' '+pad2(est.getUTCHours())+':'+pad2(est.getUTCMinutes())+' EST';
+    // US Eastern is EST (UTC-5) in winter, EDT (UTC-4) in summer — detect
+    // the live offset instead of hardcoding one, so this stays correct
+    // across the DST switch instead of drifting an hour for half the year.
+    function etOffsetHours(date){
+      try{
+        var parts = new Intl.DateTimeFormat('en-US', {timeZone:'America/New_York', timeZoneName:'shortOffset'}).formatToParts(date);
+        var tzPart = parts.find(function(p){ return p.type==='timeZoneName'; });
+        var m = tzPart && /GMT([+-]\d+)/.exec(tzPart.value);
+        if(m) return -parseInt(m[1],10);
+      }catch(e){}
+      return 5;
     }
 
-    // All times in UTC. start→end per event:
-    // Race:    Fri 08:00 → Tue 04:00
-    // Odyssey: Thu 08:00 → Wed 03:00
-    // Boss:    Sat 08:00 → Thu 03:00
+    function etLabel(date){
+      try{
+        var parts = new Intl.DateTimeFormat('en-US', {timeZone:'America/New_York', timeZoneName:'short'}).formatToParts(date);
+        var tzPart = parts.find(function(p){ return p.type==='timeZoneName'; });
+        if(tzPart) return tzPart.value;
+      }catch(e){}
+      return 'EST';
+    }
+
+    function fmtStartEST(date){
+      var off = etOffsetHours(date);
+      var est = new Date(date.getTime() - off*3600000);
+      var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      return days[est.getUTCDay()]+' '+pad2(est.getUTCHours())+':'+pad2(est.getUTCMinutes())+' '+etLabel(date);
+    }
+
+    // dow/h/m below are Eastern *local* wall-clock time (not UTC) —
+    // nextET() converts using the live EST/EDT offset at lookup time.
+    function nextET(dow, h, m){
+      var off = etOffsetHours(new Date());
+      var utcH = h + off;
+      var dayShift = Math.floor(utcH/24);
+      utcH = ((utcH%24)+24)%24;
+      var dow2 = (((dow + dayShift) % 7) + 7) % 7;
+      return nextUTC(dow2, utcH, m);
+    }
+
+    // All times Eastern local wall-clock. start→end per event:
+    // Race:    Fri 03:00 → Mon 23:00
+    // Odyssey: Thu 03:00 → Tue 22:00
+    // Boss:    Sat 03:00 → Wed 22:00
     var WK_EV = [
-      {id:'wk-timer-race', sd:5,sh:8,sm:0,  ed:2,eh:4, em:0 },
-      {id:'wk-timer-ody',  sd:4,sh:8,sm:0,  ed:3,eh:3, em:0 },
-      {id:'wk-timer-boss', sd:6,sh:8,sm:0,  ed:4,eh:3, em:0 }
+      {id:'wk-timer-race', sd:5,sh:3,sm:0,  ed:1,eh:23, em:0 },
+      {id:'wk-timer-ody',  sd:4,sh:3,sm:0,  ed:2,eh:22, em:0 },
+      {id:'wk-timer-boss', sd:6,sh:3,sm:0,  ed:3,eh:22, em:0 }
     ];
 
     function updateWkTimers(){
@@ -9804,8 +9838,8 @@
       WK_EV.forEach(function(ev){
         var el = document.getElementById(ev.id);
         if(!el) return;
-        var nEnd   = nextUTC(ev.ed, ev.eh, ev.em);
-        var nStart = nextUTC(ev.sd, ev.sh, ev.sm);
+        var nEnd   = nextET(ev.ed, ev.eh, ev.em);
+        var nStart = nextET(ev.sd, ev.sh, ev.sm);
         if(nEnd < nStart){
           // Active window — show countdown
           var ms   = nEnd - now;
@@ -9826,17 +9860,89 @@
 
     updateWkTimers();
     setInterval(updateWkTimers, 30000);
-  })();
 
-  // Weekly checklist — localStorage persistence
-  (function(){
+    // Weekly checklist — auto-resets each box once the event's next
+    // cycle has started, instead of relying only on the manual button.
+    function prevET(dow, h, m){
+      return new Date(nextET(dow, h, m).getTime() - 7*24*3600000);
+    }
+    function etWallToDate(y, mo, d, h, m){
+      var approx = new Date(Date.UTC(y, mo, d, h, m, 0, 0));
+      var off = etOffsetHours(approx);
+      return new Date(Date.UTC(y, mo, d, h+off, m, 0, 0));
+    }
+    function addDaysYMD(y, mo, d, days){
+      var t = new Date(Date.UTC(y, mo, d));
+      t.setUTCDate(t.getUTCDate()+days);
+      return {y:t.getUTCFullYear(), mo:t.getUTCMonth(), d:t.getUTCDate()};
+    }
+    // Most recent occurrence <= now of a biweekly ET boundary, anchored to
+    // one confirmed real occurrence (ay/am/ad) and stepped by 14 days.
+    function prevBiweeklyET(ay, am, ad, h, m){
+      var anchor = etWallToDate(ay, am, ad, h, m);
+      var now = new Date();
+      var period = 14*24*3600000;
+      var n = Math.floor((now.getTime()-anchor.getTime())/period);
+      var ymd = addDaysYMD(ay, am, ad, n*14);
+      var candidate = etWallToDate(ymd.y, ymd.mo, ymd.d, h, m);
+      if(candidate.getTime() > now.getTime()){
+        ymd = addDaysYMD(ay, am, ad, (n-1)*14);
+        candidate = etWallToDate(ymd.y, ymd.mo, ymd.d, h, m);
+      }
+      return candidate;
+    }
+    // dow: Sun=0..Sat=6, ET local wall-clock, matches WK_EV/card schedule text.
+    var WK_RESET = {
+      'wk-race':        {type:'weekly', dow:5, h:3,  m:0},
+      'wk-ody-easy':    {type:'weekly', dow:4, h:3,  m:0},
+      'wk-ody-normal':  {type:'weekly', dow:4, h:3,  m:0},
+      'wk-ody-hard':    {type:'weekly', dow:4, h:3,  m:0},
+      'wk-boss-normal': {type:'weekly', dow:6, h:3,  m:0},
+      'wk-boss-elite':  {type:'weekly', dow:6, h:3,  m:0},
+      'wk-social':      {type:'weekly', dow:3, h:18, m:0},
+      // Anchored to confirmed 2026-07-14/15 boundary readings (see memory) — every 14 days from here.
+      'wk-boss-rush':   {type:'biweekly', ay:2026, am:6, ad:15, h:18, m:0},
+      'wk-ct':          {type:'biweekly', ay:2026, am:6, ad:14, h:18, m:0}
+    };
+    function mostRecentReset(cfg){
+      if(!cfg) return null;
+      if(cfg.type==='weekly') return prevET(cfg.dow, cfg.h, cfg.m);
+      if(cfg.type==='biweekly') return prevBiweeklyET(cfg.ay, cfg.am, cfg.ad, cfg.h, cfg.m);
+      return null;
+    }
+
     function weeklySave(el){
-      try{ localStorage.setItem('btd6-wk-'+el.id, el.checked); }catch(e){}
+      try{
+        if(el.checked){
+          localStorage.setItem('btd6-wk-'+el.id, 'true');
+          localStorage.setItem('btd6-wk-'+el.id+'-at', String(Date.now()));
+        } else {
+          localStorage.removeItem('btd6-wk-'+el.id);
+          localStorage.removeItem('btd6-wk-'+el.id+'-at');
+        }
+      }catch(e){}
+    }
+    function weeklyAutoReset(){
+      document.querySelectorAll('#panel-weekly .wk-cb').forEach(function(el){
+        var cfg = WK_RESET[el.id];
+        if(!cfg) return;
+        try{
+          var at = localStorage.getItem('btd6-wk-'+el.id+'-at');
+          if(!at) return;
+          var boundary = mostRecentReset(cfg);
+          if(boundary && parseInt(at,10) < boundary.getTime()){
+            localStorage.removeItem('btd6-wk-'+el.id);
+            localStorage.removeItem('btd6-wk-'+el.id+'-at');
+            el.checked = false;
+          }
+        }catch(e){}
+      });
     }
     function weeklyLoad(){
       document.querySelectorAll('#panel-weekly .wk-cb').forEach(function(el){
         try{ if(localStorage.getItem('btd6-wk-'+el.id)==='true') el.checked=true; }catch(e){}
       });
+      weeklyAutoReset();
     }
     document.querySelectorAll('#panel-weekly .wk-cb').forEach(function(el){
       el.addEventListener('change', function(){ weeklySave(el); });
@@ -9845,10 +9951,14 @@
     if(resetBtn) resetBtn.addEventListener('click', function(){
       document.querySelectorAll('#panel-weekly .wk-cb').forEach(function(el){
         el.checked=false;
-        try{ localStorage.removeItem('btd6-wk-'+el.id); }catch(e){}
+        try{
+          localStorage.removeItem('btd6-wk-'+el.id);
+          localStorage.removeItem('btd6-wk-'+el.id+'-at');
+        }catch(e){}
       });
     });
     weeklyLoad();
+    setInterval(weeklyAutoReset, 60000);
   })();
 </script>
 
